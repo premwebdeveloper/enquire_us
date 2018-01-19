@@ -13,3 +13,8 @@ ALTER TABLE `user_details`
 
 ALTER TABLE `user_details`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+
+  ALTER TABLE `users` ADD `phone` VARCHAR(10) NOT NULL AFTER `email`;
+  ALTER TABLE `users` ADD `verify_token` VARCHAR(40) NULL AFTER `remember_token`;
+  ALTER TABLE `users` ADD `status` TINYINT(1) NOT NULL DEFAULT '0' AFTER `updated_at`;
