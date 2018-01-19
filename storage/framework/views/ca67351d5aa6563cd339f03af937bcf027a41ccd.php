@@ -1,0 +1,9 @@
+    <script>
+        $(document).ready(function(){
+            $('#enquire_us').on('click',function(){
+                $('.dropdown-menu').css({
+                    'display':'block'
+                });
+            });
+        });
+    </script>
