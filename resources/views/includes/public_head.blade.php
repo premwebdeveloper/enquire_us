@@ -16,5 +16,17 @@
     <link href="{{ asset('resources/frontend_assets/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('resources/frontend_assets/css/custom.css') }}" rel="stylesheet">
     <link href="{{ asset('resources/frontend_assets/css/font-awesome.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('resources/frontend_assets/css/font-awesome.css') }}" rel="stylesheet">
+    
+    <link href="{{ asset('resources/frontend_assets/js/nivo-slider/nivo-slider.css') }}" rel="stylesheet">
+    <link href="{{ asset('resources/frontend_assets/js/nivo-slider/themes/default/default.css') }}" rel="stylesheet">
+
+    <link href="{{ asset('resources/frontend_assets/css/bootstrap-social.css') }}" rel="stylesheet">
+    <link href="{{ asset('resources/frontend_assets/css/bootstrap-checkbox.css') }}" rel="stylesheet">
+    <link href="{{ asset('resources/frontend_assets/css/custom_new.css') }}" rel="stylesheet">
+    <link href="{{ asset('resources/frontend_assets/css/theme.css') }}" rel="stylesheet">
+    <link href="{{ asset('resources/frontend_assets/js/fancybox/jquery.fancybox.css') }}" rel="stylesheet">
+    <link href="{{ asset('resources/frontend_assets/js/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+
 </head>
 <body>

@@ -1,0 +1,264 @@
+.icon-tabs > li.active > a, .icon-tabs > li.active > a:focus, .icon-tabs > li.active > a:hover{
+  color: #ff4656;
+}
+form.registration-form fieldset {
+    display: none;
+}
+
+form.registration-form .input-error
+{
+	border:1px solid #F00;
+}
+#marchant_name_chosen,
+#marchant_name_chosen ul,
+#marchant_name_chosen .default,
+#marchant_name_chosen .search-field
+{
+	width:100% !important;	
+}
+
+#marchant_name_chosen .chosen-choices
+{
+	border-radius:3px;
+}
+
+form.registration-form .chosen-container-multi .chosen-choices
+{
+	border:1px solid #e6e6e6 !important;
+	background-image:none !important;
+	background-color:transparent !important;
+	padding:11px;	
+}
+form.registration-form select
+{
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	
+}
+
+
+
+form.registration-form select {
+  background-image: linear-gradient(45deg, transparent 50%, gray 50%), 
+  					linear-gradient(135deg, gray 50%, transparent 50%), 
+					linear-gradient(to right, #ccc, #ccc);
+    background-position: calc(100% - 20px) 
+						 calc(1em + 12px), 
+						 calc(100% - 15px) 
+						 calc(1em + 12px), 
+						 calc(100% - 3em) 0.7em;
+    background-repeat: no-repeat;
+    background-size: 5px 5px, 5px 5px, 1px 2.5em;
+}
+
+
+
+
+
+
+form.registration-form select option
+{
+	background-color:#FFF;
+	color:#444;
+}
+form.registration-form input,
+form.registration-form textarea,
+form.registration-form select
+{
+	color:#FFF;
+}
+
+form.registration-form .form-control::-moz-placeholder
+{
+	color:#FFF !important;	
+}
+
+#book .outlined h2
+{
+	color:#FFF;	
+}
+#book  .box.outlined
+{
+	border:none !important;
+	border-radius:10px;
+}
+
+
+.btn-red {
+    background-color: #d9534f;
+    border-color: #d43f3a;
+    color: #fff;
+}
+.btn-red:hover{
+    background-color: #c9302c;
+    border-color: #c9302c;
+    color: #fff;
+}
+
+.btn-green
+{
+	background-color:#0D6B4F;
+	color:#FFF;
+}
+.btn-green:hover
+{
+	color:#FFF;
+	background-color:rgba(13, 107, 79, 0.63);
+	
+}
+
+#book
+{
+	background-image: url(../images/bg-image-24.jpg);
+}
+
+#service_type label
+{
+	color:#FFF;
+}
+#service_type input
+{
+	margin-top:3px;
+}
+
+.form-group:last-child
+{
+	margin-bottom:25px;
+}
+
+.newsletter-form .form-control.input-error
+{
+	border:2px solid red;
+}
+
+/*Modal*/
+
+
+.modal-content {
+    -webkit-border-radius: 0;
+    -webkit-background-clip: padding-box;
+    -moz-border-radius: 0;
+    -moz-background-clip: padding;
+    border-radius: 6px;
+    background-clip: padding-box;
+    -webkit-box-shadow: 0 0 40px rgba(0,0,0,.5);
+    -moz-box-shadow: 0 0 40px rgba(0,0,0,.5);
+    box-shadow: 0 0 40px rgba(0,0,0,.5);
+    color: #000;
+    background-color: #fff;
+    border: rgba(0,0,0,0);
+}
+.modal-message .modal-dialog {
+    width: 500px;
+}
+.modal-message .modal-body, .modal-message .modal-footer, .modal-message .modal-header, .modal-message .modal-title {
+    background: 0 0;
+    border: none;
+    margin: 0;
+    padding: 0 20px;
+    text-align: center!important;
+}
+
+.modal-message .modal-title {
+    font-size: 17px;
+    color: #737373;
+    margin-bottom: 3px;
+}
+
+.modal-message .modal-body {
+    color: #737373;
+}
+
+.modal-message .modal-header {
+    color: #fff;
+    margin-bottom: 10px;
+    padding: 15px 0 8px;
+}
+.modal-message .modal-header .fa, 
+.modal-message .modal-header 
+.glyphicon, .modal-message 
+.modal-header .typcn, .modal-message .modal-header .wi {
+    font-size: 30px;
+}
+
+.modal-message .modal-footer {
+    margin: 25px 0 20px;
+    padding-bottom: 10px;
+}
+
+.modal-backdrop.in {
+    zoom: 1;
+    filter: alpha(opacity=75);
+    -webkit-opacity: .75;
+    -moz-opacity: .75;
+    opacity: .75;
+}
+.modal-backdrop {
+    background-color: #fff;
+}
+.modal-message.modal-success .modal-header {
+    color: #53a93f;
+    border-bottom: 3px solid #a0d468;
+}
+
+.modal-message.modal-info .modal-header {
+    color: #57b5e3;
+    border-bottom: 3px solid #57b5e3;
+}
+
+.modal-message.modal-danger .modal-header {
+    color: #d73d32;
+    border-bottom: 3px solid #e46f61;
+}
+
+.modal-message.modal-warning .modal-header {
+    color: #f4b400;
+    border-bottom: 3px solid #ffce55;
+}
+
+
+
+@media(min-width: 992px){
+  #topnav .navigation-menu > li.menu-btn-item > a, #topnav .navigation-menu > li.menu-btn-item.active > a{
+    border-color: #ff4656;
+    background-color: #ff4656;
+  }
+  #topnav .navigation-menu > li.menu-btn-item > a:hover, #topnav .navigation-menu > li.menu-btn-item.active > a:hover{
+    background-color: #ff5a69;
+    border-color: #ff5a69;
+    color: #fff;
+  }
+}
+
+.btn-color, .newsletter-btn{
+  border-color: #ff4656;
+  background-color: #ff4656;
+}
+
+.btn-color:hover, .newsletter-btn:hover{
+  background-color: #ff5a69;
+  border-color: #ff5a69;
+  color: #fff;
+}
+
+.btn-color-out{
+  border-color: #ff4656;
+  color: #ff4656;
+}
+
+.btn-color-out:hover{
+  background-color: #ff4656;
+  border-color: #ff4656;
+  color: #fff;
+}
+
+#topnav.stick .navigation-menu > li.active:not(.menu-btn-item) > a, #topnav.stick .navigation-menu > li:not(.menu-btn-item) > a:hover{
+  color: #ff4656;
+}
+
+@media (max-width: 991px){
+  #topnav .navigation-menu > li.active > a{
+    color: #ff4656;
+  }
+}

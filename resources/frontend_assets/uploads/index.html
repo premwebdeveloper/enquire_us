@@ -1,0 +1,765 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="googlebot" content="noarchive" />
+
+<link rel="icon" href="http://savetk.com/assets/images/favicon4.ico" />
+<title>404 Page Not Found</title>
+
+
+
+<meta name="p:domain_verify" content="b9dbb286826c83dc883ea441185ee471"/>
+<meta name="B-verify" content="efd4660a9f7635a7b10f1165d3c12b743292c87f" />
+
+
+<!-- CSS -->
+<link rel="stylesheet" href="http://savetk.com/assets/css/bootstrap.min.css" type="text/css"  />
+<link rel="stylesheet" href="http://savetk.com/assets/css/bootstrap-social.css" type="text/css"  />
+<link rel="stylesheet" href="http://savetk.com/assets/css/bootstrap-checkbox.css" type="text/css"  />
+<link rel="stylesheet" href="http://savetk.com/assets/css/bootstrap-select.css" type="text/css"  />
+<link rel="stylesheet" href="http://savetk.com/assets/css/font-awesome.css" type="text/css"/>
+<link rel="stylesheet" href="http://savetk.com/assets/css/custom_new.css" type="text/css"  />
+<link rel="stylesheet" href="http://savetk.com/assets/css/theme.css" type="text/css"  />
+
+<!-- Js -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script type="text/javascript" src="http://savetk.com/assets/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="http://savetk.com/assets/js/common.js"></script>
+<style type="text/css">
+select{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding: 5px;
+}
+option.option_padding
+{
+	padding-left:25px;	
+}
+</style>
+
+<link href="http://savetk.com/assets/js/fancybox/jquery.fancybox.css" rel="stylesheet">
+<script src="http://savetk.com/assets/js/fancybox/jquery.fancybox.js" type="text/javascript"></script>
+
+<link rel="stylesheet" type="text/css" href="http://savetk.com/assets/js/owlcarousel/assets/owl.carousel.min.css">
+<script src="http://savetk.com/assets/js/owlcarousel/owl.carousel.min.js"></script>
+
+
+<script type="text/javascript">
+function callQuickView(qurl) { 
+	$.get(qurl, function(data) {
+	  $.fancybox(data);
+	});
+}
+
+$(document).ready(function() {
+	 //$(".fancybox-n").click();
+	 var isshow = localStorage.getItem('status');
+	// alert(isshow);
+     if (isshow == null || isshow == 'null') {
+        localStorage.setItem('status', 1);
+        // Show popup here
+        $(".fancybox-n").click();
+    }
+	//localStorage.setItem('status', null);
+});
+
+/*$(document).ready(function() {
+  $('.test-ajax-link1').magnificPopup({
+	  type: 'ajax',
+	  closeOnContentClick: false,
+	  closeOnBgClick: false
+
+	  // other options
+  });
+});*/
+
+</script>
+
+</head>
+
+
+<body>
+
+<a style="display:none;" class="fancybox-n" onclick="callQuickView('http://savetk.com/home/newsletter');" >Click</a>
+
+
+
+<div id="page">
+  <header >
+    <div class="header-top">
+      <div class="container-fluid top-header-bg">
+      	<div class="container">
+        	<div class="row">
+            	<div class="col-lg-12 col-xs-12 pull-right res-header">
+          	<div class="languageBox" >
+			    		   
+                <h2 style="display:none">Language:</h2>
+                <p>Need Help? Call us at <strong class="tel-numbel"><a href="tel:+8801984994433">01984-994433</a></strong></p>
+			</div>
+            <div class="top-link pull-right">
+              <ul>
+              <li><a href="http://savetk.com/contact"><i class="fa fa-phone" aria-hidden="true"></i>&nbsp;Contact</a></li>
+             
+                              
+				
+                
+                <li><a href="http://savetk.com/cregister"><span class="glyphicon glyphicon-edit"></span> Sign Up</a></li>
+                <li class="dropdown">
+          			<a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-log-in"></span> Log In</a>
+					<ul id="login-dp" class="dropdown-menu">
+						<li>
+							 <div class="row">
+									<div class="col-md-12">
+										Login to SaveTk
+										<form action="http://savetk.com/login/check" method="post" accept-charset="utf-8" class="" id="login-nav">												<div class="form-group">
+													 <label class="sr-only" for="exampleInputEmail2">Email address</label>
+													 <input type="email" name="email" class="form-control" id="exampleInputEmail2" placeholder="Email address" required>
+												</div>
+												<div class="form-group">
+													 <label class="sr-only" for="exampleInputPassword2">Password</label>
+													 <input type="password" name="password" class="form-control" id="exampleInputPassword2" placeholder="Password" required>
+													 
+												</div>
+												<div class="form-group" style="display:none;">
+													<div class="" data-toggle="buttons">
+														<label style="width:100%;" id="visible" class="btn btn-radio-cs btn-primary active">Customer
+															<input  type="radio" name="type" value="customer"   checked="checked">
+														</label>
+													</div>
+												</div>
+												<div class="form-group">
+													 													 <input type="hidden" name="redirect" value="http://savetk.com/assets/uploads/">
+													 <button type="submit" class="btn success btn-block">Sign in</button>
+												</div>
+												<div class="checkbox">
+													 <div class="help-block text-right"><a href="http://savetk.com/forgot">Forget the password ?</a></div>
+												</div>
+		 
+										 </form>
+										 <div id="social_login">
+											<div class="col-sm-12"><p class="lines text-center">OR</p></div>
+											<div class="social-buttons">
+												<a href="http://savetk.com/fblogin?r=http://savetk.com/assets/uploads/" class="btn btn-fb"><i class="fa fa-facebook"></i> Facebook</a>
+												<a href="http://savetk.com/googlelogin?r=http://savetk.com/assets/uploads/" class="btn btn-gp"><i class="fa fa-google-plus"></i> Google+</a>
+											</div>
+										  </div>
+									</div>
+									<div class="bottom text-center">
+										New here ? <a style="color:#006a4e;text-decoration:underline;" href="http://savetk.com/cregister">Sign Up</a>
+									</div>
+							 </div>
+							 
+							
+							 
+						</li>
+					</ul>
+        		</li>
+
+               
+                               </ul>
+            </div>
+          </div>
+            </div>
+        </div>
+      </div>
+      
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-sm-3 col-xs-4 res-logo">
+            <div class="logo"><a href="http://savetk.com/"><img  alt="Discount Deals, Offers at savetaka" src="http://savetk.com/assets/images/logo.png"/></a></div>
+          </div>
+		  
+		  
+		  
+          <div class="col-sm-9">
+
+				<div id="top_search" class="form-group form-group-cus" role="form">
+					<div class="form-group  col-sm-1 col-xcus-1">
+					  <button id="search-filter" type="button" class="btn success  btn-custom-search">Search</button>
+					</div>
+					<div class="form-group col-sm-3 col-cus-3 input-width">
+					  <select name="top_filter_location" id="top_filter_location" class="form-control selectWidth form-cus input-border">
+						 <option value="*">Location</option><option value="state_id|322">Dhaka</option><option value="city_id|72">&nbsp;&nbsp;-&nbsp;&nbsp;Agargaon</option><option value="city_id|7">&nbsp;&nbsp;-&nbsp;&nbsp;Badda</option><option value="city_id|35">&nbsp;&nbsp;-&nbsp;&nbsp;Baily Road</option><option value="city_id|40">&nbsp;&nbsp;-&nbsp;&nbsp;Banani </option><option value="city_id|8">&nbsp;&nbsp;-&nbsp;&nbsp;Bandar(Kadamrasul)</option><option value="city_id|9">&nbsp;&nbsp;-&nbsp;&nbsp;Bangshal</option><option value="city_id|34">&nbsp;&nbsp;-&nbsp;&nbsp;Bashundhara City</option><option value="city_id|33">&nbsp;&nbsp;-&nbsp;&nbsp;Bashundhara R/A </option><option value="city_id|2">&nbsp;&nbsp;-&nbsp;&nbsp;Dhanmondi</option><option value="city_id|12">&nbsp;&nbsp;-&nbsp;&nbsp;Gazipur</option><option value="city_id|14">&nbsp;&nbsp;-&nbsp;&nbsp;Gulshan 1</option><option value="city_id|13">&nbsp;&nbsp;-&nbsp;&nbsp;Gulshan-2</option><option value="city_id|39">&nbsp;&nbsp;-&nbsp;&nbsp;Jamuna Future Park</option><option value="city_id|16">&nbsp;&nbsp;-&nbsp;&nbsp;Jatrabari</option><option value="city_id|19">&nbsp;&nbsp;-&nbsp;&nbsp;Kalabagan</option><option value="city_id|74">&nbsp;&nbsp;-&nbsp;&nbsp;Karwan Bazar</option><option value="city_id|21">&nbsp;&nbsp;-&nbsp;&nbsp;Keraniganj</option><option value="city_id|22">&nbsp;&nbsp;-&nbsp;&nbsp;Khilgaon</option><option value="city_id|23">&nbsp;&nbsp;-&nbsp;&nbsp;Khilkhet</option><option value="city_id|24">&nbsp;&nbsp;-&nbsp;&nbsp;Lalbagh</option><option value="city_id|36">&nbsp;&nbsp;-&nbsp;&nbsp;Lalmatia</option><option value="city_id|4">&nbsp;&nbsp;-&nbsp;&nbsp;Mirpur</option><option value="city_id|75">&nbsp;&nbsp;-&nbsp;&nbsp;Mohakhali</option><option value="city_id|6">&nbsp;&nbsp;-&nbsp;&nbsp;Mohammadpur</option><option value="city_id|25">&nbsp;&nbsp;-&nbsp;&nbsp;Motijheel</option><option value="city_id|68">&nbsp;&nbsp;-&nbsp;&nbsp;Narayanganj</option><option value="city_id|26">&nbsp;&nbsp;-&nbsp;&nbsp;New Market</option><option value="city_id|28">&nbsp;&nbsp;-&nbsp;&nbsp;Ramna</option><option value="city_id|30">&nbsp;&nbsp;-&nbsp;&nbsp;Savar</option><option value="city_id|31">&nbsp;&nbsp;-&nbsp;&nbsp;Tejgaon</option><option value="city_id|32">&nbsp;&nbsp;-&nbsp;&nbsp;Uttara</option><option value="state_id|320">Barisal</option><option value="state_id|321">Chittagong</option><option value="city_id|5">&nbsp;&nbsp;-&nbsp;&nbsp;2 no gate</option><option value="city_id|41">&nbsp;&nbsp;-&nbsp;&nbsp;Agrabad</option><option value="city_id|42">&nbsp;&nbsp;-&nbsp;&nbsp;Agrabad access road</option><option value="city_id|43">&nbsp;&nbsp;-&nbsp;&nbsp;Bohoddar hut</option><option value="city_id|44">&nbsp;&nbsp;-&nbsp;&nbsp;CDA avenue</option><option value="city_id|45">&nbsp;&nbsp;-&nbsp;&nbsp;Chandgaon</option><option value="city_id|46">&nbsp;&nbsp;-&nbsp;&nbsp;Chawk bazar</option><option value="city_id|73">&nbsp;&nbsp;-&nbsp;&nbsp;Coxs Bazar</option><option value="city_id|47">&nbsp;&nbsp;-&nbsp;&nbsp;Dampara wasa moor</option><option value="city_id|48">&nbsp;&nbsp;-&nbsp;&nbsp;Double mouring</option><option value="city_id|49">&nbsp;&nbsp;-&nbsp;&nbsp;Foys lake</option><option value="city_id|50">&nbsp;&nbsp;-&nbsp;&nbsp;GEC circle </option><option value="city_id|51">&nbsp;&nbsp;-&nbsp;&nbsp;Gol pahar moor</option><option value="city_id|52">&nbsp;&nbsp;-&nbsp;&nbsp;Halishohor</option><option value="city_id|53">&nbsp;&nbsp;-&nbsp;&nbsp;Jamal khan</option><option value="city_id|54">&nbsp;&nbsp;-&nbsp;&nbsp;Kazir dewri bazar</option><option value="city_id|55">&nbsp;&nbsp;-&nbsp;&nbsp;Khatungonj</option><option value="city_id|56">&nbsp;&nbsp;-&nbsp;&nbsp;Khulshi</option><option value="city_id|57">&nbsp;&nbsp;-&nbsp;&nbsp;Kotoali</option><option value="city_id|58">&nbsp;&nbsp;-&nbsp;&nbsp;Lalkhan bazar</option><option value="city_id|59">&nbsp;&nbsp;-&nbsp;&nbsp;Mehedibag</option><option value="city_id|60">&nbsp;&nbsp;-&nbsp;&nbsp;Muradpur</option><option value="city_id|61">&nbsp;&nbsp;-&nbsp;&nbsp;Nasirabad housing</option><option value="city_id|62">&nbsp;&nbsp;-&nbsp;&nbsp;New station road</option><option value="city_id|63">&nbsp;&nbsp;-&nbsp;&nbsp;O R Nizam road</option><option value="city_id|64">&nbsp;&nbsp;-&nbsp;&nbsp;Pahartoli</option><option value="city_id|65">&nbsp;&nbsp;-&nbsp;&nbsp;Panchlaish</option><option value="city_id|66">&nbsp;&nbsp;-&nbsp;&nbsp;Probortak circle</option><option value="city_id|67">&nbsp;&nbsp;-&nbsp;&nbsp;Tiger pass</option><option value="state_id|323">Khulna</option><option value="state_id|324">Rajshahi</option><option value="state_id|325">Sylhet</option><option value="city_id|70">&nbsp;&nbsp;-&nbsp;&nbsp;Metropolitan Area</option><option value="city_id|71">&nbsp;&nbsp;-&nbsp;&nbsp;Moulvibazar</option><option value="city_id|69">&nbsp;&nbsp;-&nbsp;&nbsp;Sreemongal</option>					  </select>
+
+					</div>
+					<div class="form-group col-sm-3 col-cus-3 input-width">
+					  <select name="top_filter_category_id" id="top_filter_category_id" class="form-control selectWidth form-cus">
+					  <option value="*">Category</option><option value="42">E-Commerce</option><option value="1">Food & Drinks</option><option value="47">Telecom Operator</option><option value="36">Hotels & Resorts</option><option value="24">Tours & Travels</option><option value="25">Electronics</option><option value="37">Mobile & Laptop</option><option value="39">Fashion</option><option value="40">Home & Decors</option><option value="41">Books</option><option value="31">Utilities</option><option value="48">Banking</option><option value="43">Cosmetics</option><option value="18">Entertainment</option><option value="34">Beauty</option><option value="30">Gift & Jewellery</option><option value="35">Health & Fitness</option><option value="38">Grocery</option>					  </select>
+					</div>
+					<div class="form-group col-sm-3 col-cus-3 search-input-key">
+					  <input type="text" name="top_filter_title" class="form-control form-cus"  placeholder="Type keywords e.g. Burger, Salon, Beauty…">
+					</div>
+
+				</div>
+					
+				<script type="text/javascript">
+				  $('input[name=\'top_filter_title\']').keydown(function(e) {
+						if (e.keyCode == 13) {
+							$('#search-filter').trigger('click');
+						}
+					});
+				</script>
+					
+          </div>
+		  
+		  
+		  
+		  
+        </div>
+      </div>
+    </div>
+    <div class="navigation">
+      <div class="container">
+        <div class="row">
+          <nav role="navigation" class="navbar navbar-default"> 
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+              <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+            </div>
+            <!-- Collection of nav links, forms, and other content for toggling -->
+            <div id="navbarCollapse" class="collapse navbar-collapse row">
+              <ul class="nav navbar-nav">
+                <!--<li class="active"><a href="http://savetk.com/home">Home</a></li>-->
+				<li><a href="http://savetk.com/">Home</a></li>
+                <li><a href="http://savetk.com/latest-offers">Offline deals</a></li>
+				<li><a href="http://savetk.com/online">Online deals</a></li>
+				<li><a href="http://savetk.com/promotion">Promotions</a></li>
+				<li><a href="http://savetk.com/store">Stores</a></li>
+				<li><a href="http://savetk.com/location">Store map</a></li>
+                <li><a href="http://savetk.com/category/categories">Categories</a></li>
+                
+				<li><a style="color:#D23D2B;" href="http://savetk.com/food-booking">Book food with discount <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </div>
+
+  </header>
+<script>
+	$(document).ready(function(){
+		var user_type = $("[name=type]:checked").val();
+		if(user_type=='merchant')
+		{
+			$('#social_login').hide(); 
+		}
+		
+		$("#hidden").click(function(){
+		   $('#social_login').hide();
+		});
+		$("#visible").click(function(){
+			$('#social_login').fadeIn();
+		});
+	});
+</script>
+  <!-- #header -->
+  <div id="main" class="site-main">
+   
+    
+
+ <div class="container">
+    
+    <div id="message">
+    		
+				
+				
+		    </div>
+		
+
+<div class="page-header"><h3>Page Not Found.</h3></div>
+
+<div class="commonBox">
+
+    <div class="tab-content tabbox" id="myTabContent">
+               
+        <div id="profileedit" class="tab-pane fade active in">
+            
+             <div class="user-pannel all-form" style="min-height:300px;">
+               <p>The page you requested was not found.</p>        
+             </div>
+          </div>
+        </div>
+    </div>
+                   
+    </div>
+  </div>
+  <footer>
+  	<div class="footer-top">
+    	<div class="container">
+        	<div class="row">
+            	<div class="col-sm-12 subscribe">
+                	<h2>Subscribe to SaveTk.com</h2>
+                    <p><span style="color:#DE4B39">Be the first save!</span> Subscribe to get the best deals & offers in your email.</p>
+                    <p id="error"></p>
+                </div>
+                <div class="col-lg-9 col-sm-offset-3">
+						
+                       <form action="http://savetk.com/subscribe" method="post" accept-charset="utf-8" id="subscribe">                        <div class="form-group col-sm-7">
+                          <input type="email" id="sub_email" name="email" class="form-control form-cus"  placeholder="Email address" required>
+                        </div>
+                       <!-- <div class="form-group col-sm-3 col-xcus-3">
+                          <select onChange="getCitiesfooter(this.value);" class='form-control selectWidth form-cus' name='state_id' id="footer_state_id">
+                          
+                          <option value="*">Region</option><option value="320">Barisal</option><option value="321">Chittagong</option><option value="322">Dhaka</option><option value="323">Khulna</option><option value="324">Rajshahi</option><option value="325">Sylhet</option>                         </select>
+                        </div>
+                        <div class="form-group col-sm-3 col-xcus-3">
+                          <select  class='form-control form-control selectWidth form-cus' name='city_id' id="footer_city_id">
+                    		<option value="all">City</option>
+                        </select>
+                        </div>-->
+                        <div class="form-group  col-sm-1 col-cus-1">
+                          <input name="submit" type="button" id="sub_submit" onClick="subscribe_validation()" class="btn btn-black"  value="Subscribe"/>
+                          
+                        </div>
+                    
+                      </form>
+        		</div>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+    	<div class="container">
+        	<div class="row">
+            	<div class="col-sm-4">
+                                  	<div class="footer-logo">
+                    	<img alt="Footer-logo" src="http://savetk.com/assets/uploads/f9ed641f9a48428ecb6f3b48513b4170.png" />
+                    </div>
+                	<div class="footer-desc">
+                       <p>SaveTk&nbsp;is Bangladeshis first local services marketing platform, helps you save money through its comprehensive listing of vouchers, offers, deals &amp; discounts. We grab the hottest deals in town and make them better by helping you search and find the right things at the right price at the right time. Everything you can get in here what you want!!!</p>                    </div>
+                   <div class="social-media">
+                        <a target="_blank" rel="nofollow" href="https://www.facebook.com/savetaka/" class="icon-link  facebook fill"><i class="fa fa-facebook"></i></a>
+                        <a target="_blank" rel="nofollow" href="https://www.linkedin.com/company/savetk" class="icon-link linkedin fill"><i class="fa fa-linkedin"></i></a>
+                        <a href="https://twitter.com/Savetkdeal" target="_blank"  class="icon-link  twitter fill"><i class="fa fa-twitter"></i></a>
+                        <a target="_blank" rel="nofollow" href="https://plus.google.com/+Savetk" class="icon-link google-plus fill"><i class="fa fa-google-plus"></i></a>
+                       
+                       <a target="_blank" rel="nofollow" href="https://www.instagram.com/savetkdeal/" class="icon-link instagram fill"><i class="fa fa-instagram"></i></a>
+                       
+                       <a target="_blank" rel="nofollow" href="http://www.pinterest.com/savetkcom" class="icon-link pinterest fill"><i class="fa fa-pinterest-p"></i></a> 
+                        
+                        
+                        
+                    </div>
+                    <!--<div class="privacy">
+                    	<a href="#">Terms and Conditions</a>|
+                        <a href="#">Privacy Policy</a>
+                    </div>-->
+                </div>
+                <div class="col-sm-2">
+                	<div class="footer-menu">
+                    <h3>SaveTk.com</h3>
+                    	<ul>
+                        	<li><a href="http://savetk.com/about-us">About SaveTk</a></li>
+                            <li><a href="http://savetk.com/careers">Careers</a></li>
+                            <li><a href="http://savetk.com/press">Press</a></li>
+                            <li><a href="http://savetk.com/faq">Faqs</a></li>
+							<li><a href="http://savetk.com/blog">Blog</a></li>
+                            <li><a href="http://savetk.com/how-it-works">How it works</a></li>
+                            <li><a href="http://savetk.com/privacy-policay">Privacy Policy</a></li>
+                            <li><a href="http://savetk.com/terms-condition">Terms &amp; Conditions</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                	<div class="footer-menu">
+                    <h3>Merchants</h3>
+                    	<ul>
+                                                        <li><a href="http://savetk.com/mlogin">Merchant Signin</a></li>
+                            <li><a href="http://savetk.com/mregister">Merchant Signup</a></li>
+                                                        <li><a href="http://savetk.com/join_us">Join Us</a></li>
+                            <li><a href="http://savetk.com/benefits">Benefits</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-menu">
+                    <h3>Customers</h3>
+                    	<ul>
+                                                  	<li><a href="http://savetk.com/login?type=customer">Customer Signin</a></li>
+                            <li><a href="http://savetk.com/cregister">Customer Signup</a></li>
+                                                    </ul>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                	<div class="apps">
+                    	<a href="#"><img class="img-responsive"  alt="google play store" src="http://savetk.com/assets/images/play-store.png" /></a>
+                    </div>
+                	<div class="copyright">
+                    	<p>&copy;&nbsp; 2018 &nbsp;<a href="http://2rsolution.com/" rel="nofollow" target="_blank">2R Solution Ltd.</a> All Rights Reserved.</p>
+                    </div>
+                    <div class="payment_method">
+                      <span>Secure Payment by</span>
+                      <img class="img-responsive" alt="Payment Method" src="http://savetk.com/assets/images/payment-gateway.png"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </footer>
+  
+</div>
+
+<style type="text/css">
+#error{
+	display:none;
+	margin:0;
+}
+.wait
+{
+	position: relative;
+    top: -26px;
+}
+</style>
+
+<script>
+function subscribe_validation(){
+
+	var err = 0;
+	var sub_email = $('#sub_email').val();
+	var email_expression=/^([A-Za-z0-9!#$%^&*()._]{2,200})@([A-Za-z0-9-. _]{2,600})\.([a-z]{2,15}(?:\.[a-z]{1,6})?)$/;
+
+	if(!sub_email || !email_expression.test(sub_email)){
+		$('#error').show();
+		$('#error').html('<div style="color:#FF0000;">Invalid email address!</div>');
+		err = 1;
+	}
+	
+	var dataString = 'email='+$('#sub_email').val()+'&state_id=0&city_id=0';
+	
+	//alert(dataString);
+	
+	if(!err){
+	$.ajax({
+		
+		url: 'http://savetk.com/subscribe/subscribeSave',
+		type: "POST",
+		data: dataString,
+		dataType: 'json',
+	  
+		beforeSend: function() {
+			$('#error').hide();
+		
+			$('#sub_submit').after('<span class="wait">&nbsp;<img src="http://savetk.com/assets/image/loading.gif" alt="" /></div>');
+		
+		},
+		
+		complete: function() {
+		
+			$('.wait').remove();
+		
+		},
+	  
+	    success: function(json)
+		{	
+			//$('[name=city_id]').html(json['output']);
+			$('#error').show();
+			
+			if(json['subscribe_email_check'] > 0){
+				$('#error').show();
+				$('#error').html('<div style="color:#FF0000;">You are already available in our system!</div>');
+			}else{
+				$('#error').html('<div style="color:#00FF02">You have subscribed successfully!</div>');
+			}
+
+			
+		},
+		
+		error: function(xhr, ajaxOptions, thrownError) {
+
+			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+		}
+	
+	});
+	}
+
+}
+</script>
+
+<script type="text/javascript"><!--
+$('#search-filter').on('click', function() {
+
+	url = 'http://savetk.com/search/?search=true';
+
+	var filter_title = $('input[name=\'top_filter_title\']').val();
+
+	if (filter_title) {
+		url += '&filter_title=' + encodeURIComponent(filter_title);
+	}
+	
+	var filter_category_id = $('select[name=\'top_filter_category_id\']').val();
+
+	if (filter_category_id != '*') {
+		url += '&filter_category_id=' + encodeURIComponent(filter_category_id);
+	}
+
+	var filter_location = $('select[name=\'top_filter_location\']').val();
+
+	if (filter_location != '*') {
+		url += '&filter_location=' + encodeURIComponent(filter_location);
+	}
+	
+	//alert(url);
+	
+	location = url;
+});
+//--></script> 
+
+
+<script type="text/javascript">
+function getCitiesfooter(state_id)
+{ 
+	var dataString = 'state_id='+ state_id;
+	
+	
+    $.ajax
+	
+	({
+		url: 'http://savetk.com/home/getcities',
+		type: "POST",
+		data: dataString,
+		dataType: 'json',
+		
+		beforeSend: function() {
+
+			/*$('select[name=\'city_id\']').after('<span class="wait">&nbsp;<img src="http://savetk.com/asset/image/loading.gif" alt="" /></span>');
+*/
+		},
+
+		complete: function() {
+
+			$('.wait').remove();
+
+		},
+		
+		
+		success: function(json)
+		{	
+			//$('[name=city_id]').html(json['output']);
+			
+			//alert(json);
+			
+			if(state_id!='all'){
+
+				html = '<option value="">City</option>';
+	
+				if (json['city'] != '') {
+	
+					for (i = 0; i < json['city'].length; i++) {
+	
+						html += '<option value="' + json['city'][i]['city_id'] + '"';
+	
+						
+	
+						if (json['city'][i]['city_id'] == '') {
+	
+							html += ' selected="selected"';
+	
+						}
+	
+						html += '>' + json['city'][i]['name'] + '</option>';
+	
+					}
+	
+				} else {
+					//html += '<option value="all">City</option>';
+					html += '<option value="0">None</option>';
+	
+				}
+			}else {
+				html = '<option value="all">City</option>';
+			}
+			
+			//alert(html)
+
+			$('#footer_city_id').html(html);
+		},
+		
+		error: function(xhr, ajaxOptions, thrownError) {
+
+			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+
+		}
+		
+	});
+}
+</script>
+<script type="text/javascript" src="http://savetk.com/assets/js/ZeroClipboard.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $('#newsletters').click(function() {
+	   $("body").scrollTo($("#sub_email"), 1200);
+	});
+		$('#login-content').hide();
+	$('#login-trigger').click(function(e){ // <----you missed the '.' here in your selector.
+		e.stopPropagation();
+		$('#login-content').slideToggle();
+	});
+	$('#login-content').click(function(e){
+		e.stopPropagation();
+	});
+	
+	$(document).click(function(){
+		 $('#login-content').slideUp();
+	});
+	
+	$( "#filter_category_id option:selected" ).text();
+	$( "#filter_location option:selected" ).text();
+	
+});
+
+</script>
+<script>
+var btncopy = new ZeroClipboard($(".copy-code"), {
+      moviePath: "http://savetk.com/assets/js/ZeroClipboard.swf"
+    });
+	btncopy.on( "ready", function( readyEvent ) {
+           btncopy.on( "aftercopy", function( event ) {
+               $(event.target).html('<span>Copied</span>')
+           } );
+
+        });
+</script>
+<!--<script>
+//Code for copying coupon-code to clipboard
+        var btncopy = new ZeroClipboard($(".copy-code"));
+        btncopy.on( "ready", function( readyEvent ) {
+           btncopy.on( "aftercopy", function( event ) {
+               $(event.target).html('<span>Copied</span>')
+           } );
+
+        });
+</script>-->
+
+<script type="text/javascript">
+function sendSms(coupon_id)
+{
+	$('.msg').hide(10);
+	
+	customer_mobile = $('#customer_mobile_'+coupon_id).val();
+	//alert(customer_mobile);
+	
+	num_check = customer_mobile.substring(0,3);
+	//alert(num_check);
+	
+	
+	/*if(num_check=='017' || num_check=='018' || num_check=='019' || num_check=='011' || num_check=='015' || num_check=='016'){
+		alert('This is valid number!');	
+	}else{
+		alert('Not is not valid number!');	
+	}*/
+	
+	
+	
+	sms_body = $('#sms_body_'+coupon_id).val();
+	
+	if(customer_mobile!='' && customer_mobile.length==11 && (num_check=='017' || num_check=='018' || num_check=='019' || num_check=='011' || num_check=='015' || num_check=='016')) 
+	{
+		//var customer_mobile = customer_mobile.replace("-", "");
+		
+		var dataString = 'coupon_id='+ coupon_id+'&customer_mobile='+customer_mobile;
+		
+		$.ajax
+		({
+			url: 'http://savetk.com/order/sendsms',
+			type: "POST",
+			data: dataString,
+			dataType: 'json',
+			beforeSend: function() {
+	
+				$('.msg').html('<span class="wait">&nbsp;<img src="http://savetk.com/asset/image/loading.gif" alt="" /></span>');
+				$('.msg').fadeIn();
+			},
+	
+			complete: function() {
+				//$('.wait').remove();
+			},
+			
+			success: function(json)
+			{	
+				//alert(json['error']);
+				
+				//$('#customer_mobile').val('');
+				$('.mobile_num').val('');
+				if(json['success'])
+				{
+					$('.msg').html('<b style="color:#2ecc71;">'+json['success']+'</b>');
+					$('.msg').delay(2000).fadeOut( 1000, "linear");
+				}
+				
+				if(json['error'])
+				{
+					$('.msg').html('<b style="color:#F00;">'+json['error']+'</b>');
+					$('.msg').delay(2000).fadeOut( 1000, "linear");
+				}
+				
+				//$('.msg').fadeIn(500);
+			},
+			
+			error: function(xhr, ajaxOptions, thrownError) {
+				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+			}
+			
+		});
+	}
+	else
+	{
+		//alert('Please entry your mobile number!');
+		$('.msg').html('<b style="color:#F00;">Provide your valid mobile number!</b>');
+		$('.msg').fadeIn(500);
+		$('.msg').delay(3000).fadeOut( 1000, "linear");
+	}
+}
+</script>
+
+<script type="text/javascript">
+
+$(window).load(function() {
+
+var my_options = $("#top_filter_category_id option");
+var selected = $("#top_filter_category_id").val();
+
+my_options.sort(function(a,b) {
+if (a.text > b.text) return 1;
+if (a.text < b.text) return -1;
+return 0
+})
+
+$("#top_filter_category_id").empty().append( my_options );
+$("#top_filter_category_id").val(selected); 
+
+});
+                          
+</script>                         
+             
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-75338184-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+<!-- WhatsHelp.io widget -->
+<script type="text/javascript">
+    (function () {
+        var options = {
+            facebook: "433825696815063", // Facebook page ID
+            company_logo_url: "//storage.whatshelp.io/widget/3c/3c28/3c28029faf3c5a7f860c2e0b0c50aec9/1511408_434138470117119_1448224589055724345_n.jpg", // URL of company logo (png, jpg, gif)
+            greeting_message: "Hello, how may we help you? Just send us a message now to get assistance.", // Text of greeting message
+            call_to_action: "", // Call to action
+            position: "right", // Position may be 'right' or 'left'
+        };
+        var proto = document.location.protocol, host = "whatshelp.io", url = proto + "//static." + host;
+        var s = document.createElement('script'); s.type = 'text/javascript'; s.async = true; s.src = url + '/widget-send-button/js/init.js';
+        s.onload = function () { WhWidgetSendButton.init(host, proto, options); };
+        var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+    })();
+</script>
+<!-- /WhatsHelp.io widget -->
+
+</body>
+</html>
