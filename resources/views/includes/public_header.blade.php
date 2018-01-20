@@ -14,7 +14,7 @@
               <ul>
               <li><a href="contact.html"><i class="fa fa-phone" aria-hidden="true"></i>&nbsp;Contact</a></li>
               @guest
-                <li><a href="cregister.html"><span class="glyphicon glyphicon-edit"></span> Sign Up</a></li>
+                <li><a href="{{route('register')}}"><span class="glyphicon glyphicon-edit"></span> Sign Up</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-log-in"></span> Log In</a>
                     <ul id="login-dp" class="dropdown-menu">

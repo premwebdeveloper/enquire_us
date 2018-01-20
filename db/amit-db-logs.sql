@@ -18,3 +18,9 @@ ALTER TABLE `user_details`
   ALTER TABLE `users` ADD `phone` VARCHAR(10) NOT NULL AFTER `email`;
   ALTER TABLE `users` ADD `verify_token` VARCHAR(40) NULL AFTER `remember_token`;
   ALTER TABLE `users` ADD `status` TINYINT(1) NOT NULL DEFAULT '0' AFTER `updated_at`;
+
+  -- ---------------------------DB Start on 20-01-2018--------------------------
+
+  ALTER TABLE `user_details` ADD `phone` VARCHAR(10) NOT NULL AFTER `email`;
+  ALTER TABLE `user_details` ADD `status` TINYINT(1) NOT NULL DEFAULT '0' AFTER `updated_at`;
+  ALTER TABLE `user_details` ADD `user_id` INT NOT NULL AFTER `id`;

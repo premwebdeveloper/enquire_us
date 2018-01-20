@@ -34,8 +34,11 @@ trait RegistersUsers
 
         //$this->guard()->login($user);
 
-        return $this->registered($request, $user)
-                        ?: redirect($this->redirectPath());
+        //return $this->registered($request, $user) ?: redirect($this->redirectPath());
+
+        $status = "Your request for registration submitted successfully. Please wait for approval.";
+
+        return redirect('register')->with('status', $status);
     }
 
     /**

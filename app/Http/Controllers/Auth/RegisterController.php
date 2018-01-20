@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+use Illuminate\Support\Str;
 use App\User;
+use DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -50,6 +51,7 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
+            'phone' => 'required|string|max:10|min:10',
             'password' => 'required|string|min:6|confirmed',
         ]);
     }
@@ -62,11 +64,43 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $date = date('Y-m-d H:i:s');
+
+        // Create User 
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'phone' => $data['phone'],
             'password' => bcrypt($data['password']),
             'verify_token' => Str::random(40)
         ]);
+
+        // Create User role
+
+        $user_id = $user->id;
+
+        $user_role = DB::table('user_roles')->insert(
+            array(
+                'role_id' => 2,
+                'user_id' => $user_id,
+                'created_at' => $date,
+                'updated_at' => $date
+            )
+        );
+
+        //  Create User Details
+        $user_details = DB::table('user_details')->insert(
+            array(
+                'user_id' => $user_id,
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'phone' => $data['phone'],
+                'created_at' => $date,
+                'updated_at' => $date
+            )
+        );
+
     }
+
+
 }
