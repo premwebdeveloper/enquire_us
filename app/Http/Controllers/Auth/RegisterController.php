@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Auth;
 use Illuminate\Support\Str;
+use Mail;
+use App\Mail\verifyEmail;
 use App\User;
 use DB;
 use App\Http\Controllers\Controller;
@@ -100,7 +102,49 @@ class RegisterController extends Controller
             )
         );
 
+        $thisUser = User::findOrFail($user->id);
+        $this->sendEmail($thisUser);
+
+        return $user;
+        exit;
+
     }
 
 
+    # Verify Email First
+    public function verifyEmailFirst()
+    {
+        return view('email.verifyEmailFirst');
+    }
+
+    # Send Email
+    public function sendEmail($thisUser)
+    {
+        Mail::to($thisUser->email)->send(new verifyEmail($thisUser));
+    }
+
+    # Send Email Done
+    public function sendEmailDone($email, $verifyToken)
+    {
+        $user = User::where(['email'=>$email, 'verify_token'=>$verifyToken])->first();
+
+        if($user)
+        {
+            User::where(['email'=>$email, 'verify_token'=>$verifyToken])->update(['status'=>'1', 'verify_token'=>NULL]);
+
+            user_details::where(['email'=>$email])->update(['status'=>'1']);
+
+            $status = 'Verified email. You can login now.';
+        }
+        else
+        {
+            $status = 'Something Went Wrong Or Already Verified !';
+        }
+
+        if($status)
+        {
+            Session::flash('status', $status);
+            return view('auth.login');
+        }
+    }
 }
