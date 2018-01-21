@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Auth;
-
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -35,5 +35,15 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    // Custom function to redirect after login failed
+    protected function sendFailedLoginResponse(Request $request)
+    {
+        return redirect('/login')
+            ->withInput($request->only($this->username(), 'remember'))
+            ->withErrors([
+                $this->username() => [trans('auth.failed')]
+            ]);
     }
 }
