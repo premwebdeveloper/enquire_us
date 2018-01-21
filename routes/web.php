@@ -17,4 +17,15 @@ Route::get('/', function () {
 
 Auth::routes();
 
+// Home page after login
+Route::get('/', 'HomeController@index')->name('/');
+
 Route::get('/home', 'HomeController@index')->name('home');
+
+////////////////////////////////////////////////////////
+// Admin Permissions Only Admin can access these urls //
+////////////////////////////////////////////////////////
+Route::group(['middleware' => 'App\Http\Middleware\Admin'], function()
+{
+	Route::get('dashboard', 'Dashboard@dashboard')->name('dashboard');
+});
