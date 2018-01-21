@@ -36,7 +36,7 @@ trait RegistersUsers
 
         //return $this->registered($request, $user) ?: redirect($this->redirectPath());
 
-        $status = "Your request for registration submitted successfully. Please wait for approval.";
+        $status = "Please Verify your Email.";
 
         return redirect('register')->with('status', $status);
     }

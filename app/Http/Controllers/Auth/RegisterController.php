@@ -3,12 +3,13 @@
 namespace App\Http\Controllers\Auth;
 use Illuminate\Support\Str;
 use Mail;
-use App\Mail\verifyEmail;
+use App\Mail\verifyMail;
 use App\User;
 use DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Session;
 
 class RegisterController extends Controller
 {
@@ -120,7 +121,7 @@ class RegisterController extends Controller
     # Send Email
     public function sendEmail($thisUser)
     {
-        Mail::to($thisUser->email)->send(new verifyEmail($thisUser));
+        Mail::to($thisUser->email)->send(new verifyMail($thisUser));
     }
 
     # Send Email Done
@@ -130,11 +131,9 @@ class RegisterController extends Controller
 
         if($user)
         {
-            User::where(['email'=>$email, 'verify_token'=>$verifyToken])->update(['status'=>'1', 'verify_token'=>NULL]);
+            User::where(['email'=>$email, 'verify_token'=>$verifyToken])->update(['verify_token'=>NULL]);
 
-            user_details::where(['email'=>$email])->update(['status'=>'1']);
-
-            $status = 'Verified email. You can login now.';
+            $status = 'Verified email. Please wait for the approval.';
         }
         else
         {
