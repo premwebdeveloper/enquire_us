@@ -62,7 +62,7 @@
                     </ul>
                 </li>
                 @else
-                    <li><a href="javascript:;""><span class="glyphicon glyphicon-user"></span> My Account</a></li>
+                    <li><a href="{{route('profile')}}""><span class="glyphicon glyphicon-user"></span> My Account</a></li>
                     <li>
                         <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                             <span class="glyphicon glyphicon-log-out"></span> Logout

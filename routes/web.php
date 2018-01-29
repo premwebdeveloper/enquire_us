@@ -26,6 +26,8 @@ Route::get('verify/{email}/{verifyToken}', 'Auth\RegisterController@sendEmailDon
 
 Route::get('verifyEmailFirst', 'Auth\RegisterController@verifyEmailFirst')->name('verifyEmailFirst');
 
+Route::get('profile', 'Profile@profile')->name('profile');
+
 ////////////////////////////////////////////////////////
 // Admin Permissions Only Admin can access these urls //
 ////////////////////////////////////////////////////////
