@@ -34,4 +34,7 @@ Route::get('profile', 'Profile@profile')->name('profile');
 Route::group(['middleware' => 'App\Http\Middleware\Admin'], function()
 {
 	Route::get('dashboard', 'Dashboard@dashboard')->name('dashboard');
+	Route::get('users', 'AdminUsers@index')->name('users');
+    Route::post('delete', 'AdminUsers@delete')->name('delete');
+    Route::get('view', 'AdminUsers@view')->name('view');
 });

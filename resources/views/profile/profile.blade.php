@@ -6,148 +6,108 @@
 
  <div class="container">
     
-    <div id="message">
-    		
-				
-				
-		    </div>
+    @if(session('status'))
+        <div class="col-md-12">
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
+        </div>
+    @endif
 		
 <div class="row">
 
-	<div class="col-sm-2">
+	<div class="col-sm-3">
 	
 		<div class="box">
 		
 			<div class="list-group sidebar-nav">
-			
-				<a class="list-group-item active" href="javascript:;" data-id="1"><i class="fa fa-dashboard fa-fw"></i> <span>Dashboard</span></a>
-				
-				<!-- <a class="list-group-item" href="javascript:;" val="2"><i class="fa fa-shopping-cart fa-fw"></i> <span>Order History</span></a> -->
-												
-				<a class="list-group-item" href="javascript:;" data-id="2"><i class="fa fa-cog fa-fw"></i> <span>Edit Profile</span></a>
-				
-				<a class="list-group-item" href="javascript:;" data-id="3"><i class="fa fa-cog fa-fw"></i> <span>Password</span></a>
-				
-				<a class="list-group-item" href="javascript:;"><i class="fa fa-edit fa-fw"></i> <span>Logout</span></a>
+
+			  <ul class="nav nav-tabs" role="tablist">
+          <li role="presentation" class="active">
+            <a href="#dashboard" class="list-group-item" aria-controls="dashboard" role="tab" data-toggle="tab" aria-expanded="true">
+              <i class="fa fa-dashboard fa-fw"></i> <span>Dashboard</span>
+            </a>
+          </li>
+          <li>
+             <a href="#location" class="list-group-item" aria-controls="location" role="tab" data-toggle="tab" aria-expanded="false">
+              <i class="fa fa-map-marker fa-fw"></i> <span>Location Information</span>
+            </a>
+          </li>
+          <li>
+             <a href="#contact" class="list-group-item" aria-controls="contact" role="tab" data-toggle="tab" aria-expanded="false">
+              <i class="fa fa-phone fa-fw"></i> <span>Contact Information</span>
+            </a>
+          </li>          
+          <li>
+             <a href="#other" class="list-group-item" aria-controls="other" role="tab" data-toggle="tab" aria-expanded="false">
+              <i class="fa fa-cog fa-fw"></i> <span>Other Information</span>
+            </a>
+          </li>          
+          <li>
+             <a href="#business" class="list-group-item" aria-controls="business" role="tab" data-toggle="tab" aria-expanded="false">
+              <i class="fa fa-cog fa-fw"></i> <span>Business Keywords</span>
+            </a>
+          </li>          
+          <li>
+             <a href="#add_keywords" class="list-group-item text-center" aria-controls="add_keywords" role="tab" data-toggle="tab" aria-expanded="false">
+                <i class="fa fa-arrow-right fa-fw"></i> <span>Add Keywords</span>
+            </a>
+          </li>          
+          <li>
+             <a href="#remove_keywords" class="list-group-item text-center" aria-controls="remove_keywords" role="tab" data-toggle="tab" aria-expanded="false">
+                <i class="fa fa-arrow-right fa-fw"></i> <span>View/Remove Keywords</span>
+            </a>
+          </li>          
+          <li>
+             <a href="#uploads_video" class="list-group-item" aria-controls="uploads_video" role="tab" data-toggle="tab" aria-expanded="false">
+              <i class="fa fa-photo fa-fw"></i> <span>Uploads Video/Logo/Pictures</span>
+            </a>
+          </li>
+        </ul>
 				
 			</div>
 			
 		</div>
 		
 	</div>
-	
+	<style>
+   .tabs-wrap {
+        margin-top: 40px;
+      }
+      .tab-content .tab-pane {
+        padding: 20px 0;
+      } 
+      .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover{
+        background: #eaeaea;
+      }
+  </style>
 <script type="text/javascript">
 	$(document).ready(function(){
-		$('.sidebar-nav a').click(function(){
-			var val = $(this).attr('data-id');
-			if(val==1 || val==2){
-				$('.edit_profile').css({
-					'display':'block'
-				});
-				$('.password').css({
-					'display':'none'
-				});	
-			}			
-			else if(val==3){
-				$('.password').css({
-					'display':'block'
-				});
-				$('.edit_profile').css({
-					'display':'none'
-				});
-			}
-		});
-		$('.password').css({
-			'display':'none'
-		});				
-		$('.edit_profile').css({
-			'display':'block'
-		});
+    $('.continue').click(function(){
+      $('.nav-tabs > .active').next('li').find('a').trigger('click');
+    });
+    $('.back').click(function(){
+      $('.nav-tabs > .active').prev('li').find('a').trigger('click');
+    });
 	});
 </script>
 
-<div class="col-sm-10 password">
+<div class="col-sm-9">
+    <div class="tab-content">
 
-	<div class="page-header account_title">
-		<h1>Password</h1>
-	</div>
-	<div class="box">
+      <div role="tabpanel" class="tab-pane active" id="location">
+        <div class="col-sm-10 edit_profile">
+          <div class="page-header account_title">
 
-		<div class="col-sm-12"> 
-
-		  <form action="javascript:;" method="post" accept-charset="utf-8" id="form-profile" class="form-horizontal" enctype="multipart/form-data">
-
-            <fieldset>
-
-              <div class="controls">
-
-                <div class="form-group required">
-
-                  <label for="Password" class="col-sm-3 control-label">New password: </label>
-
-                  <div class="col-sm-9">
-
-                    <input class="form-control" autocomplete="off" name="c_password" id="password1" type="password" value="">
-
-                    
-                  </div>
-
-                </div>
-
-				<div class="form-group required">
-
-                  <label for="Password Confirm" class="col-sm-3 control-label">New password confirm: </label>
-
-                  <div class="col-sm-9">
-
-                    <input class="form-control" autocomplete="off" name="c_password_confirm" id="password2" type="password" value="">
-
-                    
-                  </div>
-
-                </div>
-
-              </div>
-
-
-
-              <div class="buttons">
-
-                <div class="right">
-
-                  <label class="checkbox-inline">
-
-                    <button type="submit" class="btn btn-primary" data-original-title="" title="">Update</button>
-
-                  </label>
-
-                </div>
-
-              </div>
-
-		
-            </fieldset>
-
-            </form>
+            <h1>Edit Profile</h1>
 
           </div>
 
-		</div>
+  <div class="box">
 
-    </div>
+    <div class="col-sm-12"> 
 
-    <div class="col-sm-10 edit_profile">
-		<div class="page-header account_title">
-
-		 	<h1>Edit Profile</h1>
-
-		</div>
-
-	<div class="box">
-
-		<div class="col-sm-12"> 
-
-		  
+      
             <form action="javascript:;" method="post" accept-charset="utf-8" id="form-profile" class="form-horizontal" enctype="multipart/form-data">
 
             <fieldset>
@@ -164,7 +124,7 @@
 
                   <div class="col-sm-6">
 
-      <input class="form-control" name="customer_name" id="customer_name" type="text" value="{{$profile->name}}">
+                      <input class="form-control" name="customer_name" id="customer_name" type="text" value="{{$profile->name}}">
 
                     
                   </div>
@@ -260,30 +220,30 @@
 
                   <label for="Mobile" class="col-sm-2 control-label">Mobile: </label>
 
-              	<div class="col-sm-6">
-	              	<div class="input-group">
-	                  	<span class="input-group-addon" id="basic-addon1">+88</span>
-	                      	<input class="form-control mobile" maxlength="11" name="mobile" id="mobile" type="text" value="{{$profile->phone}}">
-	                </div>
+                <div class="col-sm-6">
+                  <div class="input-group">
+                      <span class="input-group-addon" id="basic-addon1">+88</span>
+                          <input class="form-control mobile" maxlength="11" name="mobile" id="mobile" type="text" value="{{$profile->phone}}">
+                  </div>
                 </div>
 
                 </div>
 
               </div>
 
-			<h4>Newsletter</h4>
+             <h4>Newsletter</h4>
 
               <hr>
 
-			 <div class="controls">
-				<div class="form-group required">
+              <div class="controls">
+                <div class="form-group required">
 
                   <label for="Address" class="col-sm-2 control-label">Newsletter: </label>
 
                   <div class="col-sm-6">
 
                     <select name="newsletter" class="form-control">
-                    	<option selected="selected" value="1">Enable</option>
+                      <option selected="selected" value="1">Enable</option>
                         <option value="0">Disable</option>
                     </select>
 
@@ -298,7 +258,7 @@
 
                   <label class="checkbox-inline">
 
-                    <button type="submit" class="btn btn-primary" data-original-title="" title="">Update</button>
+                    <a class="btn btn-primary continue" data-original-title="" title="">Next</a>
 
                   </label>
 
@@ -312,9 +272,104 @@
 
           </div>
 
-	</div>
+      </div>
 
     </div>
+    <a class=""></a>
+</div>
+
+<div role="tabpanel" class="tab-pane" id="contact">
+    <div class="page-header account_title">
+      <h1>Password</h1>
+    </div>
+    <div class="box">
+
+      <div class="col-sm-12"> 
+
+        <form action="javascript:;" method="post" accept-charset="utf-8" id="form-profile" class="form-horizontal" enctype="multipart/form-data">
+
+              <fieldset>
+
+                <div class="controls">
+
+                  <div class="form-group required">
+
+                    <label for="Password" class="col-sm-3 control-label">New password: </label>
+
+                    <div class="col-sm-9">
+
+                      <input class="form-control" autocomplete="off" name="c_password" id="password1" type="password" value="">
+
+                      
+                    </div>
+
+                  </div>
+
+                  <div class="form-group required">
+
+                    <label for="Password Confirm" class="col-sm-3 control-label">New password confirm: </label>
+
+                    <div class="col-sm-9">
+
+                      <input class="form-control" autocomplete="off" name="c_password_confirm" id="password2" type="password" value="">
+
+                      
+                    </div>
+
+                  </div>
+
+                </div>
+
+
+
+                <div class="buttons">
+
+                  <div class="left">
+
+                    <label class="checkbox-inline">
+
+                      <a class="btn btn-primary back" data-original-title="" title="">Prev</a>
+
+                    </label>
+
+                  </div>
+
+                  <div class="right">
+
+                    <label class="checkbox-inline">
+
+                      <a class="btn btn-primary continue" data-original-title="" title="">Next</a>
+
+                    </label>
+
+                  </div>
+
+                </div>
+
+      
+              </fieldset>
+
+              </form>
+
+            </div>
+        </div>
+
+    </div>
+
+    <div role="tabpanel" class="tab-pane" id="review">
+      <h3 class="">Review &amp; Place Order</h3>
+      <p>Review &amp; Payment Tab</p>
+      <a class="btn btn-primary back">Prev</a>
+      <a class="btn btn-primary continue">Submit</a>
+    </div>
+</div>
+
+
+            <div id="push"></div>
+
+
+    </div>
+
 </div>
 </div>
 </div>

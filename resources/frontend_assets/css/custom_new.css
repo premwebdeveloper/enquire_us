@@ -86,7 +86,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	padding: 6px 15px;
 }
 a.list-group-item {
-	color: #828282;
+	color: #000;
 }
 a.list-group-item:hover, .list-group-item.active:hover, .list-group-item.active:focus {
 	color: #C9302C;
@@ -438,7 +438,7 @@ header {
 	height: auto;
 }
 .logo {
-	margin:20px 0;
+	margin:0px 0;
 }
 .languageBox {
 	height: auto;
@@ -476,16 +476,17 @@ header {
 
 .top-header-bg
 {
-	background:#F2F6F9;
+	background:#3b5998;
 }
 
 .languageBox p {
 	float: right;
 	font-size: 13px;
 	margin: 0;
+	color: #fff;
 }
 .tel-numbel a {
-	color: #333;
+	color: #fff;
 }
 .top-link ul {
 	padding: 0;
@@ -497,7 +498,7 @@ header {
 	margin-right: 20px;
 }
 .top-link ul li a {
-	color: #333333;
+	color: #fff;
 	font-size: 13px;
 }
 .top-link ul li:last-child {
@@ -590,7 +591,9 @@ header {
 	width: 100%;
 	height: auto;
 	border-top: 1px solid #f2f6f9;
-	border-bottom: 1px solid #f2f6f9;/*
+	border-bottom: 1px solid #f2f6f9;
+	background: #de4b39;
+	/*
 	background: #545454;
 	background: -moz-linear-gradient(top, #545454 0%, #333333 100%);
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #545454), color-stop(100%, #333333));
@@ -620,7 +623,7 @@ header {
 	color: #333;
 }
 .navbar-default .navbar-nav > li > a {
-	color: #777;
+	color: #fff;
 	font-size: 16px;
 }
 
@@ -634,16 +637,11 @@ header {
     left: -3px;
     position: absolute;
     top: 14px;
-	color:#777;	
+	color:#fff;	
 }
 
-
-
-
-
-
 .navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
-	color: #de4b39 !important;/*background-color: #de4b39;*/
+	color: #fff !important;/*background-color: #de4b39;*/
 }
 .navbar-default .navbar-nav > li > .dropdown-menu {
 	background-color: #333333;

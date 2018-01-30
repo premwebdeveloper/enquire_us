@@ -135,7 +135,7 @@
                 <li><a href="javascript:;">Store map</a></li>
                 <li><a href="javascript:;">Categories</a></li>
                 
-                <li><a style="color:#D23D2B;" href="javascript:;">Book food with discount <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                <li><a style="color:#000;" href="javascript:;">Book food with discount <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
               </ul>
             </div>
           </nav>

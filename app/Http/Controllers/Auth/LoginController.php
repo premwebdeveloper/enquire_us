@@ -49,7 +49,7 @@ class LoginController extends Controller
             }
             else
             {
-                return redirect(route('/'));
+                return redirect(route('profile'));
             }
 
             /*return $this->authenticated($request, $this->guard()->user())

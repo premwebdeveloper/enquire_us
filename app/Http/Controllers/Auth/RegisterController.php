@@ -131,19 +131,17 @@ class RegisterController extends Controller
 
         if($user)
         {
-            User::where(['email'=>$email, 'verify_token'=>$verifyToken])->update(['verify_token'=>NULL]);
+            User::where(['email'=>$email, 'verify_token'=>$verifyToken])->update(['verify_token'=>NULL, 'status' => '1']);
 
-            $status = 'Verified email. Please wait for the approval.';
-        }
-        else
-        {
-            $status = 'Something Went Wrong Or Already Verified !';
+            DB::table('user_details')->where(['email'=>$email])->update(['status'=>'2']);
+
+            $this->guard()->login($user);
+
+            $status = 'Verified email. Please update your profile now';
+
+            return redirect('profile')->with('status', $status);
+
         }
 
-        if($status)
-        {
-            Session::flash('status', $status);
-            return view('auth.login');
-        }
     }
 }
