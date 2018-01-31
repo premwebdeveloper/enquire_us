@@ -12,10 +12,13 @@ use Storage;
 use Session;
 class Profile extends Controller
 {
+    // Authenticate users
     public function __construct()
     {
         $this->middleware('auth');
     }
+
+    // User Profile View
     public function profile()
     {
     	$currentuserid = Auth::user()->id;

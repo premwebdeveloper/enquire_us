@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="col-lg-12 col-xs-12 pull-right res-header">
             <div class="languageBox" >
-                           
+
                 <h2 style="display:none">Language:</h2>
                 <p>Need Help? Call us at <strong class="tel-numbel"><a href="tel:+8801984994433">01984-994433</a></strong></p>
             </div>
@@ -22,8 +22,8 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     Login to Enquire Us
-                                    <form action="{{ route('login') }}" method="post" accept-charset="utf-8" class="" id="login-nav">      
-                                        {{ csrf_field() }}                 
+                                    <form action="{{ route('login') }}" method="post" accept-charset="utf-8" class="" id="login-nav">
+                                        {{ csrf_field() }}
                                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                                             <label class="sr-only" for="exampleInputEmail2">Email address</label>
                                             <input id="email" type="email" class="form-control" placeholder="Email address" name="email" value="{{ old('email') }}" required autofocus>
@@ -50,7 +50,7 @@
                                         <div class="checkbox">
                                             <div class="help-block text-right"><a href="{{ route('password.request') }}">Forget the password ?</a></div>
                                         </div>
-     
+
                                     </form>
 
                                 </div>
@@ -62,7 +62,11 @@
                     </ul>
                 </li>
                 @else
-                    <li><a href="{{route('profile')}}""><span class="glyphicon glyphicon-user"></span> My Account</a></li>
+                    @if(Auth::user()->id != 1)
+                        <li><a href="{{route('profile')}}""><span class="glyphicon glyphicon-user"></span> My Account</a></li>
+                    @else
+                        <li><a href="{{route('dashboard')}}""><i class="fa fa-tachometer" aria-hidden="true"></i> Go to dashboard</a></li>
+                    @endif
                     <li>
                         <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
                             <span class="glyphicon glyphicon-log-out"></span> Logout
@@ -78,7 +82,7 @@
             </div>
         </div>
       </div>
-      
+
       <div class="container">
         <div class="row">
             <div class="col-lg-3 col-sm-3 col-xs-4 res-logo">
@@ -88,9 +92,9 @@
                     </a>
                 </div>
             </div>
-          
-          
-          
+
+
+
           <div class="col-sm-9">
 
             <div id="top_search" class="form-group form-group-cus" role="form">
@@ -110,7 +114,7 @@
                 <input type="text" name="top_filter_title" class="form-control form-cus"  placeholder="Type keywords e.g. Burger, Salon, Beauty…">
                 </div>
             </div>
-                    
+
           </div>
         </div>
       </div>
@@ -118,7 +122,7 @@
     <div class="navigation">
       <div class="container">
         <div class="row">
-          <nav role="navigation" class="navbar navbar-default"> 
+          <nav role="navigation" class="navbar navbar-default">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
               <button type="button" data-target="#navbarCollapse" data-toggle="collapse" class="navbar-toggle"> <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
@@ -134,7 +138,7 @@
                 <li><a href="javascript:;">Stores</a></li>
                 <li><a href="javascript:;">Store map</a></li>
                 <li><a href="javascript:;">Categories</a></li>
-                
+
                 <li><a style="color:#000;" href="javascript:;">Book food with discount <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
               </ul>
             </div>
