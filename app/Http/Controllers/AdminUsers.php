@@ -11,7 +11,7 @@ class AdminUsers extends Controller
     public function index()
     {
         # Get All Users
-        $users = DB::table('user_details')->where('status', 1)->get();
+        $users = DB::table('user_details')->where('status','!=', 0)->get();
 
         return view('admin_users.index', array('users' => $users));
     }
@@ -28,24 +28,32 @@ class AdminUsers extends Controller
     }
 
     // Disable user
-    public function delete(Request $request)
+    public function active_inactive(Request $request)
     {
         $user_id = $request->user_id;
+        
+        $status = $request->status;
 
-        $user = User::where(['id'=>$user_id])->update(['status'=>'0']);
-
-        if($user)
+        if($status == 1)
         {
-            $disable = DB::table('user_details')->where('user_id', $user_id)->update(
-                array(
-                        'status' => 0
-                )
-            );
+        	$status = 2;
+        }
+        else
+        {
+        	$status = 1;
         }
 
-        if($disable)
+
+        $update = DB::table('user_details')->where('user_id', $user_id)->update(
+            array(
+                    'status' => $status
+            )
+        );
+
+
+        if($update)
         {
-            $status = 'User Deleted successfully.';
+            $status = 'User successfully.';
         }
         else
         {

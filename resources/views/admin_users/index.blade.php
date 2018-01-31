@@ -1,6 +1,6 @@
 @extends('layouts.auth_app')
 
-@section('conetnt')
+@section('content')
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
         <h2>All Users</h2>
@@ -13,11 +13,11 @@
             </li>
         </ol>
     </div>
-    <div class="col-lg-2 text-right">
+<!--     <div class="col-lg-2 text-right">
         <h2>
             <a href="javascript:;" class="btn btn-info">Add User</a>
         </h2>
-    </div>
+    </div> -->
 </div>
 
 <div class="wrapper wrapper-content animated fadeInRight">
@@ -58,34 +58,48 @@
                                             <a class="btn btn-success" title="View" href="{{ route('view', ['user_id' => $user->user_id]) }}">
                                                 <i class="fa fa-eye" aria-hidden="true"></i>
                                             </a>
+                                            @if($user->status == 2)
 	                                        <a class="btn btn-info" title="Delete" href="#{{$user->user_id}}" data-toggle="modal">
-	                                            <i class="fa fa-trash" aria-hidden="true"></i>
+	                                            Active
+	                                        </a>	
+	                                        @else                                        
+	                                        <a class="btn btn-danger" title="Delete" href="#{{$user->user_id}}" data-toggle="modal">
+	                                            Inactive
 	                                        </a>
+	                                        @endif
 	                                    </td>
 	                                </tr>
 									<div id="{{$user->user_id}}" class="modal fade" role="dialog">
 										<div class="modal-dialog">
-
-											
 											<div class="modal-content">
 											  <div class="modal-header">
 												<button type="button" class="close" data-dismiss="modal">&times;</button>
-												<h4 class="modal-title"><i class="fa fa-trash"></i> Delete Profile Image</h4>
+												<h4 class="modal-title"><i class="fa fa-trash"></i> User Approval</h4>
 											  </div>
 											  <div class="modal-body">
-												<p>Are you sure you want to Delete ?</p>
-											  </div>
-											  <div class="modal-footer">
-												<form method="post" action="{{route('delete')}}">
+
+												<form method="post" action="{{route('active_inactive')}}">
 
 													{{ csrf_field() }}
 
 													<input type="hidden" id="delt" name="user_id" value="{{$user->user_id}}">
 
-													<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-													<button class="btn btn-danger" type="submit" name="delete" value="{{$user->user_id}}">Delete</button>
+													<input type="hidden" id="status" name="status" value="{{$user->status}}">
+
+													<p>
+													  	@if($user->status==2)
+															Are you sure you want to Active this client ?
+														@else
+															Are you sure you want to Inactive this client ?
+														@endif
+
+														<button class="btn btn-danger pull-right" type="submit" name="delete" value="{{$user->user_id}}">Yes</button>
+
+													</p>
+
 												</form>
 											  </div>
+		
 											</div>
 
 										</div>

@@ -35,6 +35,6 @@ Route::group(['middleware' => 'App\Http\Middleware\Admin'], function()
 {
 	Route::get('dashboard', 'Dashboard@dashboard')->name('dashboard');
 	Route::get('users', 'AdminUsers@index')->name('users');
-    Route::post('delete', 'AdminUsers@delete')->name('delete');
+    Route::post('active_inactive', 'AdminUsers@active_inactive')->name('active_inactive');
     Route::get('view', 'AdminUsers@view')->name('view');
 });
