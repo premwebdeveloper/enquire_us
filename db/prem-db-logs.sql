@@ -92,3 +92,6 @@ ALTER TABLE `user_company_information`
 
 ALTER TABLE `user_company_information`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+-- ---------------------------ALTER Table 'user_location' on 31-01-2018--------------------------
+ALTER TABLE `user_location` CHANGE `status` `status` TINYINT(1) NOT NULL DEFAULT '2';

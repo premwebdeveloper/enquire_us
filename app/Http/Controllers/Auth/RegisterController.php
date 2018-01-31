@@ -69,7 +69,7 @@ class RegisterController extends Controller
     {
         $date = date('Y-m-d H:i:s');
 
-        // Create User 
+        // Create User
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -78,10 +78,9 @@ class RegisterController extends Controller
             'verify_token' => Str::random(40)
         ]);
 
-        // Create User role
-
         $user_id = $user->id;
 
+        // Create User role
         $user_role = DB::table('user_roles')->insert(
             array(
                 'role_id' => 2,
@@ -91,7 +90,7 @@ class RegisterController extends Controller
             )
         );
 
-        //  Create User Details
+        // Create User Details
         $user_details = DB::table('user_details')->insert(
             array(
                 'user_id' => $user_id,
@@ -103,12 +102,56 @@ class RegisterController extends Controller
             )
         );
 
+        // Create User Location
+        $user_details = DB::table('user_location')->insert(
+            array(
+                'user_id' => $user_id,
+                'business_name' => $data['company_name'],
+                'created_at' => $date,
+                'updated_at' => $date
+            )
+        );
+
+        // Create User Other Information
+        for($i = 0; $i <= 13; $i++)
+        {
+            $operation_timing = 1;
+            if($i > 6) { $operation_timing = 2; }
+
+            if($i == 0 || $i == 7){ $day = 'monday'; }
+            if($i == 1 || $i == 8){ $day = 'tuesday'; }
+            if($i == 2 || $i == 9){ $day = 'wednesday'; }
+            if($i == 3 || $i == 10){ $day = 'thursday'; }
+            if($i == 4 || $i == 11){ $day = 'friday'; }
+            if($i == 5 || $i == 12){ $day = 'saturday'; }
+            if($i == 6 || $i == 13){ $day = 'sunday'; }
+
+            $user_details = DB::table('user_other_information')->insert(
+                array(
+                    'user_id' => $user_id,
+                    'operation_timing' => $operation_timing,
+                    'day' => $day,
+                    'working_status' => '0',
+                    'created_at' => $date,
+                    'updated_at' => $date
+                )
+            );
+        }
+
+        // Create User Company Information
+        $user_details = DB::table('user_company_information')->insert(
+            array(
+                'user_id' => $user_id,
+                'created_at' => $date,
+                'updated_at' => $date
+            )
+        );
+
         $thisUser = User::findOrFail($user->id);
         $this->sendEmail($thisUser);
 
         return $user;
         exit;
-
     }
 
 

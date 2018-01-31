@@ -2,11 +2,11 @@
 
 @section('content')
 <div id="main" class="site-main">
-   
-    
+
+
 
  <div class="container">
-    
+
     @if(session('status'))
         <div class="col-md-12">
             <div class="alert alert-success">
@@ -23,10 +23,23 @@
                     <div class="col-sm-6">
                       <div class="page-header">
                         <h3>Customer Signup To Enquire Us</h3></div>
-                            <form action="{{ route('register') }}" method="post" accept-charset="utf-8" class="form-horizontal">     
-                            {{ csrf_field() }}       
+                            <form action="{{ route('register') }}" method="post" accept-charset="utf-8" class="form-horizontal">
+                            {{ csrf_field() }}
                                 <fieldset>
-                    
+
+                                <div class="form-group{{ $errors->has('company_name') ? ' has-error' : '' }} required">
+                                    <label for="Name" class="col-sm-4 control-label">Company Name: </label>
+                                    <div class="col-sm-8">
+                                        <input id="company_name" type="text" class="form-control" name="company_name" value="{{ old('company_name') }}" required autofocus>
+
+                                        @if ($errors->has('company_name'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('company_name') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+
                                 <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }} required">
                                     <label for="Name" class="col-sm-4 control-label">Name: </label>
                                     <div class="col-sm-8">
@@ -90,7 +103,7 @@
                                         <span>By clicking on Sign Up. I agree to all <a style="text-decoration:underline;" target="_blank" alt="Privacy Policy" href="javascript:;" class="colorbox cboxElement">T&amp;C</a></span>
                                     </div>
                                 </div>
-                            
+
                                 <div class="buttons">
                                     <div class="right">
                                         <label class="checkbox-inline">
