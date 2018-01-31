@@ -44,7 +44,6 @@ CREATE TABLE `user_location` (
   `updated_at` datetime NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-dexes for table `user_location`
 
 ALTER TABLE `user_location`
   ADD PRIMARY KEY (`id`);
