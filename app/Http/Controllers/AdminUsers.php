@@ -33,6 +33,9 @@ class AdminUsers extends Controller
         # Get Other information
         $user_other_information = DB::table('user_other_information')->where('user_id', $user_id)->get();
 
+        # Get Images
+        $images = DB::table('user_images')->where('user_id', $user_id)->get();
+
         // echo '<pre>';
         // print_r($user_other_information);
         // exit;
@@ -40,7 +43,7 @@ class AdminUsers extends Controller
         //echo $query->toSql();
         //exit;
 
-        return view('admin_users.view', array('user_details' => $user_details, 'other_information' => $user_other_information));
+        return view('admin_users.view', array('user_details' => $user_details, 'other_information' => $user_other_information, 'images' => $images));
     }
 
     // Active / Inactive user

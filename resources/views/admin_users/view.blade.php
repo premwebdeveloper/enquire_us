@@ -228,10 +228,14 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>1</td>
-                                                    <td><img src="resources/assets/images/sad.png" width="100"></td>
-                                                </tr>
+                                                <?php $i= 1; ?>
+                                                @foreach($images as $image)
+                                                    <tr>
+                                                        <td>{{ $i }}</td>
+                                                        <td><img src="resources/assets/images/{{ $image->image }}" width="100"></td>
+                                                    </tr>
+                                                    <?php $i++; ?>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>

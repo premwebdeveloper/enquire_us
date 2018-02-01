@@ -111,3 +111,5 @@ ALTER TABLE `user_images`
 
 ALTER TABLE `user_images`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `user_images` CHANGE `image` `image` VARCHAR(255) NULL DEFAULT NULL;
