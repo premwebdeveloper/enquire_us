@@ -94,3 +94,20 @@ ALTER TABLE `user_company_information`
 
 -- ---------------------------ALTER Table 'user_location' on 31-01-2018--------------------------
 ALTER TABLE `user_location` CHANGE `status` `status` TINYINT(1) NOT NULL DEFAULT '2';
+
+-- ---------------------------ALTER Table 'user_details' on 01-02-2018--------------------------
+ALTER TABLE `user_details` ADD `logo` VARCHAR(255) NULL AFTER `phone`;
+
+-- ---------------------------CREATE Table 'user_images' on 01-02-2018--------------------------
+CREATE TABLE `user_images` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `image` int(11) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `user_images`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `user_images`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;

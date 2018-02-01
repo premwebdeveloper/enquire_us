@@ -6,14 +6,14 @@
         <h2>All Users</h2>
         <ol class="breadcrumb">
             <li>
-                <a href="javascript:;">Home</a>
+                <a href="{{ route('dashboard') }}">Home</a>
             </li>
             <li class="active">
                 <strong>Users</strong>
             </li>
         </ol>
     </div>
-<!--     <div class="col-lg-2 text-right">
+<!--<div class="col-lg-2 text-right">
         <h2>
             <a href="javascript:;" class="btn btn-info">Add User</a>
         </h2>
@@ -61,8 +61,8 @@
                                             @if($user->status == 2)
 	                                        <a class="btn btn-info" title="Delete" href="#{{$user->user_id}}" data-toggle="modal">
 	                                            Active
-	                                        </a>	
-	                                        @else                                        
+	                                        </a>
+	                                        @else
 	                                        <a class="btn btn-danger" title="Delete" href="#{{$user->user_id}}" data-toggle="modal">
 	                                            Inactive
 	                                        </a>
@@ -99,7 +99,7 @@
 
 												</form>
 											  </div>
-		
+
 											</div>
 
 										</div>

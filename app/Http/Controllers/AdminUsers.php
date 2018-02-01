@@ -16,22 +16,38 @@ class AdminUsers extends Controller
         return view('admin_users.index', array('users' => $users));
     }
 
-        // View User Detail
+    // View User Detail
     public function View(Request $request)
     {
         $user_id = $request->user_id;
 
-        # Get User details
-        $user = DB::table('user_details')->where('user_id', $user_id)->first();
+        // Get basic / location / company information
+        $query = DB::table('user_details as ud')
+            ->join('user_location as ul', 'ud.user_id', '=', 'ul.user_id')
+            ->join('user_company_information as uci', 'ud.user_id', '=', 'uci.user_id')
+            ->select('ud.*', 'ul.business_name', 'ul.building', 'ul.street', 'ul.landmark', 'ul.area', 'ul.city', 'ul.pincode', 'ul.state', 'ul.country', 'uci.payment_mode', 'uci.payment_mode', 'uci.year_establishment', 'uci.annual_turnover', 'uci.no_of_emps', 'uci.professional_associations', 'uci.certifications')
+            ->where('ud.user_id', '=', $user_id);
 
-        return view('admin_users.view', array('user' => $user));
+        $user_details = $query->first();
+
+        # Get Other information
+        $user_other_information = DB::table('user_other_information')->where('user_id', $user_id)->get();
+
+        // echo '<pre>';
+        // print_r($user_other_information);
+        // exit;
+        // For print query
+        //echo $query->toSql();
+        //exit;
+
+        return view('admin_users.view', array('user_details' => $user_details, 'other_information' => $user_other_information));
     }
 
-    // Disable user
+    // Active / Inactive user
     public function active_inactive(Request $request)
     {
         $user_id = $request->user_id;
-        
+
         $status = $request->status;
 
         if($status == 1)
@@ -43,13 +59,19 @@ class AdminUsers extends Controller
         	$status = 1;
         }
 
-
+        // update user details
         $update = DB::table('user_details')->where('user_id', $user_id)->update(
             array(
                     'status' => $status
             )
         );
 
+        // update user location
+        $update_location = DB::table('user_location')->where('user_id', $user_id)->update(
+            array(
+                    'status' => $status
+            )
+        );
 
         if($update)
         {
