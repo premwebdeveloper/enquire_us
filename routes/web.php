@@ -28,6 +28,10 @@ Route::get('verifyEmailFirst', 'Auth\RegisterController@verifyEmailFirst')->name
 
 Route::get('profile', 'Profile@profile')->name('profile');
 
+Route::post('/update_location_info', 'AjaxController@update_location_info')->name('update_location_info');
+
+Route::post('/update_contact_info', 'AjaxController@update_contact_info')->name('update_contact_info');
+
 ////////////////////////////////////////////////////////
 // Admin Permissions Only Admin can access these urls //
 ////////////////////////////////////////////////////////

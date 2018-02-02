@@ -1,5 +1,9 @@
 @extends('layouts.public_app')
 @section('content')
+<link href="{{ asset ('resources/frontend_assets/css/validationEngine.jquery.css') }}" rel="stylesheet" />
+<script src="{{ asset ('resources/frontend_assets/js/jquery.validationEngine-en.js') }}" type="text/javascript"></script>
+<script src="{{ asset ('resources/frontend_assets/js/jquery.validationEngine.js') }}" type="text/javascript"></script>
+
 <style>
   .form-horizontal .control-label{
       text-align: left;
@@ -11,6 +15,8 @@
       padding: 0px 0!important;
   }
 </style>
+
+
 <script type="text/javascript">
   $(document).ready(function(){
     
@@ -29,7 +35,98 @@
         }
     });
     $("select[name='time']").attr("disabled", true);
+    //$('.close_0').
+    $("#email").attr("readonly", true);
   });
+</script>
+
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $(document).on("click", "#location_submit", function(e){
+      e.preventDefault();
+
+      var valid = $("#myForm").validationEngine("validate", {promptPosition : "topLeft"});
+      if(valid==true)
+      {
+      var user_id = $('.user_id').val();
+      var business_name = $('#business_name').val();
+      var building = $('#building').val();
+      var street = $('#street').val();
+      var landmark = $('#landmark').val();
+      var area = $('#area').val();
+      var city = $('#city').val();
+      var pin_code = $('#pin_code').val();
+      var state = $('#state').val();
+      var country = $('#country').val();
+
+      $.ajax({
+        method : 'post',
+        url : 'update_location_info',
+        async : true,
+                data : {"_token": "{{ csrf_token() }}", 'user_id': user_id, 'business_name': business_name, 'building': building, 'street': street, 'landmark': landmark, 'area': area, 'city': city, 'pin_code': pin_code, 'state': state, 'country': country},
+                  success:function(response){
+
+                    console.log('response');
+                    console.log(response);
+                    $(window).scrollTop(0);
+                  },
+          error: function(data){
+              console.log(data);
+          },
+      });
+        $('.continue').click(function(){
+          $('.nav-tabs > .active').next('li').find('a').trigger('click');
+        });
+        $('.back').click(function(){
+          $('.nav-tabs > .active').prev('li').find('a').trigger('click');
+        });
+    }
+    });     
+
+    // Contact Information
+    $(document).on("click", "#contact_update", function(e){
+      e.preventDefault();
+
+      var valid = $("#contact_info").validationEngine("validate", {promptPosition : "topLeft"});
+      if(valid==true)
+      {
+      var user_id = $('.user_id').val();
+      var contact_person = $('#contact_person').val();
+      var landline = $('#landline').val();
+      var mobile = $('#mobile').val();
+      var fax = $('#fax').val();
+      var fax2 = $('#fax2').val();
+      var toll_free = $('#toll_free').val();
+      var toll_free2 = $('#toll_free2').val();
+      var email = $('#email').val();
+      var website = $('#website').val();
+
+      $.ajax({
+        method : 'post',
+        url : 'update_contact_info',
+        async : true,
+                data : {"_token": "{{ csrf_token() }}", 'user_id': user_id, 'contact_person': contact_person, 'landline': landline, 'mobile': mobile, 'fax': fax, 'fax2': fax2, 'toll_free': toll_free, 'toll_free2': toll_free2, 'email': email, 'website': website},
+                  success:function(response){
+
+                    console.log('response');
+                    console.log(response);
+                    $(window).scrollTop(0);
+                  },
+          error: function(data){
+              console.log(data);
+          },
+      });
+        $('.continue').click(function(){
+          $('.nav-tabs > .active').next('li').find('a').trigger('click');
+        });
+        $('.back').click(function(){
+          $('.nav-tabs > .active').prev('li').find('a').trigger('click');
+        });
+    }
+    });   
+});
+
 </script>
 <div id="main" class="site-main">
 <div class="container">
@@ -104,49 +201,40 @@
         background: #eaeaea;
       }
   </style>
-<script type="text/javascript">
-	$(document).ready(function(){
-    $('.continue').click(function(){
-      $('.nav-tabs > .active').next('li').find('a').trigger('click');
-    });
-    $('.back').click(function(){
-      $('.nav-tabs > .active').prev('li').find('a').trigger('click');
-    });
-	});
-</script>
 
 <div class="col-sm-9">
     <div class="tab-content">
 
       <div role="tabpanel" class="tab-pane active" id="location">
         <div class="col-sm-10 edit_profile">
-  <div class="box">
-        <form action="javascript:;" method="post" accept-charset="utf-8" id="form-profile" class="form-horizontal" enctype="multipart/form-data">
-
+      <div class="box">
+        <form action="javascript:;" method="post" accept-charset="utf-8" id="myForm" class="form-horizontal" enctype="multipart/form-data">
+            
+            <input type="hidden" name="user_id" class="user_id" value="{{ $location->user_id }}">
+            
             <fieldset>
 
               <div class="controls">
 
-                <div class="form-group required">
+                <div class="form-group">
 
                   <label for="Name" class="col-sm-4 control-label">Business Name: </label>
 
                   <div class="col-sm-6">
 
-                      <input class="form-control" name="customer_name" id="customer_name" type="text" value="{{$profile->name}}">
+                      <input class="form-control" name="business_name" id="business_name" type="text" value="{{ $location->business_name }}">
 
-                    
-                  </div>
+                   </div>
 
                 </div>
 
-                <div class="form-group required">
+                <div class="form-group">
 
                   <label for="Email" class="col-sm-4 control-label">Building: </label>
 
                   <div class="col-sm-6">
 
-                    <input class="form-control" name="email" id="email" value="{{$profile->email}}">
+                    <input class="form-control" name="building" id="building" value="{{ $location->building }}">
 
                   </div>
 
@@ -156,63 +244,74 @@
 
               <div class="controls">
 
-                <div class="form-group required">
+                <div class="form-group">
 
                   <label for="Address" class="col-sm-4 control-label">Street: </label>
 
                   <div class="col-sm-6">
 
-                    <input class="form-control" name="email" id="email" value="{{$profile->email}}">
+                    <input class="form-control" name="street" id="street" value="{{ $location->street }}">
 
                     
                   </div>
 
                 </div>
 
-                <div class="form-group required">
+                <div class="form-group">
 
                   <label for="Country" class="col-sm-4 control-label">Landmark:</label>
 
                   <div class="col-sm-6">
 
-                    <input class="form-control" name="email" id="email" value="{{$profile->email}}">
+                    <input class="form-control" name="landmark" id="landmark" value="{{ $location->landmark }}">
 
                   </div>
 
                 </div>
 
-                <div class="form-group required">
+                <div class="form-group">
 
                   <label for="Country" class="col-sm-4 control-label">Area:</label>
 
                   <div class="col-sm-6">
 
-                   <input class="form-control" name="email" id="email" value="{{$profile->email}}">
+                   <input class="form-control" name="area" id="area" value="{{ $location->area }}">
 
                   </div>
 
                 </div>
                 
-                <div class="form-group required">
+                <div class="form-group">
 
                   <label for="Country" class="col-sm-4 control-label">City:</label>
 
                   <div class="col-sm-6">
 
-                    <input class="form-control" name="email" id="email" value="{{$profile->email}}">
+                    <input class="form-control" name="city" id="city" value="{{ $location->city }}">
 
                   </div>
 
                 </div>                
 
-                <div class="form-group">
+                <div class="form-group required">
 
                   <label for="Country" class="col-sm-4 control-label">Pin Code:</label>
 
                   <div class="col-sm-6">
 
-                    <select onchange="getStatesCustomer(this.value);" disabled="" name="country_id" class="form-control">
-                      <option selected="selected" value="18">Bangladesh</option>
+                    <select name="pin_code" id="pin_code" class="validate[required] form-control">
+                      @if(!empty($location->pincode))
+                        <option value="{{$location->pincode}}">{{$location->pincode}}</option>
+                        <option value="">Select</option>
+                        <option id="302001" value="302001">302001</option>
+                        <option id="302002" value="302002">302002</option>
+                        <option id="302003" value="302003">302003</option>
+                      @else
+                        <option value="">Select</option>
+                        <option id="302001" value="302001">302001</option>
+                        <option id="302002" value="302002">302002</option>
+                        <option id="302003" value="302003">302003</option>
+                      @endif
                     </select>
 
                   </div>
@@ -225,7 +324,7 @@
 
                   <div class="col-sm-6">
 
-                    <input class="form-control" name="email" id="email" value="{{$profile->email}}">
+                    <input class="form-control" name="state" id="state" value="{{ $location->state }}">
 
                   </div>
 
@@ -237,7 +336,7 @@
 
                   <div class="col-sm-6">
 
-                    <input class="form-control" name="email" id="email" value="{{$profile->email}}">
+                    <input class="form-control" name="country" id="country" value="{{ $location->country }}">
 
                   </div>
 
@@ -246,13 +345,13 @@
 
               </div>
 
-            <div class="buttons">
+              <div class="buttons">
 
                 <div class="right">
 
                   <label class="checkbox-inline">
 
-                    <a class="btn btn-primary continue" data-original-title="" title="">Next</a>
+                    <a class="btn btn-primary continue" id="location_submit" data-original-title="" title="">Next</a>
 
                   </label>
 
@@ -273,32 +372,34 @@
 <div role="tabpanel" class="tab-pane" id="contact">
   <div class="col-sm-10 edit_profile">
       <div class="box">
-        <form action="javascript:;" method="post" accept-charset="utf-8" id="form-profile" class="form-horizontal" enctype="multipart/form-data">
+        <form action="javascript:;" method="post" accept-charset="utf-8" id="contact_info" class="form-horizontal" enctype="multipart/form-data">
+
+            <input type="hidden" name="user_id" class="user_id" value="{{ $location->user_id }}">
 
             <fieldset>
 
               <div class="controls">
 
-                <div class="form-group required">
+                <div class="form-group">
 
                   <label for="Name" class="col-sm-4 control-label">Contact Person: </label>
 
                   <div class="col-sm-6">
 
-                      <input class="form-control" name="customer_name" id="customer_name" type="text" value="{{$profile->name}}">
+                      <input class="form-control" name="contact_person" id="contact_person" type="text" value="{{ $contact->name }}">
 
                     
                   </div>
 
                 </div>
 
-                <div class="form-group required">
+                <div class="form-group">
 
                   <label for="Email" class="col-sm-4 control-label">Landline No: </label>
 
                   <div class="col-sm-6">
 
-                    <input class="form-control" name="email" id="email" value="{{$profile->email}}">
+                    <input class="form-control" name="landline" id="landline" value="{{ $contact->landline }}">
 
                   </div>
 
@@ -308,50 +409,50 @@
 
               <div class="controls">
 
-                <div class="form-group required">
+                <div class="form-group">
 
                   <label for="Address" class="col-sm-4 control-label">Mobile No: </label>
 
                   <div class="col-sm-6">
 
-                    <input class="form-control" name="email" id="email" value="{{$profile->email}}">
+                    <input class="form-control" name="mobile" id="mobile" value="{{ $contact->phone }}">
 
                     
                   </div>
 
                 </div>
 
-                <div class="form-group required">
+                <div class="form-group">
 
                   <label for="Country" class="col-sm-4 control-label">Fax No:</label>
 
                   <div class="col-sm-6">
 
-                    <input class="form-control" name="email" id="email" value="{{$profile->email}}">
+                    <input class="form-control" name="fax" id="fax" value="{{ $contact->fax1 }}">
 
                   </div>
 
                 </div>
 
-                <div class="form-group required">
+                <div class="form-group ">
 
                   <label for="Country" class="col-sm-4 control-label">Fax No 2:</label>
 
                   <div class="col-sm-6">
 
-                   <input class="form-control" name="email" id="email" value="{{$profile->email}}">
+                   <input class="form-control" name="fax2" id="fax2" value="{{ $contact->fax2 }}">
 
                   </div>
 
                 </div>
                 
-                <div class="form-group required">
+                <div class="form-group ">
 
                   <label for="Country" class="col-sm-4 control-label">Toll Free No:</label>
 
                   <div class="col-sm-6">
 
-                    <input class="form-control" name="email" id="email" value="{{$profile->email}}">
+                    <input class="form-control" name="toll_free" id="toll_free" value="{{ $contact->toll_free1 }}">
 
                   </div>
 
@@ -363,7 +464,7 @@
 
                   <div class="col-sm-6">
 
-                    <input class="form-control" name="email" id="email" value="{{$profile->email}}">
+                    <input class="form-control" name="toll_free2" id="toll_free2" value="{{ $contact->toll_free2 }}">
 
                   </div>
 
@@ -375,7 +476,7 @@
 
                   <div class="col-sm-6">
 
-                    <input class="form-control" name="email" id="email" value="{{$profile->email}}">
+                    <input class="form-control" name="email" id="email" value="{{ $contact->email }}">
 
                   </div>
 
@@ -387,7 +488,7 @@
 
                   <div class="col-sm-6">
 
-                    <input class="form-control" name="email" id="email" value="{{$profile->email}}">
+                    <input class="form-control" name="website" id="website" value="{{ $contact->website }}">
 
                   </div>
 
@@ -410,7 +511,7 @@
 
                   <label class="checkbox-inline">
 
-                    <a class="btn btn-primary continue" data-original-title="" title="">Next</a>
+                    <a class="btn btn-primary continue" data-original-title="" id="contact_update">Next</a>
 
                   </label>
 
@@ -460,7 +561,7 @@
                         <option value="00:00"> Open 24 Hrs </option><option value="00:00"> 00:00 </option><option value="00:30"> 00:30 </option><option value="01:00"> 01:00 </option><option value="01:30"> 01:30 </option><option value="02:00"> 02:00 </option><option value="02:30"> 02:30 </option><option value="03:00"> 03:00 </option><option value="03:30"> 03:30 </option><option value="04:00"> 04:00 </option><option value="04:30"> 04:30 </option><option value="05:00"> 05:00 </option><option value="05:30"> 05:30 </option><option value="06:00"> 06:00 </option><option value="06:30"> 06:30 </option><option value="07:00"> 07:00 </option><option value="07:30"> 07:30 </option><option value="08:00"> 08:00 </option><option value="08:30"> 08:30 </option><option value="09:00"> 09:00 </option><option value="09:30"> 09:30 </option><option value="10:00"> 10:00 </option><option value="10:30"> 10:30 </option><option value="11:00"> 11:00 </option><option value="11:30"> 11:30 </option><option value="12:00"> 12:00 </option><option value="12:30"> 12:30 </option><option value="13:00"> 13:00 </option><option value="13:30"> 13:30 </option><option value="14:00"> 14:00 </option><option value="14:30"> 14:30 </option><option value="15:00"> 15:00 </option><option value="15:30"> 15:30 </option><option value="16:00"> 16:00 </option><option value="16:30"> 16:30 </option><option value="17:00"> 17:00 </option><option value="17:30"> 17:30 </option><option value="18:00"> 18:00 </option><option value="18:30"> 18:30 </option><option value="19:00"> 19:00 </option><option value="19:30"> 19:30 </option><option value="20:00"> 20:00 </option><option value="20:30"> 20:30 </option><option value="21:00"> 21:00 </option><option value="21:30"> 21:30 </option><option value="22:00"> 22:00 </option><option value="22:30"> 22:30 </option><option value="23:00"> 23:00 </option><option value="23:30"> 23:30 </option><option value="Closed"> Closed </option></select>
                     </div>
                     <div class="col-sm-3">
-                      <input type="checkbox" value="0" name="other" class="other"> <label for="Name" class="control-label">Closed</label>
+                      <input type="checkbox" value="0" name="other" class="close_0"> <label for="Name" class="control-label">Closed</label>
                     </div>
                 </div>
 

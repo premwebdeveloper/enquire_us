@@ -23,8 +23,10 @@ class Profile extends Controller
     {
     	$currentuserid = Auth::user()->id;
 
-    	$profile = DB::table('user_details')->where('user_id', $currentuserid)->first();
+        $location = DB::table('user_location')->where('user_id', $currentuserid)->first();
+    	
+        $contact = DB::table('user_details')->where('user_id', $currentuserid)->first();
 
-    	return view('profile.profile', array('profile' => $profile));
+    	return view('profile.profile', array('location' => $location, 'contact' => $contact));
     }
 }
