@@ -40,7 +40,9 @@
 
             <li><a href="{{route('users')}}"><i class="fa fa-users"></i> <span class="nav-label">Users</span></a></li>
 
-            <li class="active"><a href="{{route('users')}}"><i class="fa fa-users"></i> <span class="nav-label">Users</span></a></li>
+            <li><a href="{{route('Category')}}"><i class="fa fa-users"></i> <span class="nav-label">Category</span></a></li>
+            
+            <li><a href="{{route('subCategory')}}"><i class="fa fa-users"></i> <span class="nav-label">subCategory</span></a></li>
 
             <li><a href="{{route('users')}}"><i class="fa fa-users"></i> <span class="nav-label">Users</span></a></li>
 		</ul>

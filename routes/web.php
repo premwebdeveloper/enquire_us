@@ -41,4 +41,15 @@ Route::group(['middleware' => 'App\Http\Middleware\Admin'], function()
 	Route::get('users', 'AdminUsers@index')->name('users');
     Route::post('active_inactive', 'AdminUsers@active_inactive')->name('active_inactive');
     Route::get('view', 'AdminUsers@view')->name('view');
+    // category
+    Route::get('add_category', 'Categories@add_category')->name('add_category');
+    Route::post('addCategory', 'Categories@addCategory')->name('addCategory');
+    Route::get('Category', 'Categories@Category')->name('Category');
+    Route::post('editCat', 'Categories@editCat')->name('editCat');
+    // subcategory
+    Route::get('add_subCategory', 'Categories@add_subCategory')->name('add_subCategory');
+    Route::post('addSubCategory', 'Categories@addSubCategory')->name('addSubCategory');
+    Route::get('subCategory', 'Categories@subCategory')->name('subCategory');
+    Route::post('editsubCat', 'Categories@editsubCat')->name('editsubCat');
+    
 });
