@@ -48,10 +48,10 @@ class AjaxController extends Controller
         return response()->json($response);
 
         exit;
-    }  
+    }
 
     // update_contact_info
-	public function update_contact_info(Request $request)
+    public function update_contact_info(Request $request)
     {
         $date = date('Y-m-d H:i:s');
 
@@ -85,6 +85,101 @@ class AjaxController extends Controller
         );
 
         $response = array('messager' => 'Update Contact Information');
+
+        return response()->json($response);
+
+        exit;
+    }
+
+    // Update other information
+	public function update_other_info(Request $request)
+    {
+        $date = date('Y-m-d H:i:s');
+
+        $user_id = $request->user_id;
+        $establishment_year = $request->establishment_year;
+        $annual_turnover = $request->annual_turnover;
+        $number_employees = $request->number_employees;
+        $professional_association = $request->professional_association;
+        $certification = $request->certification;
+        $from_time = $request->from_time;
+        $to_time = $request->to_time;
+        $payment_mode = $request->payment_mode;
+
+        if(!empty($payment_mode))
+        {
+            $payment_mode = implode("|", $payment_mode);
+        }
+        else
+        {
+            $payment_mode = '';
+        }
+
+        $i = 1;
+        $p = 0;
+        foreach ($from_time as $from)
+        {
+            $operation_timing = 1;
+            if($i > 7){ $operation_timing = 2; }
+
+            if($i == 1 || $i == 8){ $day = 'monday'; }
+            if($i == 2 || $i == 9){ $day = 'tuesday'; }
+            if($i == 3 || $i == 10){ $day = 'wednesday'; }
+            if($i == 4 || $i == 11){ $day = 'thursday'; }
+            if($i == 5 || $i == 12){ $day = 'friday'; }
+            if($i == 6 || $i == 13){ $day = 'saturday'; }
+            if($i == 7 || $i == 14){ $day = 'sunday'; }
+
+            if($from == 'closed')
+            {
+                $from = '00:00';
+                $working_status = 0;
+            }
+            else
+            {
+                $working_status = 1;
+            }
+
+            if($to_time[$p] == 'closed')
+            {
+                $time = '00:00';
+            }
+            else
+            {
+                $time = $to_time[$p];
+            }
+
+            $where = ['user_id' => $user_id, 'operation_timing' => $operation_timing, 'day' => $day];
+
+            DB::table('user_other_information')
+                ->where($where)
+                ->update(
+                    array(
+                        'from_time' => $from,
+                        'to_time' => $time,
+                        'working_status' => $working_status,
+                        'updated_at' => $date
+                    )
+            );
+            $i++;
+            $p++;
+        }
+
+        $other_info_update = DB::table('user_company_information')->where('user_id', $user_id)->update(
+            array(
+                'payment_mode' => $payment_mode,
+                'year_establishment' => $establishment_year,
+                'annual_turnover' => $annual_turnover,
+                'no_of_emps' => $number_employees,
+                'professional_associations' => $professional_association,
+                'certifications' => $certification,
+                'created_at' => $date,
+                'updated_at' => $date,
+                'status' => 1
+            )
+        );
+
+        $response = array('message' => 'Update other information successfully');
 
         return response()->json($response);
 
