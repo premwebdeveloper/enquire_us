@@ -140,20 +140,21 @@
     });
 
     // Select State
-    $(document).on("change", "#country", function(){
-        var country = $('#country').val();
-        if(country == '')
+    $(document).on("change", "#city", function(){
+        var city = $('#city').val();
+        //alert(city);
+        if(city == '')
         {
-          $("#state").html('');
-          $("#state").html('<option value="">Select State</option>');
-          $("#state").attr('disabled', 'disabled');
+          $("#pin_code").html('');
+          $("#pin_code").html('<option value="">Select Pincode</option>');
+          $("#pin_code").attr('disabled', 'disabled');
         }
         else
         {
           $.ajax({
               method: 'post',
-              url: 'getStateByCountryForUser',
-              data: {"_token": "{{ csrf_token() }}", 'country' : country},
+              url: 'getPincodeByCityForUser',
+              data: {"_token": "{{ csrf_token() }}", 'city' : city},
               async: true,
               success: function(response){
 
@@ -161,12 +162,12 @@
 
                   var states = '';
                   $.each(response, function(i, item) {
-                  states += '<option value="'+item.id+'">'+item.name+'</option>';
+                  states += '<option value="'+item.id+'">'+item.pincode+'</option>';
               })
 
-              $("#state").html('');
-              $("#state").html(states);
-              $("#state").removeAttr('disabled');
+              $("#pin_code").html('');
+              $("#pin_code").html(states);
+              $("#pin_code").removeAttr('disabled');
               },
               error: function(data){
                   console.log(data);
@@ -175,42 +176,6 @@
         }
 
     });
-
-    // Select Address City
-    $(document).on("change", "#state", function(){
-        var state = $('#state').val();
-          if(state == '')
-          {
-            $("#city").html('');
-            $("#city").html('<option value="">Select City</option>');
-            $("#city").attr('disabled', 'disabled');
-          }
-          else
-          {
-              $.ajax({
-                method: 'post',
-                url: 'getStateByStateForUser',
-                data: {"_token": "{{ csrf_token() }}", 'state' : state},
-                async: true,
-                success: function(response){
-
-                  console.log(response);
-
-                    var cities = '';
-                    $.each(response, function(i, item) {
-                    cities += '<option value="'+item.id+'">'+item.name+'</option>';
-                })
-
-                $("#city").html('');
-                $("#city").html(cities);
-                $("#city").removeAttr('disabled');
-                },
-                error: function(data){
-                    console.log(data);
-                },
-              });
-          }
-        });
 
     // Copy timing from monday to sunday shift 1
     $(document).on('click', '.timing', function(){
@@ -422,8 +387,8 @@
                       <div class="col-sm-6">
 
                         <select class="form-control" name="city" id="city">
-                          @foreach($states as $state)
-                            <option value="{{$state->id}}"> {{$state->name}}</option>
+                          @foreach($cities as $city)
+                            <option value="{{$city->name}}"> {{$city->name}}</option>
                           @endforeach
                         </select>
 
@@ -438,18 +403,7 @@
                       <div class="col-sm-6">
 
                         <select name="pin_code" id="pin_code" class="validate[required] form-control">
-                          @if(!empty($location->pincode))
-                            <option value="{{$location->pincode}}">{{$location->pincode}}</option>
-                            <option value="">Select</option>
-                            <option id="302001" value="302001">302001</option>
-                            <option id="302002" value="302002">302002</option>
-                            <option id="302003" value="302003">302003</option>
-                          @else
-                            <option value="">Select</option>
-                            <option id="302001" value="302001">302001</option>
-                            <option id="302002" value="302002">302002</option>
-                            <option id="302003" value="302003">302003</option>
-                          @endif
+                            <option value="">Select Pincode</option>
                         </select>
 
                       </div>
