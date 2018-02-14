@@ -130,3 +130,21 @@ ALTER TABLE `user_keywords`
 
 ALTER TABLE `user_keywords`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+-- ---------------------------CREATE Table 'areas' on 14-02-2018--------------------------
+CREATE TABLE `areas` (
+  `id` int(11) NOT NULL,
+  `country` int(11) NOT NULL,
+  `state` int(11) NOT NULL,
+  `city` int(11) NOT NULL,
+  `area` varchar(255) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `areas`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `areas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
