@@ -12,6 +12,8 @@
 
 <script type="text/javascript">
   $(document).ready(function(){
+
+    // Update user location
     $(document).on("click", "#location_submit", function(e){
       e.preventDefault();
 
@@ -137,8 +139,8 @@
 
     });
 
-    //# Select State
-      $(document).on("change", "#country", function(){
+    // Select State
+    $(document).on("change", "#country", function(){
         var country = $('#country').val();
         if(country == '')
         {
@@ -172,10 +174,10 @@
           });
         }
 
-      });
+    });
 
-      //# Select Address City
-      $(document).on("change", "#state", function(){
+    // Select Address City
+    $(document).on("change", "#state", function(){
         var state = $('#state').val();
           if(state == '')
           {
@@ -418,13 +420,13 @@
                       <label for="Country" class="col-sm-4 control-label">City:</label>
 
                       <div class="col-sm-6">
-                        
+
                         <select class="form-control" name="city" id="city">
                           @foreach($states as $state)
                             <option value="{{$state->id}}"> {{$state->name}}</option>
                           @endforeach
                         </select>
-                      
+
                       </div>
 
                     </div>
@@ -480,39 +482,27 @@
     </div>
 
     <div role="tabpanel" class="tab-pane" id="contact">
-      <div class="col-sm-10 edit_profile">
+        <div class="col-sm-10 edit_profile">
           <div class="box">
-            <form action="javascript:;" method="post" accept-charset="utf-8" id="contact_info" class="form-horizontal" enctype="multipart/form-data">
+              <form action="javascript:;" method="post" accept-charset="utf-8" id="contact_info" class="form-horizontal" enctype="multipart/form-data">
 
                 <input type="hidden" name="user_id" class="user_id" value="{{ $location->user_id }}">
 
                 <fieldset>
-
                   <div class="controls">
 
                     <div class="form-group">
-
                       <label for="Name" class="col-sm-4 control-label">Contact Person: </label>
-
                       <div class="col-sm-6">
-
                           <input class="form-control" name="contact_person" id="contact_person" type="text" value="{{ $contact->name }}">
-
-
                       </div>
-
                     </div>
 
                     <div class="form-group">
-
                       <label for="Email" class="col-sm-4 control-label">Landline No: </label>
-
                       <div class="col-sm-6">
-
                         <input class="form-control" name="landline" id="landline" value="{{ $contact->landline }}">
-
                       </div>
-
                     </div>
 
                   </div>
@@ -520,121 +510,72 @@
                   <div class="controls">
 
                     <div class="form-group">
-
                       <label for="Address" class="col-sm-4 control-label">Mobile No: </label>
-
                       <div class="col-sm-6">
-
                         <input class="form-control" name="mobile" id="mobile" value="{{ $contact->phone }}">
-
-
                       </div>
-
                     </div>
 
                     <div class="form-group">
-
                       <label for="Country" class="col-sm-4 control-label">Fax No:</label>
-
                       <div class="col-sm-6">
-
                         <input class="form-control" name="fax" id="fax" value="{{ $contact->fax1 }}">
-
                       </div>
-
                     </div>
 
                     <div class="form-group ">
-
                       <label for="Country" class="col-sm-4 control-label">Fax No 2:</label>
-
                       <div class="col-sm-6">
-
                        <input class="form-control" name="fax2" id="fax2" value="{{ $contact->fax2 }}">
-
                       </div>
-
                     </div>
 
-                    <div class="form-group ">
-
+                    <div class="form-group">
                       <label for="Country" class="col-sm-4 control-label">Toll Free No:</label>
-
                       <div class="col-sm-6">
-
                         <input class="form-control" name="toll_free" id="toll_free" value="{{ $contact->toll_free1 }}">
-
                       </div>
-
                     </div>
 
                     <div class="form-group">
-
                       <label for="Country" class="col-sm-4 control-label">Toll Free No 2:</label>
-
                       <div class="col-sm-6">
-
                         <input class="form-control" name="toll_free2" id="toll_free2" value="{{ $contact->toll_free2 }}">
-
                       </div>
-
                     </div>
 
                     <div class="form-group">
-
                       <label for="State" class="col-sm-4 control-label">Email ID </label>
-
                       <div class="col-sm-6">
-
                         <input class="form-control" name="email" id="userEmail" value="{{ $contact->email }}">
-
                       </div>
-
                     </div>
 
                     <div class="form-group">
-
                       <label for="City" class="col-sm-4 control-label">Website:</label>
-
                       <div class="col-sm-6">
-
                         <input class="form-control" name="website" id="website" value="{{ $contact->website }}">
-
                       </div>
-
                     </div>
-
 
                   </div>
 
-                <div class="buttons">
+                  <div class="buttons">
                     <div class="left">
-
                       <label class="checkbox-inline">
-
                         <a class="btn btn-primary back" data-original-title="" title="">Prev</a>
-
                       </label>
-
                     </div>
                     <div class="right">
-
                       <label class="checkbox-inline">
-
                         <a class="btn btn-primary continue" data-original-title="" id="contact_update">Next</a>
-
                       </label>
-
                     </div>
-
                   </div>
 
                   </fieldset>
-
-                </form>
-
-           </div>
-
+              </form>
+          </div>
         </div>
         <a class=""></a>
     </div>
@@ -646,7 +587,6 @@
         <h4>Hours of Operation</h4>
             <form action="javascript:;" method="post" id="other_information_form" class="form-horizontal">
                 <fieldset>
-
                   <input type="hidden" name="user_id" class="user_id" id="current_user_id" value="{{ $location->user_id }}">
 
                   <p>
@@ -739,9 +679,9 @@
                       });
                     </script>
 
-               <hr>
+                  <hr />
 
-               <h4>Payment Modes Accepted By You</h4>
+                  <h4>Payment Modes Accepted By You</h4>
 
                   <div class="form-group required">
 
@@ -814,14 +754,12 @@
 
                   </div>
 
-                <hr>
+                  <hr />
 
-                <h4>Company Information</h4>
+                  <h4>Company Information</h4>
 
                     <div class="form-group required">
-
                       <label for="Name" class="col-sm-4 control-label">Year Of Establishment: </label>
-
                       <div class="col-sm-2">
                         <input class="form-control" name="establishment_year" id="establishment_year" type="text" placeholder="1995" value="{{ $company->year_establishment }}">
                       </div>
@@ -832,7 +770,6 @@
 
                       <div class="col-sm-3">
                         <select class="form-control" id="number_employees" name="number_employees">
-
                           <option value="">Select Employees</option>
                           <option value="Less than 10" <?= $company->no_of_emps == 'Less than 10' ? ' selected="selected"' : '';?>>Less than 10</option>
                           <option value="10-100" <?= $company->no_of_emps == '10-100' ? ' selected="selected"' : '';?>>10-100</option>
@@ -862,26 +799,22 @@
                     </div>
 
                     <div class="buttons">
-
                       <div class="left">
                         <label class="checkbox-inline">
                           <a class="btn btn-primary back" data-original-title="" title="">Prev</a>
                         </label>
                       </div>
-
                       <div class="right">
                         <label class="checkbox-inline">
                           <a class="btn btn-primary continue" id="updateOtherInformation">Next</a>
                         </label>
                       </div>
-
                     </div>
 
                   </div>
                 </fieldset>
 
             </form>
-
           </div>
         </div>
         <a class=""></a>
@@ -893,94 +826,63 @@
         <p>For business keywords that you no longer wish to be listed in simply click on cross next to the keyword and when you are done, Click "Save"</p>
 
           <div class="box">
-
               <div class="col-sm-12">
-
                 <a href="javascript:;" class="continue" style="color:#3b5998;font-weight: bold;float:right">Add more keywords</a>
-                <hr>
-
-                <hr>
-
               </div>
-           <div class="buttons">
-              <div class="left">
-
-                <label class="checkbox-inline">
-
-                  <a class="btn btn-primary back" data-original-title="" title="">Prev</a>
-
-                </label>
-
+              <div class="buttons">
+                <div class="left">
+                  <label class="checkbox-inline">
+                    <a class="btn btn-primary back" data-original-title="" title="">Prev</a>
+                  </label>
+                </div>
+                <div class="right">
+                  <label class="checkbox-inline">
+                    <a class="btn btn-primary continue" data-original-title="" title="">Next</a>
+                  </label>
+                </div>
               </div>
-              <div class="right">
-
-                <label class="checkbox-inline">
-
-                  <a class="btn btn-primary continue" data-original-title="" title="">Next</a>
-
-                </label>
-
-              </div>
-
-          </div>
           </div>
 
-        </div>
-        <a class=""></a>
+      </div>
+      <a class=""></a>
     </div>
 
     <div role="tabpanel" class="tab-pane" id="add_keywords">
       <div class="col-sm-10 edit_profile">
 
           <div class="box">
+            <h4>Type your Business Keywords and click Search</h4>
+            <br>
+            <form action="javascript:;" method="post" accept-charset="utf-8" id="form-profile" class="form-horizontal" enctype="multipart/form-data">
 
-                <h4>Type your Business Keywords and click Search</h4>
-                <br>
-                <form action="javascript:;" method="post" accept-charset="utf-8" id="form-profile" class="form-horizontal" enctype="multipart/form-data">
+              <fieldset>
+                <div class="controls">
 
-                  <fieldset>
-
-                    <div class="controls">
-
-                      <div class="form-group required">
-
-                        <div class="col-sm-10">
-
-                            <input class="form-control" name="customer_name" id="customer_name" type="text">
-
-                        </div>
-                        <div class="col-sm-2">
-                          <button type="submit" class="btn btn-info">Search</button>
-                        </div>
-
-                      </div>
-
+                  <div class="form-group required">
+                    <div class="col-sm-10">
+                        <input class="form-control" name="customer_name" id="customer_name" type="text">
                     </div>
-                    <div class="buttons">
-                      <div class="left">
-
-                        <label class="checkbox-inline">
-
-                          <a class="btn btn-primary back" data-original-title="" title="">Prev</a>
-
-                        </label>
-
-                      </div>
-                      <div class="right">
-
-                        <label class="checkbox-inline">
-
-                          <a class="btn btn-primary continue" data-original-title="" title="">Next</a>
-
-                        </label>
-
-                      </div>
-
+                    <div class="col-sm-2">
+                      <button type="submit" class="btn btn-info">Search</button>
                     </div>
-                  </fieldset>
+                  </div>
 
-              </form>
-              </div>
+                </div>
+                <div class="buttons">
+                  <div class="left">
+                    <label class="checkbox-inline">
+                      <a class="btn btn-primary back" data-original-title="" title="">Prev</a>
+                    </label>
+                  </div>
+                  <div class="right">
+                    <label class="checkbox-inline">
+                      <a class="btn btn-primary continue" data-original-title="" title="">Next</a>
+                    </label>
+                  </div>
+                </div>
+              </fieldset>
+            </form>
+          </div>
         </div>
     </div>
 
@@ -988,77 +890,51 @@
     <div class="col-sm-10 edit_profile">
 
       <div class="box">
-
-            <h4>Upload logo/Photos</h4>
-            <br>
-            <form action="javascript:;" method="post" accept-charset="utf-8" id="form-profile" class="form-horizontal" enctype="multipart/form-data">
-
-              <fieldset>
-
-                <div class="controls">
+          <h4>Upload logo/Photos</h4>
+          <br>
+          <form action="javascript:;" method="post" accept-charset="utf-8" id="form-profile" class="form-horizontal" enctype="multipart/form-data">
+            <fieldset>
+              <div class="controls">
 
                 <div class="form-group required">
-
                   <label for="Name" class="col-sm-4 control-label">Upload Logo: </label>
-
                   <div class="col-sm-6">
-
                       <input class="form-control" name="customer_name" id="customer_name" type="file">
-
                   </div>
-
                 </div>
 
                 <div class="form-group required">
-
                   <label for="Name" class="col-sm-4 control-label">Upload Photos: </label>
-
                   <div class="col-sm-6">
-
                       <input class="form-control" name="photo[]" id="customer_name" type="file" multiple>
-
                   </div>
-
                 </div>
 
+              </div>
+              <div class="buttons">
+                <div class="left">
+                  <label class="checkbox-inline">
+                    <a class="btn btn-primary back" data-original-title="" title="">Prev</a>
+                  </label>
                 </div>
-                <div class="buttons">
-                  <div class="left">
-
-                    <label class="checkbox-inline">
-
-                      <a class="btn btn-primary back" data-original-title="" title="">Prev</a>
-
-                    </label>
-
-                  </div>
-                  <div class="right">
-
-                    <label class="checkbox-inline">
-
-                      <a class="btn btn-primary continue" data-original-title="" title="">Save & Exit</a>
-
-                    </label>
-
-                  </div>
-
+                <div class="right">
+                  <label class="checkbox-inline">
+                    <a class="btn btn-primary continue" data-original-title="" title="">Save & Exit</a>
+                  </label>
                 </div>
-              </fieldset>
-
-          </form>
-
-          </div>
+              </div>
+            </fieldset>
+        </form>
+      </div>
 
     </div>
-
   </div>
-
 </div>
 
- <div id="push"></div>
+<div id="push"></div>
 
 
-    </div>
+</div>
 
 </div>
 </div>

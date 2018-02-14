@@ -113,3 +113,20 @@ ALTER TABLE `user_images`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `user_images` CHANGE `image` `image` VARCHAR(255) NULL DEFAULT NULL;
+
+-- ---------------------------CREATE Table 'user_keywords' on 14-02-2018--------------------------
+CREATE TABLE `user_keywords` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `cat_id` int(11) NOT NULL,
+  `subcat_id` int(11) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `user_keywords`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `user_keywords`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
