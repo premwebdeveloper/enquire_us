@@ -15,7 +15,7 @@
     </div>
     <div class="col-lg-2 text-right">
         <h2>
-            <a href="{{ route('add_category') }}" class="btn btn-info">Add subCateogry</a>
+            <a href="{{ route('add_subCategory') }}" class="btn btn-info">Add subCateogry</a>
         </h2>
     </div> 
 </div>

@@ -185,4 +185,25 @@ class AjaxController extends Controller
 
         exit;
     }
+
+
+    public function getStateByCountryForUser(Request $request)
+    {
+        $country = $request->country;
+
+        // Get all districts of this state
+        $states = DB::table('states')->where('country_id', $country)->get();
+
+        return response()->json($states);
+    }
+
+    public function getStateByStateForUser(Request $request)
+    {
+        $state = $request->state;
+
+        // Get all districts of this state
+        $cities = DB::table('cities')->where('state_id', $state)->get();
+
+        return response()->json($cities);
+    }
 }

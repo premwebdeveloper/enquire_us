@@ -34,6 +34,10 @@ Route::post('/update_other_info', 'AjaxController@update_other_info')->name('upd
 
 Route::post('/update_contact_info', 'AjaxController@update_contact_info')->name('update_contact_info');
 
+Route::post('getStateByCountryForUser', 'AjaxController@getStateByCountryForUser')->name('getStateByCountryForUser');
+
+Route::post('getStateByStateForUser', 'AjaxController@getStateByStateForUser')->name('getStateByStateForUser');
+
 ////////////////////////////////////////////////////////
 // Admin Permissions Only Admin can access these urls //
 ////////////////////////////////////////////////////////

@@ -137,6 +137,79 @@
 
     });
 
+    //# Select State
+      $(document).on("change", "#country", function(){
+        var country = $('#country').val();
+        if(country == '')
+        {
+          $("#state").html('');
+          $("#state").html('<option value="">Select State</option>');
+          $("#state").attr('disabled', 'disabled');
+        }
+        else
+        {
+          $.ajax({
+              method: 'post',
+              url: 'getStateByCountryForUser',
+              data: {"_token": "{{ csrf_token() }}", 'country' : country},
+              async: true,
+              success: function(response){
+
+                console.log(response);
+
+                  var states = '';
+                  $.each(response, function(i, item) {
+                  states += '<option value="'+item.id+'">'+item.name+'</option>';
+              })
+
+              $("#state").html('');
+              $("#state").html(states);
+              $("#state").removeAttr('disabled');
+              },
+              error: function(data){
+                  console.log(data);
+              },
+          });
+        }
+
+      });
+
+      //# Select Address City
+      $(document).on("change", "#state", function(){
+        var state = $('#state').val();
+          if(state == '')
+          {
+            $("#city").html('');
+            $("#city").html('<option value="">Select City</option>');
+            $("#city").attr('disabled', 'disabled');
+          }
+          else
+          {
+              $.ajax({
+                method: 'post',
+                url: 'getStateByStateForUser',
+                data: {"_token": "{{ csrf_token() }}", 'state' : state},
+                async: true,
+                success: function(response){
+
+                  console.log(response);
+
+                    var cities = '';
+                    $.each(response, function(i, item) {
+                    cities += '<option value="'+item.id+'">'+item.name+'</option>';
+                })
+
+                $("#city").html('');
+                $("#city").html(cities);
+                $("#city").removeAttr('disabled');
+                },
+                error: function(data){
+                    console.log(data);
+                },
+              });
+          }
+        });
+
     // Copy timing from monday to sunday shift 1
     $(document).on('click', '.timing', function(){
       var id = $(this).attr('id');
@@ -178,9 +251,6 @@
       }
 
     });
-
-
-    // Copy timing from monday to sunday shift 2
 
 });
 </script>
@@ -325,12 +395,36 @@
 
                     <div class="form-group">
 
+                      <label for="City" class="col-sm-4 control-label">Country:</label>
+
+                      <div class="col-sm-6">
+                        <input class="form-control" name="country" id="country" value="India" readonly>
+                      </div>
+
+                    </div>
+
+                    <div class="form-group">
+
+                      <label for="State" class="col-sm-4 control-label">State/Region: </label>
+
+                      <div class="col-sm-6">
+                        <input class="form-control" name="state" id="state" value="Rajasthan" readonly>
+                      </div>
+
+                    </div>
+
+                    <div class="form-group">
+
                       <label for="Country" class="col-sm-4 control-label">City:</label>
 
                       <div class="col-sm-6">
-
-                        <input class="form-control" name="city" id="city" value="{{ $location->city }}">
-
+                        
+                        <select class="form-control" name="city" id="city">
+                          @foreach($states as $state)
+                            <option value="{{$state->id}}"> {{$state->name}}</option>
+                          @endforeach
+                        </select>
+                      
                       </div>
 
                     </div>
@@ -359,31 +453,6 @@
                       </div>
 
                     </div>
-
-                    <div class="form-group">
-
-                      <label for="State" class="col-sm-4 control-label">State/Region: </label>
-
-                      <div class="col-sm-6">
-
-                        <input class="form-control" name="state" id="state" value="{{ $location->state }}">
-
-                      </div>
-
-                    </div>
-
-                    <div class="form-group">
-
-                      <label for="City" class="col-sm-4 control-label">Country:</label>
-
-                      <div class="col-sm-6">
-
-                        <input class="form-control" name="country" id="country" value="{{ $location->country }}">
-
-                      </div>
-
-                    </div>
-
 
                   </div>
 

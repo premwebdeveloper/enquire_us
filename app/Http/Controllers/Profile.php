@@ -35,6 +35,9 @@ class Profile extends Controller
         // Get user other information
         $company = DB::table('user_company_information')->where('user_id', $currentuserid)->first();
 
-        return view('profile.profile', array('location' => $location, 'contact' => $contact, 'other' => $other, 'company' => $company));
+        // Get countries
+        $state = DB::table('states')->where('country_id', 101)->get();
+
+        return view('profile.profile', array('location' => $location, 'contact' => $contact, 'other' => $other, 'company' => $company, 'states' => $state));
     }
 }
