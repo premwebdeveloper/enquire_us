@@ -83,7 +83,7 @@ class AjaxController extends Controller
                     'status' => 1
             )
         );
-
+                   
         $response = array('messager' => 'Update Contact Information');
 
         return response()->json($response);
@@ -187,23 +187,14 @@ class AjaxController extends Controller
     }
 
 
-    public function getStateByCountryForUser(Request $request)
+    public function getPincodeByCityForUser(Request $request)
     {
-        $country = $request->country;
-
+        $city = $request->city;
+        
         // Get all districts of this state
-        $states = DB::table('states')->where('country_id', $country)->get();
+        $states = DB::table('pincodes')->where('city', $city)->get();
 
         return response()->json($states);
     }
 
-    public function getStateByStateForUser(Request $request)
-    {
-        $state = $request->state;
-
-        // Get all districts of this state
-        $cities = DB::table('cities')->where('state_id', $state)->get();
-
-        return response()->json($cities);
-    }
 }

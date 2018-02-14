@@ -36,8 +36,8 @@ class Profile extends Controller
         $company = DB::table('user_company_information')->where('user_id', $currentuserid)->first();
 
         // Get countries
-        $state = DB::table('states')->where('country_id', 101)->get();
+        $cities = DB::table('cities')->where('state_id', 33)->get();
 
-        return view('profile.profile', array('location' => $location, 'contact' => $contact, 'other' => $other, 'company' => $company, 'states' => $state));
+        return view('profile.profile', array('location' => $location, 'contact' => $contact, 'other' => $other, 'company' => $company, 'cities' => $cities));
     }
 }
