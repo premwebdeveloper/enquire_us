@@ -83,7 +83,7 @@ class AjaxController extends Controller
                     'status' => 1
             )
         );
-                   
+
         $response = array('messager' => 'Update Contact Information');
 
         return response()->json($response);
@@ -186,15 +186,136 @@ class AjaxController extends Controller
         exit;
     }
 
-
+    // Get pincodes according yo city
     public function getPincodeByCityForUser(Request $request)
     {
         $city = $request->city;
-        
+
         // Get all districts of this state
         $states = DB::table('pincodes')->where('city', $city)->get();
 
         return response()->json($states);
+    }
+
+    // get related keywords / category / sub category
+    public function getRelatedCategoryAndSubCatregories(Request $request)
+    {
+        $cat_id = $request->cat_id;
+        $category = $request->category;
+        $status = $request->status;
+
+        $relatedData = array();
+
+        if($status == 1)
+        {
+            // Get related sub categories
+            $sub_categories = DB::table('subcategory')->where('cat_id', $cat_id)->get();
+
+            foreach ($sub_categories as $key => $data) {
+                $relatedData[] = array('id'=>$data->id,'category'=>$data->subcategory,'status'=>'2');
+            }
+        }
+        else
+        {
+            // Get related category
+            $subcategory = DB::table('subcategory')->where('id', $cat_id)->first();
+
+            $category = DB::table('category')->where('id', $subcategory->cat_id)->first();
+
+            $relatedData[] = array('id'=>$category->id, 'category'=>$category->category, 'status'=>'1');
+
+            // Get related sub categories
+            $sub_categories = DB::table('subcategory')->where('cat_id', $category->id)->get();
+
+            foreach ($sub_categories as $key => $data) {
+                $relatedData[] = array('id'=>$data->id, 'category'=>$data->subcategory, 'status'=>'2');
+            }
+        }
+
+        return $relatedData;
+    }
+
+    // search keywords and related words
+    public function searchResponse(Request $request){
+        $term = $request->term;
+        $data = array();
+
+        // Get all matched category and their sub categories and show
+        $categories = DB::table('category');
+        $categories->where('category','LIKE','%'.$term.'%');
+        $categories = $categories->get();
+
+        foreach ($categories as $cat) {
+
+            $data[] = array('cat_id'=>$cat->id,'category'=>$cat->category,'status'=>'1'); //,'sub_cat_id'=>'','sub_category'=>''
+
+            // Get sub categories of this category
+            $sub_categories = DB::table('subcategory')->where('cat_id', $cat->id)->get();
+            foreach ($sub_categories as $key => $sub_cat) {
+                //$data[] = array('cat_id'=>$cat->id.'-'.$sub_cat->id,'category'=>$cat->category.'-'.$sub_cat->subcategory);
+                $data[] = array('cat_id'=>$sub_cat->id,'category'=>$sub_cat->subcategory,'status'=>'2');
+            }
+        }
+
+        // Get all matched sub categories and their category and show
+        $subcategories = DB::table('subcategory');
+        $subcategories->where('subcategory','LIKE','%'.$term.'%');
+        $subcategories = $subcategories->get();
+
+        foreach ($subcategories as $subcat) {
+            $data[] = array('cat_id'=>$subcat->id,'category'=>$subcat->subcategory,'status'=>'2');
+
+            // Get main category of this sub category
+            $cate = DB::table('category')->where('id', $subcat->cat_id)->first();
+
+            $avail = 0;
+            foreach ($data as $key => $d) {
+                if($d['cat_id'] == $cate->id && $d['status'] == 1)
+                {
+                    $avail++;
+                }
+            }
+
+            if($avail == 0)
+            {
+                $data[] = array('cat_id'=>$cate->id,'category'=>$cate->category,'status'=>'1');
+            }
+
+        }
+
+        if(count($data))
+             return $data;
+        else
+            return ['id'=>'','category'=>''];
+    }
+
+    // Save keywords in db
+    public function save_keywords(Request $request)
+    {
+        $date = date('Y-m-d H:i:s');
+
+        $currentuserid = Auth::user()->id;
+
+        $checked_keywords = $request->checked_keywords;
+
+        foreach ($checked_keywords as $key => $keyword) {
+            $temp = explode("-", $keyword);
+            $key_word = $temp[0];
+            $key_identity = $temp[1];
+
+            $insert = DB::table('user_keywords')->insert(
+                array(
+                        'user_id' => $currentuserid,
+                        'keyword_id' => $key_word,
+                        'keyword_identity' => $key_identity,
+                        'created_at' => $date,
+                        'updated_at' => $date,
+                        'status' => 1
+                )
+            );
+        }
+
+        echo 1;
     }
 
 }
