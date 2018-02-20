@@ -36,7 +36,14 @@ Route::post('/update_contact_info', 'AjaxController@update_contact_info')->name(
 
 Route::post('getPincodeByCityForUser', 'AjaxController@getPincodeByCityForUser')->name('getPincodeByCityForUser');
 
-//Route::post('getStateByStateForUser', 'AjaxController@getStateByStateForUser')->name('getStateByStateForUser');
+// Search keywords category / sub category
+Route::get('searchajax', ['as'=>'searchajax','uses'=>'AjaxController@searchResponse']);
+
+// Get related keywords category / sub category
+Route::post('getRelatedCategoryAndSubCatregories', 'AjaxController@getRelatedCategoryAndSubCatregories')->name('getRelatedCategoryAndSubCatregories');
+
+// Save keywords
+Route::post('save_keywords', 'AjaxController@save_keywords')->name('save_keywords');
 
 ////////////////////////////////////////////////////////
 // Admin Permissions Only Admin can access these urls //
@@ -57,5 +64,5 @@ Route::group(['middleware' => 'App\Http\Middleware\Admin'], function()
     Route::post('addSubCategory', 'Categories@addSubCategory')->name('addSubCategory');
     Route::get('subCategory', 'Categories@subCategory')->name('subCategory');
     Route::post('editsubCat', 'Categories@editsubCat')->name('editsubCat');
-    
+
 });

@@ -148,3 +148,8 @@ ALTER TABLE `areas`
 
 ALTER TABLE `areas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+-- ---------------------------ALTER Table 'user_keywords' on 20-02-2018--------------------------
+ALTER TABLE `user_keywords` DROP `subcat_id`;
+ALTER TABLE `user_keywords` CHANGE `cat_id` `keyword_id` INT(11) NOT NULL;
+ALTER TABLE `user_keywords` ADD `keyword_identity` INT NOT NULL AFTER `keyword_id`;
