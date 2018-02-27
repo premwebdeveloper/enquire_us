@@ -38,6 +38,29 @@ class Profile extends Controller
         // Get countries
         $cities = DB::table('cities')->where('state_id', 33)->get();
 
-        return view('profile.profile', array('location' => $location, 'contact' => $contact, 'other' => $other, 'company' => $company, 'cities' => $cities));
+        // Get selected keywords
+        $where = array('user_id' => $currentuserid, 'status' => 1);
+
+        $keywords = DB::table('user_keywords')->where($where)->get();
+
+        $saved_keywords = '';
+
+        foreach ($keywords as $key => $words)
+        {
+            if($words->keyword_identity == 1)
+            {
+                $category = DB::table('category')->where('id', $words->keyword_id)->first();
+
+                $saved_keywords .= '<div class="col-md-4 keywords p0" id="keyword_'.$category->id.'_1">'.$category->category.' &nbsp;&nbsp;<i class="fa fa-times deleteKeyword red text-right" id="delete_'.$category->id.'_1"></i></div>';
+            }
+            else
+            {
+                $subcategory = DB::table('subcategory')->where('id', $words->keyword_id)->first();
+
+                $saved_keywords .= '<div class="col-md-4 keywords p0" id="keyword_'.$subcategory->id.'_2">'.$subcategory->subcategory.' &nbsp;&nbsp;<i class="fa fa-times deleteKeyword red text-right" id="delete_'.$subcategory->id.'_2"></i></div>';
+            }
+        }
+
+        return view('profile.profile', array('location' => $location, 'contact' => $contact, 'other' => $other, 'company' => $company, 'cities' => $cities, 'keywords' => $saved_keywords));
     }
 }

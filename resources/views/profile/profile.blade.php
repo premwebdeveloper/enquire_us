@@ -8,6 +8,8 @@
     .tabs-wrap { margin-top: 40px;}
     .tab-content .tab-pane { padding: 20px 0;}
     .nav-tabs>li.active>a, .nav-tabs>li.active>a:focus, .nav-tabs>li.active>a:hover{ background: #eaeaea; }
+    .p0{padding: 0px;}
+    .red{color:red;}
   </style>
 
   <script type="text/javascript">
@@ -239,37 +241,43 @@
             			<div class="list-group sidebar-nav">
             			  <ul class="nav nav-tabs" role="tablist">
 
-                      <li role="presentation" class="active">
+                      <li role="presentation" class="active" id="dashboard_menu">
                         <a href="#dashboard" class="list-group-item" aria-controls="dashboard" role="tab" data-toggle="tab" aria-expanded="true">
                           <i class="fa fa-dashboard fa-fw"></i> <span>Dashboard</span>
                         </a>
                       </li>
-                      <li>
+
+                      <li id="location_menu">
                          <a href="#location" class="list-group-item" aria-controls="location" role="tab" data-toggle="tab" aria-expanded="false">
                           <i class="fa fa-map-marker fa-fw"></i> <span>Location Information</span>
                         </a>
                       </li>
-                      <li>
+
+                      <li id="contact_menu">
                          <a href="#contact" class="list-group-item" aria-controls="contact" role="tab" data-toggle="tab" aria-expanded="false">
                           <i class="fa fa-phone fa-fw"></i> <span>Contact Information</span>
                         </a>
                       </li>
-                      <li>
+
+                      <li id="other_menu">
                          <a href="#other" class="list-group-item" aria-controls="other" role="tab" data-toggle="tab" aria-expanded="false">
                           <i class="fa fa-cog fa-fw"></i> <span>Other Information</span>
                         </a>
                       </li>
-                      <li>
+
+                      <li id="business_menu">
                          <a href="#business" class="list-group-item" aria-controls="business" role="tab" data-toggle="tab" aria-expanded="false">
                           <i class="fa fa-cog fa-fw"></i> <span>Business Keywords</span>
                         </a>
                       </li>
-                      <li>
+
+                      <li id="keyword_menu">
                          <a href="#add_keywords" class="list-group-item text-center" role="tab" data-toggle="tab" style="color: #a59898;">
                             <i class="fa fa-arrow-right fa-fw"></i> <span>Add Keywords</span>
                         </a>
                       </li>
-                      <li>
+
+                      <li id="logo_menu">
                          <a href="#uploads_video" class="list-group-item" aria-controls="uploads_video" role="tab" data-toggle="tab" aria-expanded="false">
                           <i class="fa fa-photo fa-fw"></i> <span>Uploads Logo/Pictures</span>
                         </a>
@@ -727,21 +735,22 @@
                           <h4>Business Keywords</h4>
                           <p>For business keywords that you no longer wish to be listed in simply click on cross next to the keyword and when you are done, Click "Save"</p>
 
-                          <div class="col-sm-12" style="padding: 0px;">
-                            <a href="javascript:;" class="continue" style="color:#3b5998;font-weight: bold;float:right">    Add more keywords
+                          <div class="col-sm-12" style="padding: 0px;border-bottom: 1px solid #ddd;">
+                            <a href="javascript:;" class="continue" style="color:#3b5998;font-weight: bold;float:right">
+                                Add more keywords
                             </a>
                           </div>
 
                           <hr />
 
-                            <div class="col-md-12">
+                          <div class="col-md-12 p0" id="savedKeywords"> <?= $keywords; ?> </div>
 
-                            </div>
+                          <div class="col-md-12 p0">&nbsp;</div>
 
                           <div class="box">
                               <div class="buttons">
                                 <div class="left">
-                                  <label class="checkbox-inline">
+                                  <label class="checkbox-inline" style="padding-left: 0px;">
                                     <a class="btn btn-primary back" data-original-title="" title="">Prev</a>
                                   </label>
                                 </div>
@@ -835,24 +844,76 @@
                                   checked_keywords[i] = $(this).val();
                                 });
 
-                                alert(checked_keywords);
-
                                 $.ajax({
                                     method : 'post',
                                     url : 'save_keywords',
                                     async : true,
                                     data : {"_token": "{{ csrf_token() }}", 'checked_keywords': checked_keywords},
                                     success:function(response){
-                                        console.log(response);
+
+                                        if(response == 0)
+                                        {
+                                            alert('This keyword is already added!');
+                                        }
+                                        else if(response == 2)
+                                        {
+                                            alert('You can not add this keyword. Please contact to Administrator!');
+                                        }
+                                        else
+                                        {
+                                            // Get all Selected kwywords
+                                            $.ajax({
+                                                url : 'getSavedKeywords',
+                                                async : true,
+                                                data : {"_token": "{{ csrf_token() }}"},
+                                                success:function(response){
+
+                                                    $('input:checkbox[name="keyword"]').prop('checked', false);
+                                                    $("#add_keywords").removeClass("active");
+                                                    $("#business").addClass("active");
+
+                                                    $("#keyword_menu").removeClass("active");
+                                                    $("#business").addClass("active");
+
+                                                    $("#searched_result").html('');
+                                                    $("#savedKeywords").html('');
+                                                    $("#savedKeywords").html(response);
+
+                                                    $("#search_keywords").val('');
+                                                },
+                                                error: function(data){
+                                                    console.log(data);
+                                                },
+                                            });
+                                        }
                                     },
                                     error: function(data){
                                         console.log(data);
-                                        if(data == 1)
+                                    },
+                                });
+
+                            });
+
+                            // Delete keyword
+                            $(document).on('click', '.deleteKeyword', function(){
+                                var id = $(this).attr('id');
+                                var temp = id.split('_');
+                                var keyword_id = temp[1];
+                                var keyword_identity = temp[2];
+
+                                $.ajax({
+                                    method : 'post',
+                                    url : 'delete_keywords',
+                                    async : true,
+                                    data : {"_token": "{{ csrf_token() }}", 'keyword_id': keyword_id, 'keyword_identity': keyword_identity},
+                                    success:function(response){
+                                        if(response == 1)
                                         {
-                                            $('input:checkbox[name="keyword"]').prop('checked', false);
-
+                                            $("#keyword_"+keyword_id+"_"+keyword_identity+"").remove();
                                         }
-
+                                    },
+                                    error: function(data){
+                                        console.log(data);
                                     },
                                 });
 

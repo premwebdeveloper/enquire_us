@@ -293,11 +293,67 @@ class AjaxController extends Controller
     public function save_keywords(Request $request)
     {
         $date = date('Y-m-d H:i:s');
-
         $currentuserid = Auth::user()->id;
-
         $checked_keywords = $request->checked_keywords;
 
+        // First check if this keyword is already exist or not
+        foreach ($checked_keywords as $key => $word) {
+            $temp = explode("-", $word);
+            $key_word = $temp[0];
+            $key_identity = $temp[1];
+
+            // Get old keywords to match current keywords
+            $where = array('user_id' => $currentuserid, 'status' => 1, 'keyword_id' => $key_word, 'keyword_identity' => $key_identity);
+            $exist = DB::table('user_keywords')->where($where)->first();
+
+            if(!empty($exist))
+            {
+                echo 0;
+                exit;
+            }
+        }
+
+        // Check if the user want to add another category
+        $where = array('user_id' => $currentuserid, 'status' => 1);
+        $already_exist = DB::table('user_keywords')->where($where)->get();
+
+        foreach ($checked_keywords as $key => $word) {
+
+            $temp = explode("-", $word);
+            $key_word = $temp[0];
+            $key_identity = $temp[1];
+
+            foreach ($already_exist as $key => $exist) {
+
+                if($key_identity == 1)
+                {
+                    if($exist->keyword_id != $key_word && $exist->keyword_identity == $key_identity)
+                    {
+                        echo 2; exit;
+                    }
+                }
+                if($key_identity == 2)
+                {
+                    if($exist->keyword_identity == $key_identity)
+                    {
+                        $currentSubCatRow = DB::table('subcategory')->where('id', $key_word)->first();
+
+                        $existSubCatRow = DB::table('subcategory')->where('id', $exist->keyword_id)->first();
+
+                        $currentCatID = $currentSubCatRow->cat_id;
+
+                        $existCatID = $existSubCatRow->cat_id;
+
+                        if($currentCatID != $existCatID)
+                        {
+                            echo 2; exit;
+                        }
+                    }
+                }
+            }
+        }
+
+        // Insert keywords in database table
         foreach ($checked_keywords as $key => $keyword) {
             $temp = explode("-", $keyword);
             $key_word = $temp[0];
@@ -316,6 +372,57 @@ class AjaxController extends Controller
         }
 
         echo 1;
+    }
+
+    // Get saved keywords
+    public function getSavedKeywords()
+    {
+        $currentuserid = Auth::user()->id;
+
+        $saved_keywords = '';
+
+        $where = array('user_id' => $currentuserid, 'status' => 1);
+
+        $keywords = DB::table('user_keywords')->where($where)->get();
+
+        foreach ($keywords as $key => $words) {
+
+            if($words->keyword_identity == 1)
+            {
+                $category = DB::table('category')->where('id', $words->keyword_id)->first();
+
+                $saved_keywords .= '<div class="col-md-4 keywords p0" id="keyword_'.$category->id.'_1">'.$category->category.' &nbsp;&nbsp;<i class="fa fa-times deleteKeyword red text-right" title="Delete" id="delete_'.$category->id.'_1"></i></div>';
+            }
+            else
+            {
+                $subcategory = DB::table('subcategory')->where('id', $words->keyword_id)->first();
+
+                $saved_keywords .= '<div class="col-md-4 keywords p0" id="keyword_'.$subcategory->id.'_2">'.$subcategory->subcategory.' &nbsp;&nbsp;<i class="fa fa-times deleteKeyword red text-right" title="Delete" id="delete_'.$subcategory->id.'_2"></i></div>';
+            }
+        }
+
+        echo $saved_keywords;
+        exit;
+    }
+
+    public function delete_keywords(Request $request)
+    {
+        $date = date('Y-m-d H:i:s');
+        $user_id = Auth::user()->id;
+
+        $keyword_id = $request->keyword_id;
+        $keyword_identity = $request->keyword_identity;
+
+        $where = array('user_id' => $user_id, 'keyword_id' => $keyword_id, 'keyword_identity' => $keyword_identity);
+
+        $delete = DB::table('user_keywords')->where($where)->update(
+            array(
+                'updated_at' => $date,
+                'status' => 0
+            )
+        );
+
+        echo 1; exit;
     }
 
 }

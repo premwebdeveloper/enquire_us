@@ -38,6 +38,12 @@ Route::post('getRelatedCategoryAndSubCatregories', 'AjaxController@getRelatedCat
 // Save keywords
 Route::post('save_keywords', 'AjaxController@save_keywords')->name('save_keywords');
 
+// Get selected keywords
+Route::get('getSavedKeywords', 'AjaxController@getSavedKeywords')->name('getSavedKeywords');
+
+// Delete keywords
+Route::post('delete_keywords', 'AjaxController@delete_keywords')->name('delete_keywords');
+
 ////////////////////////////////////////////////////////
 // Admin Permissions Only Admin can access these urls //
 ////////////////////////////////////////////////////////
