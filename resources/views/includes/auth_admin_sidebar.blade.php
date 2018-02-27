@@ -44,7 +44,11 @@
             
             <li><a href="{{route('subCategory')}}"><i class="fa fa-users"></i> <span class="nav-label">subCategory</span></a></li>
 
-            <li><a href="{{route('users')}}"><i class="fa fa-users"></i> <span class="nav-label">Users</span></a></li>
+            <li><a href="{{route('area')}}"><i class="fa fa-users"></i> <span class="nav-label">Areas</span></a></li>
+            
+            <li><a href="{{route('slider')}}"><i class="fa fa-users"></i> <span class="nav-label">Home Slider</span></a></li>
+
+            <li><a href="{{route('website_pages')}}"><i class="fa fa-users"></i> <span class="nav-label">Website Pages</span></a></li>
 		</ul>
 	</div>
 </nav>

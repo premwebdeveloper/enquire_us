@@ -24,9 +24,17 @@
     <script src="{{ asset('resources/assets/js/demo/sparkline-demo.js') }}"></script>
     <script src="{{ asset('resources/assets/js/plugins/chartJs/Chart.min.js') }}"></script>
     <script src="{{ asset('resources/assets/js/plugins/toastr/toastr.min.js') }}"></script>
-
+    <script src="{{ asset('resources/assets/js/plugins/summernote/summernote.min.js') }}"></script>
+  
     @include('includes.auth_scripts')
+    <script>
+        $(document).ready(function(){
 
+            $('.summernote').summernote({
+                minHeight: 200
+            });
+        });
+    </script>
 </body>
 
 </html>

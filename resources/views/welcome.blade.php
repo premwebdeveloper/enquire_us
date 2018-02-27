@@ -13,45 +13,22 @@
 					<div class="col-sm-3">
 						<div class="row">
 							<div class="col-lg-12 res-catagories">
-								<a class="cata-box" href="category/food-and-drinks.html"><span>
-									<img src="resources/frontend_assets//images/food.png" alt="Restaurants Discount Offers, Vouchers, Coupons, Promo Code &amp; SMS Deals" />Food &amp; Drinks</span></a>
-
-								<a class="cata-box" href="category/beauty.html"><span>
-									<img src="resources/frontend_assets//images/beauty.png" alt="Beauty Discount Offers, Vouchers, Coupons, Promo Code &amp; SMS Deals" />Beauty</span></a>
-
-								<a class="cata-box" href="category/electronics.html"><span>
-									<img src="resources/frontend_assets//images/electronics.png" alt="Electronics Discount Offers, Vouchers, Coupons, Promo Code &amp; SMS Deals" />Electronics</span></a>
-
-								<a class="cata-box" href="category/moblie-and-laptop.html"><span>
-									<img src="resources/frontend_assets//images/mobile-tablets-small.png" alt="Mobile &amp; Laptop Discount Offers, Vouchers, Coupons, Promo Code &amp; SMS Deals" />Mobile &amp; Laptop</span></a>
-
-								<a class="cata-box" href="category/fashion.html"><span>
-									<img src="resources/frontend_assets//images/clothing.png" alt="Fashion Discount Offers, Vouchers, Coupons, Promo Code &amp; SMS Deals" />Fashion's</span></a>
-
-							 	<a class="cata-box" href="category/gift-and-jewellery.html"><span>
-							 		<img src="resources/frontend_assets//images/gifts-icon-small.png" alt="Gift &amp; Jewellery Discount Offers, Vouchers, Coupons, Promo Code &amp; SMS Deals" />Gift &amp; Jewellery</span></a>
-
-							 	<a class="cata-box" href="category/ecommerce.html"><span>
-							 		<img src="resources/frontend_assets//images/E-commerce-small.png" alt="E-Commerce Discount Offers, Vouchers, Coupons, Promo Code &amp; SMS Deals" />E-Commerce</span></a>
+                                @foreach($category as $cat)
+								    <a class="cata-box" href="javascript:;"><span>
+    									<img src="resources/frontend_assets//images/food.png" alt="{{ $cat->category }}" />{{ $cat->category }}</span>
+                                    </a>
+                                @endforeach
 							</div>
 						</div>
 					</div>
 					<div class="col-sm-9">
 						<div class="slider-wrapper theme-default">
 						  	<div id="slider" class="nivoSlider">
-						        <a href="grand-sultan-tea-resort-and-golf.html">
-						        	<img class="img-responsive" src="resources/frontend_assets//uploads/banner/e6f01314fab0326f86fffe3cb3c69031.jpg" alt="Grand Sultan Tea Resort & Golf" />
-						        </a>
-						        <a href="food-booking.html">
-						        	<img class="img-responsive" src="resources/frontend_assets//uploads/banner/d947622c3d8bb5c098864dda05a1e96c.jpg" alt="Event Food Booking" />
-						        </a>
-						        <a href="fantasy-kingdom.html">
-						        	<img class="img-responsive" src="resources/frontend_assets//uploads/banner/93aebfb8dfb6c80156c67890661c9a60.jpg" alt="Fantasy Kingdom Complex Coupon, Offer, Discount and More." />
-						        </a>
-						        <img class="img-responsive" src="resources/frontend_assets//uploads/banner/10dd0287672e638625148e8f8320a115.png" alt="Home Slider One" />
-						        <a href="mregister.html">
-						        	<img class="img-responsive" src="resources/frontend_assets//uploads/banner/c479881dd39289327dd58c77208be173.png" alt="Merchant Registration" />
-						        </a>
+                                @foreach($sliders as $slider)
+    						        <a href="javascript:;">
+    						        	<img class="img-responsive" src="storage/app/uploads/{{$slider->image}}" alt="Grand Sultan Tea Resort & Golf" />
+    						        </a>
+                                @endforeach
 						  	</div>
 						</div>
 						<script type="text/javascript">

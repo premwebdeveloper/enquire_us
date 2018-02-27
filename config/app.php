@@ -2,6 +2,7 @@
 
 return [
 
+    'fileDestinationPath' => 'uploads',
     /*
     |--------------------------------------------------------------------------
     | Application Name
