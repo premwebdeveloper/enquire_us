@@ -44,6 +44,9 @@ Route::get('getSavedKeywords', 'AjaxController@getSavedKeywords')->name('getSave
 // Delete keywords
 Route::post('delete_keywords', 'AjaxController@delete_keywords')->name('delete_keywords');
 
+// Upload logo and photos
+Route::post('uploadLogoAndPhotos', 'Profile@uploadLogoAndPhotos')->name('uploadLogoAndPhotos');
+
 ////////////////////////////////////////////////////////
 // Admin Permissions Only Admin can access these urls //
 ////////////////////////////////////////////////////////
@@ -79,7 +82,7 @@ Route::group(['middleware' => 'App\Http\Middleware\Admin'], function()
     Route::post('delete_slider', 'HomeController@delete_slider')->name('delete_slider');
 
     // Website Pages
-    Route::get('website_pages', 'WebsitePages@website_pages')->name('website_pages'); 
-    Route::post('update_page', 'WebsitePages@update_page')->name('update_page'); 
+    Route::get('website_pages', 'WebsitePages@website_pages')->name('website_pages');
+    Route::post('update_page', 'WebsitePages@update_page')->name('update_page');
 
 });

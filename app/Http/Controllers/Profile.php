@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Storage;
 use Session;
+
 class Profile extends Controller
 {
     // Authenticate users
@@ -62,5 +63,92 @@ class Profile extends Controller
         }
 
         return view('profile.profile', array('location' => $location, 'contact' => $contact, 'other' => $other, 'company' => $company, 'cities' => $cities, 'keywords' => $saved_keywords));
+    }
+
+    // Upload logo and photos
+    public function uploadLogoAndPhotos(Request $request)
+    {
+        $user_id = Auth::user()->id;
+
+        // Upload multiple images
+        if($request->hasFile('photos')) {
+
+            foreach ($request->photos as $file) {
+
+                $filename = $file->getClientOriginalName();
+
+                $ext = pathinfo($filename, PATHINFO_EXTENSION);
+
+                $filename = substr(md5(microtime()),rand(0,26),6);
+
+                $filename .= '.'.$ext;
+
+                $filesize = $file->getClientSize();
+
+                $destinationPath = config('app.fileDestinationPath').'/'.$filename;
+                $uploaded = Storage::put($destinationPath, file_get_contents($file->getRealPath()));
+
+                if($uploaded)
+                {
+                     $image_update = DB::table('user_images')->insert(
+                        array(
+                            'user_id' => $user_id,
+                            'image' => $filename,
+                            'status' => 1
+                        )
+                    );
+                }
+
+                if($uploaded)
+                {
+                    $status = 'Profile updated successfully.';
+                }
+                else
+                {
+                    $status = 'No File Selected';
+                }
+            }
+        }
+
+        // Upload logo
+        if($request->hasFile('logo')) {
+
+            $file = $request->logo;
+
+            $filename = $file->getClientOriginalName();
+
+            $ext = pathinfo($filename, PATHINFO_EXTENSION);
+
+            $filename = substr(md5(microtime()),rand(0,26),6);
+
+            $filename .= '.'.$ext;
+
+            $filesize = $file->getClientSize();
+
+            $destinationPath = config('app.fileDestinationPath').'/'.$filename;
+            $uploaded = Storage::put($destinationPath, file_get_contents($file->getRealPath()));
+
+            if($uploaded)
+            {
+                 $image_update = DB::table('user_details')->where('user_id', $user_id)->update(
+                    array(
+                        'logo' => $filename
+                    )
+                );
+            }
+
+            if($uploaded)
+            {
+                $status = 'Profile updated successfully.';
+            }
+            else
+            {
+                $status = 'No File Selected';
+            }
+        }
+
+
+        return redirect('profile')->with('status', $status);
+
     }
 }

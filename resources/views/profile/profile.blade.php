@@ -969,39 +969,43 @@
                     </div>
 
                     <div role="tabpanel" class="tab-pane" id="uploads_video">
-                      <div class="col-sm-10 edit_profile">
+                      <div class="col-sm-112 edit_profile">
 
                         <div class="box">
                             <h4>Upload logo/Photos</h4>
-                            <br>
-                            <form action="javascript:;" method="post" accept-charset="utf-8" id="form-profile" class="form-horizontal" enctype="multipart/form-data">
+                            <hr />
+
+                            <form action="{{ route('uploadLogoAndPhotos') }}" method="post" class="form-horizontal" enctype="multipart/form-data">
                               <fieldset>
                                 <div class="controls">
+
+                                    {{ csrf_field() }}
 
                                   <div class="form-group required">
                                     <label for="Name" class="col-sm-4 control-label">Upload Logo: </label>
                                     <div class="col-sm-6">
-                                        <input class="form-control" name="customer_name" id="customer_name" type="file">
+                                        <input class="form-control" name="logo" id="logo" type="file">
                                     </div>
                                   </div>
 
                                   <div class="form-group required">
                                     <label for="Name" class="col-sm-4 control-label">Upload Photos: </label>
                                     <div class="col-sm-6">
-                                        <input class="form-control" name="photo[]" id="customer_name" type="file" multiple>
+                                        <input class="form-control" name="photos[]" id="photos" type="file" multiple>
                                     </div>
                                   </div>
 
                                 </div>
                                 <div class="buttons">
                                   <div class="left">
-                                    <label class="checkbox-inline">
+                                    <label class="checkbox-inline" style="padding-left: 0px;">
                                       <a class="btn btn-primary back" data-original-title="" title="">Prev</a>
                                     </label>
                                   </div>
                                   <div class="right">
                                     <label class="checkbox-inline">
-                                      <a class="btn btn-primary continue" data-original-title="" title="">Save & Exit</a>
+                                      <!-- <a class="btn btn-primary continue" data-original-title="" title="">Save & Exit</a> -->
+                                      <input type="submit" name="save_exit" class="btn btn-primary continue" value="Save & Exit">
                                     </label>
                                   </div>
                                 </div>
