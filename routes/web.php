@@ -23,6 +23,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // Get all clients for perticular category
 Route::get('category/{category}', 'HomeController@category');
+Route::get('view/{business}/{id}', 'HomeController@view');
 
 Route::get('verify/{email}/{verifyToken}', 'Auth\RegisterController@sendEmailDone')->name('sendEmailDone');
 Route::get('verifyEmailFirst', 'Auth\RegisterController@verifyEmailFirst')->name('verifyEmailFirst');

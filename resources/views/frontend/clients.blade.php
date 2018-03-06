@@ -19,8 +19,9 @@
 
     							<div class="col-lg-3 col-sm-3 col-xs-6 res-cop-box">
     								<div class="offer-small offer">
+
     									<div class="vendor-image">
-    										<a href="{{ URL::to('view',array('client'=>$cat->category)) }}">
+    										<a href="{{ URL::to('view',array('business'=>$client->business_name, 'id'=>Crypt::encrypt($client->user_id))) }}">
     											<img alt="" src="../storage/app/uploads/{{ $client->logo}}" class="img-responsive" style="height: 125px;">
     										</a>
     									</div>

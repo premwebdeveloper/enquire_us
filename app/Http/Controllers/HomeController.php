@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Storage;
 use Session;
+use Crypt;
 class HomeController extends Controller
 {
     /**
@@ -126,5 +127,30 @@ class HomeController extends Controller
             ->get();
 
         return view('frontend.clients', array('clients' => $clients));
+    }
+
+    public function view(Request $request)
+    {
+        $business = $request->business;
+        $id = $request->id;
+        $user_id = Crypt::decrypt($id);
+
+        // Get client all details
+        $client = DB::table('user_details')
+            ->join('user_company_information', 'user_company_information.user_id', '=', 'user_details.user_id')
+            ->join('user_location', 'user_location.user_id', '=', 'user_details.user_id')
+            ->where(array('user_details.user_id' => $user_id))
+            ->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country', 'user_company_information.payment_mode', 'user_company_information.year_establishment', 'user_company_information.annual_turnover', 'user_company_information.no_of_emps', 'user_company_information.professional_associations', 'user_company_information.certifications')
+            ->get();
+
+        // Get client other information
+        $other_info = DB::table('user_other_information')->where('user_id', $user_id)->get();
+
+        // Get client images
+        $images = DB::table('user_images')->where('user_id', $user_id)->get();
+
+        return view('frontend.client_view', array('client' => $client, 'other_info' => $other_info, 'images' => $images));
+
+        exit;
     }
 }
