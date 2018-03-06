@@ -30,7 +30,7 @@ class HomeController extends Controller
     public function index()
     {
         $category = DB::table('category')->where('status', 1)->get();
-        
+
         $sliders = DB::table('slider')->get();
 
         return view('welcome', array('category' => $category, 'sliders' => $sliders));
@@ -96,7 +96,7 @@ class HomeController extends Controller
     public function delete_slider(Request $request)
     {
         $id = $request->user_id;
-        
+
         $delete_slider = DB::table('slider')->where('id', $id)->delete();
 
         if($delete_slider)
@@ -109,5 +109,22 @@ class HomeController extends Controller
         }
 
         return redirect('slider')->with('status', $status);
+    }
+
+    // Get all clients for perticular category
+    public function category(Request $request)
+    {
+        $category = $request->category;
+
+        $clients = DB::table('user_keywords')
+            ->join('category', 'category.id', '=', 'user_keywords.keyword_id')
+            ->join('user_details', 'user_keywords.user_id', '=', 'user_details.user_id')
+            ->join('user_location', 'user_location.user_id', '=', 'user_details.user_id')
+            ->where(array('user_keywords.keyword_identity' => 1, 'category.category' => $category))
+            ->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country')
+            //->groupBy('user_id')
+            ->get();
+
+        return view('frontend.clients', array('clients' => $clients));
     }
 }

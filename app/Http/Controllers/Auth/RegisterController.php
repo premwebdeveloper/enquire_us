@@ -148,14 +148,14 @@ class RegisterController extends Controller
         );
 
         // Create User Images
-        $user_details = DB::table('user_images')->insert(
+        /*$user_details = DB::table('user_images')->insert(
             array(
                 'user_id' => $user_id,
                 'image' => 'user.png',
                 'created_at' => $date,
                 'updated_at' => $date
             )
-        );
+        );*/
 
         $thisUser = User::findOrFail($user->id);
         $this->sendEmail($thisUser);

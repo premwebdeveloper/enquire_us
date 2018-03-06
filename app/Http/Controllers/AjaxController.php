@@ -277,6 +277,19 @@ class AjaxController extends Controller
                     {
                         echo 2; exit;
                     }
+
+                    if($exist->keyword_identity != $key_identity)
+                    {
+                        $existSubCatRow = DB::table('subcategory')->where('id', $exist->keyword_id)->first();
+
+                        $existCatID = $existSubCatRow->cat_id;
+
+                        if($key_word != $existCatID)
+                        {
+                            echo 2; exit;
+                        }
+                    }
+
                 }
                 if($key_identity == 2)
                 {

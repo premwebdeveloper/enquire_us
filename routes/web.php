@@ -20,6 +20,10 @@ Auth::routes();
 // Home page after login
 Route::get('/', 'HomeController@index')->name('/');
 Route::get('/home', 'HomeController@index')->name('home');
+
+// Get all clients for perticular category
+Route::get('category/{category}', 'HomeController@category');
+
 Route::get('verify/{email}/{verifyToken}', 'Auth\RegisterController@sendEmailDone')->name('sendEmailDone');
 Route::get('verifyEmailFirst', 'Auth\RegisterController@verifyEmailFirst')->name('verifyEmailFirst');
 Route::get('profile', 'Profile@profile')->name('profile');

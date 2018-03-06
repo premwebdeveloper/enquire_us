@@ -14,8 +14,10 @@
 						<div class="row">
 							<div class="col-lg-12 res-catagories">
                                 @foreach($category as $cat)
-								    <a class="cata-box" href="javascript:;"><span>
-    									<img src="resources/frontend_assets//images/food.png" alt="{{ $cat->category }}" />{{ $cat->category }}</span>
+								    <a class="cata-box" href="{{ URL::to('category',array('category'=>$cat->category)) }}">
+                                        <span>
+        									<img src="resources/frontend_assets//images/food.png" alt="{{ $cat->category }}" />{{ $cat->category }}
+                                        </span>
                                     </a>
                                 @endforeach
 							</div>
