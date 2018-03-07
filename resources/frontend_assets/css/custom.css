@@ -6,7 +6,7 @@ select{
 }
 option.option_padding
 {
-	padding-left:25px;	
+	padding-left:25px;
 }
 #error{
 	display:none;
@@ -16,4 +16,48 @@ option.option_padding
 {
 	position: relative;
     top: -26px;
+}
+.p0
+{
+    padding: 0px;
+}
+.p10
+{
+    padding: 10px;
+}
+.p15
+{
+    padding: 15px;
+}
+.p20
+{
+    padding: 20px;
+}
+.p25
+{
+    padding: 25px;
+}
+.p30
+{
+    padding: 30px;
+}
+.pt10
+{
+    padding-top: 10px;
+}
+.pt15
+{
+    padding-top: 15px;
+}
+.pt20
+{
+    padding-top: 20px;
+}
+.pt25
+{
+    padding-top: 25px;
+}
+.pt30
+{
+    padding-top: 30px;
 }

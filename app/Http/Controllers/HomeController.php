@@ -117,6 +117,8 @@ class HomeController extends Controller
     {
         $category = $request->category;
 
+        $categories = DB::table('category')->where('status', 1)->get();
+
         $clients = DB::table('user_keywords')
             ->join('category', 'category.id', '=', 'user_keywords.keyword_id')
             ->join('user_details', 'user_keywords.user_id', '=', 'user_details.user_id')
@@ -126,7 +128,7 @@ class HomeController extends Controller
             //->groupBy('user_id')
             ->get();
 
-        return view('frontend.clients', array('clients' => $clients));
+        return view('frontend.clients', array('clients' => $clients, 'categories' => $categories));
     }
 
     public function view(Request $request)

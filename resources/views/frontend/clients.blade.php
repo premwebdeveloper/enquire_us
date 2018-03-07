@@ -10,10 +10,25 @@
 			<!--Latest offers-->
 			<div class="col-sm-12 offset-margin-2">
 				<div class="row">
-					<div class="col-sm-12 top30">
-						<h1 class="brand-header">Latest offers </h1>
-					</div>
-					<div class="col-sm-12">
+
+                    <div class="col-sm-3">
+                        <div class="col-sm-12 top30 p0">
+                            <h1 class="brand-header">Categories </h1>
+                            <div class="list-group category_list">
+                                @foreach($categories as $category)
+                                    <a href="{{ URL::to('category',array('category'=>$category->category)) }}" class="list-group-item">
+                                        {{ $category->category }}
+                                    </a>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+
+					<div class="col-sm-9">
+                        <div class="col-sm-12 top30 p0">
+                            <h1 class="brand-header">Latest offers </h1>
+                        </div>
+
 						<div class="row">
                             @foreach($clients as $client)
 
@@ -55,6 +70,7 @@
 
 						</div>
 					</div>
+
 				</div>
 			</div>
 
