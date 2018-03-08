@@ -43,11 +43,19 @@
                         <div class="lSSlideWrapper usingCss" style="transition-duration: 400ms; transition-timing-function: ease;">
                             <ul id="lightSlider" class="lightSlider lsGrab lSSlide" style="width: 3234px; transform: translate3d(-539px, 0px, 0px); height: 298px; padding-bottom: 0%;">
 
-                                <li data-thumb="http://savetk.com/assets/uploads/cache/coupons/ykEHPtIEWE551084_4-105x57.png" class="clone left" style="width: 539px; margin-right: 0px;">
-                                    <img src="http://savetk.com/assets/uploads/cache/coupons/ykEHPtIEWE551084_4-550x300.png">
-                                </li>
+                                <!-- @foreach($images as $image)
+                                    <li data-thumb="../storage/app/uploads/{{ $image->image }}" class="clone left" style="width: 539px; margin-right: 0px;">
+                                        <img src="../storage/app/uploads/{{ $image->image }}">
+                                    </li>
+                                @endforeach -->
 
-                                <li data-thumb="http://savetk.com/assets/uploads/cache/coupons/92f7a1f12c204fb1b03f0a11943c5d4a-105x57.png" class="lslide active" style="width: 539px; margin-right: 0px;">
+                                @foreach($images as $image)
+                                    <li data-thumb="../../storage/app/uploads/{{ $image->image }}" class="lslide" style="width: 539px; margin-right: 0px;">
+                                        <img alt="THAI KITCHEN" src="../../storage/app/uploads/{{ $image->image }}">
+                                    </li>
+                                @endforeach
+
+                                <!-- <li data-thumb="http://savetk.com/assets/uploads/cache/coupons/92f7a1f12c204fb1b03f0a11943c5d4a-105x57.png" class="lslide active" style="width: 539px; margin-right: 0px;">
                                     <img alt="THAI KITCHEN (1 offer) | Get 10% Discount on Any Food Bill." src="http://savetk.com/assets/uploads/cache/coupons/92f7a1f12c204fb1b03f0a11943c5d4a-550x300.png">
                                 </li>
 
@@ -61,7 +69,7 @@
 
                                 <li data-thumb="http://savetk.com/assets/uploads/cache/coupons/ykEHPtIEWE551084_4-105x57.png" class="lslide" style="width: 539px; margin-right: 0px;">
                                     <img src="http://savetk.com/assets/uploads/cache/coupons/ykEHPtIEWE551084_4-550x300.png">
-                                </li>
+                                </li> -->
 
                                 <li data-thumb="http://savetk.com/assets/uploads/cache/coupons/92f7a1f12c204fb1b03f0a11943c5d4a-105x57.png" class="clone right" style="width: 539px; margin-right: 0px;">
                                     <img alt="THAI KITCHEN (1 offer) | Get 10% Discount on Any Food Bill." src="http://savetk.com/assets/uploads/cache/coupons/92f7a1f12c204fb1b03f0a11943c5d4a-550x300.png">
@@ -79,7 +87,7 @@
                         <div class="col-sm-12">
 
                             <div class="col-sm-12 shop-title">
-                                <h3><a style="color:#006A4E;" href="javascript:;">THAI KITCHEN </a></h3>
+                                <h3><a style="color:#006A4E;" href="javascript:;">{{ $client->business_name }}</a></h3>
                                 <h4 style="margin-bottom:15px;">Get 10% Discount on Any Food Bill.</h4>
                             </div>
 
@@ -100,8 +108,8 @@
 
                             <div class="address-phn">
                                 <ul>
-                                    <li> <i class="fa fa-map-marker"></i>Bashundhara City</li>
-                                    <li> <i class="fa fa-phone"></i>01768130391</li>
+                                    <li> <i class="fa fa-map-marker"></i>{{ $client->city }}</li>
+                                    <li> <i class="fa fa-phone"></i>{{ $client->phone }}</li>
                                     <li><i class="fa fa-archive"></i><a style="text-decoration:underline;" href="http://savetk.com/thai-kitchen">View all deals of THAI KITCHEN</a></li>
                                 </ul>
                             </div>
@@ -170,24 +178,46 @@
 
                     <div class="location-body">
                         <div class="row">
-                            <div class="col-sm-8"> &nbsp; map </div>
+                            <div class="col-sm-8">
+
+                                <div id="map"></div>
+                                <script>
+                                  function initMap() {
+                                    var uluru = {lat: 26.9501613, lng: 75.7792332};
+                                    var map = new google.maps.Map(document.getElementById('map'), {
+                                      zoom: 4,
+                                      center: uluru
+                                    });
+                                    var marker = new google.maps.Marker({
+                                      position: uluru,
+                                      map: map
+                                    });
+                                  }
+                                </script>
+                                <script async defer
+                                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIb6z-OH2-_nWIC-nK2_OI-r2ZO0BGr5c&callback=initMap">
+                                </script>
+
+                            </div>
                             <div class="col-sm-4">
                                 <div class="location">
                                     <div class="location-details clear">
-                                        <h3>THAI KITCHEN</h3>
+                                        <h3>{{ $client->business_name }}</h3>
                                         <p>
                                             <span class="glyphicon glyphicon-road"></span>
-                                            <span id="address">Level 8, Block C, Shop 4, Panthapath, Bashundharangladesh</span>
+                                            <span id="address">
+                                                {{ $client->building }}, {{ $client->street }}, {{ $client->city }}, {{ $client->state }}, {{ $client->country }} - {{ $client->pincode }}
+                                            </span>
                                         </p>
 
                                         <p>
                                             <span class="glyphicon glyphicon-earphone"></span>
-                                            <a href="tel:01768130391">01768130391</a>
+                                            <a href="tel:01768130391">{{ $client->phone }}</a>
                                         </p>
 
                                         <p>
                                             <span class="glyphicon glyphicon-envelope"></span>
-                                            <a href="mailto:thaikitchencity@gmail.com">thaikitchencity@gmail.com</a>
+                                            <a href="mailto:thaikitchencity@gmail.com">{{ $client->email }}</a>
                                         </p>
 
                                         <p>

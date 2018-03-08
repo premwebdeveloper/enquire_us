@@ -143,7 +143,7 @@ class HomeController extends Controller
             ->join('user_location', 'user_location.user_id', '=', 'user_details.user_id')
             ->where(array('user_details.user_id' => $user_id))
             ->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country', 'user_company_information.payment_mode', 'user_company_information.year_establishment', 'user_company_information.annual_turnover', 'user_company_information.no_of_emps', 'user_company_information.professional_associations', 'user_company_information.certifications')
-            ->get();
+            ->first();
 
         // Get client other information
         $other_info = DB::table('user_other_information')->where('user_id', $user_id)->get();
