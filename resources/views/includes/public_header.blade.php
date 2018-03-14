@@ -113,26 +113,111 @@
                     </div>
 
                     <div class="col-sm-9">
-                        <div id="top_search" class="form-group form-group-cus" role="form">
-                            <div class="form-group  col-sm-1 col-xcus-1">
-                              <button id="search-filter" type="button" class="btn success  btn-custom-search">Search</button>
-                            </div>
-                            <div class="form-group col-sm-3 col-cus-3 input-width">
-                                <select name="top_filter_location" id="top_filter_location" class="form-control selectWidth form-cus input-border">
-                                    <option value="*">Location</option>
-                                </select>
-                            </div>
 
-                            <div class="form-group col-sm-3 col-cus-3 input-width">
-                              <select name="category" id="" class="form-control selectWidth form-cus">
-                                  <option value="*">Category</option>
-                              </select>
-                            </div>
+                        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+                        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
-                            <div class="form-group col-sm-3 col-cus-3 search-input-key">
-                                <input type="text" name="top_filter_title" class="form-control form-cus"  placeholder="Type keywords e.g. Burger, Salon, Beauty…">
+                        <style type="text/css">
+                            .ui-autocomplete {
+                                position:absolute;
+                                cursor:default;
+                                z-index:1001 !important
+                            }
+                        </style>
+
+                        <form method="post">
+                            {{ csrf_field() }}
+                            <div id="top_search" class="form-group form-group-cus" role="form">
+
+                                <div class="form-group  col-sm-1 col-xcus-1">
+                                  <button id="search-filter" type="button" class="btn success  btn-custom-search">Search</button>
+                                </div>
+
+                                <div class="form-group col-sm-3 col-cus-3 input-width">
+                                    <select name="sub_location" id="sub_location" class="form-control selectWidth form-cus input-border">
+                                        <option value="">Select One</option>
+                                        <option value="jaipur">Jaipur</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-sm-3 col-cus-3 input-width">
+                                    <select name="location" id="location" class="form-control selectWidth form-cus input-border">
+                                        <option value="jaipur">Jaipur</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group col-sm-3 col-cus-3 search-input-key">
+                                    <input type="text" name="filter_title" id="filter_title" class="form-control form-cus"  placeholder="Type keywords e.g. Burger, Salon, Beauty…">
+                                </div>
+
                             </div>
-                        </div>
+                        </form>
+
+                        <script type="text/javascript">
+                            $(document).ready(function(){
+
+                                // Autocomplete on search category and firm name
+                                $("#filter_title").autocomplete({
+                                    source: function( request, response ) {
+                                        $.ajax({
+                                            url: "{{ route('searchCategoriesAndCompanies') }}",
+                                            dataType: "json",
+                                            data: {
+                                                term : request.term,
+                                            },
+                                            success: function(data) {
+
+                                                console.log(data);
+
+                                                var array = $.map(data, function (item) {
+                                                   return {
+                                                        label: item.category,
+                                                        value: item.cat_id,
+                                                        data : item
+                                                   }
+                                                });
+                                                response(array)
+                                            }
+                                        });
+                                    },
+                                    select: function( event, ui ) {
+                                        $('#filter_title').val(ui.item.data.category);
+                                        var category = ui.item.data.category;
+                                        var cat_id = ui.item.data.cat_id;
+                                        var status = ui.item.data.status;
+                                        $('#filter_title').attr('alt', cat_id+'-'+status);
+
+                                        return false;
+                                    }
+                                });
+
+                                // Onclick search button
+                                $(document).on('click', '#search-filter', function(){
+
+                                    var location = $('#location').val();
+                                    var sub_location = $('#sub_location').val();
+                                    var filter_title = $('#filter_title').val();
+
+                                    if(filter_title == '')
+                                    {
+                                        alert('Please select any Category or Company name');
+                                    }
+                                    else
+                                    {
+                                        if(sub_location != '')
+                                        {
+                                            window.location.href = "{{url('filter')}}"+"/"+location+"/" +filter_title+"-in-"+sub_location;
+                                        }
+                                        else
+                                        {
+                                            window.location.href = "{{url('filter')}}"+"/"+location+"/" +filter_title+"/";
+                                        }
+                                    }
+
+                                });
+                            });
+                        </script>
+
                     </div>
                 </div>
             </div>

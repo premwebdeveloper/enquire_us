@@ -21,6 +21,20 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('/');
 Route::get('/home', 'HomeController@index')->name('home');
 
+// Filter data according to location and any keyword
+//Route::post('filter', 'HomeController@filter')->name('filter');
+//Route::post('filter', 'HomeController@filter')->name('filter');
+
+Route::get('searchCategoriesAndCompanies', ['as'=>'searchCategoriesAndCompanies','uses'=>'AjaxController@searchCategoriesAndCompanies']);
+
+Route::any('filter/{location}/{cat}', function($location, $cat) {
+
+    echo $location;
+    echo $cat;
+    exit;
+    //return view('pages/room_details/roomMap/single_room_map_detail',  compact('roomDetail'));
+});
+
 // Get all clients for perticular category
 Route::get('category/{category}', 'HomeController@category');
 Route::get('view/{business}/{id}', 'HomeController@view');
@@ -90,4 +104,11 @@ Route::group(['middleware' => 'App\Http\Middleware\Admin'], function()
     Route::get('website_pages', 'WebsitePages@website_pages')->name('website_pages');
     Route::post('update_page', 'WebsitePages@update_page')->name('update_page');
 
+});
+
+//Route::get('{jaipur}', ['uses' => 'HomeController@filter']);
+
+Route::get('{jaipur}', function(Request $request)
+{
+    echo $request->jaipur; exit;
 });

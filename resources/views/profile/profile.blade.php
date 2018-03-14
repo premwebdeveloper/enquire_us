@@ -992,7 +992,7 @@
                             <h4>Upload logo/Photos</h4>
                             <hr />
 
-                            <form action="{{ route('uploadLogoAndPhotos') }}" method="post" class="form-horizontal" enctype="multipart/form-data">
+                            <form action="{{ route('') }}" method="post" class="form-horizontal" enctype="multipart/form-data">
                               <fieldset>
                                 <div class="controls">
 

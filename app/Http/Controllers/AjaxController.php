@@ -429,7 +429,6 @@ class AjaxController extends Controller
             {
                 $data[] = array('cat_id'=>$cate->id,'category'=>$cate->category,'status'=>'1');
             }
-
         }
 
         if(count($data))
@@ -438,4 +437,67 @@ class AjaxController extends Controller
             return ['id'=>'','category'=>''];
     }
 
+    // Search categories and compaies
+    public function searchCategoriesAndCompanies(Request $request)
+    {
+        $term = $request->term;
+        $data = array();
+
+        // Get all matched category and their sub categories and show
+        $categories = DB::table('category');
+        $categories->where('category','LIKE','%'.$term.'%');
+        $categories = $categories->get();
+
+        foreach ($categories as $cat) {
+
+            $data[] = array('cat_id'=>$cat->id,'category'=>$cat->category,'status'=>'1'); //,'sub_cat_id'=>'','sub_category'=>''
+
+            // Get sub categories of this category
+            $sub_categories = DB::table('subcategory')->where('cat_id', $cat->id)->get();
+            foreach ($sub_categories as $key => $sub_cat) {
+                //$data[] = array('cat_id'=>$cat->id.'-'.$sub_cat->id,'category'=>$cat->category.'-'.$sub_cat->subcategory);
+                $data[] = array('cat_id'=>$sub_cat->id,'category'=>$sub_cat->subcategory,'status'=>'2');
+            }
+        }
+
+        // Get all matched sub categories and their category and show
+        $subcategories = DB::table('subcategory');
+        $subcategories->where('subcategory','LIKE','%'.$term.'%');
+        $subcategories = $subcategories->get();
+
+        foreach ($subcategories as $subcat) {
+            $data[] = array('cat_id'=>$subcat->id,'category'=>$subcat->subcategory,'status'=>'2');
+
+            // Get main category of this sub category
+            $cate = DB::table('category')->where('id', $subcat->cat_id)->first();
+
+            $avail = 0;
+            foreach ($data as $key => $d) {
+                if($d['cat_id'] == $cate->id && $d['status'] == 1)
+                {
+                    $avail++;
+                }
+            }
+
+            if($avail == 0)
+            {
+                $data[] = array('cat_id'=>$cate->id,'category'=>$cate->category,'status'=>'1');
+            }
+        }
+
+        // Get all Comopany names according to search keyword
+        $business = DB::table('user_location');
+        $business->where('business_name','LIKE','%'.$term.'%');
+        $business = $business->get();
+
+        foreach ($business as $busi) {
+
+            $data[] = array('cat_id'=>$busi->user_id,'category'=>$busi->business_name,'status'=>'3');
+        }
+
+        if(count($data))
+             return $data;
+        else
+            return ['id'=>'','category'=>''];
+    }
 }

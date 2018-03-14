@@ -37,6 +37,14 @@ class HomeController extends Controller
         return view('welcome', array('category' => $category, 'sliders' => $sliders));
     }
 
+    // Filter data according to location and any keyword
+    /*public function filter(Request $request)
+    {
+        echo $location = $request->location;
+
+        exit;
+    }*/
+
     // Sliders
     public function slider()
     {
