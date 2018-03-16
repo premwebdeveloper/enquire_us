@@ -620,9 +620,9 @@
                                       foreach ($payment_mode as $mode) {
                                         ?>
                                         <script type="text/javascript">
-                                          $(document).ready(function(){
-                                            $(".payment_mode[type='checkbox'][value='<?= $mode; ?>']").prop('checked', true);
-                                          });
+                                            $(document).ready(function(){
+                                               $(".payment_mode[type='checkbox'][value='<?= $mode; ?>']").prop('checked', true);
+                                            });
                                         </script>
                                         <?php
                                       }
@@ -630,52 +630,52 @@
                                     ?>
 
                                     <div class="col-sm-4">
-                                      <input type="checkbox" value="0" class="checkAll">
-                                      <span style="color:#de4b39;">Select All</span>
+                                        <input type="checkbox" value="0" class="checkAll">
+                                        <span style="color:#de4b39;">Select All</span>
                                     </div>
 
                                     <div class="col-sm-4">
-                                      <input type="checkbox" value="1" name="payment_mode[]" class="payment_mode"> Cash
+                                        <input type="checkbox" value="1" name="payment_mode[]" class="payment_mode"> Cash
                                     </div>
 
                                     <div class="col-sm-4">
-                                      <input type="checkbox" value="2" name="payment_mode[]" class="payment_mode"> Master Card
+                                        <input type="checkbox" value="2" name="payment_mode[]" class="payment_mode"> Master Card
                                     </div>
 
                                     <div class="col-sm-4">
-                                      <input type="checkbox" value="3" name="payment_mode[]" class="payment_mode"> Visa Card
+                                        <input type="checkbox" value="3" name="payment_mode[]" class="payment_mode"> Visa Card
                                     </div>
 
                                     <div class="col-sm-4">
-                                      <input type="checkbox" value="4" name="payment_mode[]" class="payment_mode"> Debit Cards
+                                        <input type="checkbox" value="4" name="payment_mode[]" class="payment_mode"> Debit Cards
                                     </div>
 
                                     <div class="col-sm-4">
-                                      <input type="checkbox" value="5" name="payment_mode[]" class="payment_mode"> Money Orders
+                                        <input type="checkbox" value="5" name="payment_mode[]" class="payment_mode"> Money Orders
                                     </div>
 
                                     <div class="col-sm-4">
-                                      <input type="checkbox" value="6" name="payment_mode[]" class="payment_mode"> Cheques
+                                        <input type="checkbox" value="6" name="payment_mode[]" class="payment_mode"> Cheques
                                     </div>
 
                                     <div class="col-sm-4">
-                                      <input type="checkbox" value="7" name="payment_mode[]" class="payment_mode"> Credit Card
+                                        <input type="checkbox" value="7" name="payment_mode[]" class="payment_mode"> Credit Card
                                     </div>
 
                                     <div class="col-sm-4">
-                                      <input type="checkbox" value="8" name="payment_mode[]" class="payment_mode"> Travelers Cheque
+                                        <input type="checkbox" value="8" name="payment_mode[]" class="payment_mode"> Travelers Cheque
                                     </div>
 
                                     <div class="col-sm-4">
-                                      <input type="checkbox" value="9" name="payment_mode[]" class="payment_mode"> Financing Available
+                                        <input type="checkbox" value="9" name="payment_mode[]" class="payment_mode"> Financing Available
                                     </div>
 
                                     <div class="col-sm-4">
-                                      <input type="checkbox" value="10" name="payment_mode[]" class="payment_mode"> American Express Card
+                                        <input type="checkbox" value="10" name="payment_mode[]" class="payment_mode"> American Express Card
                                     </div>
 
                                     <div class="col-sm-4">
-                                      <input type="checkbox" value="11" name="payment_mode[]" class="payment_mode"> Diners Club Card
+                                        <input type="checkbox" value="11" name="payment_mode[]" class="payment_mode"> Diners Club Card
                                     </div>
 
                                   </div>
