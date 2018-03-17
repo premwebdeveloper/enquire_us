@@ -135,8 +135,6 @@
 
                                 <div class="form-group col-sm-3 col-cus-3 input-width">
                                     <select name="sub_location" id="sub_location" class="form-control selectWidth form-cus input-border">
-                                        <option value="">Select One</option>
-                                        <option value="jaipur">Jaipur</option>
                                     </select>
                                 </div>
 
@@ -155,6 +153,26 @@
 
                         <script type="text/javascript">
                             $(document).ready(function(){
+
+                                var city = '3378';
+
+                                // Get cities according to state
+                                $.ajax({
+                                    method : 'post',
+                                    url : 'getAreasAccordingToCity',
+                                    async : true,
+                                        data : {"_token": "{{ csrf_token() }}", 'city': city},
+                                          success:function(response){
+
+                                            console.log(response);
+
+                                            $('#sub_location').html(response);
+
+                                          },
+                                        error: function(data){
+                                        console.log(data);
+                                    },
+                                });
 
                                 // Autocomplete on search category and firm name
                                 $("#filter_title").autocomplete({
@@ -204,18 +222,64 @@
                                     }
                                     else
                                     {
+                                        var filter_title_alt = $('#filter_title').attr('alt');
+
+                                        /*var temp = filter_title_alt.split("_");
+                                        var title_id = temp[0];
+                                        var title_status = temp[1];*/
+
+                                        /*var encoded = CryptoJS.AES.encrypt(JSON.stringify(filter_title_alt), 'Welcome To Prem World', {format: CryptoJSAesJson}).toString();
+
+                                        alert(encoded);
+
+                                        var encoded = $.parseJSON(encoded);
+
+                                        var ct = encoded.ct;
+                                        var iv = encoded.iv;
+                                        var s = encoded.s;*/
+
+                                        var encoded = makeid()+'-'+filter_title_alt;
+
                                         if(sub_location != '')
                                         {
-                                            window.location.href = "{{url('filter')}}"+"/"+location+"/" +filter_title+"-in-"+sub_location;
+                                            window.location.href = "{{url('filter')}}"+"/"+location+"/" +filter_title+"-in-"+sub_location+"/" +encoded;
                                         }
                                         else
                                         {
-                                            window.location.href = "{{url('filter')}}"+"/"+location+"/" +filter_title+"/";
+                                            window.location.href = "{{url('filter')}}"+"/"+location+"/" +filter_title+"/" +encoded;
                                         }
                                     }
 
                                 });
                             });
+
+                            function makeid() {
+                                var text = "";
+                                var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+                                for (var i = 0; i < 5; i++)
+                                text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+                                return text;
+                            }
+
+                            /*var CryptoJSAesJson = {
+                                stringify: function (cipherParams) {
+
+                                    var j = {ct: cipherParams.ciphertext.toString(CryptoJS.enc.Base64)};
+                                    if (cipherParams.iv) j.iv = cipherParams.iv.toString();
+                                    if (cipherParams.salt) j.s = cipherParams.salt.toString();
+                                    return JSON.stringify(j);
+                                },
+                                parse: function (jsonStr) {
+                                    var j = JSON.parse(jsonStr);
+                                    var cipherParams = CryptoJS.lib.CipherParams.create({ciphertext: CryptoJS.enc.Base64.parse(j.ct)});
+                                    if (j.iv) cipherParams.iv = CryptoJS.enc.Hex.parse(j.iv);
+                                    if (j.s) cipherParams.salt = CryptoJS.enc.Hex.parse(j.s);
+                                    return cipherParams;
+                                }
+                            }*/
+
                         </script>
 
                     </div>

@@ -34,16 +34,40 @@ class HomeController extends Controller
 
         $sliders = DB::table('slider')->get();
 
-        return view('welcome', array('category' => $category, 'sliders' => $sliders));
+        $title = 'Home';
+        $meta_description = 'Home keywords';
+        $meta_keywords = 'Home keywords';
+
+        return view('welcome', array('category' => $category, 'sliders' => $sliders, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords));
     }
 
     // Filter data according to location and any keyword
-    /*public function filter(Request $request)
+    public function filter(Request $request)
     {
         echo $location = $request->location;
+        echo $cat = $request->cat;
+        echo $encoded = $request->encoded;
+
+        $encoded = explode('-', $encoded);
+        echo $title_id = $encoded[1];
+        echo $title_status = $encoded[2];
+        exit;
+
+        if($title_status == 1) {        // If title is category
+
+            return view('frontend.clients', array('clients' => $clients, 'categories' => $categories));
+        }
+        elseif ($title_status == 2) {   // If title is sub category
+
+            return view('frontend.clients', array('clients' => $clients, 'categories' => $categories));
+        }
+        else {                          // If title is company
+
+            return view('frontend.client_view', array('client' => $client, 'other_info' => $other_info, 'images' => $images));
+        }
 
         exit;
-    }*/
+    }
 
     // Sliders
     public function slider()
@@ -123,6 +147,10 @@ class HomeController extends Controller
     // Get all clients for perticular category
     public function category(Request $request)
     {
+        $title = 'Categories';
+        $meta_description = 'Category description';
+        $meta_keywords = 'Category keywords';
+
         $category = $request->category;
 
         $categories = DB::table('category')->where('status', 1)->get();
@@ -136,11 +164,15 @@ class HomeController extends Controller
             //->groupBy('user_id')
             ->get();
 
-        return view('frontend.clients', array('clients' => $clients, 'categories' => $categories));
+        return view('frontend.clients', array('clients' => $clients, 'categories' => $categories, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords));
     }
 
     public function view(Request $request)
     {
+        $title = 'Category View';
+        $meta_description = 'Category View description';
+        $meta_keywords = 'Category View keywords';
+
         $business = $request->business;
         $id = $request->id;
         $user_id = Crypt::decrypt($id);
@@ -159,7 +191,7 @@ class HomeController extends Controller
         // Get client images
         $images = DB::table('user_images')->where('user_id', $user_id)->get();
 
-        return view('frontend.client_view', array('client' => $client, 'other_info' => $other_info, 'images' => $images));
+        return view('frontend.client_view', array('client' => $client, 'other_info' => $other_info, 'images' => $images, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords));
 
         exit;
     }

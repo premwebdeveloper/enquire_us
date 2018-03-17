@@ -21,23 +21,20 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('/');
 Route::get('/home', 'HomeController@index')->name('home');
 
-// Filter data according to location and any keyword
-//Route::post('filter', 'HomeController@filter')->name('filter');
-//Route::post('filter', 'HomeController@filter')->name('filter');
-
 Route::get('searchCategoriesAndCompanies', ['as'=>'searchCategoriesAndCompanies','uses'=>'AjaxController@searchCategoriesAndCompanies']);
 
-Route::any('filter/{location}/{cat}', function($location, $cat) {
-
-    echo $location;
-    echo $cat;
-    exit;
-    //return view('pages/room_details/roomMap/single_room_map_detail',  compact('roomDetail'));
-});
+// Filter data according to location and any keyword
+Route::any('filter/{location}/{cat}/{encoded}', [
+    "uses" => 'HomeController@filter',
+    "as" => 'filter'
+]);
 
 // Get all clients for perticular category
 Route::get('category/{category}', 'HomeController@category');
 Route::get('view/{business}/{id}', 'HomeController@view');
+
+// Save keywords
+Route::post('getAreasAccordingToCity', 'AjaxController@getAreasAccordingToCity')->name('getAreasAccordingToCity');
 
 Route::get('verify/{email}/{verifyToken}', 'Auth\RegisterController@sendEmailDone')->name('sendEmailDone');
 Route::get('verifyEmailFirst', 'Auth\RegisterController@verifyEmailFirst')->name('verifyEmailFirst');

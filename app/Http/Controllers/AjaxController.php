@@ -500,4 +500,24 @@ class AjaxController extends Controller
         else
             return ['id'=>'','category'=>''];
     }
+
+    // Get areas according to cities
+    public function getAreasAccordingToCity(Request $request)
+    {
+        $city = $request->city;
+
+        // Get all cities of rajasthan state
+        $areas = DB::table('areas')->where('city', $city)->get();
+
+        $data = '<option value="">Select Area</option>';
+
+        foreach ($areas as $key => $area) {
+            $data .= '<option value="'.$area->area.'">'.$area->area.'</option>';
+        }
+
+        echo $data;
+        exit;
+
+        //return response()->json($states);
+    }
 }
