@@ -63,7 +63,12 @@ class HomeController extends Controller
         }
         else {                          // If title is company
 
-            return view('frontend.client_view', array('client' => $client, 'other_info' => $other_info, 'images' => $images));
+            //  Get company details according to company id
+            $company = DB::table('user_location')->where('user_id', $title_id)->first();
+            $details = DB::table('user_details')->where('user_id', $title_id)->first();
+            $images = DB::table('user_images')->where('user_id', $title_id)->get();
+
+            return view('frontend.client_view', array('company' => $company, 'details' => $details, 'images' => $images));
         }
 
         exit;
