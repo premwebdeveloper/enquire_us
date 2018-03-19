@@ -17,14 +17,14 @@
         <h2>
             <a href="{{ route('add_subCategory') }}" class="btn btn-info">Add subCateogry</a>
         </h2>
-    </div> 
+    </div>
 </div>
 
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
         <div class="col-lg-12">
 	        <div class="ibox float-e-margins">
-                
+
                 @if(session('status'))
                    <div class="alert alert-success">{{ session('status') }}</div>
                 @endif
@@ -58,8 +58,10 @@
 
 	                                <tr class="gradeX">
                                     	<td>{{ $i }}</td>
-                                        <td id="exitCatid_{{ $subcat->id }}" style="display:none">{{ $subcat->cat_id }}</td>
-                                        <td id="exitCat_{{ $subcat->id }}">{{ $subcat->category }}</td>
+                                        <td id="exitCat_{{ $subcat->id }}">
+                                            <input type="hidden" name="cat_id" id="exitCatid_{{ $subcat->id }}" value="{{ $subcat->id }}">
+                                            {{ $subcat->category }}
+                                        </td>
                                     	<td id="exitsubCat_{{ $subcat->id }}">{{ $subcat->subcategory }}</td>
                                        	<td>
                                             <a class="btn btn-success editsubcat" title="Update" id="{{ $subcat->id }}">
@@ -96,12 +98,12 @@
                     {{ csrf_field() }}
 
                     <input type="hidden" name="subcat_id" id="subcat_id">
-                    
+
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Category</label>
                         <div class="col-sm-8">
                             <select name="category" id="category" class="form-control" required="required">
-                                
+
                                 <option value="" id="cat_id" class="cat" name="category">Select Category</option>
                                 @foreach($category as $cat)
                                     <option value="{{ $cat->id }}">{{ $cat->category }}</option>
@@ -133,8 +135,8 @@
             var id = $(this).attr('id');
             var subcat = $('#exitsubCat_'+id).text();
             var cat = $('#exitCat_'+id).text();
-            var cat_id = $('#exitCatid_'+id).text();
-           
+            var cat_id = $('#exitCatid_'+id).val();
+
             $('#subcat_id').val(id);
             $('#subcat').val(subcat);
             $('.cat').text(cat);

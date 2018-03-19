@@ -15,16 +15,16 @@
     </div>
     <div class="col-lg-2 text-right">
         <h2>
-            <a href="{{ route('add_category') }}" class="btn btn-info">Add Area</a>
+            <a href="{{ route('add_area') }}" class="btn btn-info">Add Area</a>
         </h2>
-    </div> 
+    </div>
 </div>
 
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
         <div class="col-lg-12">
             <div class="ibox float-e-margins">
-                
+
                 @if(session('status'))
                    <div class="alert alert-success">{{ session('status') }}</div>
                 @endif
@@ -99,14 +99,14 @@
                     {{ csrf_field() }}
 
                     <input type="hidden" name="area_id" id="area_id">
-                    
+
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Country</label>
                         <div class="col-sm-8">
                             <input type="hidden" name="country" class="form-control country_id">
                             <input type="text" id="country" class="form-control" readonly>
                         </div>
-                    </div> 
+                    </div>
 
                     <div class="form-group">
                         <label class="col-sm-2 control-label">State</label>
@@ -114,7 +114,7 @@
                             <input type="hidden" name="state" class="form-control state_id">
                             <input type="text" id="state" class="form-control" readonly>
                         </div>
-                    </div> 
+                    </div>
 
                     <div class="form-group">
                         <label class="col-sm-2 control-label">City</label>
@@ -151,7 +151,7 @@
             var id = $(this).attr('id');
             var country = $('#exitCountry_'+id).text();
             var state = $('#exitState_'+id).text();
-            var city = $('#exitCity_'+id).text();            
+            var city = $('#exitCity_'+id).text();
 
             var country_id = $('#exitCountry_'+id).attr('val');
             var state_id = $('#exitState_'+id).attr('val');
@@ -166,7 +166,7 @@
             $('#state').val(state);
             $('#city').text(city);
             $('#area').val(area);
-            
+
             $('.country_id').val(country_id);
             $('.state_id').val(state_id);
             $('.city_id').val(city_id);

@@ -153,3 +153,22 @@ ALTER TABLE `areas`
 ALTER TABLE `user_keywords` DROP `subcat_id`;
 ALTER TABLE `user_keywords` CHANGE `cat_id` `keyword_id` INT(11) NOT NULL;
 ALTER TABLE `user_keywords` ADD `keyword_identity` INT NOT NULL AFTER `keyword_id`;
+
+-- ---------------------------CREATE Table 'websites_page_head_titles' on 19-03-2018--------------------------
+CREATE TABLE `websites_page_head_titles` (
+  `id` int(11) NOT NULL,
+  `page` varchar(1255) NOT NULL,
+  `title` text,
+  `keyword` text,
+  `description` text,
+  `canonical` text,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `websites_page_head_titles`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `websites_page_head_titles`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
