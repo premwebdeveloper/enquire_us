@@ -40,7 +40,7 @@ class WebsitePages extends Controller
         {
             $status = 'Something went wrong !';
         }
-       
+
         return redirect('website_pages')->with('status', $status);
     }
 
@@ -48,5 +48,110 @@ class WebsitePages extends Controller
     public function aboutus()
     {
         $web_page_update = DB::table('website_pages')->where('id', $id)->update(['page_description' => $content, 'updated_at' => $date]);
+    }
+
+    // Website page head titles like Title, Meta title, Keyword, Description etc
+    /*public function page_titles_manage()
+    {
+        return view('website_pages.page_titles');
+    }*/
+
+    // Website page head titles like Title, Meta title, Keyword, Description etc
+    public function page_titles(Request $request)
+    {
+        $category = $request->category;
+        $sub_category = $request->sub_category;
+        $city = $request->city;
+        $area = $request->area;
+        $page = $request->page;
+        $title = $request->title;
+        $keyword = $request->keyword;
+        $description = $request->description;
+
+        if(!empty($title) && !empty($keyword) && !empty($description))
+        {
+            if($page == '')
+            {
+                $page = $category.'|'.$sub_category.'|'.$city.'|'.$area;
+            }
+
+            $date = date('Y-m-d H:i:s');
+
+            // Insert page titles
+            $insert = DB::table('websites_page_head_titles')->insert(
+                array(
+                    'page' => $page,
+                    'title' => $title,
+                    'keyword' => $keyword,
+                    'description' => $description,
+                    'created_at' => $date,
+                    'updated_at' => $date,
+                    'status' => 1
+                )
+            );
+        }
+
+        //  Get All Categories
+        $category = DB::table('category')->where('status', 1)->get();
+
+        //  Get All Areas
+        $where = array('status' => 1, 'city' => 3378);
+        $areas = DB::table('areas')->where($where)->get();
+
+        //  Get All Page titles
+        $titles = DB::table('websites_page_head_titles')->where('status', 1)->get();
+
+        // Get page name if Dynamic page created using category / subcategory / city / area
+        foreach ($titles as $key => $title) {
+            $page = $title->page;
+
+            $temp = explode('|', $page);
+
+            if(count($temp) > 1)
+            {
+                $dynamic_page = '';
+
+                $p_cat = $temp[0];
+                $p_subcat = $temp[1];
+                $p_city = $temp[2];
+                $p_area = $temp[3];
+
+                if(!empty($p_subcat))
+                {
+                    // Get Category Name
+                    $p_subcategory = DB::table('subcategory')->where(array('id' => $p_subcat, 'status' => 1))->first();
+
+                    $dynamic_page .= $p_subcategory->subcategory;
+                }
+                else
+                {
+                    // Get Category Name
+                    $p_category = DB::table('category')->where(array('id' => $p_cat, 'status' => 1))->first();
+
+                    $dynamic_page .= $p_category->category;
+                }
+
+                if(!empty($p_area))
+                {
+                     // Get Category Name
+                    $p_areas = DB::table('areas')->where(array('id' => $p_area, 'status' => 1))->first();
+
+                    $dynamic_page .= '-in-'.$p_areas->area;
+                }
+                else
+                {
+                    $dynamic_page .= '-in-jaipur';
+                }
+
+                $title->dynamic_page = $dynamic_page;
+            }
+            else
+            {
+                $title->dynamic_page = '';
+            }
+
+        }
+
+        return view('website_pages.page_titles', array('category' => $category, 'areas' => $areas, 'titles' => $titles));
     }
 }

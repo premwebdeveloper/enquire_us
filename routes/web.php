@@ -33,6 +33,9 @@ Route::any('filter/{location}/{cat}/{encoded}', [
 Route::get('category/{category}', 'HomeController@category');
 Route::get('view/{business}/{id}', 'HomeController@view');
 
+// Get sub categories according to cstegory
+Route::post('getSubcategoriesAccordingToCategory', 'AjaxController@getSubcategoriesAccordingToCategory')->name('getSubcategoriesAccordingToCategory');
+
 // Save keywords
 Route::post('getAreasAccordingToCity', 'AjaxController@getAreasAccordingToCity')->name('getAreasAccordingToCity');
 
@@ -100,6 +103,10 @@ Route::group(['middleware' => 'App\Http\Middleware\Admin'], function()
     // Website Pages
     Route::get('website_pages', 'WebsitePages@website_pages')->name('website_pages');
     Route::post('update_page', 'WebsitePages@update_page')->name('update_page');
+
+    // Website page head titles like Title, Meta title, Keyword, Description etc
+    //Route::any('page_titles_manage', 'WebsitePages@page_titles_manage')->name('page_titles_manage');
+    Route::any('page_titles', 'WebsitePages@page_titles')->name('page_titles');
 
 });
 

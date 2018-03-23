@@ -520,4 +520,22 @@ class AjaxController extends Controller
 
         //return response()->json($states);
     }
+
+    // Get Sub Categories according to Category
+    public function getSubcategoriesAccordingToCategory(Request $request)
+    {
+        $cat_id = $request->cat_id;
+
+        // Get all cities of rajasthan state
+        $subcategories = DB::table('subcategory')->where('cat_id', $cat_id)->get();
+
+        $data = '<option value="">Select Sub Category</option>';
+
+        foreach ($subcategories as $key => $subcat) {
+            $data .= '<option value="'.$subcat->id.'">'.$subcat->subcategory.'</option>';
+        }
+
+        echo $data;
+        exit;
+    }
 }
