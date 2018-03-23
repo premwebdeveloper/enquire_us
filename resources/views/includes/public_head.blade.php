@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="">
-    <title><?= $title; ?></title>
-    <meta name="description" content="<?= $meta_description; ?>" />
-    <meta name="keywords" content="<?= $meta_keywords; ?>" />
+    <title><?php if(!empty($title)){ echo $title;} ?></title>
+    <meta name="description" content="<?php if(!empty($meta_description)){ echo $meta_description; } ?>" />
+    <meta name="keywords" content="<?php if(!empty($meta_keywords)){ echo $meta_keywords; } ?>" />
 
 
     <!-- CSRF Token -->

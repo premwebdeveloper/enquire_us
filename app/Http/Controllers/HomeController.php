@@ -44,31 +44,63 @@ class HomeController extends Controller
     // Filter data according to location and any keyword
     public function filter(Request $request)
     {
-        echo $location = $request->location;
-        echo $cat = $request->cat;
-        echo $encoded = $request->encoded;
+        $location = $request->location;
+        $cat = $request->cat;
+        $encoded = $request->encoded;
 
         $encoded = explode('-', $encoded);
-        echo $title_id = $encoded[1];
-        echo $title_status = $encoded[2];
-        exit;
+        $title_id = $encoded[1];
+        $title_status = $encoded[2];
+       
 
         if($title_status == 1) {        // If title is category
+
+            $categories = DB::table('category')->where('status', 1)->get();
+
+            $clients = DB::table('user_keywords')
+                ->join('category', 'category.id', '=', 'user_keywords.keyword_id')
+                ->join('user_details', 'user_keywords.user_id', '=', 'user_details.user_id')
+                ->join('user_location', 'user_location.user_id', '=', 'user_details.user_id')
+                ->where(array('user_keywords.keyword_identity' => 1, 'category.id' => $title_id))
+                ->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country')
+                //->groupBy('user_id')
+                ->get();
 
             return view('frontend.clients', array('clients' => $clients, 'categories' => $categories));
         }
         elseif ($title_status == 2) {   // If title is sub category
 
+            $categories = DB::table('category')->where('status', 1)->get();
+
+            $clients = DB::table('user_keywords')
+                ->join('subcategory', 'subcategory.id', '=', 'user_keywords.keyword_id')
+                ->join('user_details', 'user_keywords.user_id', '=', 'user_details.user_id')
+                ->join('user_location', 'user_location.user_id', '=', 'user_details.user_id')
+                ->where(array('user_keywords.keyword_identity' => 2, 'subcategory.id' => $title_id))
+                ->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country')
+                //->groupBy('user_id')
+                ->get();
+
             return view('frontend.clients', array('clients' => $clients, 'categories' => $categories));
         }
         else {                          // If title is company
 
-            //  Get company details according to company id
-            $company = DB::table('user_location')->where('user_id', $title_id)->first();
-            $details = DB::table('user_details')->where('user_id', $title_id)->first();
+            // Get client all details
+            $client = DB::table('user_details')
+                ->join('user_company_information', 'user_company_information.user_id', '=', 'user_details.user_id')
+                ->join('user_location', 'user_location.user_id', '=', 'user_details.user_id')
+                ->where(array('user_details.user_id' => $title_id))
+                ->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country', 'user_company_information.payment_mode', 'user_company_information.year_establishment', 'user_company_information.annual_turnover', 'user_company_information.no_of_emps', 'user_company_information.professional_associations', 'user_company_information.certifications')
+                ->first();
+
+            // Get client other information
+            $other_info = DB::table('user_other_information')->where('user_id', $title_id)->get();
+
+            // Get client images
             $images = DB::table('user_images')->where('user_id', $title_id)->get();
 
-            return view('frontend.client_view', array('company' => $company, 'details' => $details, 'images' => $images));
+            return view('frontend.client_view', array('client' => $client, 'other_info' => $other_info, 'images' => $images));
+
         }
 
         exit;

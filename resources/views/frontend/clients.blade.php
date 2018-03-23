@@ -23,6 +23,7 @@
                             </div>
                         </div>
                     </div>
+                    
 
 					<div class="col-sm-9">
                         <div class="col-sm-12 top30 p0">
@@ -37,7 +38,20 @@
 
     									<div class="vendor-image">
     										<a href="{{ URL::to('view',array('business'=>$client->business_name, 'id'=>Crypt::encrypt($client->user_id))) }}">
-    											<img alt="" src="../storage/app/uploads/{{ $client->logo}}" class="img-responsive" style="height: 125px;">
+                                                <?php
+                                                    if(!empty($client->logo))
+                                                    {
+                                                ?>
+                                                <img alt="" src="{{url('/')}}/storage/app/uploads/{{ $client->logo}}" class="img-responsive" style="height: 125px;">
+                                                <?php
+                                                    }
+                                                    else
+                                                    {
+                                                ?>
+    											<img alt="" src="{{url('/')}}/resources/frontend_assets/images/logo.png" class="img-responsive" style="height: 125px;">
+                                                <?php
+                                                    }
+                                                ?>
     										</a>
     									</div>
 

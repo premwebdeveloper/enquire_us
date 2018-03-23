@@ -9,12 +9,13 @@
     <script>
         $(document).ready(function() {
             $('#lightSlider').lightSlider({
-            gallery: true,
-            item: 1,
-            loop: true,
-            slideMargin: 0,
-            thumbItem: 5
+                gallery: true,
+                item: 1,
+                loop: true,
+                slideMargin: 0,
+                thumbItem: 5
             });
+            $("#slide_1").addClass('active');
         });
     </script>
 
@@ -24,6 +25,7 @@
         #lightSlider li img { display: block; height: auto; max-width: 100%; }
         .lSSlideOuter li{ padding:3px; border:#ccc solid 1px; }
         .nav-tabs > li { float: left; }
+        .lSSlideOuter .lSPager.lSGallery img{height:50px;}
     </style>
 
 
@@ -41,42 +43,48 @@
 
                     <div class="lSSlideOuter ">
                         <div class="lSSlideWrapper usingCss" style="transition-duration: 400ms; transition-timing-function: ease;">
+                        @if(!empty($images[0]))
+
                             <ul id="lightSlider" class="lightSlider lsGrab lSSlide" style="width: 3234px; transform: translate3d(-539px, 0px, 0px); height: 298px; padding-bottom: 0%;">
 
-                                <!-- @foreach($images as $image)
-                                    <li data-thumb="../storage/app/uploads/{{ $image->image }}" class="clone left" style="width: 539px; margin-right: 0px;">
-                                        <img src="../storage/app/uploads/{{ $image->image }}">
-                                    </li>
-                                @endforeach -->
-
+                                <?php
+                                    $i=1;
+                                ?>
                                 @foreach($images as $image)
-                                    <li data-thumb="../../storage/app/uploads/{{ $image->image }}" class="lslide" style="width: 539px; margin-right: 0px;">
-                                        <img alt="THAI KITCHEN" src="../../storage/app/uploads/{{ $image->image }}">
-                                    </li>
+                                
+                                        <li data-thumb="{{url('/')}}/storage/app/uploads/{{ $image->image}}" class="lslide" id="slide_<?= $i;?>" style="width: 539px; margin-right: 0px;">
+                                            <img alt="" src="{{url('/')}}/storage/app/uploads/{{ $image->image}}" style="width:100%;height: 270px;">
+                                        </li>
+                                    
+                                <?php
+                                    $i++;
+                                ?>
                                 @endforeach
 
-                                <!-- <li data-thumb="http://savetk.com/assets/uploads/cache/coupons/92f7a1f12c204fb1b03f0a11943c5d4a-105x57.png" class="lslide active" style="width: 539px; margin-right: 0px;">
-                                    <img alt="THAI KITCHEN (1 offer) | Get 10% Discount on Any Food Bill." src="http://savetk.com/assets/uploads/cache/coupons/92f7a1f12c204fb1b03f0a11943c5d4a-550x300.png">
-                                </li>
+                            </ul> 
 
-                                <li data-thumb="http://savetk.com/assets/uploads/cache/coupons/ykEHPtIEWE551084_1-105x57.png" class="lslide" style="width: 539px; margin-right: 0px;">
-                                    <img src="http://savetk.com/assets/uploads/cache/coupons/ykEHPtIEWE551084_1-550x300.png">
-                                </li>
+                        @elseif(!empty($client->logo)) 
 
-                                <li data-thumb="http://savetk.com/assets/uploads/cache/coupons/ykEHPtIEWE551084_2-105x57.png" class="lslide" style="width: 539px; margin-right: 0px;">
-                                    <img src="http://savetk.com/assets/uploads/cache/coupons/ykEHPtIEWE551084_2-550x300.png">
-                                </li>
+                            <ul id="lightSlider" class="lightSlider lsGrab lSSlide" style="width: 3234px; transform: translate3d(-539px, 0px, 0px); height: 298px; padding-bottom: 0%;">
 
-                                <li data-thumb="http://savetk.com/assets/uploads/cache/coupons/ykEHPtIEWE551084_4-105x57.png" class="lslide" style="width: 539px; margin-right: 0px;">
-                                    <img src="http://savetk.com/assets/uploads/cache/coupons/ykEHPtIEWE551084_4-550x300.png">
-                                </li> -->
+                                    <li data-thumb="{{url('/')}}/storage/app/uploads/{{ $client->logo}}" class="lslide active" style="width: 539px; margin-right: 0px;">
+                                        <img alt="" src="{{url('/')}}/storage/app/uploads/{{ $client->logo}}" style="width:100%;height: 270px;">
+                                    </li>
 
-                                <li data-thumb="http://savetk.com/assets/uploads/cache/coupons/92f7a1f12c204fb1b03f0a11943c5d4a-105x57.png" class="clone right" style="width: 539px; margin-right: 0px;">
-                                    <img alt="THAI KITCHEN (1 offer) | Get 10% Discount on Any Food Bill." src="http://savetk.com/assets/uploads/cache/coupons/92f7a1f12c204fb1b03f0a11943c5d4a-550x300.png">
-                                </li>
+                            </ul>                            
+
+                        @else
+
+                            <ul id="lightSlider" class="lightSlider lsGrab lSSlide" style="width: 3234px; transform: translate3d(-539px, 0px, 0px); height: 298px; padding-bottom: 0%;">
+
+                                    <li data-thumb="{{url('/')}}/resources/frontend_assets/images/logo.png" class="lslide active" style="width: 539px; margin-right: 0px;">
+                                        <img alt="" src="{{url('/')}}/resources/frontend_assets/images/logo.png" style="width:100%;height: 270px;">
+                                    </li>
+
                             </ul>
 
-                            <div class="lSAction"><a class="lSPrev"></a><a class="lSNext"></a></div>
+                        @endif
+                            <!-- <div class="lSAction"><a class="lSPrev"></a><a class="lSNext"></a></div> -->
                         </div>
 
                     </div>
@@ -109,8 +117,8 @@
                             <div class="address-phn">
                                 <ul>
                                     <li> <i class="fa fa-map-marker"></i>{{ $client->city }}</li>
-                                    <li> <i class="fa fa-phone"></i>{{ $client->phone }}</li>
-                                    <li><i class="fa fa-archive"></i><a style="text-decoration:underline;" href="http://savetk.com/thai-kitchen">View all deals of THAI KITCHEN</a></li>
+                                    <li> <i class="fa fa-mobile"></i><a href="tel:{{ $client->phone }}">{{ $client->phone }}</a></li>
+                                    <li> <i class="fa fa-phone"></i><a href="tel:{{ $client->landline }}">{{ $client->landline }}</a></li>
                                 </ul>
                             </div>
 
@@ -123,13 +131,19 @@
                                     <span>Share</span>
                                     <ul class="addthis_default_style">
                                         <li>
-                                            <a class="addthis_button_email at300b" target="_blank" href="#">F</a>
+                                            <a class="addthis_button_email at300b" target="_blank" href="https://www.facebook.com/">
+                                                <i class="fa fa-facebook"></i>
+                                            </a>
                                         </li>
                                         <li>
-                                            <a class="addthis_button_facebook at300b" href="#">G</a>
+                                            <a class="addthis_button_facebook at300b" target="_blank" href="https://www.twitter.com/">
+                                                <i class="fa fa-twitter"></i>
+                                            </a>
                                         </li>
                                         <li>
-                                            <a class="addthis_button_twitter at300b" href="#">T</a>
+                                            <a class="addthis_button_twitter at300b" target="_blank" href="https://www.instagram.com/">
+                                                <i class="fa fa-instagram"></i>
+                                            </a>
                                         </li>
                                     </ul>
                                 </div>
@@ -220,10 +234,6 @@
                                             <a href="mailto:thaikitchencity@gmail.com">{{ $client->email }}</a>
                                         </p>
 
-                                        <p>
-                                            <span class="glyphicon glyphicon-info-sign"></span>
-                                            <a target="_blank" href="javascript:;">Facebook</a>
-                                        </p>
                                     </div>
                                 </div>
                             </div>
