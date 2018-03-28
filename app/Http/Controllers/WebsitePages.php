@@ -63,6 +63,7 @@ class WebsitePages extends Controller
         $sub_category = $request->sub_category;
         $city = $request->city;
         $area = $request->area;
+        $business = $request->business;
         $page = $request->page;
         $title = $request->title;
         $keyword = $request->keyword;
@@ -70,9 +71,19 @@ class WebsitePages extends Controller
 
         if(!empty($title) && !empty($keyword) && !empty($description))
         {
+            // If Page name is blank and category is selected
             if($page == '')
             {
-                $page = $category.'|'.$sub_category.'|'.$city.'|'.$area;
+                if(!empty($category))
+                {
+                    $page = $category.'|'.$sub_category.'|'.$city.'|'.$area;
+                }
+            }
+
+            // If business name is selected
+            if($business != '')
+            {
+                $business = $business.'|'.$city.'|'.$area;
             }
 
             $date = date('Y-m-d H:i:s');
@@ -81,6 +92,7 @@ class WebsitePages extends Controller
             $insert = DB::table('websites_page_head_titles')->insert(
                 array(
                     'page' => $page,
+                    'business_page' => $business,
                     'title' => $title,
                     'keyword' => $keyword,
                     'description' => $description,
@@ -90,6 +102,9 @@ class WebsitePages extends Controller
                 )
             );
         }
+
+        //  Get All Categories
+        $business = DB::table('user_location')->where('status', 1)->get();
 
         //  Get All Categories
         $category = DB::table('category')->where('status', 1)->get();
@@ -105,53 +120,84 @@ class WebsitePages extends Controller
         foreach ($titles as $key => $title) {
             $page = $title->page;
 
-            $temp = explode('|', $page);
-
-            if(count($temp) > 1)
+            // If page is not null
+            if(!empty($page))
             {
-                $dynamic_page = '';
+                $temp = explode('|', $page);
 
-                $p_cat = $temp[0];
-                $p_subcat = $temp[1];
-                $p_city = $temp[2];
-                $p_area = $temp[3];
-
-                if(!empty($p_subcat))
+                if(count($temp) > 1)
                 {
-                    // Get Category Name
-                    $p_subcategory = DB::table('subcategory')->where(array('id' => $p_subcat, 'status' => 1))->first();
+                    $dynamic_page = '';
 
-                    $dynamic_page .= $p_subcategory->subcategory;
+                    $p_cat = $temp[0];
+                    $p_subcat = $temp[1];
+                    $p_city = $temp[2];
+                    $p_area = $temp[3];
+
+                    if(!empty($p_subcat))
+                    {
+                        // Get Category Name
+                        $p_subcategory = DB::table('subcategory')->where(array('id' => $p_subcat, 'status' => 1))->first();
+
+                        $dynamic_page .= $p_subcategory->subcategory;
+                    }
+                    else
+                    {
+                        // Get Category Name
+                        $p_category = DB::table('category')->where(array('id' => $p_cat, 'status' => 1))->first();
+
+                        $dynamic_page .= $p_category->category;
+                    }
+
+                    if(!empty($p_area))
+                    {
+                         // Get Category Name
+                        $p_areas = DB::table('areas')->where(array('id' => $p_area, 'status' => 1))->first();
+
+                        $dynamic_page .= '-in-'.$p_areas->area;
+                    }
+                    else
+                    {
+                        $dynamic_page .= '-in-jaipur';
+                    }
+
+                    $title->dynamic_page = $dynamic_page;
                 }
                 else
                 {
-                    // Get Category Name
-                    $p_category = DB::table('category')->where(array('id' => $p_cat, 'status' => 1))->first();
-
-                    $dynamic_page .= $p_category->category;
+                    $title->dynamic_page = '';
                 }
+            }
+            elseif(!empty($title->business_page))
+            {
+                $busi_temp = explode('|', $title->business_page);
+
+                $p_busi = $busi_temp[0];
+                $p_city = $busi_temp[1];
+                $p_area = $busi_temp[2];
+
+                // Get business name
+                $businessDetail = DB::table('user_location')->where(array('user_id' => $p_busi, 'status' => 1))->first();
+                $businessName = $businessDetail->business_name;
 
                 if(!empty($p_area))
                 {
                      // Get Category Name
                     $p_areas = DB::table('areas')->where(array('id' => $p_area, 'status' => 1))->first();
 
-                    $dynamic_page .= '-in-'.$p_areas->area;
+                    $businessName .= '-in-'.$p_areas->area;
                 }
                 else
                 {
-                    $dynamic_page .= '-in-jaipur';
+                    $businessName .= '-in-jaipur';
                 }
 
-                $title->dynamic_page = $dynamic_page;
+                $title->business_page = $businessName;
             }
-            else
-            {
-                $title->dynamic_page = '';
-            }
+
 
         }
 
-        return view('website_pages.page_titles', array('category' => $category, 'areas' => $areas, 'titles' => $titles));
+        return view('website_pages.page_titles', array('category' => $category, 'areas' => $areas, 'business' => $business, 'titles' => $titles));
     }
 }

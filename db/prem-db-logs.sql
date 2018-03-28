@@ -172,3 +172,7 @@ ALTER TABLE `websites_page_head_titles`
 
 ALTER TABLE `websites_page_head_titles`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+-- ---------------------------ALTER Table 'websites_page_head_titles' on 19-03-2018--------------------------
+ALTER TABLE `websites_page_head_titles` ADD `business_page` VARCHAR(255) NULL AFTER `page`;
+ALTER TABLE `websites_page_head_titles` CHANGE `page` `page` VARCHAR(1255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL;

@@ -12,10 +12,12 @@
             if(id != '')
             {
                 $('#page').attr('disabled', 'disabled');
+                $('#business').attr('disabled', 'disabled');
             }
             else
             {
                 $('#page').removeAttr('disabled', 'disabled');
+                $('#business').removeAttr('disabled', 'disabled');
             }
 
             $.ajax({
@@ -42,6 +44,7 @@
                 $('#sub_category').attr('disabled', 'disabled');
                 $('#city').attr('disabled', 'disabled');
                 $('#area').attr('disabled', 'disabled');
+                $('#business').attr('disabled', 'disabled');
             }
             else
             {
@@ -49,6 +52,24 @@
                 $('#sub_category').removeAttr('disabled', 'disabled');
                 $('#city').removeAttr('disabled', 'disabled');
                 $('#area').removeAttr('disabled', 'disabled');
+                $('#business').removeAttr('disabled', 'disabled');
+            }
+        });
+
+        // If Business name is selected then -
+        $('#business').change(function(){
+            var business = $(this).val();
+            if(business != '')
+            {
+                $('#category').attr('disabled', 'disabled');
+                $('#sub_category').attr('disabled', 'disabled');
+                $('#page').attr('disabled', 'disabled');
+            }
+            else
+            {
+                $('#category').removeAttr('disabled', 'disabled');
+                $('#sub_category').removeAttr('disabled', 'disabled');
+                $('#page').removeAttr('disabled', 'disabled');
             }
         });
 
@@ -147,7 +168,21 @@
 
                             <div clear="both">&nbsp;</div>
 
-                            <div class="col-sm-6">
+                            <div class="col-sm-3">
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <label for="page" class="control-label">Business Name</label>
+                                        <select class="form-control" name="business" id="business">
+                                            <option value="">Select Business</option>
+                                            @foreach($business as $busi)
+                                                <option value="{{ $busi->user_id }}">{{ $busi->business_name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-3">
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <label for="page" class="control-label">Page</label>
@@ -238,12 +273,26 @@
                             @if(!empty($titles))
                                 @foreach($titles as $title)
                                 <tr class="gradeX">
-                                    @if($title->dynamic_page != '')
-                                        <td>{{ $title->dynamic_page }}</td>
-                                    @else
-                                        <td>{{ $title->page }}</td>
-                                    @endif
 
+                                    <?php
+                                    if(!empty($title->page))
+                                    {
+                                        if($title->dynamic_page != '')
+                                        {
+                                            $page = preg_replace('/[^A-Za-z0-9\-]/', '-', $title->dynamic_page);
+                                        }
+                                        else
+                                        {
+                                            $page = preg_replace('/[^A-Za-z0-9\-]/', '-', $title->page);
+                                        }
+                                    }
+                                    else
+                                    {
+                                        $page = preg_replace('/[^A-Za-z0-9\-]/', '-', $title->business_page);
+                                    }
+
+                                    ?>
+                                    <td>{{ $page }}</td>
                                     <td>{{ $title->title }}</td>
                                     <td>{{ $title->keyword }}</td>
                                     <td>{{ $title->description }}</td>
