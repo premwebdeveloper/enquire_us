@@ -190,6 +190,8 @@ class HomeController extends Controller
 
         $category = $request->category;
 
+        $category = str_replace("-", " ", $category);
+
         $categories = DB::table('category')->where('status', 1)->get();
 
         $clients = DB::table('user_keywords')
