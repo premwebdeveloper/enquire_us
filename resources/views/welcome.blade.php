@@ -14,7 +14,11 @@
 						<div class="row">
 							<div class="col-lg-12 res-catagories">
                                 @foreach($category as $cat)
-								    <a class="cata-box" href="{{ URL::to('category',array('category'=>$cat->category)) }}">
+                                <?php
+                                    $cat_name = $cat->category;
+                                    $cat_name = preg_replace('/[^A-Za-z0-9\-]/', '-', $cat_name);
+                                ?>
+								    <a class="cata-box" href="{{ URL::to('category',array('category'=>$cat_name)) }}">
                                         <span>
         									<img src="resources/frontend_assets//images/food.png" alt="{{ $cat->category }}" />{{ $cat->category }}
                                         </span>
