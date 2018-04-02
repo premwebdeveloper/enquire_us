@@ -46,7 +46,8 @@ Route::get('aboutus', 'WebsitePages@aboutus')->name('aboutus');
 Route::post('/update_location_info', 'AjaxController@update_location_info')->name('update_location_info');
 Route::post('/update_other_info', 'AjaxController@update_other_info')->name('update_other_info');
 Route::post('/update_contact_info', 'AjaxController@update_contact_info')->name('update_contact_info');
-Route::post('getPincodeByCityForUser', 'AjaxController@getPincodeByCityForUser')->name('getPincodeByCityForUser');
+Route::post('getAreaByCityForUser', 'AjaxController@getAreaByCityForUser')->name('getAreaByCityForUser');
+Route::post('getPincodeByAreaForUser', 'AjaxController@getPincodeByAreaForUser')->name('getPincodeByAreaForUser');
 
 // Search keywords category / sub category
 Route::get('searchajax', ['as'=>'searchajax','uses'=>'AjaxController@searchResponse']);

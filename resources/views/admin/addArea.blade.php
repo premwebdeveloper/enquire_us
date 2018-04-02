@@ -68,6 +68,12 @@
                         <div class="col-sm-8">
                             <input type="text" name="area" id="area" class="form-control" placeholder="Area Name" required="required">
                         </div>
+                    </div>                    
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Pincode</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="pincode" id="pincode" class="form-control" placeholder="Pincode" required="required">
+                        </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label"></label>

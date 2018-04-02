@@ -49,6 +49,7 @@
                                     <th>State</th>
                                     <th>City</th>
                                     <th>Area</th>
+                                    <th>Pincode</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -64,6 +65,7 @@
                                         <td id="exitState_{{ $area->id }}" val="{{$area->state}}">{{ $area->state_name }}</td>
                                         <td id="exitCity_{{ $area->id }}" val="{{$area->city}}">{{ $area->city_name }}</td>
                                         <td id="exitArea_{{ $area->id }}">{{ $area->area }}</td>
+                                        <td id="exitPincode_{{ $area->id }}">{{ $area->pincode }}</td>
                                         <td>
                                             <a class="btn btn-success editArea" title="Update" id="{{ $area->id }}">
                                                 <i class="fa fa-pencil" aria-hidden="true"></i>
@@ -135,6 +137,13 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Pincode</label>
+                        <div class="col-sm-8">
+                            <input type="text" name="pincode" id="pincode" required="required" class="form-control">
+                        </div>
+                    </div>
+
                     <div class="form-group text-center">
                         <input type="submit" name="editCaste" class="btn btn-warning" id="editCaste" value="Update">
                     </div>
@@ -158,6 +167,7 @@
             var city_id = $('#exitCity_'+id).attr('val');
 
             var area = $('#exitArea_'+id).text();
+            var pincode = $('#exitPincode_'+id).text();
 
             //alert(id +','+ country +','+ state +','+ city +','+ area +','+ country_id +','+ state_id +','+ city_id);
 
@@ -166,6 +176,7 @@
             $('#state').val(state);
             $('#city').text(city);
             $('#area').val(area);
+            $('#pincode').val(pincode);
 
             $('.country_id').val(country_id);
             $('.state_id').val(state_id);

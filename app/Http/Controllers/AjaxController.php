@@ -186,15 +186,24 @@ class AjaxController extends Controller
         exit;
     }
 
-    // Get pincodes according yo city
-    public function getPincodeByCityForUser(Request $request)
+    // Get areas according yo city
+    public function getAreaByCityForUser(Request $request)
     {
         $city = $request->city;
 
-        // Get all districts of this state
-        $states = DB::table('pincodes')->where('city', $city)->get();
+        $areas = DB::table('areas')->where('city', $city)->get();
 
-        return response()->json($states);
+        return response()->json($areas);
+    }
+
+    // Get pincodes according yo city
+    public function getPincodeByAreaForUser(Request $request)
+    {
+        $area = $request->area;
+
+        $pincodes = DB::table('areas')->where('id', $area)->get();
+
+        return response()->json($pincodes);
     }
 
     // get related keywords / category / sub category

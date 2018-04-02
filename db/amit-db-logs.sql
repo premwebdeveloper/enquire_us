@@ -19,4 +19,5 @@ ALTER TABLE `user_details`
   ALTER TABLE `users` ADD `verify_token` VARCHAR(40) NULL AFTER `remember_token`;
   ALTER TABLE `users` ADD `status` TINYINT(1) NOT NULL DEFAULT '0' AFTER `updated_at`;
 
-  -- ---------------------------DB Start on 20-01-2018--------------------------
+  -- ---------------------------DB Start on 31-03-2018--------------------------
+  ALTER TABLE `areas` ADD `pincode` INT(6) NOT NULL AFTER `area`;

@@ -40,9 +40,10 @@ class Areas extends Controller
         $state = $request->state;
         $city = $request->city;
         $area = $request->area;
+        $pincode = $request->pincode;
 
         $add_area = DB::table('areas')->insert(
-            array('country' => $country, 'state' => $state, 'city' => $city, 'area' => $area, 'created_at' => $date, 'updated_at' => $date)
+            array('country' => $country, 'state' => $state, 'city' => $city, 'area' => $area, 'pincode' => $pincode, 'created_at' => $date, 'updated_at' => $date)
         );
 
 
@@ -68,9 +69,10 @@ class Areas extends Controller
         $state = $request->state;
         $city = $request->city;
         $area = $request->area;
+        $pincode = $request->pincode;
 
         $add_area = DB::table('areas')->where('id', $id)->update(
-            array('country' => $country, 'state' => $state, 'city' => $city, 'area' => $area, 'created_at' => $date, 'updated_at' => $date)
+            array('country' => $country, 'state' => $state, 'city' => $city, 'area' => $area, 'pincode' => $pincode, 'created_at' => $date, 'updated_at' => $date)
         );
 
 
