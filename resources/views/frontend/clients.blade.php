@@ -16,14 +16,18 @@
                             <h1 class="brand-header">Categories </h1>
                             <div class="list-group category_list">
                                 @foreach($categories as $category)
-                                    <a href="{{ URL::to('category',array('category'=>$category->category)) }}" class="list-group-item">
+                                    <?php
+                                        $cat_name = $category->category;
+                                        $cat_name = preg_replace('/[^A-Za-z0-9\-]/', '-', $cat_name);
+                                    ?>
+                                    <a href="{{ URL::to('category',array('category'=>$cat_name)) }}" class="list-group-item">
                                         {{ $category->category }}
                                     </a>
                                 @endforeach
                             </div>
                         </div>
                     </div>
-                    
+
 
 					<div class="col-sm-9">
                         <div class="col-sm-12 top30 p0">

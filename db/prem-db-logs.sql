@@ -176,3 +176,6 @@ ALTER TABLE `websites_page_head_titles`
 -- ---------------------------ALTER Table 'websites_page_head_titles' on 19-03-2018--------------------------
 ALTER TABLE `websites_page_head_titles` ADD `business_page` VARCHAR(255) NULL AFTER `page`;
 ALTER TABLE `websites_page_head_titles` CHANGE `page` `page` VARCHAR(1255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL;
+
+-- ---------------------------ALTER Table 'websites_page_head_titles' on 31-03-2018--------------------------
+ALTER TABLE `websites_page_head_titles` ADD `page_url` VARCHAR(1055) NULL AFTER `business_page`;

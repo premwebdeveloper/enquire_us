@@ -28,6 +28,7 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index()
     {
         $category = DB::table('category')->where('status', 1)->get();
@@ -48,10 +49,26 @@ class HomeController extends Controller
         $cat = $request->cat;
         $encoded = $request->encoded;
 
+        // get page title for this page
+        $page_titles = DB::table('websites_page_head_titles')->where(array('status' => 1, 'page_url' => $cat))->first();
+
+        if(!empty($page_titles))
+        {
+            $title = $page_titles->title;
+            $meta_keywords = $page_titles->keyword;
+            $meta_description = $page_titles->description;
+        }
+        else
+        {
+            $title = '';
+            $meta_keywords = '';
+            $meta_description = '';
+        }
+
+
         $encoded = explode('-', $encoded);
         $title_id = $encoded[1];
         $title_status = $encoded[2];
-       
 
         if($title_status == 1) {        // If title is category
 
@@ -66,7 +83,7 @@ class HomeController extends Controller
                 //->groupBy('user_id')
                 ->get();
 
-            return view('frontend.clients', array('clients' => $clients, 'categories' => $categories));
+            return view('frontend.clients', array('clients' => $clients, 'categories' => $categories, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords));
         }
         elseif ($title_status == 2) {   // If title is sub category
 
@@ -81,7 +98,7 @@ class HomeController extends Controller
                 //->groupBy('user_id')
                 ->get();
 
-            return view('frontend.clients', array('clients' => $clients, 'categories' => $categories));
+            return view('frontend.clients', array('clients' => $clients, 'categories' => $categories, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords));
         }
         else {                          // If title is company
 
@@ -99,7 +116,7 @@ class HomeController extends Controller
             // Get client images
             $images = DB::table('user_images')->where('user_id', $title_id)->get();
 
-            return view('frontend.client_view', array('client' => $client, 'other_info' => $other_info, 'images' => $images));
+            return view('frontend.client_view', array('client' => $client, 'other_info' => $other_info, 'images' => $images, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords));
 
         }
 
@@ -189,6 +206,8 @@ class HomeController extends Controller
         $meta_keywords = 'Category keywords';
 
         $category = $request->category;
+
+
 
         $category = str_replace("-", " ", $category);
 

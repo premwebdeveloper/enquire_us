@@ -51,12 +51,6 @@ class WebsitePages extends Controller
     }
 
     // Website page head titles like Title, Meta title, Keyword, Description etc
-    /*public function page_titles_manage()
-    {
-        return view('website_pages.page_titles');
-    }*/
-
-    // Website page head titles like Title, Meta title, Keyword, Description etc
     public function page_titles(Request $request)
     {
         $category = $request->category;
@@ -69,30 +63,83 @@ class WebsitePages extends Controller
         $keyword = $request->keyword;
         $description = $request->description;
 
+        $date = date('Y-m-d H:i:s');
+
         if(!empty($title) && !empty($keyword) && !empty($description))
         {
+            // Create page url
+            $page_url = $page;
+
             // If Page name is blank and category is selected
             if($page == '')
             {
                 if(!empty($category))
                 {
                     $page = $category.'|'.$sub_category.'|'.$city.'|'.$area;
+
+                    // Create page url
+                    $page_url = '';
+
+                    if(!empty($sub_category))
+                    {
+                        // Get Category Name
+                        $p_subcategory = DB::table('subcategory')->where(array('id' => $sub_category, 'status' => 1))->first();
+                        $page_url .= preg_replace('/[^A-Za-z0-9\-]/', '-', $p_subcategory->subcategory);
+                    }
+                    else
+                    {
+                        // Get Category Name
+                        $p_category = DB::table('category')->where(array('id' => $category, 'status' => 1))->first();
+                        $page_url .= preg_replace('/[^A-Za-z0-9\-]/', '-', $p_category->category);
+                    }
+
+
+                    if(!empty($area))
+                    {
+                        // Get Area Name
+                        $p_areas = DB::table('areas')->where(array('id' => $area, 'status' => 1))->first();
+                        $areaa = preg_replace('/[^A-Za-z0-9\-]/', '-', $p_areas->area);
+                        $page_url .= '-in-'.$areaa;
+
+                    }
+                    else
+                    {
+                        $page_url .= '-in-jaipur';
+                    }
                 }
             }
 
             // If business name is selected
             if($business != '')
             {
-                $business = $business.'|'.$city.'|'.$area;
-            }
+                // Create page url
+                $page_url = '';
 
-            $date = date('Y-m-d H:i:s');
+                $business = $business.'|'.$city.'|'.$area;
+
+                // Get business name
+                $businessDetail = DB::table('user_location')->where(array('user_id' => $business, 'status' => 1))->first();
+                $page_url .= preg_replace('/[^A-Za-z0-9\-]/', '-', $businessDetail->business_name);
+
+                if(!empty($area))
+                {
+                    // Get Area Name
+                    $p_areas = DB::table('areas')->where(array('id' => $area, 'status' => 1))->first();
+                    $areaa = preg_replace('/[^A-Za-z0-9\-]/', '-', $p_areas->area);
+                    $page_url .= '-in-'.$areaa;
+                }
+                else
+                {
+                    $page_url .= '-in-jaipur';
+                }
+            }
 
             // Insert page titles
             $insert = DB::table('websites_page_head_titles')->insert(
                 array(
                     'page' => $page,
                     'business_page' => $business,
+                    'page_url' => $page_url,
                     'title' => $title,
                     'keyword' => $keyword,
                     'description' => $description,
@@ -115,88 +162,6 @@ class WebsitePages extends Controller
 
         //  Get All Page titles
         $titles = DB::table('websites_page_head_titles')->where('status', 1)->get();
-
-        // Get page name if Dynamic page created using category / subcategory / city / area
-        foreach ($titles as $key => $title) {
-            $page = $title->page;
-
-            // If page is not null
-            if(!empty($page))
-            {
-                $temp = explode('|', $page);
-
-                if(count($temp) > 1)
-                {
-                    $dynamic_page = '';
-
-                    $p_cat = $temp[0];
-                    $p_subcat = $temp[1];
-                    $p_city = $temp[2];
-                    $p_area = $temp[3];
-
-                    if(!empty($p_subcat))
-                    {
-                        // Get Category Name
-                        $p_subcategory = DB::table('subcategory')->where(array('id' => $p_subcat, 'status' => 1))->first();
-
-                        $dynamic_page .= $p_subcategory->subcategory;
-                    }
-                    else
-                    {
-                        // Get Category Name
-                        $p_category = DB::table('category')->where(array('id' => $p_cat, 'status' => 1))->first();
-
-                        $dynamic_page .= $p_category->category;
-                    }
-
-                    if(!empty($p_area))
-                    {
-                         // Get Category Name
-                        $p_areas = DB::table('areas')->where(array('id' => $p_area, 'status' => 1))->first();
-
-                        $dynamic_page .= '-in-'.$p_areas->area;
-                    }
-                    else
-                    {
-                        $dynamic_page .= '-in-jaipur';
-                    }
-
-                    $title->dynamic_page = $dynamic_page;
-                }
-                else
-                {
-                    $title->dynamic_page = '';
-                }
-            }
-            elseif(!empty($title->business_page))
-            {
-                $busi_temp = explode('|', $title->business_page);
-
-                $p_busi = $busi_temp[0];
-                $p_city = $busi_temp[1];
-                $p_area = $busi_temp[2];
-
-                // Get business name
-                $businessDetail = DB::table('user_location')->where(array('user_id' => $p_busi, 'status' => 1))->first();
-                $businessName = $businessDetail->business_name;
-
-                if(!empty($p_area))
-                {
-                     // Get Category Name
-                    $p_areas = DB::table('areas')->where(array('id' => $p_area, 'status' => 1))->first();
-
-                    $businessName .= '-in-'.$p_areas->area;
-                }
-                else
-                {
-                    $businessName .= '-in-jaipur';
-                }
-
-                $title->business_page = $businessName;
-            }
-
-
-        }
 
         return view('website_pages.page_titles', array('category' => $category, 'areas' => $areas, 'business' => $business, 'titles' => $titles));
     }

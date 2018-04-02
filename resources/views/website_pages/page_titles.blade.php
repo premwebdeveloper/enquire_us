@@ -273,26 +273,7 @@
                             @if(!empty($titles))
                                 @foreach($titles as $title)
                                 <tr class="gradeX">
-
-                                    <?php
-                                    if(!empty($title->page))
-                                    {
-                                        if($title->dynamic_page != '')
-                                        {
-                                            $page = preg_replace('/[^A-Za-z0-9\-]/', '-', $title->dynamic_page);
-                                        }
-                                        else
-                                        {
-                                            $page = preg_replace('/[^A-Za-z0-9\-]/', '-', $title->page);
-                                        }
-                                    }
-                                    else
-                                    {
-                                        $page = preg_replace('/[^A-Za-z0-9\-]/', '-', $title->business_page);
-                                    }
-
-                                    ?>
-                                    <td>{{ $page }}</td>
+                                    <td>{{ $title->page_url }}</td>
                                     <td>{{ $title->title }}</td>
                                     <td>{{ $title->keyword }}</td>
                                     <td>{{ $title->description }}</td>

@@ -216,6 +216,10 @@
                                     var sub_location = $('#sub_location').val();
                                     var filter_title = $('#filter_title').val();
 
+                                    // space reolace by dash
+                                    location = location.replace(/\s+/g, '-');
+                                    filter_title = filter_title.replace(/\s+/g, '-');
+
                                     if(filter_title == '')
                                     {
                                         alert('Please select any Category or Company name');
@@ -228,10 +232,15 @@
 
                                         if(sub_location != '')
                                         {
+                                            // space reolace by dash
+                                            sub_location = sub_location.replace(/\s+/g, '-');
+
                                             window.location.href = "{{url('filter')}}"+"/"+location+"/" +filter_title+"-in-"+sub_location+"/" +encoded;
                                         }
                                         else
                                         {
+                                            sub_location = sub_location.replace(/\s+/g, '-');
+
                                             window.location.href = "{{url('filter')}}"+"/"+location+"/" +filter_title+"/" +encoded;
                                         }
                                     }
