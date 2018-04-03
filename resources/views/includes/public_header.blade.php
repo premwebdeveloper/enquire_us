@@ -152,26 +152,6 @@
                         </form>
 
                         <script type="text/javascript">
-
-                            /*function getAreas(city)
-                            {
-                                // Get cities according to state
-                                $.ajax({
-                                    method : 'post',
-                                    url : 'getAreasAccordingToCity',
-                                    async : true,
-                                        data : {"_token": "{{ csrf_token() }}", 'city': city},
-                                          success:function(response){
-
-                                            $('#sub_location').html(response);
-
-                                          },
-                                        error: function(data){
-                                        console.log(data);
-                                    },
-                                });
-                            }*/
-
                             $(document).ready(function(){
 
                                 var city = '3378';
