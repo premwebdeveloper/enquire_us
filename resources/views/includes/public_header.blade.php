@@ -152,10 +152,9 @@
                         </form>
 
                         <script type="text/javascript">
-                            $(document).ready(function(){
 
-                                var city = '3378';
-
+                            /*function getAreas(city)
+                            {
                                 // Get cities according to state
                                 $.ajax({
                                     method : 'post',
@@ -164,7 +163,26 @@
                                         data : {"_token": "{{ csrf_token() }}", 'city': city},
                                           success:function(response){
 
-                                            console.log(response);
+                                            $('#sub_location').html(response);
+
+                                          },
+                                        error: function(data){
+                                        console.log(data);
+                                    },
+                                });
+                            }*/
+
+                            $(document).ready(function(){
+
+                                var city = '3378';
+
+                                // Get cities according to state
+                                $.ajax({
+                                    method : 'post',
+                                    url: "{{ route('getAreasAccordingToCity') }}",
+                                    async : true,
+                                        data : {"_token": "{{ csrf_token() }}", 'city': city},
+                                          success:function(response){
 
                                             $('#sub_location').html(response);
 
