@@ -130,7 +130,7 @@
                             <div id="top_search" class="form-group form-group-cus" role="form">
 
                                 <div class="form-group  col-sm-1 col-xcus-1">
-                                  <button id="search-filter" type="button" class="btn success  btn-custom-search">Search</button>
+                                  <button id="search-filter" type="button" class="btn success btn-custom-search" disabled="disabled">Search</button>
                                 </div>
 
                                 <div class="form-group col-sm-3 col-cus-3 input-width">
@@ -183,16 +183,17 @@
                                             },
                                             success: function(data) {
 
-                                                console.log(data);
-
-                                                var array = $.map(data, function (item) {
-                                                   return {
-                                                        label: item.category,
-                                                        value: item.cat_id,
-                                                        data : item
-                                                   }
-                                                });
-                                                response(array)
+                                                if (data.category !== '' && data.category !== null)
+                                                {
+                                                    var array = $.map(data, function (item) {
+                                                    return {
+                                                            label: item.category,
+                                                            value: item.cat_id,
+                                                            data : item
+                                                        }
+                                                    });
+                                                    response(array)
+                                                }
                                             }
                                         });
                                     },
@@ -202,6 +203,8 @@
                                         var cat_id = ui.item.data.cat_id;
                                         var status = ui.item.data.status;
                                         $('#filter_title').attr('alt', cat_id+'-'+status);
+
+                                        $('#search-filter').removeAttr('disabled', 'disabled');
 
                                         return false;
                                     }

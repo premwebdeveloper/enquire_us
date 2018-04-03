@@ -393,10 +393,10 @@
                                       <label for="Country" class="col-sm-4 control-label">City:</label>
                                       <div class="col-sm-6">
                                         <select class="validate[required] form-control" name="city" id="city">
-                                            
+
                                             <option value=""> Select City</option>
                                             <option value="3378"> Jaipur</option>
-                                            
+
                                         </select>
                                       </div>
                                     </div>
@@ -409,7 +409,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                    
+
                                     <div class="form-group required">
                                       <label for="Country" class="col-sm-4 control-label">Pin Code:</label>
                                       <div class="col-sm-6">
@@ -855,14 +855,18 @@
 
                                             //console.log(data);
 
-                                            var array = $.map(data, function (item) {
-                                               return {
-                                                    label: item.category,
-                                                    value: item.cat_id,
-                                                    data : item
-                                               }
-                                            });
-                                            response(array)
+                                            if (data.category !== '' && data.category !== null)
+                                            {
+                                                var array = $.map(data, function (item) {
+                                                    return {
+                                                            label: item.category,
+                                                            value: item.cat_id,
+                                                            data : item
+                                                    }
+                                                });
+                                                response(array)
+                                            }
+
                                         }
                                     });
                                 },
