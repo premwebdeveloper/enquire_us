@@ -547,4 +547,58 @@ class AjaxController extends Controller
         echo $data;
         exit;
     }
+
+    // Check keyword is exist or not in db
+    public function checkKeywordExistOrNot(Request $request)
+    {
+        $filter_title_attr = $request->filter_title_attr;
+        $filter_title = $request->filter_title;
+
+        $temp = explode('-', $filter_title_attr);
+
+        $title_status = $temp[1];
+
+        if($title_status == 1){     // // if selected keyword is category
+
+            $where = array('category' => $filter_title, 'status' => 1);
+            $category = DB::table('category')->where($where)->first();
+
+            if(!empty($category)){
+                echo 1;
+            }
+            else{
+                echo 0;
+            }
+
+        }
+        if($title_status == 2){   // If selected keyword is subcategory
+
+            $where = array('subcategory' => $filter_title, 'status' => 1);
+
+            $subcategory = DB::table('subcategory')->where($where)->first();
+
+            if(!empty($subcategory)){
+                echo 1;
+            }
+            else{
+                echo 0;
+            }
+
+        }
+        if($title_status == 3){   // If selected keyword is company name
+
+            $where = array('business_name' => $filter_title, 'status' => 1);
+            $business_name = DB::table('user_location')->where($where)->first();
+
+            if(!empty($business_name)){
+                echo 1;
+            }
+            else{
+                echo 0;
+            }
+
+        }
+
+    }
+
 }

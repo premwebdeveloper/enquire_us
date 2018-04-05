@@ -218,8 +218,7 @@
                                     var sub_location = $('#sub_location').val();
                                     var filter_title = $('#filter_title').val();
 
-                                    // first check filter title keyword is valid or not
-
+                                    var original_title = filter_title;
 
                                     // space reolace by dash
                                     location = location.replace(/\s+/g, '-');
@@ -233,21 +232,44 @@
                                     {
                                         var filter_title_alt = $('#filter_title').attr('alt');
 
-                                        var encoded = makeid()+'-'+filter_title_alt;
+                                        // first check filter title keyword is valid or not
+                                        $.ajax({
+                                            method : 'post',
+                                            url: "{{ route('checkKeywordExistOrNot') }}",
+                                            async : true,
+                                            data : {"_token": "{{ csrf_token() }}", 'filter_title_attr' : filter_title_alt, 'filter_title' : original_title},
+                                            success:function(response){
 
-                                        if(sub_location != '')
-                                        {
-                                            // space reolace by dash
-                                            sub_location = sub_location.replace(/\s+/g, '-');
+                                                if(response == 1){
 
-                                            window.location.href = "{{url('filter')}}"+"/"+location+"/" +filter_title+"-in-"+sub_location+"/" +encoded;
-                                        }
-                                        else
-                                        {
-                                            sub_location = sub_location.replace(/\s+/g, '-');
+                                                    // all is well
+                                                    var encoded = makeid()+'-'+filter_title_alt;
 
-                                            window.location.href = "{{url('filter')}}"+"/"+location+"/" +filter_title+"/" +encoded;
-                                        }
+                                                    if(sub_location != '')
+                                                    {
+                                                        // space reolace by dash
+                                                        sub_location = sub_location.replace(/\s+/g, '-');
+
+                                                        window.location.href = "{{url('filter')}}"+"/"+location+"/" +filter_title+"-in-"+sub_location+"/" +encoded;
+                                                    }
+                                                    else
+                                                    {
+                                                        sub_location = sub_location.replace(/\s+/g, '-');
+
+                                                        window.location.href = "{{url('filter')}}"+"/"+location+"/" +filter_title+"/" +encoded;
+                                                    }
+                                                }
+                                                else{
+                                                    // something went wrong
+                                                    alert('Please select any keyword!');
+                                                }
+
+                                            },
+                                            error: function(data){
+                                                console.log(data);
+                                            },
+                                        });
+
                                     }
                                 });
 

@@ -49,6 +49,9 @@ Route::post('/update_contact_info', 'AjaxController@update_contact_info')->name(
 Route::post('getAreaByCityForUser', 'AjaxController@getAreaByCityForUser')->name('getAreaByCityForUser');
 Route::post('getPincodeByAreaForUser', 'AjaxController@getPincodeByAreaForUser')->name('getPincodeByAreaForUser');
 
+// Check keyword is exist or not in db
+Route::post('checkKeywordExistOrNot', 'AjaxController@checkKeywordExistOrNot')->name('checkKeywordExistOrNot');
+
 // Search keywords category / sub category
 Route::get('searchajax', ['as'=>'searchajax','uses'=>'AjaxController@searchResponse']);
 
