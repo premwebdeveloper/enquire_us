@@ -18,7 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 
 // Home page after login
-Route::get('/', 'HomeController@index')->name('/');
+Route::any('/', 'HomeController@index')->name('/');
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('searchCategoriesAndCompanies', ['as'=>'searchCategoriesAndCompanies','uses'=>'AjaxController@searchCategoriesAndCompanies']);

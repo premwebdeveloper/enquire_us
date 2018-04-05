@@ -174,6 +174,7 @@
 
                                 // Autocomplete on search category and firm name
                                 $("#filter_title").autocomplete({
+
                                     source: function( request, response ) {
                                         $.ajax({
                                             url: "{{ route('searchCategoriesAndCompanies') }}",
@@ -217,6 +218,9 @@
                                     var sub_location = $('#sub_location').val();
                                     var filter_title = $('#filter_title').val();
 
+                                    // first check filter title keyword is valid or not
+
+
                                     // space reolace by dash
                                     location = location.replace(/\s+/g, '-');
                                     filter_title = filter_title.replace(/\s+/g, '-');
@@ -245,8 +249,9 @@
                                             window.location.href = "{{url('filter')}}"+"/"+location+"/" +filter_title+"/" +encoded;
                                         }
                                     }
-
                                 });
+
+
                             });
 
                             function makeid() {

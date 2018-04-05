@@ -65,7 +65,6 @@ class HomeController extends Controller
             $meta_description = '';
         }
 
-
         $encoded = explode('-', $encoded);
         $title_id = $encoded[1];
         $title_status = $encoded[2];

@@ -853,8 +853,6 @@
                                         },
                                         success: function(data) {
 
-                                            //console.log(data);
-
                                             if (data.category !== '' && data.category !== null)
                                             {
                                                 var array = $.map(data, function (item) {
