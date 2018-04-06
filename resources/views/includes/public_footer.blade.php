@@ -3,7 +3,7 @@
         <div class="container">
           <div class="row">
             <div class="col-sm-12 subscribe">
-              <h2>Subscribe to SaveTk.com</h2>
+              <h2>Subscribe to Enquire Us</h2>
               <p>
                 <span style="color:#DE4B39">Be the first save!</span>
                 Subscribe to get the best deals & offers in your email.

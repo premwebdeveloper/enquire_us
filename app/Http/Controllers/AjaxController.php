@@ -598,7 +598,18 @@ class AjaxController extends Controller
             }
 
         }
+    }
 
+    // Get campany area
+    public function getCompanyArea(Request $request)
+    {
+        $filter_title = $request->filter_title;
+
+        // Get all cities of rajasthan state
+        $company = DB::table('user_location')->where('business_name', $filter_title)->first();
+
+        echo $company->area;
+        exit;
     }
 
 }

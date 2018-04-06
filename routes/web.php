@@ -36,6 +36,9 @@ Route::get('view/{business}/{id}', 'HomeController@view');
 // Get sub categories according to cstegory
 Route::post('getSubcategoriesAccordingToCategory', 'AjaxController@getSubcategoriesAccordingToCategory')->name('getSubcategoriesAccordingToCategory');
 
+// Get company area
+Route::post('getCompanyArea', 'AjaxController@getCompanyArea')->name('getCompanyArea');
+
 // Save keywords
 Route::post('getAreasAccordingToCity', 'AjaxController@getAreasAccordingToCity')->name('getAreasAccordingToCity');
 

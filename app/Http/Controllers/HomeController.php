@@ -115,6 +115,17 @@ class HomeController extends Controller
             // Get client images
             $images = DB::table('user_images')->where('user_id', $title_id)->get();
 
+            $actual_area = $client->area;
+            $actual_area = str_replace(" ","-",$actual_area);
+
+            $selected_company = explode('-in-', $cat);
+            $selected_company_area = $selected_company[1];
+
+            if($selected_company_area != $actual_area)
+            {
+                $client = array();
+            }
+
             return view('frontend.client_view', array('client' => $client, 'other_info' => $other_info, 'images' => $images, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords));
 
         }

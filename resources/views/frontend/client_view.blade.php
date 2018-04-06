@@ -4,6 +4,8 @@
 
 <div class="container">
 
+    @if(!empty($client))
+
     <link rel="stylesheet" href="http://savetk.com/assets/css/lightslider.css" type="text/css">
     <script type="text/javascript" src="http://savetk.com/assets/js/lightslider.js"></script>
     <script>
@@ -51,19 +53,19 @@
                                     $i=1;
                                 ?>
                                 @foreach($images as $image)
-                                
+
                                         <li data-thumb="{{url('/')}}/storage/app/uploads/{{ $image->image}}" class="lslide" id="slide_<?= $i;?>" style="width: 539px; margin-right: 0px;">
                                             <img alt="" src="{{url('/')}}/storage/app/uploads/{{ $image->image}}" style="width:100%;height: 270px;">
                                         </li>
-                                    
+
                                 <?php
                                     $i++;
                                 ?>
                                 @endforeach
 
-                            </ul> 
+                            </ul>
 
-                        @elseif(!empty($client->logo)) 
+                        @elseif(!empty($client->logo))
 
                             <ul id="lightSlider" class="lightSlider lsGrab lSSlide" style="width: 3234px; transform: translate3d(-539px, 0px, 0px); height: 298px; padding-bottom: 0%;">
 
@@ -71,7 +73,7 @@
                                         <img alt="" src="{{url('/')}}/storage/app/uploads/{{ $client->logo}}" style="width:100%;height: 270px;">
                                     </li>
 
-                            </ul>                            
+                            </ul>
 
                         @else
 
@@ -369,6 +371,11 @@
 
         </div>
     </div>
+
+    @else
+        <div class="col-md-12">Result not found!</div>
+    @endif
+
 </div>
 
 @endsection
