@@ -240,7 +240,8 @@
                                             data : {"_token": "{{ csrf_token() }}", 'filter_title_attr' : filter_title_alt, 'filter_title' : original_title},
                                             success:function(response){
 
-                                                if(response == 1){
+                                                if(response == 1)
+                                                {
 
                                                     // all is well
                                                     var encoded = makeid()+'-'+filter_title_alt;
@@ -290,12 +291,15 @@
                                                         else    // selected title is not company
                                                         {
                                                             sub_location = sub_location.replace(/\s+/g, '-');
-                                                            window.location.href = "{{url('filter')}}"+"/"+location+"/" +filter_title+"-in-" +response+"/" +encoded;
+                                                            window.location.href = "{{url('filter')}}"+"/"+location+"/" +filter_title+"/" +encoded;
                                                         }
+
+                                                        // window.location.href = "{{url('filter')}}"+"/"+location+"/" +filter_title+"/" +encoded;
 
                                                     }
                                                 }
-                                                else{
+                                                else
+                                                {
                                                     // something went wrong
                                                     alert('Please select any keyword!');
                                                 }
