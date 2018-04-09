@@ -1255,7 +1255,8 @@ footer {
 	float: left;
 	width: 100%;
 	height: auto;
-	padding: 50px 0;
+	padding: 20px 0;
+    background: #eaeaea;
 }
 .social-media, .privacy, .footer-desc, .footer-logo {
 	width: 100%;

@@ -34,12 +34,32 @@ class HomeController extends Controller
         $category = DB::table('category')->where('status', 1)->get();
 
         $sliders = DB::table('slider')->get();
+        
+        $website_pages = DB::table('website_pages')->where('status', 1)->get();
 
         $title = 'Home';
         $meta_description = 'Home keywords';
         $meta_keywords = 'Home keywords';
 
-        return view('welcome', array('category' => $category, 'sliders' => $sliders, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords));
+        return view('welcome', array('category' => $category, 'sliders' => $sliders, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'website_pages' => $website_pages));
+    }
+
+    // Get all clients for perticular webpages
+    public function webpage(Request $request)
+    {
+        $title = 'webpages';
+        $meta_description = 'webpages description';
+        $meta_keywords = 'webpages keywords';
+
+        $webpage = $request->webpage;
+
+        $webpage = str_replace("-", " ", $webpage);
+
+        $webpages = DB::table('website_pages')->where(array('page_title' => $webpage, 'status' => 1))->first();
+        
+        $website_pages = DB::table('website_pages')->where('status', 1)->get();
+
+        return view('frontend.webpage_view', array('webpages' => $webpages, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'website_pages' => $website_pages));
     }
 
     // Filter data according to location and any keyword
@@ -217,8 +237,6 @@ class HomeController extends Controller
 
         $category = $request->category;
 
-
-
         $category = str_replace("-", " ", $category);
 
         $categories = DB::table('category')->where('status', 1)->get();
@@ -263,4 +281,5 @@ class HomeController extends Controller
 
         exit;
     }
+
 }

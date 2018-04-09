@@ -6,7 +6,7 @@
                     <div class="row">
                         <div class="col-lg-12 col-xs-12 pull-right res-header">
                             <div class="languageBox" >
-                                <p>Need Help? Call us at <strong class="tel-numbel"><a href="tel:+8801984994433">01984-994433</a></strong></p>
+                                <p>Need Help? Call us at <strong class="tel-numbel"><a href="tel:+8426833930">8426833930</a></strong></p>
                             </div>
                             <div class="top-link pull-right">
                                 <ul>
@@ -107,7 +107,7 @@
                     <div class="col-lg-3 col-sm-3 col-xs-4 res-logo">
                         <div class="logo">
                             <a href="{{url('/')}}">
-                                <img  alt="Discount Deals, Offers at savetaka" src="{{url('/')}}/resources/frontend_assets/images/logo.png"/>
+                                <img  alt="Dexus Media" src="{{url('/')}}/resources/frontend_assets/images/logo.png"/>
                             </a>
                         </div>
                     </div>

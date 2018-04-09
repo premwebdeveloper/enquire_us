@@ -62,7 +62,7 @@
                                     Login
                                 </button>
 
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
+                                <a class="btn btn-link" href="{{ route('password.request') }}" style="color: #337ab7!important;">
                                     Forgot Your Password?
                                 </a>
                             </div>
