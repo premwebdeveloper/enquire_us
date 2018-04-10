@@ -135,6 +135,11 @@
 
                                 <div class="form-group col-sm-3 col-cus-3 input-width">
                                     <select name="sub_location" id="sub_location" class="form-control selectWidth form-cus input-border">
+                                        <option value="">Select Area</option>
+                                        @foreach($areas as $area)
+                                            <option value="{{ $area->area }}">{{ $area->area }}</option>
+                                        @endforeach
+                                        <option value="">Select Area</option>
                                     </select>
                                 </div>
 
@@ -154,7 +159,7 @@
                         <script type="text/javascript">
                             $(document).ready(function(){
 
-                                var city = '3378';
+                                /*var city = '3378';
 
                                 // Get cities according to state
                                 $.ajax({
@@ -170,7 +175,7 @@
                                         error: function(data){
                                         console.log(data);
                                     },
-                                });
+                                });*/
 
                                 // Autocomplete on search category and firm name
                                 $("#filter_title").autocomplete({
