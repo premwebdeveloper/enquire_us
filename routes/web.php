@@ -20,57 +20,44 @@ Auth::routes();
 // Home page after login
 Route::any('/', 'HomeController@index')->name('/');
 Route::get('/home', 'HomeController@index')->name('home');
-
-Route::get('searchCategoriesAndCompanies', ['as'=>'searchCategoriesAndCompanies','uses'=>'AjaxController@searchCategoriesAndCompanies']);
-
 // Filter data according to location and any keyword
 Route::any('filter/{location}/{cat}/{encoded}', [
     "uses" => 'HomeController@filter',
     "as" => 'filter'
 ]);
-
 // Get all clients for perticular category
 Route::get('category/{category}', 'HomeController@category');
 Route::get('webpage/{webpage}', 'HomeController@webpage');
 Route::get('view/{businesswitharea}/{business}/{id}', 'HomeController@view');
 
-// Get sub categories according to cstegory
-Route::post('getSubcategoriesAccordingToCategory', 'AjaxController@getSubcategoriesAccordingToCategory')->name('getSubcategoriesAccordingToCategory');
-
-// Get company area
-Route::post('getCompanyArea', 'AjaxController@getCompanyArea')->name('getCompanyArea');
-
-// Save keywords
-Route::post('getAreasAccordingToCity', 'AjaxController@getAreasAccordingToCity')->name('getAreasAccordingToCity');
-
 Route::get('verify/{email}/{verifyToken}', 'Auth\RegisterController@sendEmailDone')->name('sendEmailDone');
 Route::get('verifyEmailFirst', 'Auth\RegisterController@verifyEmailFirst')->name('verifyEmailFirst');
 Route::get('profile', 'Profile@profile')->name('profile');
-Route::get('aboutus', 'WebsitePages@aboutus')->name('aboutus');
+
+Route::get('searchCategoriesAndCompanies', ['as'=>'searchCategoriesAndCompanies','uses'=>'AjaxController@searchCategoriesAndCompanies']);
+// Get sub categories according to cstegory
+Route::post('getSubcategoriesAccordingToCategory', 'AjaxController@getSubcategoriesAccordingToCategory')->name('getSubcategoriesAccordingToCategory');
+// Get company area
+Route::post('getCompanyArea', 'AjaxController@getCompanyArea')->name('getCompanyArea');
+// Save keywords
+Route::post('getAreasAccordingToCity', 'AjaxController@getAreasAccordingToCity')->name('getAreasAccordingToCity');
 Route::post('/update_location_info', 'AjaxController@update_location_info')->name('update_location_info');
 Route::post('/update_other_info', 'AjaxController@update_other_info')->name('update_other_info');
 Route::post('/update_contact_info', 'AjaxController@update_contact_info')->name('update_contact_info');
 Route::post('getAreaByCityForUser', 'AjaxController@getAreaByCityForUser')->name('getAreaByCityForUser');
 Route::post('getPincodeByAreaForUser', 'AjaxController@getPincodeByAreaForUser')->name('getPincodeByAreaForUser');
-
 // Check keyword is exist or not in db
 Route::post('checkKeywordExistOrNot', 'AjaxController@checkKeywordExistOrNot')->name('checkKeywordExistOrNot');
-
 // Search keywords category / sub category
 Route::get('searchajax', ['as'=>'searchajax','uses'=>'AjaxController@searchResponse']);
-
 // Get related keywords category / sub category
 Route::post('getRelatedCategoryAndSubCatregories', 'AjaxController@getRelatedCategoryAndSubCatregories')->name('getRelatedCategoryAndSubCatregories');
-
 // Save keywords
 Route::post('save_keywords', 'AjaxController@save_keywords')->name('save_keywords');
-
 // Get selected keywords
 Route::get('getSavedKeywords', 'AjaxController@getSavedKeywords')->name('getSavedKeywords');
-
 // Delete keywords
 Route::post('delete_keywords', 'AjaxController@delete_keywords')->name('delete_keywords');
-
 // Upload logo and photos
 Route::post('uploadLogoAndPhotos', 'Profile@uploadLogoAndPhotos')->name('uploadLogoAndPhotos');
 
@@ -105,24 +92,23 @@ Route::group(['middleware' => 'App\Http\Middleware\Admin'], function()
     Route::post('update_area', 'Areas@update_area')->name('update_area');
 
     // Slider As Add / Delete
-    Route::get('slider', 'HomeController@slider')->name('slider');
-    Route::get('addSlider', 'HomeController@addSlider')->name('addSlider');
-    Route::post('add_slider', 'HomeController@add_slider')->name('add_slider');
-    Route::post('delete_slider', 'HomeController@delete_slider')->name('delete_slider');
+    Route::get('slider', 'AdminUsers@slider')->name('slider');
+    Route::get('addSlider', 'AdminUsers@addSlider')->name('addSlider');
+    Route::post('add_slider', 'AdminUsers@add_slider')->name('add_slider');
+    Route::post('delete_slider', 'AdminUsers@delete_slider')->name('delete_slider');
 
     // Website Pages
     Route::get('website_pages', 'WebsitePages@website_pages')->name('website_pages');
     Route::post('update_page', 'WebsitePages@update_page')->name('update_page');
 
     // Website page head titles like Title, Meta title, Keyword, Description etc
-    //Route::any('page_titles_manage', 'WebsitePages@page_titles_manage')->name('page_titles_manage');
     Route::any('page_titles', 'WebsitePages@page_titles')->name('page_titles');
 
 });
 
 //Route::get('{jaipur}', ['uses' => 'HomeController@filter']);
 
-Route::get('{jaipur}', function(Request $request)
+/*Route::get('{jaipur}', function(Request $request)
 {
     echo $request->jaipur; exit;
-});
+});*/

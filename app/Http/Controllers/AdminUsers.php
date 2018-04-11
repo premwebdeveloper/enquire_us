@@ -5,9 +5,18 @@ use App\Http\Requests\AddUserValidation;
 use App\User;
 use Illuminate\Http\Request;
 use DB;
+use Storage;
+use Auth;
 
 class AdminUsers extends Controller
 {
+    # construct function
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('admin');
+    }
+
     // View All User
     public function index()
     {
@@ -28,7 +37,6 @@ class AdminUsers extends Controller
     // add new User
     public function add_user(AddUserValidation $request)
     {
-
         $date = date('Y-m-d H:i:s');
 
         $company_name = $request->company_name;
@@ -137,6 +145,7 @@ class AdminUsers extends Controller
 
         return redirect('users')->with('status', $status);
     }
+
     // View User Detail
     public function View(Request $request)
     {
@@ -156,13 +165,6 @@ class AdminUsers extends Controller
 
         # Get Images
         $images = DB::table('user_images')->where('user_id', $user_id)->get();
-
-        // echo '<pre>';
-        // print_r($user_other_information);
-        // exit;
-        // For print query
-        //echo $query->toSql();
-        //exit;
 
         return view('admin_users.view', array('user_details' => $user_details, 'other_information' => $user_other_information, 'images' => $images));
     }
@@ -207,5 +209,83 @@ class AdminUsers extends Controller
         }
 
         return redirect('users')->with('status', $status);
+    }
+
+    // All Sliders view
+    public function slider()
+    {
+        $slider_images = DB::table('slider')->get();
+
+        return view('admin.slider', array('slider' => $slider_images));
+    }
+
+    # add slider view
+    public function addSlider()
+    {
+        return view('admin.addSlider');
+    }
+
+    # add slider
+    public function add_slider(Request $request)
+    {
+        $date = date('Y-m-d H:i:s');
+
+        if($request->hasFile('file')) {
+
+            foreach ($request->file as $file) {
+
+                $filename = $file->getClientOriginalName();
+
+                $ext = pathinfo($filename, PATHINFO_EXTENSION);
+
+                $filename = substr(md5(microtime()),rand(0,26),6);
+
+                $filename .= '.'.$ext;
+
+                $filesize = $file->getClientSize();
+
+                $destinationPath = config('app.fileDestinationPath').'/'.$filename;
+                $uploaded = Storage::put($destinationPath, file_get_contents($file->getRealPath()));
+
+                if($uploaded)
+                {
+                     $image_update = DB::table('slider')->insert(
+                        array(
+                            'image' => $filename,
+                            'created_at' => $date
+                        )
+                    );
+                }
+
+                if($uploaded)
+                {
+                    $status = 'image upload successfully.';
+                }
+                else
+                {
+                    $status = 'No File Selected';
+                }
+            }
+        }
+        return redirect('slider')->with('status', $status);
+    }
+
+    # delete slider
+    public function delete_slider(Request $request)
+    {
+        $id = $request->user_id;
+
+        $delete_slider = DB::table('slider')->where('id', $id)->delete();
+
+        if($delete_slider)
+        {
+            $status = "Delete Slider successfully";
+        }
+        else
+        {
+            $status = "Someting went wrong";
+        }
+
+        return redirect('slider')->with('status', $status);
     }
 }

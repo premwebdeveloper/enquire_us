@@ -6,10 +6,11 @@ use Illuminate\Http\Request;
 
 class Dashboard extends Controller
 {
-    // Authenticate users
+    # construct function
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('admin');
     }
 
     // admin dashdoard

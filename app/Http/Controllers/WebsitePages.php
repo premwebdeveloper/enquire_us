@@ -44,12 +44,6 @@ class WebsitePages extends Controller
         return redirect('website_pages')->with('status', $status);
     }
 
-    // about_us
-    public function aboutus()
-    {
-        $web_page_update = DB::table('website_pages')->where('id', $id)->update(['page_description' => $content, 'updated_at' => $date]);
-    }
-
     // Website page head titles like Title, Meta title, Keyword, Description etc
     public function page_titles(Request $request)
     {

@@ -7,18 +7,25 @@ use DB;
 use App\User;
 class Categories extends Controller
 {
+    # construct function
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('admin');
+    }
+
 	//add category page
 	public function add_category()
 	{
-		return view('admin.addCategory');	
-	}	
+		return view('admin.addCategory');
+	}
 
 	//view category page
 	public function Category()
-	{	
+	{
 		$category = DB::table('category')->where('status', 1)->get();
 
-		return view('admin.Category', array('category' => $category));	
+		return view('admin.Category', array('category' => $category));
 	}
 
     //Add Category
@@ -119,7 +126,7 @@ class Categories extends Controller
     	$date = date('Y-m-d H:i:s');
 
         $subcat_id = $request->subcat_id;
-        
+
     	$category = $request->category;
     	$subCategory = $request->subcategory;
 

@@ -8,6 +8,13 @@ use Auth;
 
 class Areas extends Controller
 {
+    # construct function
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('admin');
+    }
+
     //view area
     public function area()
     {
@@ -18,9 +25,9 @@ class Areas extends Controller
         ->join('states', 'states.id', '=', 'areas.state')
         ->join('countries', 'countries.id', '=', 'areas.country')
         ->select('areas.*', 'cities.name as city_name', 'states.name as state_name', 'countries.name as country_name')
-        ->where('status', 1)->get();  
-        
-        return view('admin.Area', array('areas' => $areas, 'cities' => $cities)); 
+        ->where('status', 1)->get();
+
+        return view('admin.Area', array('areas' => $areas, 'cities' => $cities));
     }
 
     // add area page

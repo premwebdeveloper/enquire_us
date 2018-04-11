@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Storage;
 use Session;
 use Crypt;
+
 class HomeController extends Controller
 {
     /**
@@ -170,81 +171,6 @@ class HomeController extends Controller
         exit;
     }
 
-    // Sliders
-    public function slider()
-    {
-        $slider_images = DB::table('slider')->get();
-
-        return view('admin.slider', array('slider' => $slider_images));
-    }
-
-    public function addSlider()
-    {
-        return view('admin.addSlider');
-    }
-
-    public function add_slider(Request $request)
-    {
-        $date = date('Y-m-d H:i:s');
-
-        if($request->hasFile('file')) {
-
-            foreach ($request->file as $file) {
-
-                $filename = $file->getClientOriginalName();
-
-                $ext = pathinfo($filename, PATHINFO_EXTENSION);
-
-                $filename = substr(md5(microtime()),rand(0,26),6);
-
-                $filename .= '.'.$ext;
-
-                $filesize = $file->getClientSize();
-
-                $destinationPath = config('app.fileDestinationPath').'/'.$filename;
-                $uploaded = Storage::put($destinationPath, file_get_contents($file->getRealPath()));
-
-                if($uploaded)
-                {
-                     $image_update = DB::table('slider')->insert(
-                        array(
-                            'image' => $filename,
-                            'created_at' => $date
-                        )
-                    );
-                }
-
-                if($uploaded)
-                {
-                    $status = 'image upload successfully.';
-                }
-                else
-                {
-                    $status = 'No File Selected';
-                }
-            }
-        }
-        return redirect('slider')->with('status', $status);
-    }
-
-    public function delete_slider(Request $request)
-    {
-        $id = $request->user_id;
-
-        $delete_slider = DB::table('slider')->where('id', $id)->delete();
-
-        if($delete_slider)
-        {
-            $status = "Delete Slider successfully";
-        }
-        else
-        {
-            $status = "Someting went wrong";
-        }
-
-        return redirect('slider')->with('status', $status);
-    }
-
     // Get all clients for perticular category
     public function category(Request $request)
     {
@@ -305,5 +231,26 @@ class HomeController extends Controller
         return view('frontend.client_view', array('client' => $client, 'other_info' => $other_info, 'images' => $images, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords));
 
         exit;
+    }
+
+    # Website Pages
+    public function webpage(Request $request)
+    {
+        $title = 'Category View';
+        $meta_description = 'Category View description';
+        $meta_keywords = 'Category View keywords';
+
+        $page = $request->webpage;
+
+        $page = str_replace('-', ' ', $page);
+
+        // Get client all details
+        $webpages = DB::table('website_pages')->where(array('page_title' => $page, 'status' => 1))->first();
+
+        $website_pages = DB::table('website_pages')->where('status', 1)->get();
+        //dd($website_pages);
+
+        return view('frontend.webpage_view', array('webpages' => $webpages, 'website_pages' => $website_pages, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords));
+
     }
 }
