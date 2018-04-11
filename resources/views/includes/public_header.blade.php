@@ -250,6 +250,8 @@
 
                                                     // all is well
                                                     var encoded = makeid()+'-'+filter_title_alt;
+                                                    // encode parameter
+                                                    encoded = encodeURIComponent(window.btoa(encoded));
 
                                                     if(sub_location != '')
                                                     {
@@ -325,7 +327,7 @@
                                 var text = "";
                                 var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
-                                for (var i = 0; i < 8; i++)
+                                for (var i = 0; i < 50; i++)
                                 text += possible.charAt(Math.floor(Math.random() * possible.length));
 
                                 return text;

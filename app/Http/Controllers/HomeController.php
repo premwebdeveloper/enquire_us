@@ -49,6 +49,9 @@ class HomeController extends Controller
         $cat = $request->cat;
         $encoded = $request->encoded;
 
+        // decode encoded parameter
+        $encoded = base64_decode(urldecode($encoded));
+
         // get page title for this page
         $page_titles = DB::table('websites_page_head_titles')->where(array('status' => 1, 'page_url' => $cat))->first();
 
