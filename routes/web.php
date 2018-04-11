@@ -32,7 +32,7 @@ Route::any('filter/{location}/{cat}/{encoded}', [
 // Get all clients for perticular category
 Route::get('category/{category}', 'HomeController@category');
 Route::get('webpage/{webpage}', 'HomeController@webpage');
-Route::get('view/{business}/{id}', 'HomeController@view');
+Route::get('view/{businesswitharea}/{business}/{id}', 'HomeController@view');
 
 // Get sub categories according to cstegory
 Route::post('getSubcategoriesAccordingToCategory', 'AjaxController@getSubcategoriesAccordingToCategory')->name('getSubcategoriesAccordingToCategory');

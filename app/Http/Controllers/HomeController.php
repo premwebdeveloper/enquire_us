@@ -275,9 +275,15 @@ class HomeController extends Controller
         $meta_description = 'Category View description';
         $meta_keywords = 'Category View keywords';
 
+        $businesswitharea = $request->businesswitharea;
+
         $business = $request->business;
+        $business = Crypt::decrypt($business);
+        //dd($business);
+
         $id = $request->id;
         $user_id = Crypt::decrypt($id);
+
 
         // Get client all details
         $client = DB::table('user_details')
