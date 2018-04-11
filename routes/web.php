@@ -80,6 +80,8 @@ Route::post('uploadLogoAndPhotos', 'Profile@uploadLogoAndPhotos')->name('uploadL
 Route::group(['middleware' => 'App\Http\Middleware\Admin'], function()
 {
 	Route::get('dashboard', 'Dashboard@dashboard')->name('dashboard');
+    Route::get('addUser', 'AdminUsers@addUser')->name('addUser');
+    Route::post('add_user', 'AdminUsers@add_user')->name('add_user');
 	Route::get('users', 'AdminUsers@index')->name('users');
     Route::post('active_inactive', 'AdminUsers@active_inactive')->name('active_inactive');
     Route::get('view', 'AdminUsers@view')->name('view');

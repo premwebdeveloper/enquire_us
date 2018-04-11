@@ -13,11 +13,11 @@
             </li>
         </ol>
     </div>
-<!--<div class="col-lg-2 text-right">
+<div class="col-lg-2 text-right">
         <h2>
-            <a href="javascript:;" class="btn btn-info">Add User</a>
+            <a href="{{ route('addUser') }}" class="btn btn-info">Add User</a>
         </h2>
-    </div> -->
+    </div> 
 </div>
 
 <div class="wrapper wrapper-content animated fadeInRight">
@@ -35,7 +35,9 @@
 	            </div>
 
 	            <div class="ibox-content">
-
+                    @if(session('status'))
+                       <div class="alert alert-success">{{ session('status') }}</div>
+                    @endif
 	                <div class="table-responsive">
 	                    <table class="table table-striped table-bordered table-hover dataTables-example">
 	                        <thead>

@@ -13,7 +13,7 @@ class AddUserValidation extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,12 @@ class AddUserValidation extends FormRequest
     public function rules()
     {
         return [
-            //
+            'company_name' => 'required',
+            'name' => 'required',
+            'phone' => 'required|max:10|min:10',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'required|min:6|confirmed',
+            'password_confirmation' => 'required|min:6',
         ];
     }
 }
