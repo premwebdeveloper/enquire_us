@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 22, 2018 at 02:40 PM
+-- Generation Time: Apr 12, 2018 at 05:00 PM
 -- Server version: 10.1.26-MariaDB
 -- PHP Version: 7.1.8
 
@@ -34,6 +34,7 @@ CREATE TABLE `areas` (
   `state` int(11) NOT NULL,
   `city` int(11) NOT NULL,
   `area` varchar(255) NOT NULL,
+  `pincode` int(6) NOT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1'
@@ -43,19 +44,19 @@ CREATE TABLE `areas` (
 -- Dumping data for table `areas`
 --
 
-INSERT INTO `areas` (`id`, `country`, `state`, `city`, `area`, `created_at`, `updated_at`, `status`) VALUES
-(1, 101, 33, 3378, 'vidhyadhar nagar', '2018-03-12 13:32:48', '2018-03-12 13:32:48', 1),
-(2, 101, 33, 3378, 'malviya nagar', '2018-03-12 13:33:17', '2018-03-12 13:33:17', 1),
-(3, 101, 33, 3378, 'shashtri nagar', '2018-03-12 13:33:28', '2018-03-12 13:33:28', 1),
-(4, 101, 33, 3378, 'murlipura', '2018-03-12 13:33:39', '2018-03-12 13:33:39', 1),
-(5, 101, 33, 3378, 'bani park', '2018-03-12 13:33:50', '2018-03-12 13:33:50', 1),
-(6, 101, 33, 3378, 'vaishali nagar', '2018-03-12 13:34:02', '2018-03-12 13:34:02', 1),
-(7, 101, 33, 3378, 'jagatpura', '2018-03-12 13:34:13', '2018-03-12 13:34:13', 1),
-(8, 101, 33, 3378, 'sitapura', '2018-03-12 13:34:20', '2018-03-12 13:34:20', 1),
-(9, 101, 33, 3378, 'sodala', '2018-03-12 13:34:27', '2018-03-12 13:34:27', 1),
-(10, 101, 33, 3378, 'raja park', '2018-03-12 13:34:38', '2018-03-12 13:34:38', 1),
-(11, 101, 33, 3378, 'mansarovar', '2018-03-12 13:34:49', '2018-03-12 13:34:49', 1),
-(12, 101, 33, 3378, 'amba bari', '2018-03-12 13:35:03', '2018-03-12 13:35:03', 1);
+INSERT INTO `areas` (`id`, `country`, `state`, `city`, `area`, `pincode`, `created_at`, `updated_at`, `status`) VALUES
+(1, 101, 33, 3378, 'vidhyadhar nagar', 0, '2018-03-12 13:32:48', '2018-03-12 13:32:48', 1),
+(2, 101, 33, 3378, 'malviya nagar', 0, '2018-03-12 13:33:17', '2018-03-12 13:33:17', 1),
+(3, 101, 33, 3378, 'shashtri nagar', 0, '2018-03-12 13:33:28', '2018-03-12 13:33:28', 1),
+(4, 101, 33, 3378, 'murlipura', 0, '2018-03-12 13:33:39', '2018-03-12 13:33:39', 1),
+(5, 101, 33, 3378, 'bani park', 0, '2018-03-12 13:33:50', '2018-03-12 13:33:50', 1),
+(6, 101, 33, 3378, 'vaishali nagar', 0, '2018-03-12 13:34:02', '2018-03-12 13:34:02', 1),
+(7, 101, 33, 3378, 'jagatpura', 0, '2018-03-12 13:34:13', '2018-03-12 13:34:13', 1),
+(8, 101, 33, 3378, 'sitapura', 0, '2018-03-12 13:34:20', '2018-03-12 13:34:20', 1),
+(9, 101, 33, 3378, 'sodala', 0, '2018-03-12 13:34:27', '2018-03-12 13:34:27', 1),
+(10, 101, 33, 3378, 'raja park', 0, '2018-03-12 13:34:38', '2018-03-12 13:34:38', 1),
+(11, 101, 33, 3378, 'mansarovar', 0, '2018-03-12 13:34:49', '2018-03-12 13:34:49', 1),
+(12, 101, 33, 3378, 'amba bari', 0, '2018-03-12 13:35:03', '2018-03-12 13:35:03', 1);
 
 -- --------------------------------------------------------
 
@@ -53978,6 +53979,26 @@ INSERT INTO `subcategory` (`id`, `cat_id`, `subcategory`, `created_at`, `updated
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `subscribers`
+--
+
+CREATE TABLE `subscribers` (
+  `id` int(11) NOT NULL,
+  `email` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `subscribers`
+--
+
+INSERT INTO `subscribers` (`id`, `email`) VALUES
+(1, 'prem@gmail.com'),
+(2, 'amit@gmail.com'),
+(3, 'amit@gmail.com');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -53999,10 +54020,11 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `phone`, `password`, `remember_token`, `verify_token`, `created_at`, `updated_at`, `status`) VALUES
-(1, 'Administrator', 'admin@admin.com', '8003947560', '$2y$10$HjMrFSc/mNuJWcM23w5C4u73.EU3Lxcwi.5pLxLQB0SzBVqJsYL8W', 'ZxSSn1duvuKCvvAS620y5QTBvdF0QK49gncfcnmbM2tcKW0VlJS0u0NAA5mQ', NULL, '2018-01-18 07:49:49', '2018-01-18 07:49:49', 1),
-(8, 'Prem saini', 'prem_saini@hotmail.com', '9602947878', '$2y$10$tNn5eNlmSWi5LJ3hIh7EduubauY9IEvAnUayhsysaoy2Ng98cWzI.', 'i1lEA2IduA23V1wBhJ1wwVXI1v8srNXPu3wNCfs0CTScdCG3dw9uw2z2QVQP', 'h1Y7DLQ8fUrFtYkY8uenFvYolTwc3SIuTajJ2J69', '2018-01-31 09:43:12', '2018-01-31 09:43:12', 1),
+(1, 'Administrator', 'admin@admin.com', '8003947560', '$2y$10$HjMrFSc/mNuJWcM23w5C4u73.EU3Lxcwi.5pLxLQB0SzBVqJsYL8W', 'PE8RRgDcueJtNNaPIVEzfpgI36ENWyULou7mUubStcLvYZxlL39liPODXDUp', NULL, '2018-01-18 07:49:49', '2018-01-18 07:49:49', 1),
+(8, 'Prem saini', 'prem_saini@hotmail.com', '9602947878', '$2y$10$tNn5eNlmSWi5LJ3hIh7EduubauY9IEvAnUayhsysaoy2Ng98cWzI.', '38qHohYZ6cM0cFFhV15MMvvoHcKAyhxmlKbBVHyySYgpVpa8LfKsI2MoV5br', 'h1Y7DLQ8fUrFtYkY8uenFvYolTwc3SIuTajJ2J69', '2018-01-31 09:43:12', '2018-01-31 09:43:12', 1),
 (10, 'Amit Sharma', 'amitsharma6681@gmail.com', '8003947560', '$2y$10$bL0ypdA4HTnmOEZahLYR8uZA7gOpcuM32z0gVL5DObxs4B8N1D05K', '68fcAzdQERNI5sfAb20fJBbnqWQmzGYZwdJqDACpW0nr7ogbczkuvywPws2y', 'BanU4rns7mNtrh3uLzhDhcTJoCvvr3NMRumMLvPX', '2018-03-06 07:49:41', '2018-03-06 07:49:41', 1),
-(11, 'Prem Saini', 'premsaini9602@gmail.com', '8005609866', '$2y$10$vFpRhPz2DwdV8N3t2UcpkemX3ekMJUlvrBiQpgb8Y.D/HWivsHtSe', 'GxRcoe2B46Jj3vvLUG9Txw3TjIANOn0meTnIQ9Cc1znzp8c5QKcgGN8GHgTu', 'oYuuifmHbhAQZxaYKXH4ejiJl3ZJwUmF9z0lWej1', '2018-03-06 08:03:45', '2018-03-06 08:03:45', 1);
+(11, 'Prem Saini', 'premsaini9602@gmail.com', '8005609866', '$2y$10$vFpRhPz2DwdV8N3t2UcpkemX3ekMJUlvrBiQpgb8Y.D/HWivsHtSe', 'GxRcoe2B46Jj3vvLUG9Txw3TjIANOn0meTnIQ9Cc1znzp8c5QKcgGN8GHgTu', 'oYuuifmHbhAQZxaYKXH4ejiJl3ZJwUmF9z0lWej1', '2018-03-06 08:03:45', '2018-03-06 08:03:45', 1),
+(12, 'prem saini', 'premsaini@gmail.com', '9602947878', '$2y$10$xsxbhDL57EuSnUnx90kG.era7tL40Kv6JQxz1cY8F26fCHZLxMuEK', 'Ob75nc7cRsbhiTqGUh2ZPJ5vSpzTIkojtQfuFSPXPlK1dBbXsOjlLh5IQX0c', NULL, '2018-04-12 07:10:40', '2018-04-12 07:10:40', 1);
 
 -- --------------------------------------------------------
 
@@ -54031,7 +54053,8 @@ CREATE TABLE `user_company_information` (
 INSERT INTO `user_company_information` (`id`, `user_id`, `payment_mode`, `year_establishment`, `annual_turnover`, `no_of_emps`, `professional_associations`, `certifications`, `created_at`, `updated_at`, `status`) VALUES
 (2, 8, '3|4|5|9|10|11', '2015', '1515151515', '1000-2000', 'Professional Associations', 'Certifications', '2018-02-13 15:12:51', '2018-02-13 15:12:51', 1),
 (4, 10, '3|4', '2005', '10000', '10-100', 'profs', 'ceertifies', '2018-03-06 13:30:49', '2018-03-06 13:30:49', 1),
-(5, 11, NULL, NULL, NULL, NULL, NULL, NULL, '2018-03-06 13:33:45', '2018-03-06 13:33:45', 1);
+(5, 11, NULL, NULL, NULL, NULL, NULL, NULL, '2018-03-06 13:33:45', '2018-03-06 13:33:45', 1),
+(6, 12, NULL, NULL, NULL, NULL, NULL, NULL, '2018-04-12 12:40:40', '2018-04-12 12:40:40', 1);
 
 -- --------------------------------------------------------
 
@@ -54065,7 +54088,8 @@ CREATE TABLE `user_details` (
 INSERT INTO `user_details` (`id`, `user_id`, `name`, `designation`, `email`, `landline`, `fax1`, `fax2`, `toll_free1`, `toll_free2`, `website`, `phone`, `logo`, `created_at`, `updated_at`, `status`) VALUES
 (4, 8, 'Prem saini', 'PHP Developer', 'prem_saini@hotmail.com', '0141 - 222333', '0141 - 235689', '0141 - 798456', '1800 9602 7878', '1800 8005 9866', 'http://www.dexusmedia.com', '9602947878', '14fa3d.jpg', '2018-01-31 09:43:12', '2018-02-06 07:59:53', 1),
 (6, 10, 'Amit Sharma', NULL, 'amitsharma6681@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, '8003947560', NULL, '2018-03-06 07:49:41', '2018-03-06 07:49:41', 1),
-(7, 11, 'Prem Saini', NULL, 'premsaini9602@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, '8005609866', 'eb6581.jpg', '2018-03-06 08:03:45', '2018-03-06 08:03:45', 1);
+(7, 11, 'Prem Saini', NULL, 'premsaini9602@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, '8005609866', 'eb6581.jpg', '2018-03-06 08:03:45', '2018-03-06 08:03:45', 1),
+(8, 12, 'prem saini', NULL, 'premsaini@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, '9602947878', NULL, '2018-04-12 07:10:40', '2018-04-12 07:10:40', 1);
 
 -- --------------------------------------------------------
 
@@ -54115,7 +54139,7 @@ CREATE TABLE `user_keywords` (
 INSERT INTO `user_keywords` (`id`, `user_id`, `keyword_id`, `keyword_identity`, `created_at`, `updated_at`, `status`) VALUES
 (14, 10, 1, 1, '2018-03-06 13:32:59', '2018-03-06 13:32:59', 1),
 (15, 10, 4, 2, '2018-03-06 13:32:59', '2018-03-06 13:32:59', 1),
-(16, 11, 3, 1, '2018-03-06 13:34:30', '2018-03-06 13:34:30', 1),
+(16, 10, 3, 1, '2018-03-06 13:34:30', '2018-03-06 13:34:30', 1),
 (17, 11, 6, 2, '2018-03-06 13:34:30', '2018-03-06 13:34:30', 1),
 (18, 11, 7, 2, '2018-03-06 13:34:30', '2018-03-06 13:34:30', 1),
 (19, 8, 3, 1, '2018-03-06 13:37:06', '2018-03-06 13:37:06', 1),
@@ -54150,8 +54174,9 @@ CREATE TABLE `user_location` (
 
 INSERT INTO `user_location` (`id`, `user_id`, `business_name`, `building`, `street`, `landmark`, `area`, `city`, `pincode`, `state`, `country`, `created_at`, `updated_at`, `status`) VALUES
 (2, 8, 'Resto Dexus Media', 'Unnati Tower', 'Central Spine', 'Opposite - Dana Shivam Hospital', 'Vidhyadhar Nagar', 'Jaipur', '302001', 'Rajasthan', 'India', '2018-01-31 15:13:12', '2018-02-06 14:29:02', 1),
-(4, 10, 'Hotel Dexus', 'unnati tower', 'central spine', 'oppo dana shivam hospital', 'vidhyadhar nagar', 'Jaipur', '591', 'Rajasthan', 'India', '2018-03-06 13:19:41', '2018-03-06 13:32:49', 1),
-(5, 11, 'Hotel Jannat', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-03-06 13:33:45', '2018-03-06 13:33:45', 2);
+(4, 10, 'Hotel Dexus', 'unnati tower', 'central spine', 'oppo dana shivam hospital', 'murlipura', 'Jaipur', '591', 'Rajasthan', 'India', '2018-03-06 13:19:41', '2018-03-06 13:32:49', 1),
+(5, 11, 'Hotel Jannat', NULL, NULL, NULL, 'murlipura', NULL, NULL, NULL, NULL, '2018-03-06 13:33:45', '2018-03-06 13:33:45', 1),
+(6, 12, 'ITQerty', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-04-12 12:40:40', '2018-04-12 12:40:40', 1);
 
 -- --------------------------------------------------------
 
@@ -54218,7 +54243,21 @@ INSERT INTO `user_other_information` (`id`, `user_id`, `operation_timing`, `day`
 (67, 11, 2, 'thursday', NULL, NULL, 0, '2018-03-06 13:33:45', '2018-03-06 13:33:45', 1),
 (68, 11, 2, 'friday', NULL, NULL, 0, '2018-03-06 13:33:45', '2018-03-06 13:33:45', 1),
 (69, 11, 2, 'saturday', NULL, NULL, 0, '2018-03-06 13:33:45', '2018-03-06 13:33:45', 1),
-(70, 11, 2, 'sunday', NULL, NULL, 0, '2018-03-06 13:33:45', '2018-03-06 13:33:45', 1);
+(70, 11, 2, 'sunday', NULL, NULL, 0, '2018-03-06 13:33:45', '2018-03-06 13:33:45', 1),
+(71, 12, 1, 'monday', NULL, NULL, 0, '2018-04-12 12:40:40', '2018-04-12 12:40:40', 1),
+(72, 12, 1, 'tuesday', NULL, NULL, 0, '2018-04-12 12:40:40', '2018-04-12 12:40:40', 1),
+(73, 12, 1, 'wednesday', NULL, NULL, 0, '2018-04-12 12:40:40', '2018-04-12 12:40:40', 1),
+(74, 12, 1, 'thursday', NULL, NULL, 0, '2018-04-12 12:40:40', '2018-04-12 12:40:40', 1),
+(75, 12, 1, 'friday', NULL, NULL, 0, '2018-04-12 12:40:40', '2018-04-12 12:40:40', 1),
+(76, 12, 1, 'saturday', NULL, NULL, 0, '2018-04-12 12:40:40', '2018-04-12 12:40:40', 1),
+(77, 12, 1, 'sunday', NULL, NULL, 0, '2018-04-12 12:40:40', '2018-04-12 12:40:40', 1),
+(78, 12, 2, 'monday', NULL, NULL, 0, '2018-04-12 12:40:40', '2018-04-12 12:40:40', 1),
+(79, 12, 2, 'tuesday', NULL, NULL, 0, '2018-04-12 12:40:40', '2018-04-12 12:40:40', 1),
+(80, 12, 2, 'wednesday', NULL, NULL, 0, '2018-04-12 12:40:40', '2018-04-12 12:40:40', 1),
+(81, 12, 2, 'thursday', NULL, NULL, 0, '2018-04-12 12:40:40', '2018-04-12 12:40:40', 1),
+(82, 12, 2, 'friday', NULL, NULL, 0, '2018-04-12 12:40:40', '2018-04-12 12:40:40', 1),
+(83, 12, 2, 'saturday', NULL, NULL, 0, '2018-04-12 12:40:40', '2018-04-12 12:40:40', 1),
+(84, 12, 2, 'sunday', NULL, NULL, 0, '2018-04-12 12:40:40', '2018-04-12 12:40:40', 1);
 
 -- --------------------------------------------------------
 
@@ -54242,7 +54281,8 @@ INSERT INTO `user_roles` (`id`, `role_id`, `user_id`, `created_at`, `updated_at`
 (1, 1, 1, '2018-01-20 09:37:27', '2018-01-20 09:37:27'),
 (5, 2, 8, '2018-01-31 09:43:12', '2018-01-31 09:43:12'),
 (7, 2, 10, '2018-03-06 07:49:41', '2018-03-06 07:49:41'),
-(8, 2, 11, '2018-03-06 08:03:45', '2018-03-06 08:03:45');
+(8, 2, 11, '2018-03-06 08:03:45', '2018-03-06 08:03:45'),
+(9, 2, 12, '2018-04-12 07:10:40', '2018-04-12 07:10:40');
 
 -- --------------------------------------------------------
 
@@ -54252,15 +54292,28 @@ INSERT INTO `user_roles` (`id`, `role_id`, `user_id`, `created_at`, `updated_at`
 
 CREATE TABLE `websites_page_head_titles` (
   `id` int(11) NOT NULL,
-  `page` varchar(1255) NOT NULL,
+  `page` varchar(1255) DEFAULT NULL,
+  `business_page` varchar(255) DEFAULT NULL,
+  `page_url` varchar(1055) DEFAULT NULL,
   `title` text,
   `keyword` text,
   `description` text,
-  `canonical` text,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `websites_page_head_titles`
+--
+
+INSERT INTO `websites_page_head_titles` (`id`, `page`, `business_page`, `page_url`, `title`, `keyword`, `description`, `created_at`, `updated_at`, `status`) VALUES
+(1, 'Home', NULL, 'home', 'Home Title', 'Home Keyword', 'Home Desc', '2018-03-23 14:49:26', '2018-03-23 14:49:26', 1),
+(3, 'Faq', NULL, 'faq', 'faq title', 'faq keyword', 'faq desc', '2018-03-23 15:23:46', '2018-03-23 15:23:46', 1),
+(6, 'about', NULL, 'about', 'title', 'keyword', 'description', '2018-03-28 14:30:55', '2018-03-28 14:30:55', 1),
+(18, '1|1|3378|2', NULL, 'Coffee-Shop-in-malviya-nagar', 'coffee shop in malviya nagar title', 'coffee shop in malviya nagar keyword', 'coffee shop in malviya nagar description', '2018-04-02 13:36:20', '2018-04-02 13:36:20', 1),
+(19, '3|7|3378|', NULL, 'Four-Star-in-jaipur', 'four star in jaipur title', 'four star in jaipur keyword', 'four star in jaipurdescription', '2018-04-02 13:37:33', '2018-04-02 13:37:33', 1),
+(20, NULL, '11|3378|1', 'Hotel-Jannat-in-vidhyadhar-nagar', 'hotel jannat in jaipur title', 'hotel jannat in keyword', 'hotel jannat in description', '2018-04-02 13:38:50', '2018-04-02 13:38:50', 1);
 
 -- --------------------------------------------------------
 
@@ -54271,7 +54324,7 @@ CREATE TABLE `websites_page_head_titles` (
 CREATE TABLE `website_pages` (
   `id` int(11) NOT NULL,
   `page_title` varchar(255) NOT NULL,
-  `page_description` text NOT NULL,
+  `page_description` text,
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `status` tinyint(1) NOT NULL DEFAULT '1'
@@ -54283,7 +54336,7 @@ CREATE TABLE `website_pages` (
 
 INSERT INTO `website_pages` (`id`, `page_title`, `page_description`, `created_at`, `updated_at`, `status`) VALUES
 (1, 'About Us', 'Justdial\'s MissionTo provides fast, free, reliable and comprehensive information to our users and connects buyers to sellers.Corporate Information\r\nThe company started offering local search services in 1996 under the Justdial brand and is now the leading local search engine in India.\r\nThe official website www.justdial.com was launched in 2007.\r\nJustdial\'s search service is available to users across multiple platforms, such as the internet, mobile Internet, over the telephone (voice) and text (SMS).\r\nJustdial\'s search service bridges the gap between the users and businesses by helping users find relevant providers of products and services quickly while helping businesses listed in Justdial\'s database to market their offerings.Justdial has also initiated its ‘Search Plus’ Services for the users. These services are aimed at making several day-to-day tasks conveniently actionable and accessible to the users. With this step, Justdial is transitioning from being purely a provider of local search and related information to being an enabler of such transactions. Justdial intends to provide an online platform to thousands of SME’s to get them discovered and transacted.', '2018-02-16 06:29:18', '2018-02-16 15:18:18', 1),
-(2, 'FAQ', 'FAQ', '0000-00-00 00:00:00', '2018-03-19 13:17:12', 1);
+(2, 'FAQ', 'MissionTo provides fast, free, reliable and comprehensive information to our users and connects buyers to sellers.Corporate Information The company started offering local search services', '0000-00-00 00:00:00', '2018-04-12 13:30:28', 1);
 
 --
 -- Indexes for dumped tables
@@ -54341,6 +54394,12 @@ ALTER TABLE `states`
 -- Indexes for table `subcategory`
 --
 ALTER TABLE `subcategory`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `subscribers`
+--
+ALTER TABLE `subscribers`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -54453,20 +54512,25 @@ ALTER TABLE `states`
 ALTER TABLE `subcategory`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
+-- AUTO_INCREMENT for table `subscribers`
+--
+ALTER TABLE `subscribers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `user_company_information`
 --
 ALTER TABLE `user_company_information`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `user_details`
 --
 ALTER TABLE `user_details`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `user_images`
 --
@@ -54481,22 +54545,22 @@ ALTER TABLE `user_keywords`
 -- AUTO_INCREMENT for table `user_location`
 --
 ALTER TABLE `user_location`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `user_other_information`
 --
 ALTER TABLE `user_other_information`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 --
 -- AUTO_INCREMENT for table `user_roles`
 --
 ALTER TABLE `user_roles`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `websites_page_head_titles`
 --
 ALTER TABLE `websites_page_head_titles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `website_pages`
 --
