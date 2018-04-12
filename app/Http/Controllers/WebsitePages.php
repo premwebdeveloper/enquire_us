@@ -13,6 +13,13 @@ use Session;
 
 class WebsitePages extends Controller
 {
+    # construct function
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('admin');
+    }
+
     //website pages
     public function website_pages()
     {
