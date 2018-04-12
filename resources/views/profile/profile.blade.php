@@ -13,8 +13,8 @@
     .formError{margin-top: -30px!important;}
   </style>
 
-  <script type="text/javascript">
-    $(document).ready(function(){
+<script type="text/javascript">
+$(document).ready(function(){
 
     // Update user location
     $(document).on("click", "#location_submit", function(e){
@@ -50,10 +50,9 @@
                 },
             });
 
-          $('.continue').click(function(){
-            $('.nav-tabs > .active').next('li').find('a').trigger('click');
-          });
-
+            $('.continue').click(function(){
+                $('.nav-tabs > .active').next('li').find('a').trigger('click');
+            });
         }
     });
 
@@ -73,14 +72,14 @@
           var fax2 = $('#fax2').val();
           var toll_free = $('#toll_free').val();
           var toll_free2 = $('#toll_free2').val();
-          var email = $('#email').val();
+          //var email = $('#email').val();
           var website = $('#website').val();
 
           $.ajax({
             method : 'post',
             url : 'update_contact_info',
             async : true,
-                    data : {"_token": "{{ csrf_token() }}", 'user_id': user_id, 'contact_person': contact_person, 'landline': landline, 'mobile': mobile, 'fax': fax, 'fax2': fax2, 'toll_free': toll_free, 'toll_free2': toll_free2, 'email': email, 'website': website},
+                    data : {"_token": "{{ csrf_token() }}", 'user_id': user_id, 'contact_person': contact_person, 'landline': landline, 'mobile': mobile, 'fax': fax, 'fax2': fax2, 'toll_free': toll_free, 'toll_free2': toll_free2, 'website': website},
                       success:function(response){
 
                         console.log('response');
@@ -92,10 +91,9 @@
               },
           });
 
-          $('.continue').click(function(){
-            $('.nav-tabs > .active').next('li').find('a').trigger('click');
-          });
-
+            $('.continue').click(function(){
+                $('.nav-tabs > .active').next('li').find('a').trigger('click');
+            });
         }
     });
 
@@ -142,7 +140,34 @@
 
     });
 
-    // Select City
+/*    // Page Load Get Area
+    $(document).ready(function(){
+        var city = '3378';
+        // Get cities according to state
+        $.ajax({
+            method: 'post',
+            url: 'getAreaByCityForUser',
+            data: {"_token": "{{ csrf_token() }}", 'city' : city},
+            async: true,
+            success: function(response){
+
+              console.log(response);
+
+                var areas = '<option value="">Select Area</option>';
+                $.each(response, function(i, item) {
+                areas += '<option value="'+item.area+'">'+item.area+'</option>';
+            })
+
+            $("#area").html('');
+            $("#area").html(areas);
+            $("#area").removeAttr('disabled');
+            },
+            error: function(data){
+                console.log(data);
+            },
+        });
+    });*/
+
     $(document).on("change", "#city", function(){
         var city = $('#city').val();
           //alert(city);
@@ -165,7 +190,7 @@
 
                     var areas = '<option value="">Select Area</option>';
                     $.each(response, function(i, item) {
-                    areas += '<option value="'+item.id+'">'+item.area+'</option>';
+                    areas += '<option value="'+item.area+'">'+item.area+'</option>';
                 })
 
                 $("#area").html('');
@@ -177,6 +202,34 @@
                 },
             });
         }
+    });
+
+    // Page Load Get Pincode
+    $(document).ready(function(){
+        var area = '<?= $location->area; ?>';
+
+        $.ajax({
+            method: 'post',
+            url: 'getPincodeByAreaForUser',
+            data: {"_token": "{{ csrf_token() }}", 'area' : area},
+            async: true,
+            success: function(response){
+
+              console.log(response);
+
+                var pincodes = '';
+                $.each(response, function(i, item) {
+                pincodes += '<option value="'+item.pincode+'">'+item.pincode+'</option>';
+            })
+
+            $("#pin_code").html('');
+            $("#pin_code").html(pincodes);
+            $("#pin_code").removeAttr('disabled');
+            },
+            error: function(data){
+                console.log(data);
+            },
+        });
     });
 
     // Select Area
@@ -202,7 +255,7 @@
 
                     var pincodes = '';
                     $.each(response, function(i, item) {
-                    pincodes += '<option value="'+item.id+'">'+item.pincode+'</option>';
+                    pincodes += '<option value="'+item.pincode+'">'+item.pincode+'</option>';
                 })
 
                 $("#pin_code").html('');
@@ -257,9 +310,11 @@
         }
 
     });
-
+    $('.continue1').click(function(){
+        $('.nav-tabs > .active').next('li').find('a').trigger('click');
     });
-  </script>
+});
+</script>
 
   <div id="main" class="site-main">
       <div class="container">
@@ -275,63 +330,78 @@
         <div class="row">
 
         	<div class="col-sm-3">
-            		<div class="box">
-            			<div class="list-group sidebar-nav">
-            			  <ul class="nav nav-tabs" role="tablist">
+        		<div class="box">
+        			<div class="list-group sidebar-nav">
+    			        <ul class="nav nav-tabs" role="tablist">
 
-                      <li role="presentation" class="active" id="dashboard_menu">
-                        <a href="#dashboard" class="list-group-item" aria-controls="dashboard" role="tab" data-toggle="tab" aria-expanded="true">
-                          <i class="fa fa-dashboard fa-fw"></i> <span>Dashboard</span>
-                        </a>
-                      </li>
+                            <li class="active" id="dashboard_menu">
+                                <a href="#dashboard" class="list-group-item" aria-controls="dashboard" role="tab" data-toggle="tab" aria-expanded="true">
+                                    <i class="fa fa-dashboard fa-fw"></i> <span>Dashboard</span>
+                                </a>
+                            </li>
 
-                      <li id="location_menu">
-                         <a href="#location" class="list-group-item" aria-controls="location" role="tab" data-toggle="tab" aria-expanded="false">
-                          <i class="fa fa-map-marker fa-fw"></i> <span>Location Information</span>
-                        </a>
-                      </li>
+                            <li id="location_menu">
+                                <a href="#loc" class="list-group-item" aria-controls="location" role="tab" data-toggle="tab" aria-expanded="false">
+                                    <i class="fa fa-map-marker fa-fw"></i> <span>Location Information</span>
+                                </a>
+                            </li>
 
-                      <li id="contact_menu">
-                         <a href="#contact" class="list-group-item" aria-controls="contact" role="tab" data-toggle="tab" aria-expanded="false">
-                          <i class="fa fa-phone fa-fw"></i> <span>Contact Information</span>
-                        </a>
-                      </li>
+                            <li id="contact_menu">
+                                <a href="#contact" class="list-group-item" aria-controls="contact" role="tab" data-toggle="tab" aria-expanded="false">
+                                    <i class="fa fa-phone fa-fw"></i> <span>Contact Information</span>
+                                </a>
+                            </li>
 
-                      <li id="other_menu">
-                         <a href="#other" class="list-group-item" aria-controls="other" role="tab" data-toggle="tab" aria-expanded="false">
-                          <i class="fa fa-cog fa-fw"></i> <span>Other Information</span>
-                        </a>
-                      </li>
+                            <li id="other_menu">
+                                <a href="#other" class="list-group-item" aria-controls="other" role="tab" data-toggle="tab" aria-expanded="false">
+                                    <i class="fa fa-cog fa-fw"></i> <span>Other Information</span>
+                                </a>
+                            </li>
 
-                      <li id="business_menu">
-                         <a href="#business" class="list-group-item" aria-controls="business" role="tab" data-toggle="tab" aria-expanded="false">
-                          <i class="fa fa-cog fa-fw"></i> <span>Business Keywords</span>
-                        </a>
-                      </li>
+                            <li id="business_menu">
+                                <a href="#business" class="list-group-item" aria-controls="business" role="tab" data-toggle="tab" aria-expanded="false">
+                                    <i class="fa fa-cog fa-fw"></i> <span>Business Keywords</span>
+                                </a>
+                            </li>
 
-                      <li id="keyword_menu">
-                         <a href="#add_keywords" class="list-group-item text-center" role="tab" data-toggle="tab" style="color: #a59898;">
-                            <i class="fa fa-arrow-right fa-fw"></i> <span>Add Keywords</span>
-                        </a>
-                      </li>
+                            <li id="keyword_menu">
+                                <a href="#add_keywords" class="list-group-item text-center" role="tab" data-toggle="tab" style="color: #a59898;">
+                                    <i class="fa fa-arrow-right fa-fw"></i> <span>Add Keywords</span>
+                                </a>
+                            </li>
 
-                      <li id="logo_menu">
-                         <a href="#uploads_video" class="list-group-item" aria-controls="uploads_video" role="tab" data-toggle="tab" aria-expanded="false">
-                          <i class="fa fa-photo fa-fw"></i> <span>Uploads Logo/Pictures</span>
-                        </a>
-                      </li>
+                            <li id="logo_menu">
+                                <a href="#uploads_video" class="list-group-item" aria-controls="uploads_video" role="tab" data-toggle="tab" aria-expanded="false">
+                                    <i class="fa fa-photo fa-fw"></i> <span>Uploads Logo/Pictures</span>
+                                </a>
+                            </li>
 
-                    </ul>
-            			</div>
-            		</div>
+                            <li id="change_password_menu">
+                                <a href="#change_password" class="list-group-item" aria-controls="uploads_video" role="tab" data-toggle="tab" aria-expanded="false">
+                                    <i class="fa fa-lock fa-fw"></i> <span>Change Password</span>
+                                </a>
+                            </li>
+
+                        </ul>
+        			</div>
+        		</div>
         	</div>
 
             <div class="col-sm-9">
                 <div class="tab-content">
 
-                    <div role="tabpanel" class="tab-pane active" id="location">
+                    <div role="tabpanel" class="tab-pane active" id="dashboard">
                         <div class="col-sm-10 edit_profile">
-                          <div class="box">
+                            <div class="box">
+                                <h1>Dashboard</h1>
+                            </div>
+                        </div>
+                        <a class=""></a>
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane" id="loc">
+                        <div class="col-sm-10 edit_profile">
+                            <div class="box">
 
                               <form action="javascript:;" method="post" accept-charset="utf-8" id="myForm" class="form-horizontal" enctype="multipart/form-data">
 
@@ -383,12 +453,12 @@
                                         <input class="form-control" name="state" id="state" value="Rajasthan" readonly>
                                       </div>
                                     </div>
-<!--                                     <script>
-                                        $(document).ready(function(){
-                                            var city_id = 3378;
-                                            $('#city option[value='+city_id+']').prop('selected', true);
-                                        });
-                                    </script> -->
+                                        <script>
+                                            $(document).ready(function(){
+                                                var city_id = {{ $location->city }};
+                                                $('#city option[value='+city_id+']').prop('selected', true);
+                                            });
+                                        </script>
                                     <div class="form-group required">
                                       <label for="Country" class="col-sm-4 control-label">City:</label>
                                       <div class="col-sm-6">
@@ -400,12 +470,28 @@
                                         </select>
                                       </div>
                                     </div>
+                                        <script>
+                                            $(document).ready(function(){
+                                                var area_id = "<?= $location->area; ?>";
+                                                $('#area').val(area_id).attr('selected', 'selected');
+                                            });
+                                        </script>
+                                        <?php
+                                            $city = '3378';
 
+                                            $areas = DB::table('areas')->where('city', $city)->get();
+                                        ?>
                                     <div class="form-group required">
                                       <label for="Country" class="col-sm-4 control-label">Area:</label>
                                         <div class="col-sm-6">
                                             <select name="area" id="area" class="validate[required] form-control">
+
                                                 <option value="">Select Area</option>
+
+                                                @foreach($areas as $area)
+                                                    <option value="{{$area->area}}">{{$area->area}}</option>
+                                                @endforeach
+
                                             </select>
                                         </div>
                                     </div>
@@ -420,12 +506,16 @@
                                     </div>
 
                                   </div>
-
                                   <div class="buttons">
+                                    <div class="left">
+                                        <label class="checkbox-inline">
+                                            <a class="btn btn-primary back" data-original-title="" title="">Prev</a>
+                                        </label>
+                                    </div>
                                     <div class="right">
-                                      <label class="checkbox-inline">
-                                        <a class="btn btn-primary continue" id="location_submit" data-original-title="" title="">Next</a>
-                                      </label>
+                                        <label class="checkbox-inline">
+                                            <a class="btn btn-primary continue" data-original-title="" id="location_submit">Next</a>
+                                        </label>
                                     </div>
                                   </div>
 
@@ -799,7 +889,7 @@
                           <p>For business keywords that you no longer wish to be listed in simply click on cross next to the keyword and when you are done, Click "Save"</p>
 
                           <div class="col-sm-12" style="padding: 0px;border-bottom: 1px solid #ddd;">
-                            <a href="javascript:;" class="continue" style="color:#3b5998;font-weight: bold;float:right">
+                            <a class="continue1" style="color:#3b5998;font-weight: bold;float:right">
                                 Add more keywords
                             </a>
                           </div>
@@ -813,14 +903,14 @@
                           <div class="box">
                               <div class="buttons">
                                 <div class="left">
-                                  <label class="checkbox-inline" style="padding-left: 0px;">
-                                    <a class="btn btn-primary back" data-original-title="" title="">Prev</a>
-                                  </label>
+                                    <label class="checkbox-inline" style="padding-left: 0px;">
+                                        <a class="btn btn-primary back" data-original-title="" title="">Prev</a>
+                                    </label>
                                 </div>
                                 <div class="right">
-                                  <label class="checkbox-inline">
-                                    <a class="btn btn-primary continue" data-original-title="" title="">Next</a>
-                                  </label>
+                                    <label class="checkbox-inline">
+                                        <a class="btn btn-primary continue" data-original-title="" title="">Next</a>
+                                    </label>
                                 </div>
                               </div>
                           </div>
@@ -1040,7 +1130,7 @@
                             <h4>Upload logo/Photos</h4>
                             <hr />
 
-                            <form action="" method="post" class="form-horizontal" enctype="multipart/form-data">
+                            <form action="{{ route('uploadLogoAndPhotos') }}" method="post" class="form-horizontal" enctype="multipart/form-data">
                               <fieldset>
                                 <div class="controls">
 
@@ -1081,6 +1171,51 @@
                       </div>
                     </div>
 
+                    <div role="tabpanel" class="tab-pane" id="change_password">
+                        <div class="col-sm-10 edit_profile">
+                            <div class="box">
+
+                            <form action="javascript:;" method="post" accept-charset="utf-8" id="changePassword" class="form-horizontal" enctype="multipart/form-data">
+
+                                <input type="hidden" name="user_id" class="user_id" value="{{ $location->user_id }}">
+                                <fieldset>
+                                    <div class="controls">
+
+                                        <div class="form-group">
+                                            <label for="Name" class="col-sm-4 control-label">Old Password: </label>
+                                            <div class="col-sm-6">
+                                                <input class="form-control" name="old_password" id="old_password" type="password">
+                                           </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="Email" class="col-sm-4 control-label">New Password: </label>
+                                            <div class="col-sm-6">
+                                                <input class="form-control" name="new_password" id="new_password" type="password">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="Address" class="col-sm-4 control-label">Confirm Password: </label>
+                                            <div class="col-sm-6">
+                                                <input class="form-control" name="cfm_password" id="cfm_password" type="password">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="buttons">
+                                        <div class="right">
+                                            <label class="checkbox-inline">
+                                                <a class="btn btn-primary" data-original-title="" id="change_password">Change Password</a>
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                </fieldset>
+                            </form>
+                          </div>
+                        </div>
+                        <a class=""></a>
+                    </div>
                 </div>
                 <div id="push"></div>
               </div>

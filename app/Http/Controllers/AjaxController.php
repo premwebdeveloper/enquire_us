@@ -64,7 +64,7 @@ class AjaxController extends Controller
         $fax2 = $request->fax2;
         $toll_free = $request->toll_free;
         $toll_free2 = $request->toll_free2;
-        $email = $request->email;
+        //$email = $request->email;
         $website = $request->website;
 
         $basic_info_update = DB::table('user_details')->where('user_id', $user_id)->update(
@@ -77,7 +77,6 @@ class AjaxController extends Controller
                     'fax2' => $fax2,
                     'toll_free1' => $toll_free,
                     'toll_free2' => $toll_free2,
-                    'email' => $email,
                     'website' => $website,
                     'updated_at' => $date,
                     'status' => 1
@@ -201,7 +200,7 @@ class AjaxController extends Controller
     {
         $area = $request->area;
 
-        $pincodes = DB::table('areas')->where('id', $area)->get();
+        $pincodes = DB::table('areas')->where('area', $area)->get();
 
         return response()->json($pincodes);
     }
