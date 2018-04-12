@@ -22,16 +22,16 @@
 
     # Home page after login
     Route::any('/', 'HomeController@index')->name('/');
-    Route::get('/home', 'HomeController@index')->name('home');
+    Route::any('/home', 'HomeController@index')->name('home');
     # Filter data according to location and any keyword
     Route::any('filter/{location}/{cat}/{encoded}', [
         "uses" => 'HomeController@filter',
         "as" => 'filter'
     ]);
     # Get all clients for perticular category
-    Route::get('category/{category}', 'HomeController@category');
-    Route::get('webpage/{webpage}', 'HomeController@webpage');
-    Route::get('view/{businesswitharea}/{business}/{id}', 'HomeController@view');
+    Route::any('category/{category}', 'HomeController@category');
+    Route::any('webpage/{webpage}', 'HomeController@webpage');
+    Route::any('view/{businesswitharea}/{business}/{id}', 'HomeController@view')->name('view');
 
     # Subcribers route
     Route::post('subscribers', 'HomeController@subscribers')->name('subscribers');

@@ -150,7 +150,7 @@
                                 </div>
 
                                 <div class="form-group col-sm-3 col-cus-3 search-input-key">
-                                    <input type="text" name="filter_title" id="filter_title" class="form-control form-cus"  placeholder="Type keywords e.g. Burger, Salon, Beauty…">
+                                    <input type="text" name="filter_title" id="filter_title" class="form-control form-cus"  placeholder="Type keywords e.g. Burger, Salon, Beauty…" required>
                                 </div>
 
                             </div>

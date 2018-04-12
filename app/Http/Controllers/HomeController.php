@@ -214,12 +214,13 @@ class HomeController extends Controller
         $businesswitharea = $request->businesswitharea;
 
         $business = $request->business;
+
         $business = Crypt::decrypt($business);
+
         //dd($business);
 
         $id = $request->id;
         $user_id = Crypt::decrypt($id);
-
 
         // Get client all details
         $client = DB::table('user_details')
@@ -240,7 +241,7 @@ class HomeController extends Controller
         exit;
     }
 
-    # Website Pages
+    # Get dynamic Website Pages and their content
     public function webpage(Request $request)
     {
         $title = 'Category View';
