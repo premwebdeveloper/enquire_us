@@ -6,17 +6,28 @@
                 <div class="col-sm-12 subscribe">
                     <h2>Subscribe to Enquire Us</h2>
                     <p>
-                        <span style="color:#DE4B39">Be the first save!</span>
-                        Subscribe to get the best deals & offers in your email.
+                        <span style="color:#DE4B39">Subscribe to get the best deals & offers in your email.</span>
                     </p>
+
+                    @if(session('subscribe'))
+                        <div class="col-md-12">
+                            <div class="alert alert-success alert-dismissible">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                {{ session('subscribe') }}
+                            </div>
+                        </div>
+                    @endif
+
                 </div>
                 <div class="col-lg-9 col-sm-offset-3">
-                    <form action="" method="post" accept-charset="utf-8" id="subscribe">
+                    <form action="{{ route('subscribers') }}" method="post" id="subscribe">
 
+                        {{ csrf_field() }}
 
                         <div class="form-group col-sm-7">
-                            <input type="email" id="sub_email" name="email" class="form-control form-cus"  placeholder="Email address" required>
+                            <input type="email" id="sub_email" name="sub_email" class="form-control form-cus"  placeholder="Email address" required>
                         </div>
+
                         <div class="form-group  col-sm-1 col-cus-1">
                             <input name="submit" type="submit" id="sub_submit" class="btn btn-black"  value="Subscribe"/>
                         </div>

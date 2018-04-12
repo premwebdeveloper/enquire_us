@@ -179,3 +179,18 @@ ALTER TABLE `websites_page_head_titles` CHANGE `page` `page` VARCHAR(1255) CHARA
 
 -- ---------------------------ALTER Table 'websites_page_head_titles' on 31-03-2018--------------------------
 ALTER TABLE `websites_page_head_titles` ADD `page_url` VARCHAR(1055) NULL AFTER `business_page`;
+
+-- ---------------------------ALTER Table 'website_pages' on 12-04-2018--------------------------
+ALTER TABLE `website_pages` CHANGE `page_description` `page_description` TEXT CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL;
+
+-- ---------------------------CREATE TABLE `subscribers` on 12-04-2018--------------------------
+CREATE TABLE `subscribers` (
+  `id` int(11) NOT NULL,
+  `email` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `subscribers`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `subscribers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;COMMIT;

@@ -70,6 +70,13 @@ class HomeController extends Controller
         }
 
         $encoded = explode('-', $encoded);
+
+        # If there is something wrong with url and array is not proper then redirect to home
+        if(count($encoded) < 3)
+        {
+            return redirect('/');
+        }
+
         $title_id = $encoded[1];
         $title_status = $encoded[2];
 
@@ -252,5 +259,18 @@ class HomeController extends Controller
 
         return view('frontend.webpage_view', array('webpages' => $webpages, 'website_pages' => $website_pages, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords));
 
+    }
+
+    # subscribers functions
+    public function subscribers(Request $request)
+    {
+        $email = $request->sub_email;
+
+        # insert email in subscribers table
+        DB::table('subscribers')->insert(['email' => $email]);
+
+        Session::flash('subscribe', 'You are active subscriber now.');
+
+        return redirect('/');
     }
 }

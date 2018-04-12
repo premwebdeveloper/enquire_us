@@ -59,11 +59,11 @@
                                     <td>{{ $value }}</td>
                                     <td>{{ $web->updated_at }}</td>
                                     <td>
-                                     
+
                                         <a class="btn btn-success editPage" href="javascript:;" id="{{ $web->id }}">
                                             Edit
                                         </a>
-                                  
+
                                     </td>
                                 </tr>
 
@@ -100,7 +100,7 @@
                     </div>
 
                     <div class="form-group">
-                        <textarea class="form-control " name="content" id="Desc" rows="10"> </textarea>
+                        <textarea class="form-control" name="content" id="Desc" rows="10" required></textarea>
                     </div>
 
                     <div class="form-group text-right">
@@ -119,7 +119,7 @@
             var id = $(this).attr('id');
             var page_title = $('#exitTitle_'+id).text();
             var page_desc = $('#exitDesc_'+id).text();
-           
+
             $('#cat_id').val(id);
             $('#Title').val(page_title);
             $('#Desc').val(page_desc);
