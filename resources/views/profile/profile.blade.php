@@ -38,14 +38,11 @@ $(document).ready(function(){
                 method : 'post',
                 url : 'update_location_info',
                 async : true,
-                    data : {"_token": "{{ csrf_token() }}", 'user_id': user_id, 'business_name': business_name, 'building': building, 'street': street, 'landmark': landmark, 'area': area, 'city': city, 'pin_code': pin_code, 'state': state, 'country': country},
-                      success:function(response){
-
-                        console.log('response');
-                        console.log(response);
-                        $(window).scrollTop(0);
-                      },
-                    error: function(data){
+                data : {"_token": "{{ csrf_token() }}", 'user_id': user_id, 'business_name': business_name, 'building': building, 'street': street, 'landmark': landmark, 'area': area, 'city': city, 'pin_code': pin_code, 'state': state, 'country': country},
+                success:function(response){
+                    $(window).scrollTop(0);
+                },
+                error: function(data){
                     console.log(data);
                 },
             });

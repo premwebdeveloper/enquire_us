@@ -34,10 +34,14 @@ class Categories extends Controller
         $date = date('Y-m-d H:i:s');
 
         $category = $request->category;
+        $description = $request->description;
 
-        $create_cat = DB::table('category')->insert(
-            array('category' => $category, 'created_at' => $date, 'updated_at' => $date)
-        );
+        $create_cat = DB::table('category')->insert([
+            'category' => $category,
+            'description' => $description,
+            'created_at' => $date,
+            'updated_at' => $date
+        ]);
 
         if($create_cat)
         {
@@ -57,11 +61,14 @@ class Categories extends Controller
     	$date = date('Y-m-d H:i:s');
 
         $cat_id = $request->cat_id;
-    	$category = $request->category;
+        $category = $request->category;
+    	$description = $request->category_description;
 
-    	$create_cat = DB::table('category')->where('id', $cat_id)->update(
-    		array('category' => $category, 'created_at' => $date, 'updated_at' => $date)
-    	);
+    	$create_cat = DB::table('category')->where('id', $cat_id)->update([
+            'category' => $category,
+            'description' => $description,
+            'updated_at' => $date
+    	]);
 
         if($create_cat)
         {

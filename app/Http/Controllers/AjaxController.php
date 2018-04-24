@@ -611,4 +611,16 @@ class AjaxController extends Controller
         exit;
     }
 
+    # Get category details
+    public function getCategoryDetails(Request $request)
+    {
+        $cat_id = $request->id;
+
+        // Get all cities of rajasthan state
+        $category = DB::table('category')->where('id', $cat_id)->first();
+
+        echo json_encode($category);
+        exit;
+    }
+
 }

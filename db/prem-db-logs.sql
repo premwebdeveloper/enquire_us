@@ -220,3 +220,9 @@ ALTER TABLE `roles`
 
 ALTER TABLE `roles`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+-- ---------------------------ALTER TABLE `category` on 24-04-2018--------------------------
+ALTER TABLE `category` ADD `description` LONGTEXT NULL AFTER `category`;
+
+-- ---------------------------ALTER TABLE `subcategory` on 24-04-2018--------------------------
+ALTER TABLE `subcategory` ADD `description` LONGTEXT NULL AFTER `subcategory`;

@@ -9,7 +9,9 @@
             <li>
                 <a href="{{ route('dashboard') }}">Home</a>
             </li>
-            <li>  Castes </li>
+            <li>
+                <a href="{{ route('Category') }}">Categories</a>
+            </li>
             <li class="active">
                 <strong>Add Category</strong>
             </li>
@@ -31,7 +33,12 @@
             <div class="ibox-content">
 
                 @if(session('status'))
-                   <div class="alert alert-success">{{ session('status') }}</div>
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        {{ session('status') }}
+                    </div>
                 @endif
 
                 <form method="post" class="form-horizontal" action="{{ route('addCategory') }}">
@@ -40,13 +47,22 @@
 
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Category</label>
-                        <div class="col-sm-8">
+                        <div class="col-sm-10">
                             <input type="text" name="category" id="category" class="form-control" placeholder="Category" required="required">
                         </div>
-                        <div class="col-sm-2">
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Category Description</label>
+                        <div class="col-sm-10">
+                            <textarea name="description" class="form-control" placeholder="Description"></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 text-right">
                             <button class="btn btn-primary" name="add_category" type="submit">Add Category</button>
                         </div>
                     </div>
+
                 </form>
             </div>
         </div>

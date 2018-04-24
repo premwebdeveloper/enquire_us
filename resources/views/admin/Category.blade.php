@@ -27,7 +27,12 @@
 	        <div class="ibox float-e-margins">
 
                 @if(session('status'))
-                   <div class="alert alert-success">{{ session('status') }}</div>
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        {{ session('status') }}
+                    </div>
                 @endif
 
 	            <div class="ibox-title">
@@ -74,6 +79,8 @@
     	</div>
     </div>
 </div>
+
+<!-- Edit category Modal -->
 <div id="catModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
 
@@ -81,7 +88,7 @@
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Update Caste</h4>
+            <h4 class="modal-title">Update Category</h4>
         </div>
         <div class="modal-body">
             <p>
@@ -95,28 +102,46 @@
                         <input type="text" name="category" id="cat" required="required" class="form-control" placeholder="Category">
                     </div>
 
+                    <div class="form-group">
+                        <textarea name="category_description" id="category_description" class="form-control" placeholder="Category Description"></textarea>
+                    </div>
+
                     <div class="form-group text-right">
                         <input type="submit" name="editCaste" class="btn btn-warning" id="editCaste" value="Update">
                     </div>
                 </form>
             </p>
         </div>
-        <div class="modal-footer">
-            <button type="button" data-dismiss="modal">Close</button>
-        </div>
     </div>
 
     </div>
 </div>
+
 <script type="text/javascript">
     $(document).ready(function(){
         $(document).on('click', '.editcat', function(){
             var id = $(this).attr('id');
-            var cat = $('#exitCat_'+id).text();
 
-            $('#cat_id').val(id);
-            $('#cat').val(cat);
-            $('#catModal').modal('show');
+            $.ajax({
+                method : 'post',
+                url : 'getCategoryDetails',
+                async : true,
+                data : {"_token": "{{ csrf_token() }}", 'id': id},
+                success:function(response){
+
+                    var obj = $.parseJSON(response);
+
+                    $('#cat_id').val(obj.id);
+                    $('#cat').val(obj.category);
+                    $('#category_description').val(obj.description);
+                    $('#catModal').modal('show');
+
+                },
+                error: function(data){
+                    console.log(data);
+                },
+            });
+
         });
     });
 </script>
