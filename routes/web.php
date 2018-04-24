@@ -79,8 +79,8 @@
 /* ********************* Admin Permissions Only Admin can access these routes **************************** */
 /* ****************************************************************************************************** */
 
-Route::group(['middleware' => 'App\Http\Middleware\Admin'], function()
-{
+// Route::group(['middleware' => 'App\Http\Middleware\Admin'], function()
+// {
 	Route::get('dashboard', 'Dashboard@dashboard')->name('dashboard');
     Route::get('addUser', 'AdminUsers@addUser')->name('addUser');
     Route::post('add_user', 'AdminUsers@add_user')->name('add_user');
@@ -93,6 +93,11 @@ Route::group(['middleware' => 'App\Http\Middleware\Admin'], function()
     Route::post('addCategory', 'Categories@addCategory')->name('addCategory');
     Route::get('Category', 'Categories@Category')->name('Category');
     Route::post('editCat', 'Categories@editCat')->name('editCat');
+    # Add category club
+    Route::get('categoryClubs', 'Categories@categoryClubs')->name('categoryClubs');
+    Route::post('create_category_club', 'Categories@create_category_club')->name('create_category_club');
+    Route::get('edit_club/{category_club}', 'Categories@edit_club')->name('edit_club');
+    Route::post('edit_category_club', 'Categories@edit_category_club')->name('edit_category_club');
 
     # subCategory
     Route::get('add_subCategory', 'Categories@add_subCategory')->name('add_subCategory');
@@ -119,4 +124,4 @@ Route::group(['middleware' => 'App\Http\Middleware\Admin'], function()
     # Website page head titles like Title, Meta title, Keyword, Description etc
     Route::any('page_titles', 'WebsitePages@page_titles')->name('page_titles');
 
-});
+// });

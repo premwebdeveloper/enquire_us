@@ -194,3 +194,29 @@ ALTER TABLE `subscribers`
 
 ALTER TABLE `subscribers`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;COMMIT;
+
+-- ---------------------------CREATE TABLE `roles` on 19-04-2018--------------------------
+CREATE TABLE `roles` (
+  `id` int(10) UNSIGNED NOT NULL,
+  `role` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+INSERT INTO `roles` (`id`, `role`, `created_at`, `updated_at`) VALUES
+(1, 'admin', '2018-04-18 18:30:00', '2018-04-18 18:30:00'),
+(2, 'user', '2018-04-18 18:30:00', '2018-04-18 18:30:00'),
+(3, 'support', '2018-04-19 13:30:00', '2018-04-19 13:30:00'),
+(4, 'listing', '2018-04-19 13:30:00', '2018-04-19 13:30:00'),
+(5, 'seo', '2018-04-19 12:30:00', '2018-04-19 12:30:00'),
+(6, 'role6', '2018-04-19 11:30:00', '2018-04-19 10:30:00'),
+(7, 'role7', '2018-04-19 13:30:00', '2018-04-19 13:30:00'),
+(8, 'role8', '2018-04-19 13:30:00', '2018-04-19 13:30:00'),
+(9, 'role9', '2018-04-19 13:30:00', '2018-04-19 13:30:00'),
+(10, 'role10', '2018-04-19 13:30:00', '2018-04-19 13:30:00');
+
+ALTER TABLE `roles`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `roles`
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;

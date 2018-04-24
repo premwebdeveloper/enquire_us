@@ -33,7 +33,7 @@
                 @if(session('status'))
                    <div class="alert alert-success">{{ session('status') }}</div>
                 @endif
-                
+
                 <form method="post" class="form-horizontal" action="{{ route('addCategory') }}">
 
                     {{ csrf_field() }}

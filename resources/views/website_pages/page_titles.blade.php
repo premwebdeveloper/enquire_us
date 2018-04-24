@@ -115,7 +115,7 @@
 
                             {{ csrf_field() }}
 
-                            <div class="col-sm-3">
+                            <div class="col-sm-4">
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <label for="Category" class="control-label">Category</label>
@@ -129,7 +129,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-3">
+                            <div class="col-sm-4">
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <label for="Sub Category" class="control-label">Sub Category</label>
@@ -140,7 +140,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-3">
+                            <div class="col-sm-4">
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <label for="city" class="control-label">City</label>
@@ -152,7 +152,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-3">
+                            <!-- <div class="col-sm-3">
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <label for="area" class="control-label">Area</label>
@@ -164,7 +164,7 @@
                                         </select>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
                             <div clear="both">&nbsp;</div>
 

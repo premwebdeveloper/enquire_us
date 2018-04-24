@@ -57,7 +57,7 @@ class WebsitePages extends Controller
         $category = $request->category;
         $sub_category = $request->sub_category;
         $city = $request->city;
-        $area = $request->area;
+        //$area = $request->area;
         $business = $request->business;
         $page = $request->page;
         $title = $request->title;
@@ -76,37 +76,75 @@ class WebsitePages extends Controller
             {
                 if(!empty($category))
                 {
-                    $page = $category.'|'.$sub_category.'|'.$city.'|'.$area;
-
-                    // Create page url
+                    // define page url blank
                     $page_url = '';
 
+                    // If sub category selected then page url will create with sub category
                     if(!empty($sub_category))
                     {
-                        // Get Category Name
+                        // Get sub Category Name
                         $p_subcategory = DB::table('subcategory')->where(array('id' => $sub_category, 'status' => 1))->first();
                         $page_url .= preg_replace('/[^A-Za-z0-9\-]/', '-', $p_subcategory->subcategory);
                     }
-                    else
+                    else    // Page url will create with Category
                     {
                         // Get Category Name
                         $p_category = DB::table('category')->where(array('id' => $category, 'status' => 1))->first();
                         $page_url .= preg_replace('/[^A-Za-z0-9\-]/', '-', $p_category->category);
                     }
 
+                    $page = $category.'|'.$sub_category.'|'.$city.'|';
 
-                    if(!empty($area))
-                    {
-                        // Get Area Name
-                        $p_areas = DB::table('areas')->where(array('id' => $area, 'status' => 1))->first();
-                        $areaa = preg_replace('/[^A-Za-z0-9\-]/', '-', $p_areas->area);
-                        $page_url .= '-in-'.$areaa;
+                    // first insert selected city titles
+                    $insert = DB::table('websites_page_head_titles')->insert(array(
+                        'page' => $page,
+                        'business_page' => $business,
+                        'page_url' => $page_url,
+                        'title' => $title,
+                        'keyword' => $keyword,
+                        'description' => $description,
+                        'created_at' => $date,
+                        'updated_at' => $date,
+                        'status' => 1
+                    ));
 
+                    // Get city name by city id
+                    $cityRow = DB::table('cities')->where('id', $city)->first();
+                    $cityName = $cityRow->name;
+                    $cityName = strtolower($cityName);
+
+                    // first of all get all areas of selectes city
+                    $allAreas = DB::table('areas')->where(['city' => $city, 'status' => 1])->get();
+
+                    if(!empty($allAreas[0])){
+
+                        foreach ($allAreas as $key => $row) {
+
+                            $page = $category.'|'.$sub_category.'|'.$city.'|'.$row->id;
+
+                            // Get Area Name
+                            $areaa = preg_replace('/[^A-Za-z0-9\-]/', '-', $row->area);
+
+                            $main_page_url = $page_url;
+                            $area_page_url = $main_page_url.'-in-'.$areaa;
+
+                            // Insert titles for all areas of selected
+                            $insert = DB::table('websites_page_head_titles')->insert(array(
+                                'page' => $page,
+                                'business_page' => $business,
+                                'page_url' => $area_page_url,
+                                'title' => str_replace($cityName, $row->area, strtolower($title)),
+                                'keyword' => str_replace($cityName, $row->area, strtolower($keyword)),
+                                'description' => str_replace($cityName, $row->area, strtolower($description)),
+                                'created_at' => $date,
+                                'updated_at' => $date,
+                                'status' => 1
+                            ));
+                        }
                     }
-                    else
-                    {
-                        $page_url .= '-in-jaipur';
-                    }
+
+                    dd($allAreas);
+
                 }
             }
 
@@ -135,7 +173,7 @@ class WebsitePages extends Controller
                 }
             }
 
-            // Insert page titles
+            // Insert page titles when category and business name not selected
             $insert = DB::table('websites_page_head_titles')->insert(
                 array(
                     'page' => $page,
