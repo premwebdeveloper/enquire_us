@@ -882,8 +882,8 @@ $(document).ready(function(){
                     <div role="tabpanel" class="tab-pane" id="business">
                       <div class="edit_profile">
 
-                          <h4>Business Keywords</h4>
-                          <p>For business keywords that you no longer wish to be listed in simply click on cross next to the keyword and when you are done, Click "Save"</p>
+                        <h4>Business Keywords</h4>
+                        <p>For business keywords that you no longer wish to be listed in simply click on cross next to the keyword and when you are done, Click "Save"</p>
 
                           <div class="col-sm-12" style="padding: 0px;border-bottom: 1px solid #ddd;">
                             <a class="continue1" style="color:#3b5998;font-weight: bold;float:right">

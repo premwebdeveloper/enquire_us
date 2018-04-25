@@ -29,9 +29,11 @@ class AdminUsers extends Controller
     // add new User view page
     public function addUser()
     {
-        //$mother_tongue = DB::table('mother_tongue')->where('status', 1)->get();
+        $currentuserid = Auth::user()->id;
+        // Get user other information
+        $other = DB::table('user_other_information')->where('user_id', $currentuserid)->get();
 
-        return view('admin_users.addUser');
+        return view('admin_users.addUser', array("other" => $other));
     }
 
     // add new User
