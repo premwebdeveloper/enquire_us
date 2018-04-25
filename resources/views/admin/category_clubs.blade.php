@@ -106,7 +106,11 @@
                                         <td>{{ $club['category_club_name'] }}</td>
                                         <td>{{ rtrim($club['category_name'], ', ') }}</td>
                                     	<td>
-                                            <a href="{{ route('edit_club', $club['category_club']) }}" class="btn btn-danger">Edit</a>
+                                            <form method="post" action="{{ route('edit_club.show') }}">
+                                                {{ csrf_field() }}
+                                                <input type="hidden" name="category_club" value="{{ $club['category_club'] }}">
+                                                <input type="submit" name="edit_club" value="Edit" class="btn btn-danger">
+                                            </form>
                                         </td>
 	                                </tr>
 	                            @endforeach

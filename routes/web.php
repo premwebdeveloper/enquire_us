@@ -99,7 +99,7 @@
     # Add category club
     Route::get('categoryClubs', 'Categories@categoryClubs')->name('categoryClubs');
     Route::post('create_category_club', 'Categories@create_category_club')->name('create_category_club');
-    Route::get('edit_club/{category_club}', 'Categories@edit_club')->name('edit_club');
+    Route::any('edit_club', 'Categories@edit_club')->name('edit_club.show');
     Route::post('edit_category_club', 'Categories@edit_category_club')->name('edit_category_club');
 
     # subCategory
