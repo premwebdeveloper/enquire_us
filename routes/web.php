@@ -71,8 +71,10 @@
     Route::get('getSavedKeywords', 'AjaxController@getSavedKeywords')->name('getSavedKeywords');
     # Delete keywords
     Route::post('delete_keywords', 'AjaxController@delete_keywords')->name('delete_keywords');
-
+    # Get category details according to category id
     Route::post('getCategoryDetails', 'AjaxController@getCategoryDetails')->name('getCategoryDetails');
+    # Get subcategory details according to subcategory id
+    Route::post('getSubCategoryDetails', 'AjaxController@getSubCategoryDetails')->name('getSubCategoryDetails');
 
     # Upload logo and photos
     Route::post('uploadLogoAndPhotos', 'Profile@uploadLogoAndPhotos')->name('uploadLogoAndPhotos');

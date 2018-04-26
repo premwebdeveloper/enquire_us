@@ -9,9 +9,11 @@
             <li>
                 <a href="{{ route('dashboard') }}">Home</a>
             </li>
-            <li>subCategory</li>
+            <li>
+                <a href="{{ route('subCategory') }}">Sub Categories</a>
+            </li>
             <li class="active">
-                <strong>Add subCategory</strong>
+                <strong>Add Sub Category</strong>
             </li>
         </ol>
     </div>
@@ -26,43 +28,63 @@
     <div class="col-lg-12">
         <div class="ibox float-e-margins">
             <div class="ibox-title">
-                <h5>Add subCategory</h5>
+                <h5>Add Sub Category</h5>
             </div>
             <div class="ibox-content">
 
                 @if(session('status'))
-                   <div class="alert alert-success">{{ session('status') }}</div>
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        {{ session('status') }}
+                    </div>
                 @endif
 
                 <form method="post" class="form-horizontal" action="{{ route('addSubCategory') }}">
 
                     {{ csrf_field() }}
 
-                    <div class="form-group">
-                        <label class="col-sm-2 control-label">Category</label>
-                        <div class="col-sm-8">
-                            <select name="category" id="category" class="form-control" required="required">
-                            	
-                            	<option value="">Select Category</option>
-                            	@foreach($category as $cat)
-                            		<option value="{{ $cat->id }}">{{ $cat->category }}</option>
-                        		@endforeach
-                            </select>
+                    <div class="col-sm-6">
+                        <label class="col-sm-3 control-label">Category</label>
+                        <div class="col-sm-9">
+                            <div class="form-group">
+                                <select name="category" id="category" class="form-control" required="required">
+                                	<option value="">Select Category</option>
+                                	@foreach($category as $cat)
+                                		<option value="{{ $cat->id }}">{{ $cat->category }}</option>
+                            		@endforeach
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <label class="col-sm-3 control-label">Sub Category</label>
+                        <div class="col-sm-9">
+                            <div class="form-group">
+                                <input type="text" name="subcategory" id="subCategory" class="form-control" placeholder="subCategory" required="required">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12">
+                        <label class="col-sm-2 control-label">Description</label>
+                        <div class="col-sm-10">
+                            <div class="form-group">
+                                <textarea class="form-control" name="description" id="description" placeholder="Description"></textarea>
+                            </div>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">subCategory</label>
-                        <div class="col-sm-8">
-                            <input type="text" name="subcategory" id="subCategory" class="form-control" placeholder="subCategory" required="required">
+                        <div class="col-sm-12">
+                            <div class="col-sm-12 text-right">
+                                <button class="btn btn-primary" name="add_subCategory" type="submit">Add Sub Category</button>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                    	<label class="col-sm-2 control-label"></label>
-                        <div class="col-sm-2">
-                            <button class="btn btn-primary" name="add_subCategory" type="submit">Add subCategory</button>
-                        </div>
-                    </div>
+
                 </form>
             </div>
         </div>

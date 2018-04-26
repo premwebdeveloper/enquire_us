@@ -110,14 +110,19 @@ class Categories extends Controller
 
         $category = $request->category;
         $subCategory = $request->subcategory;
+        $description = $request->description;
 
-        $create_cat = DB::table('subcategory')->insert(
-            array('cat_id' => $category, 'subcategory' => $subCategory, 'created_at' => $date, 'updated_at' => $date)
-        );
+        $create_cat = DB::table('subcategory')->insert([
+            'cat_id' => $category,
+            'subcategory' => $subCategory,
+            'description' => $description,
+            'created_at' => $date,
+            'updated_at' => $date
+        ]);
 
         if($create_cat)
         {
-            $status = 'subCategory Added successfully.';
+            $status = 'Sub Category Added successfully.';
         }
         else
         {
@@ -135,15 +140,19 @@ class Categories extends Controller
         $subcat_id = $request->subcat_id;
 
     	$category = $request->category;
-    	$subCategory = $request->subcategory;
+        $subCategory = $request->subcategory;
+    	$description = $request->description;
 
-    	$create_cat = DB::table('subcategory')->where('id', $subcat_id)->update(
-    		array('cat_id' => $category, 'subcategory' => $subCategory, 'created_at' => $date, 'updated_at' => $date)
-    	);
+    	$create_cat = DB::table('subcategory')->where('id', $subcat_id)->update([
+            'cat_id' => $category,
+            'subcategory' => $subCategory,
+            'description' => $description,
+            'updated_at' => $date
+    	]);
 
         if($create_cat)
         {
-            $status = 'subCategory Update successfully.';
+            $status = 'Sub Category Update successfully.';
         }
         else
         {

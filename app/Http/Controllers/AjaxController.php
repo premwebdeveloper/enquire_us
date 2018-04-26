@@ -623,4 +623,16 @@ class AjaxController extends Controller
         exit;
     }
 
+    # Get subcategory details according to subcategory id
+    public function getSubCategoryDetails(Request $request)
+    {
+        $subcat_id = $request->id;
+
+        // Get all cities of rajasthan state
+        $subcategory = DB::table('subcategory')->where('id', $subcat_id)->first();
+
+        echo json_encode($subcategory);
+        exit;
+    }
+
 }

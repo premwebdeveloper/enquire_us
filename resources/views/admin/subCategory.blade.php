@@ -26,7 +26,12 @@
 	        <div class="ibox float-e-margins">
 
                 @if(session('status'))
-                   <div class="alert alert-success">{{ session('status') }}</div>
+                    <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        {{ session('status') }}
+                    </div>
                 @endif
 
 	            <div class="ibox-title">
@@ -83,13 +88,15 @@
     	</div>
     </div>
 </div>
+
+<!-- Sub category edit model -->
 <div id="subcatModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
 
     <div class="modal-content">
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Update Caste</h4>
+            <h4 class="modal-title">Update Sub Category</h4>
         </div>
         <div class="modal-body">
             <p>
@@ -103,7 +110,6 @@
                         <label class="col-sm-2 control-label">Category</label>
                         <div class="col-sm-8">
                             <select name="category" id="category" class="form-control" required="required">
-
                                 <option value="" id="cat_id" class="cat" name="category">Select Category</option>
                                 @foreach($category as $cat)
                                     <option value="{{ $cat->id }}">{{ $cat->category }}</option>
@@ -119,6 +125,13 @@
                         </div>
                     </div>
 
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Description</label>
+                        <div class="col-sm-8">
+                            <textarea name="description" id="description" class="form-control" placeholder="Description"></textarea>
+                        </div>
+                    </div>
+
                     <div class="form-group text-center">
                         <input type="submit" name="editCaste" class="btn btn-warning" id="editCaste" value="Update">
                     </div>
@@ -129,19 +142,34 @@
 
     </div>
 </div>
+
 <script type="text/javascript">
     $(document).ready(function(){
         $(document).on('click', '.editsubcat', function(){
             var id = $(this).attr('id');
-            var subcat = $('#exitsubCat_'+id).text();
-            var cat = $('#exitCat_'+id).text();
-            var cat_id = $('#exitCatid_'+id).val();
 
-            $('#subcat_id').val(id);
-            $('#subcat').val(subcat);
-            $('.cat').text(cat);
-            $('#cat_id').val(cat_id);
-            $('#subcatModal').modal('show');
+            // Get subcategory details according to subcategory id
+            $.ajax({
+                method : 'post',
+                url : 'getSubCategoryDetails',
+                async : true,
+                data : {"_token": "{{ csrf_token() }}", 'id': id},
+                success:function(response){
+
+                    var obj = $.parseJSON(response);
+
+                    $('#subcat_id').val(obj.id);
+                    $('#category option[value="'+obj.cat_id+'"]').attr("selected","selected")
+                    $('#subcat').val(obj.subcategory);
+                    $('#description').val(obj.description);
+
+                    $('#subcatModal').modal('show');
+                },
+                error: function(data){
+                    console.log(data);
+                },
+            });
+
         });
     });
 </script>
