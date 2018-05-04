@@ -226,3 +226,14 @@ ALTER TABLE `category` ADD `description` LONGTEXT NULL AFTER `category`;
 
 -- ---------------------------ALTER TABLE `subcategory` on 24-04-2018--------------------------
 ALTER TABLE `subcategory` ADD `description` LONGTEXT NULL AFTER `subcategory`;
+
+
+-- ---------------------------ALTER multiple TABLES with "update_status" on 04-05-2018--------------------------
+ALTER TABLE `user_company_information` ADD `update_status` TINYINT(1) NOT NULL DEFAULT '1' AFTER `updated_at`;
+ALTER TABLE `user_details` ADD `update_status` TINYINT(1) NOT NULL DEFAULT '1' AFTER `updated_at`;
+ALTER TABLE `user_images` ADD `update_status` TINYINT(1) NOT NULL DEFAULT '1' AFTER `image`;
+ALTER TABLE `user_keywords` ADD `update_status` TINYINT(1) NOT NULL DEFAULT '1' AFTER `updated_at`;
+ALTER TABLE `user_location` ADD `update_status` TINYINT(1) NOT NULL DEFAULT '1' AFTER `updated_at`;
+ALTER TABLE `user_other_information` ADD `update_status` TINYINT(1) NOT NULL DEFAULT '1' AFTER `updated_at`;
+ALTER TABLE `websites_page_head_titles` ADD `update_status` TINYINT(1) NOT NULL DEFAULT '1' AFTER `updated_at`;
+
