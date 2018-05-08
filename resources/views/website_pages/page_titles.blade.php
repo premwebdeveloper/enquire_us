@@ -64,12 +64,14 @@
                 $('#category').attr('disabled', 'disabled');
                 $('#sub_category').attr('disabled', 'disabled');
                 $('#page').attr('disabled', 'disabled');
+                $('#city').attr('disabled', 'disabled');
             }
             else
             {
                 $('#category').removeAttr('disabled', 'disabled');
                 $('#sub_category').removeAttr('disabled', 'disabled');
                 $('#page').removeAttr('disabled', 'disabled');
+                $('#city').removeAttr('disabled', 'disabled');
             }
         });
 
