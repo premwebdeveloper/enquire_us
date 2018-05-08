@@ -87,7 +87,11 @@
 // Route::group(['middleware' => 'App\Http\Middleware\Admin'], function()
 // {
 	Route::get('dashboard', 'Dashboard@dashboard')->name('dashboard');
-    Route::get('addUser', 'AdminUsers@addUser')->name('addUser');
+    Route::get('addUser_basic_information', 'AdminUsers@addUser_basic_information')->name('addUser_basic_information');
+    Route::get('addUser_payment_modes', 'AdminUsers@addUser_payment_modes')->name('addUser_payment_modes');
+    Route::get('addUser_business_timing', 'AdminUsers@addUser_business_timing')->name('addUser_business_timing');
+    Route::get('addUser_business_keywords', 'AdminUsers@addUser_business_keywords')->name('addUser_business_keywords');
+    Route::get('addUser_logo_images', 'AdminUsers@addUser_logo_images')->name('addUser_logo_images');
     Route::post('add_user', 'AdminUsers@add_user')->name('add_user');
 	Route::get('users', 'AdminUsers@index')->name('users');
     Route::post('active_inactive', 'AdminUsers@active_inactive')->name('active_inactive');

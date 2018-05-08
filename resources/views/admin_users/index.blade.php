@@ -15,7 +15,7 @@
     </div>
 <div class="col-lg-2 text-right">
         <h2>
-            <a href="{{ route('addUser') }}" class="btn btn-info">Add User</a>
+            <a href="{{ route('addUser_basic_information') }}" class="btn btn-info">Add User</a>
         </h2>
     </div> 
 </div>

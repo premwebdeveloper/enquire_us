@@ -26,14 +26,54 @@ class AdminUsers extends Controller
         return view('admin_users.index', array('users' => $users));
     }
 
-    // add new User view page
-    public function addUser()
+    // add new User Basic Information view page
+    public function addUser_basic_information()
     {
         $currentuserid = Auth::user()->id;
         // Get user other information
         $other = DB::table('user_other_information')->where('user_id', $currentuserid)->get();
 
-        return view('admin_users.addUser', array("other" => $other));
+        return view('admin_users.addUser_basic_information', array("other" => $other));
+    }
+
+    // new User Update Payment Modes
+    public function addUser_payment_modes()
+    {
+        $currentuserid = Auth::user()->id;
+        // Get user other information
+        $other = DB::table('user_other_information')->where('user_id', $currentuserid)->get();
+
+        return view('admin_users.addUser_payment_modes', array("other" => $other));
+    }
+
+    // new User Update Business Timining
+    public function addUser_business_timing()
+    {
+        $currentuserid = Auth::user()->id;
+        // Get user other information
+        $other = DB::table('user_other_information')->where('user_id', $currentuserid)->get();
+
+        return view('admin_users.addUser_business_timing', array("other" => $other));
+    }
+
+    // new User Update Business Keywords
+    public function addUser_business_keywords()
+    {
+        $currentuserid = Auth::user()->id;
+        // Get user other information
+        $other = DB::table('user_other_information')->where('user_id', $currentuserid)->get();
+
+        return view('admin_users.addUser_business_keywords', array("other" => $other));
+    }
+
+    // new User Update Logo and Images
+    public function addUser_logo_images()
+    {
+        $currentuserid = Auth::user()->id;
+        // Get user other information
+        $other = DB::table('user_other_information')->where('user_id', $currentuserid)->get();
+
+        return view('admin_users.addUser_logo_images', array("other" => $other));
     }
 
     // add new User
@@ -41,12 +81,33 @@ class AdminUsers extends Controller
     {
         $date = date('Y-m-d H:i:s');
 
+        /*Basic Detail*/
         $company_name = $request->company_name;
         $name = $request->name;
         $phone = $request->phone;
         $email = $request->email;
         $password = $request->password;
         $password_confirmation = $request->password_confirmation;
+
+        /*Location Detail*/
+        //$business_name = $request->business_name;
+        $building = $request->building;
+        $street = $request->street;
+        $landmark = $request->landmark;
+        $area = $request->area;
+        $city = $request->city;
+        $pin_code = $request->pin_code;
+        $state = $request->state;
+        $country = $request->country;
+
+        /*Contact Detail*/
+        $landline = $request->landline;
+        $fax = $request->fax;
+        $fax2 = $request->fax2;
+        $toll_free = $request->toll_free;
+        $toll_free2 = $request->toll_free2;
+        //$email = $request->email;
+        $website = $request->website;
 
         $password = bcrypt($password);
 
@@ -82,6 +143,12 @@ class AdminUsers extends Controller
                 'name' => $name,
                 'email' => $email,
                 'phone' => $phone,
+                'landline' => $landline,
+                'fax1' => $fax,
+                'fax2' => $fax2,
+                'toll_free1' => $toll_free,
+                'toll_free2' => $toll_free2,
+                'website' => $website,
                 'created_at' => $date,
                 'updated_at' => $date,
                 'status' => 1
@@ -93,6 +160,14 @@ class AdminUsers extends Controller
             array(
                 'user_id' => $user_id,
                 'business_name' => $company_name,
+                'building' => $building,
+                'street' => $street,
+                'landmark' => $landmark,
+                'area' => $area,
+                'city' => $city,
+                'pincode' => $pin_code,
+                'state' => $state,
+                'country' => $country,
                 'created_at' => $date,
                 'updated_at' => $date,
                 'status' => 1
@@ -145,7 +220,7 @@ class AdminUsers extends Controller
             $status = 'Something went wrong !';
         }
 
-        return redirect('users')->with('status', $status);
+        return redirect('index')->with('status', $status);
     }
 
     // View User Detail
