@@ -205,6 +205,67 @@ class AjaxController extends Controller
         return response()->json($pincodes);
     }
 
+    // search keywords and related words
+    public function searchResponse(Request $request){
+        $term = $request->term;
+        $data = array();
+
+        // Get all matched category and their sub categories and show
+        $categories = DB::table('category');
+        $categories->where('category','LIKE','%'.$term.'%');
+        $categories->orderBy('category', 'asc');
+        $categories = $categories->get();
+
+        // Add all category in data array as keyword
+        foreach ($categories as $cat) {
+
+            $data[] = array('cat_id'=>$cat->id,'category'=>$cat->category,'status'=>'1'); //,'sub_cat_id'=>'','sub_category'=>''
+        }
+
+        // Add related sub category in data array as key word
+        /*foreach ($categories as $cat) {
+
+            // Get sub categories of this category
+            $sub_categories = DB::table('subcategory')->where('cat_id', $cat->id)->get();
+            foreach ($sub_categories as $key => $sub_cat) {
+                $data[] = array('cat_id'=>$sub_cat->id,'category'=>$sub_cat->subcategory,'status'=>'2');
+            }
+        }*/
+
+        // If searched keyword is not category then check in sub category
+
+        // Get all matched sub categories and their category and show
+        $subcategories = DB::table('subcategory');
+        $subcategories->where('subcategory','LIKE','%'.$term.'%');
+        $subcategories = $subcategories->get();
+
+        foreach ($subcategories as $subcat) {
+            $data[] = array('cat_id'=>$subcat->id,'category'=>$subcat->subcategory,'status'=>'2');
+
+            // Get main category of this sub category
+            /*$cate = DB::table('category')->where('id', $subcat->cat_id)->first();
+
+            $avail = 0;
+            foreach ($data as $key => $d) {
+                if($d['cat_id'] == $cate->id && $d['status'] == 1)
+                {
+                    $avail++;
+                }
+            }*/
+
+            /*if($avail == 0)
+            {
+                $data[] = array('cat_id'=>$cate->id,'category'=>$cate->category,'status'=>'1');
+            }*/
+        }
+
+
+        if(count($data))
+             return $data;
+        else
+            return ['id'=>'','category'=>''];
+    }
+
     // get related keywords / category / sub category
     public function getRelatedCategoryAndSubCatregories(Request $request)
     {
@@ -216,7 +277,7 @@ class AjaxController extends Controller
 
         if($status == 1)
         {
-            // Get related sub categories
+            // Get related subcategories of this category
             $sub_categories = DB::table('subcategory')->where('cat_id', $cat_id)->get();
 
             foreach ($sub_categories as $key => $data) {
@@ -225,18 +286,25 @@ class AjaxController extends Controller
         }
         else
         {
-            // Get related category
+            // First Get related category id of this subcategory
             $subcategory = DB::table('subcategory')->where('id', $cat_id)->first();
 
+            // Get category detail of this category
             $category = DB::table('category')->where('id', $subcategory->cat_id)->first();
 
+            // Fill this category detail in array
             $relatedData[] = array('id'=>$category->id, 'category'=>$category->category, 'status'=>'1');
 
-            // Get related sub categories
+            // Get related sub categories of this category
             $sub_categories = DB::table('subcategory')->where('cat_id', $category->id)->get();
 
             foreach ($sub_categories as $key => $data) {
-                $relatedData[] = array('id'=>$data->id, 'category'=>$data->subcategory, 'status'=>'2');
+
+                // If this subcaregory is not selected subcategory then fill in array
+                if($cat_id != $data->id)
+                {
+                    $relatedData[] = array('id'=>$data->id, 'category'=>$data->subcategory, 'status'=>'2');
+                }
             }
         }
 
@@ -271,71 +339,162 @@ class AjaxController extends Controller
         $where = array('user_id' => $currentuserid, 'status' => 1);
         $already_exist = DB::table('user_keywords')->where($where)->get();
 
-        foreach ($checked_keywords as $key => $word) {
+        $avail_in_club = 0;
+
+        foreach ($checked_keywords as $key => $word) {      // this array contains current selected keyword
 
             $temp = explode("-", $word);
             $key_word = $temp[0];
             $key_identity = $temp[1];
 
-            foreach ($already_exist as $key => $exist) {
+            if(!empty($already_exist{0}))
+            {
+                foreach ($already_exist as $key => $exist) {    // this array contains exist keywords
 
-                if($key_identity == 1)
-                {
-                    if($exist->keyword_id != $key_word && $exist->keyword_identity == $key_identity)
+                    // If the keyword is category
+                    if($key_identity == 1)
                     {
-                        echo 2; exit;
-                    }
-
-                    if($exist->keyword_identity != $key_identity)
-                    {
-                        $existSubCatRow = DB::table('subcategory')->where('id', $exist->keyword_id)->first();
-
-                        $existCatID = $existSubCatRow->cat_id;
-
-                        if($key_word != $existCatID)
+                        // If the selected keyword is another category then contact to Administrator
+                        if($exist->keyword_id != $key_word && $exist->keyword_identity == $key_identity)
                         {
-                            echo 2; exit;
+                            // Now check this selected category is in category club or not with existing category
+                            $exist_kwyword = $exist->keyword_id;
+
+                            // Get category club of this exist category
+                            $clubs = DB::table('category_clubs')
+                            ->whereIn('category_club', function($query) use ($exist_kwyword)
+                            {
+                                $query->select(DB::raw('category_club'))
+                                      ->from('category_clubs')
+                                      ->where('category_id', $exist_kwyword);
+                            });
+                            $club = $clubs->get();
+
+                            // check this selected category if available in this category club
+                            foreach ($club as $key => $c) {
+                                // If YES then out from this loop
+                                if ($key_word == $c->category_id) {
+                                    $avail_in_club++;
+                                }
+                            }
+                        }
+
+                        // If exist keyword is subcat then first get their category / if this is another cat then contact to Admin
+                        if($exist->keyword_identity != $key_identity)
+                        {
+                            $existSubCatRow = DB::table('subcategory')->where('id', $exist->keyword_id)->first();
+
+                            $existCatID = $existSubCatRow->cat_id;
+
+                            // If the selected keyword is not same as exist keyword
+                            // if($key_word != $existCatID)
+                            // {
+                                // Now check this selected category is in category club or not with existing category
+
+                                // Get category club of this exist category
+                                $clubs = DB::table('category_clubs')
+                                ->whereIn('category_club', function($query) use ($existCatID)
+                                {
+                                    $query->select(DB::raw('category_club'))
+                                          ->from('category_clubs')
+                                          ->where('category_id', $existCatID);
+                                });
+                                $club = $clubs->get();
+
+                                // check this selected category if available in this category club
+                                foreach ($club as $key => $c) {
+                                    // If YES then out from this loop
+                                    if ($key_word == $c->category_id) {
+                                        $avail_in_club++;
+                                    }
+                                }
+                            //}
                         }
                     }
 
-                }
-                if($key_identity == 2)
-                {
-                    if($exist->keyword_identity == $key_identity)
+                    // If the keyword is subcategory
+                    if($key_identity == 2)
                     {
-                        $currentSubCatRow = DB::table('subcategory')->where('id', $key_word)->first();
-
-                        $existSubCatRow = DB::table('subcategory')->where('id', $exist->keyword_id)->first();
-
-                        $currentCatID = $currentSubCatRow->cat_id;
-
-                        $existCatID = $existSubCatRow->cat_id;
-
-                        if($currentCatID != $existCatID)
+                        if($exist->keyword_identity == $key_identity)
                         {
-                            echo 2; exit;
+                            // Get the selected keyword's category id
+                            $currentSubCatRow = DB::table('subcategory')->where('id', $key_word)->first();
+                            $currentCatID = $currentSubCatRow->cat_id;
+
+                            // Get the exiting keyword's category id
+                            $existSubCatRow = DB::table('subcategory')->where('id', $exist->keyword_id)->first();
+                            $existCatID = $existSubCatRow->cat_id;
+
+                            // If current keyword and exit keyword 's category id is not same then contact to Admin
+                            // if($currentCatID != $existCatID)
+                            // {
+                                // Now check this selected category is in category club or not with existing category
+
+                                // Get category club of this exist category
+                                $clubs = DB::table('category_clubs')
+                                ->whereIn('category_club', function($query) use ($existCatID)
+                                {
+                                    $query->select(DB::raw('category_club'))
+                                          ->from('category_clubs')
+                                          ->where('category_id', $existCatID);
+                                });
+                                $club = $clubs->get();
+
+                                // check this selected category if available in this category club
+                                foreach ($club as $key => $c) {
+                                    // If YES then out from this loop
+                                    if ($currentCatID == $c->category_id) {
+                                        $avail_in_club++;
+                                    }
+                                }
+                            //}
+                        }
+                        else
+                        {
+                            // Get the selected keyword's category id
+                            $currentSubCatRow = DB::table('subcategory')->where('id', $key_word)->first();
+                            $currentCatID = $currentSubCatRow->cat_id;
+
+                            // If the selected sub category's category is available in exist categories
+                            if($exist->keyword_identity != $key_identity)
+                            {
+                                if($currentCatID == $exist->keyword_id)
+                                {
+                                    $avail_in_club++;
+                                }
+                            }
+
                         }
                     }
                 }
             }
+            else
+            {
+               $avail_in_club++;
+            }
         }
 
-        // Insert keywords in database table
+        // If any of the selected keyword is not in any category club of exist keyword
+        if($avail_in_club == 0)
+        {
+            echo 2; exit;
+        }
+
+        // Insert keywords in database table If all is well
         foreach ($checked_keywords as $key => $keyword) {
             $temp = explode("-", $keyword);
             $key_word = $temp[0];
             $key_identity = $temp[1];
 
-            $insert = DB::table('user_keywords')->insert(
-                array(
-                        'user_id' => $currentuserid,
-                        'keyword_id' => $key_word,
-                        'keyword_identity' => $key_identity,
-                        'created_at' => $date,
-                        'updated_at' => $date,
-                        'status' => 1
-                )
-            );
+            $insert = DB::table('user_keywords')->insert([
+                'user_id' => $currentuserid,
+                'keyword_id' => $key_word,
+                'keyword_identity' => $key_identity,
+                'created_at' => $date,
+                'updated_at' => $date,
+                'update_status' => 0,
+                'status' => 1
+            ]);
         }
 
         echo 1;
@@ -390,59 +549,6 @@ class AjaxController extends Controller
         );
 
         echo 1; exit;
-    }
-
-    // search keywords and related words
-    public function searchResponse(Request $request){
-        $term = $request->term;
-        $data = array();
-
-        // Get all matched category and their sub categories and show
-        $categories = DB::table('category');
-        $categories->where('category','LIKE','%'.$term.'%');
-        $categories = $categories->get();
-
-        foreach ($categories as $cat) {
-
-            $data[] = array('cat_id'=>$cat->id,'category'=>$cat->category,'status'=>'1'); //,'sub_cat_id'=>'','sub_category'=>''
-
-            // Get sub categories of this category
-            $sub_categories = DB::table('subcategory')->where('cat_id', $cat->id)->get();
-            foreach ($sub_categories as $key => $sub_cat) {
-                //$data[] = array('cat_id'=>$cat->id.'-'.$sub_cat->id,'category'=>$cat->category.'-'.$sub_cat->subcategory);
-                $data[] = array('cat_id'=>$sub_cat->id,'category'=>$sub_cat->subcategory,'status'=>'2');
-            }
-        }
-
-        // Get all matched sub categories and their category and show
-        $subcategories = DB::table('subcategory');
-        $subcategories->where('subcategory','LIKE','%'.$term.'%');
-        $subcategories = $subcategories->get();
-
-        foreach ($subcategories as $subcat) {
-            $data[] = array('cat_id'=>$subcat->id,'category'=>$subcat->subcategory,'status'=>'2');
-
-            // Get main category of this sub category
-            $cate = DB::table('category')->where('id', $subcat->cat_id)->first();
-
-            $avail = 0;
-            foreach ($data as $key => $d) {
-                if($d['cat_id'] == $cate->id && $d['status'] == 1)
-                {
-                    $avail++;
-                }
-            }
-
-            if($avail == 0)
-            {
-                $data[] = array('cat_id'=>$cate->id,'category'=>$cate->category,'status'=>'1');
-            }
-        }
-
-        if(count($data))
-             return $data;
-        else
-            return ['id'=>'','category'=>''];
     }
 
     // Search categories and compaies
@@ -616,7 +722,7 @@ class AjaxController extends Controller
     {
         $cat_id = $request->id;
 
-        // Get all cities of rajasthan state
+        // Get category details according to category id
         $category = DB::table('category')->where('id', $cat_id)->first();
 
         echo json_encode($category);
@@ -628,7 +734,7 @@ class AjaxController extends Controller
     {
         $subcat_id = $request->id;
 
-        // Get all cities of rajasthan state
+        // Get subcategory details according to subcategory id
         $subcategory = DB::table('subcategory')->where('id', $subcat_id)->first();
 
         echo json_encode($subcategory);

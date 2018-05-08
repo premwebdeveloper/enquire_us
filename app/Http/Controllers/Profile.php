@@ -70,7 +70,7 @@ class Profile extends Controller
     public function uploadLogoAndPhotos(Request $request)
     {
         $user_id = Auth::user()->id;
-        
+
         $status = 'Please Select Image';
 
         // Upload multiple images

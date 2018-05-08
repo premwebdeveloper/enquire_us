@@ -43,7 +43,7 @@ $(document).ready(function(){
                     $(window).scrollTop(0);
                 },
                 error: function(data){
-                    console.log(data);
+                    //console.log(data);
                 },
             });
 
@@ -79,12 +79,11 @@ $(document).ready(function(){
                     data : {"_token": "{{ csrf_token() }}", 'user_id': user_id, 'contact_person': contact_person, 'landline': landline, 'mobile': mobile, 'fax': fax, 'fax2': fax2, 'toll_free': toll_free, 'toll_free2': toll_free2, 'website': website},
                       success:function(response){
 
-                        console.log('response');
-                        console.log(response);
+                        //console.log(response);
                         $(window).scrollTop(0);
                       },
               error: function(data){
-                  console.log(data);
+                  //console.log(data);
               },
           });
 
@@ -131,7 +130,7 @@ $(document).ready(function(){
 
           },
           error: function(data){
-              console.log(data);
+              //console.log(data);
           }
         });
 
@@ -183,7 +182,7 @@ $(document).ready(function(){
                 async: true,
                 success: function(response){
 
-                  console.log(response);
+                    //console.log(response);
 
                     var areas = '<option value="">Select Area</option>';
                     $.each(response, function(i, item) {
@@ -195,7 +194,7 @@ $(document).ready(function(){
                 $("#area").removeAttr('disabled');
                 },
                 error: function(data){
-                    console.log(data);
+                    //console.log(data);
                 },
             });
         }
@@ -212,7 +211,7 @@ $(document).ready(function(){
             async: true,
             success: function(response){
 
-              console.log(response);
+                //console.log(response);
 
                 var pincodes = '';
                 $.each(response, function(i, item) {
@@ -224,7 +223,7 @@ $(document).ready(function(){
             $("#pin_code").removeAttr('disabled');
             },
             error: function(data){
-                console.log(data);
+               //console.log(data);
             },
         });
     });
@@ -248,7 +247,7 @@ $(document).ready(function(){
                 async: true,
                 success: function(response){
 
-                  console.log(response);
+                    //console.log(response);
 
                     var pincodes = '';
                     $.each(response, function(i, item) {
@@ -260,7 +259,7 @@ $(document).ready(function(){
                 $("#pin_code").removeAttr('disabled');
                 },
                 error: function(data){
-                    console.log(data);
+                    //console.log(data);
                 },
             });
         }
@@ -452,7 +451,7 @@ $(document).ready(function(){
                                     </div>
                                         <script>
                                             $(document).ready(function(){
-                                                var city_id = {{ $location->city }};
+                                                var city_id = <?= $location->city; ?>
                                                 $('#city option[value='+city_id+']').prop('selected', true);
                                             });
                                         </script>
@@ -932,6 +931,10 @@ $(document).ready(function(){
 
                             $("#search_keywords").autocomplete({
                                 source: function( request, response ) {
+
+                                    // If request term limit is greater than 2 word
+                                    if(request.term.length < 2) return;
+
                                     $.ajax({
                                         url: "{{ route('searchajax') }}",
                                         dataType: "json",
@@ -979,7 +982,7 @@ $(document).ready(function(){
                                             $("#searched_result").html(html);
                                         },
                                         error: function(data){
-                                            console.log(data);
+                                            //console.log(data);
                                         },
                                     });
 
@@ -1002,6 +1005,8 @@ $(document).ready(function(){
                                     async : true,
                                     data : {"_token": "{{ csrf_token() }}", 'checked_keywords': checked_keywords},
                                     success:function(response){
+
+                                        console.log(response);
 
                                         if(response == 0)
                                         {
@@ -1034,13 +1039,13 @@ $(document).ready(function(){
                                                     $("#search_keywords").val('');
                                                 },
                                                 error: function(data){
-                                                    console.log(data);
+                                                    //console.log(data);
                                                 },
                                             });
                                         }
                                     },
                                     error: function(data){
-                                        console.log(data);
+                                        //console.log(data);
                                     },
                                 });
 
@@ -1065,7 +1070,7 @@ $(document).ready(function(){
                                         }
                                     },
                                     error: function(data){
-                                        console.log(data);
+                                        //console.log(data);
                                     },
                                 });
 
@@ -1084,7 +1089,7 @@ $(document).ready(function(){
                                         <div class="controls" style="height: 60px;">
                                             <div class="form-group required">
                                                 <div class="col-sm-12">
-                                                    <input class="form-control" name="search_keywords" id="search_keywords" type="text">
+                                                    <input class="form-control" name="search_keywords" id="search_keywords" type="text" placeholder="Search Keyword ...">
                                                 </div>
                                                 <!-- <div class="col-sm-2">
                                                     <button type="submit" name="keywordSearch" class="btn btn-info btn-block">Search</button>
@@ -1097,9 +1102,11 @@ $(document).ready(function(){
 
                             <!-- Searched result will show here -->
                             <div id="searched_result"> </div>
+
                             <div class="col-md-offset-9 col-md-3 text-right" style="padding: 0px;">
                                 <button class="btn btn-info btn-block" id="save_keywords">Save</button>
                             </div>
+
                             <div class="col-md-12">
                                 &nbsp;
                             </div>
