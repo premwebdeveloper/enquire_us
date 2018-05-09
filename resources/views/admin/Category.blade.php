@@ -99,10 +99,12 @@
                     <input type="hidden" name="cat_id" id="cat_id">
 
                     <div class="form-group">
+                        <label>Category</label>
                         <input type="text" name="category" id="cat" required="required" class="form-control" placeholder="Category">
                     </div>
 
                     <div class="form-group">
+                        <label>Description</label>
                         <textarea name="category_description" id="category_description" class="form-control" placeholder="Category Description"></textarea>
                     </div>
 
