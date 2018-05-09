@@ -54,6 +54,7 @@ class WebsitePages extends Controller
     // Website page head titles like Title, Meta title, Keyword, Description etc
     public function page_titles(Request $request)
     {
+
         $category = $request->category;
         $sub_category = $request->sub_category;
         $city = $request->city;
@@ -75,8 +76,6 @@ class WebsitePages extends Controller
             // when category is selected and page name and business name is not seleted
             if(!empty($category))
             {
-                echo '1'; exit;
-
                 // define page url blank
                 $page_url = '';
 
@@ -148,8 +147,6 @@ class WebsitePages extends Controller
 
             if(!empty($business) && $business != '')    // If business name is selected and category name and page not selected
             {
-                echo '2'; exit;
-
                 // Create page url
                 $page_url = '';
 
@@ -182,8 +179,6 @@ class WebsitePages extends Controller
 
             if(!empty($page) && $page != '')    // If page name is selected and category name and business name not selected
             {
-                echo '3'; exit;
-
                 // Insert page titles when category and business name not selected
                 $insert = DB::table('websites_page_head_titles')->insert(array(
                     'page_url' => $page_url,
@@ -197,7 +192,6 @@ class WebsitePages extends Controller
             }
 
             $status = "Page url and titles updated successfully.";
-
         }
 
         //  Get All Categories
@@ -212,6 +206,8 @@ class WebsitePages extends Controller
         return view('website_pages.page_titles', array('category' => $category, 'business' => $business, 'titles' => $titles, 'status' => $status));
     }
 
+
+
     # Update page titles data
     public function editPageUrlTitle(Request $request)
     {
@@ -224,18 +220,18 @@ class WebsitePages extends Controller
 
         $update = DB::table('websites_page_head_titles')->where('id', $id)->update([
             'title' => $title,
-            'keyword' => $keyword
-            'description' => $description
+            'keyword' => $keyword,
+            'description' => $description,
             'updated_at' => $date
         ]);
 
         if($update)
         {
-            $status = "successfully Update.";
+            $status = "Page Titles Updated Successfully.";
         }
         else
         {
-            $status = 'Something went wrong !';
+            $status = 'Something Went Wrong !';
         }
 
         return redirect('page_titles')->with('status', $status);

@@ -741,4 +741,16 @@ class AjaxController extends Controller
         exit;
     }
 
+    # Get page titles data
+    public function getPageUrlTitles(Request $request)
+    {
+        $row_id = $request->id;
+
+        // Get page titles data according to row id
+        $data = DB::table('websites_page_head_titles')->where('id', $row_id)->first();
+
+        echo json_encode($data);
+        exit;
+    }
+
 }

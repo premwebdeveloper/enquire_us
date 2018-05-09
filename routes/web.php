@@ -76,6 +76,10 @@
     # Get subcategory details according to subcategory id
     Route::post('getSubCategoryDetails', 'AjaxController@getSubCategoryDetails')->name('getSubCategoryDetails');
 
+    # Get page titles data
+    Route::post('getPageUrlTitles', 'AjaxController@getPageUrlTitles')->name('getPageUrlTitles');
+
+
     # Upload logo and photos
     Route::post('uploadLogoAndPhotos', 'Profile@uploadLogoAndPhotos')->name('uploadLogoAndPhotos');
 
@@ -132,5 +136,8 @@
 
     # Website page head titles like Title, Meta title, Keyword, Description etc
     Route::any('page_titles', 'WebsitePages@page_titles')->name('page_titles');
+
+    # Update page titles data
+    Route::post('editPageUrlTitle', 'WebsitePages@editPageUrlTitle')->name('editPageUrlTitle');
 
 // });

@@ -63,6 +63,7 @@
             {
                 $('#category').attr('disabled', 'disabled');
                 $('#sub_category').attr('disabled', 'disabled');
+                $('#page').val('');
                 $('#page').attr('disabled', 'disabled');
                 $('#city').attr('disabled', 'disabled');
             }
@@ -108,8 +109,11 @@
                 </div>
 
                 <div class="ibox-content">
-                    @if(session('status'))
-                       <div class="alert alert-success">{{ session('status') }}</div>
+                    @if(isset($status) && !empty($status))
+                        <div class="alert alert-success alert-dismissible">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            {{ $status }}
+                        </div>
                     @endif
 
                     <div class="row">
@@ -153,20 +157,6 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- <div class="col-sm-3">
-                                <div class="form-group">
-                                    <div class="col-sm-12">
-                                        <label for="area" class="control-label">Area</label>
-                                        <select class="form-control" name="area" id="area">
-                                            <option value="">Select Area</option>
-                                            @foreach($areas as $area)
-                                                <option value="{{ $area->id }}">{{ $area->area }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                            </div> -->
 
                             <div clear="both">&nbsp;</div>
 
@@ -244,53 +234,131 @@
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
         <div class="col-lg-12">
-        <div class="ibox float-e-margins">
-            <div class="ibox-title">
-                <h5>Pages Titles</h5>
-                <div class="ibox-tools">
-                    <a class="collapse-link">
-                        <i class="fa fa-chevron-up"></i>
-                    </a>
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Pages Titles</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
 
+                    </div>
                 </div>
-            </div>
-            <div class="ibox-content">
+                <div class="ibox-content">
 
-                @if(session('status'))
-                   <div class="alert alert-success">{{ session('status') }}</div>
-                @endif
+                    @if(session('status'))
+                       <div class="alert alert-success">{{ session('status') }}</div>
+                    @endif
 
-                <div class="table-responsive">
-                    <table class="table table-striped table-bordered table-hover dataTables-example" >
-                        <thead>
-                            <tr>
-                                <th>Page</th>
-                                <th>Title</th>
-                                <th>Keyword</th>
-                                <th>Description</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @if(!empty($titles))
-                                @foreach($titles as $title)
-                                <tr class="gradeX">
-                                    <td>{{ $title->page_url }}</td>
-                                    <td>{{ $title->title }}</td>
-                                    <td>{{ $title->keyword }}</td>
-                                    <td>{{ $title->description }}</td>
-                                    <td> <a class="btn btn-success editPage" href="javascript:;" id="dfg"> Edit </a> </td>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover dataTables-example" >
+                            <thead>
+                                <tr>
+                                    <th>Page</th>
+                                    <th>Title</th>
+                                    <th>Keyword</th>
+                                    <th>Description</th>
+                                    <th>Action</th>
                                 </tr>
-                                @endforeach
-                            @endif
-                        </tbody>
-                    </table>
-                </div>
+                            </thead>
+                            <tbody>
+                                @if(!empty($titles))
+                                    @foreach($titles as $title)
+                                    <tr class="gradeX">
+                                        <td>{{ $title->page_url }}</td>
+                                        <td>{{ $title->title }}</td>
+                                        <td>{{ $title->keyword }}</td>
+                                        <td>{{ $title->description }}</td>
+                                        <td> <a class="btn btn-success editPageUrlTitle" href="javascript:;" id="editPageUrlTitle_{{ $title->id }}"> Edit </a> </td>
+                                    </tr>
+                                    @endforeach
+                                @endif
+                            </tbody>
+                        </table>
+                    </div>
 
+                </div>
             </div>
         </div>
     </div>
+</div>
+
+
+<!-- Edit Page titles Modal -->
+<div id="pageModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Update Page Titles</h4>
+        </div>
+        <div class="modal-body">
+            <p>
+                <form method="post" action="{{ route('editPageUrlTitle') }}">
+
+                    {{ csrf_field() }}
+
+                    <input type="hidden" name="row_id" id="row_id">
+
+                    <div class="form-group">
+                        <label>Title</label>
+                        <textarea name="edit_title" id="edit_title" class="form-control" placeholder="Title"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Keyword</label>
+                        <textarea name="edit_keyword" id="edit_keyword" class="form-control" placeholder="Keyword"></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea name="edit_description" id="edit_description" class="form-control" placeholder="Description"></textarea>
+                    </div>
+
+                    <div class="form-group text-right">
+                        <input type="submit" name="editPageUrlTitle" class="btn btn-warning" id="editPageUrlTitle" value="Update">
+                    </div>
+                </form>
+            </p>
+        </div>
+    </div>
+
     </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        // Edit page url and titles
+        $('.editPageUrlTitle').click(function(){
+            var id = $(this).attr('id');
+            var temp = id.split('_');
+            var row_id = temp[1];
+
+            // Get all titles and page url of this row id
+            $.ajax({
+                method : 'post',
+                url : 'getPageUrlTitles',
+                async : true,
+                data : {"_token": "{{ csrf_token() }}", 'id': row_id},
+                success:function(response){
+
+                    var obj = $.parseJSON(response);
+
+                    $('#row_id').val(obj.id);
+                    $('#edit_title').val(obj.title);
+                    $('#edit_keyword').val(obj.keyword);
+                    $('#edit_description').val(obj.description);
+                    $('#pageModal').modal('show');
+
+                },
+                error: function(data){
+                    console.log(data);
+                },
+            });
+        });
+    });
+</script>
 
 @endsection
