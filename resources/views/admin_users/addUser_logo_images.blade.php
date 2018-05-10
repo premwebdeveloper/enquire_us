@@ -15,28 +15,7 @@
         margin-left: 0px;
     }
 </style>
-<script>
-    // Select payment mode
-    $(document).on('change', '.checkAll', function(){
-        var value = $(this).val();
 
-        if(value == 0)
-            {
-                if($(this).is(":checked"))
-                {
-                  $(".payment_mode").prop('checked', true);
-                }
-                else
-                {
-                    $(".payment_mode").prop('checked', false);
-                }
-            }
-        });
-    $(document).on('click', '.add_keyword', function(){
-        $("#add_keyword").show();
-        $("#hide_add_button").hide();
-    });
-</script>
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
         <h2>Add User</h2>
@@ -74,7 +53,7 @@
                         <div class="tabs-container">
 
                             <ul class="nav nav-tabs">
-                                <li class=""><a href="{{ route('addUser_basic_information') }}">Basic Information</a></li>
+                                <li class=""><a href="javascript:;">Basic Information</a></li>
                                 <li class=""><a href="{{ route('addUser_payment_modes') }}">Payment Modes</a></li>
                                 <li class=""><a href="{{ route('addUser_business_timing') }}">Business Timing</a></li>
                                 <li class=""><a href="{{ route('addUser_business_keywords') }}">Business Keywords</a></li>

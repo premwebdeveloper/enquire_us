@@ -29,51 +29,44 @@ class AdminUsers extends Controller
     // add new User Basic Information view page
     public function addUser_basic_information()
     {
-        $currentuserid = Auth::user()->id;
-        // Get user other information
-        $other = DB::table('user_other_information')->where('user_id', $currentuserid)->get();
-
-        return view('admin_users.addUser_basic_information', array("other" => $other));
+        //Admin Add New user Basic information
+        return view('admin_users.addUser_basic_information');
     }
 
     // new User Update Payment Modes
     public function addUser_payment_modes()
     {
-        $currentuserid = Auth::user()->id;
-        // Get user other information
-        $other = DB::table('user_other_information')->where('user_id', $currentuserid)->get();
+        $user_details = DB::table('user_other_information')->where('status', 1)->orderBy('user_id', 'desc')->first();
 
-        return view('admin_users.addUser_payment_modes', array("other" => $other));
+        return view('admin_users.addUser_payment_modes', array("user_details" => $user_details));
     }
 
     // new User Update Business Timining
     public function addUser_business_timing()
-    {
-        $currentuserid = Auth::user()->id;
-        // Get user other information
-        $other = DB::table('user_other_information')->where('user_id', $currentuserid)->get();
+    {   
+        $user_details = DB::table('user_details')->where('status', 1)->orderBy('user_id', 'desc')->first();
+        
+        $lastInsertId = $user_details->user_id;
 
-        return view('admin_users.addUser_business_timing', array("other" => $other));
+        $other = DB::table('user_other_information')->where('user_id', $lastInsertId )->get();
+
+        return view('admin_users.addUser_business_timing', array("other" => $other, "user_details" => $user_details));
     }
 
     // new User Update Business Keywords
     public function addUser_business_keywords()
     {
-        $currentuserid = Auth::user()->id;
-        // Get user other information
-        $other = DB::table('user_other_information')->where('user_id', $currentuserid)->get();
+        $user_details = DB::table('user_other_information')->where('status', 1)->orderBy('user_id', 'desc')->first();
 
-        return view('admin_users.addUser_business_keywords', array("other" => $other));
+        return view('admin_users.addUser_business_keywords', array("user_details" => $user_details));
     }
 
     // new User Update Logo and Images
     public function addUser_logo_images()
     {
-        $currentuserid = Auth::user()->id;
-        // Get user other information
-        $other = DB::table('user_other_information')->where('user_id', $currentuserid)->get();
+        $user_details = DB::table('user_other_information')->where('status', 1)->orderBy('user_id', 'desc')->first();
 
-        return view('admin_users.addUser_logo_images', array("other" => $other));
+        return view('admin_users.addUser_logo_images', array("user_details" => $user_details));
     }
 
     // add new User
@@ -220,7 +213,7 @@ class AdminUsers extends Controller
             $status = 'Something went wrong !';
         }
 
-        return redirect('index')->with('status', $status);
+        return redirect('addUser_payment_modes')->with('status', $status);
     }
 
     // View User Detail

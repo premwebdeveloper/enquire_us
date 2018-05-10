@@ -74,11 +74,11 @@
                         <div class="tabs-container">
 
                             <ul class="nav nav-tabs">
-                                <li class=""><a href="{{ route('addUser_basic_information') }}">Basic Information</a></li>
+                                <li class=""><a href="javascript:;">Basic Information</a></li>
                                 <li class="active"><a href="javascript:;">Payment Modes</a></li>
-                                <li class=""><a href="{{ route('addUser_business_timing') }}">Business Timing</a></li>
-                                <li class=""><a href="{{ route('addUser_business_keywords') }}">Business Keywords</a></li>
-                                <li class=""><a href="{{ route('addUser_logo_images') }}">Images</a></li>
+                                <li class=""><a href="javascript:;">Business Timing</a></li>
+                                <li class=""><a href="javascript:;">Business Keywords</a></li>
+                                <li class=""><a href="javascript:;">Images</a></li>
                             </ul>
 
                             <div class="tab-content">
@@ -87,8 +87,11 @@
                                 <div id="tab-2" class="tab-pane active">
                                     <div class="panel-body">
                                         <form action="javascript:;" method="post" id="other_information_form" class="form-horizontal">
-                                            <fieldset>
+                                            
+                                            {{ csrf_field() }}
 
+                                            <fieldset>
+                                            <input type="hidden" name="user_id" class="user_id" id="current_user_id" value="{{ $user_details->user_id }}">
                                               <div class="controls">
 
                                               <h4>Payment Modes Accepted By You</h4>
@@ -191,10 +194,11 @@
                                                 </div>
 
                                                 <div class="col-md-12 text-right">
+                                                    <a href="{{ route('addUser_business_timing') }}" class="btn btn-success" style="margin-bottom: 30px;">Skip</a>
                                                     <input type="submit" name="addUser" class="btn btn-success" value="Next" style="margin-bottom: 30px;">
                                                 </div>
 
-                                              </div>
+                                                </div>
                                             </fieldset>
 
                                         </form>

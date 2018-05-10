@@ -92,7 +92,7 @@
 // {
 	Route::get('dashboard', 'Dashboard@dashboard')->name('dashboard');
     Route::get('addUser_basic_information', 'AdminUsers@addUser_basic_information')->name('addUser_basic_information');
-    Route::get('addUser_payment_modes', 'AdminUsers@addUser_payment_modes')->name('addUser_payment_modes');
+    Route::any('addUser_payment_modes', 'AdminUsers@addUser_payment_modes')->name('addUser_payment_modes');
     Route::get('addUser_business_timing', 'AdminUsers@addUser_business_timing')->name('addUser_business_timing');
     Route::get('addUser_business_keywords', 'AdminUsers@addUser_business_keywords')->name('addUser_business_keywords');
     Route::get('addUser_logo_images', 'AdminUsers@addUser_logo_images')->name('addUser_logo_images');

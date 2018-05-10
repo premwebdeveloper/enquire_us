@@ -16,25 +16,11 @@
     }
 </style>
 <script>
-    // Select payment mode
-    $(document).on('change', '.checkAll', function(){
-        var value = $(this).val();
-
-        if(value == 0)
-            {
-                if($(this).is(":checked"))
-                {
-                  $(".payment_mode").prop('checked', true);
-                }
-                else
-                {
-                    $(".payment_mode").prop('checked', false);
-                }
-            }
+    $(document).ready(function(){
+        $(".add_keyword").click(function() {
+            $("#add_keyword").show();
+            $("#hide_add_button").hide();
         });
-    $(document).on('click', '.add_keyword', function(){
-        $("#add_keyword").show();
-        $("#hide_add_button").hide();
     });
 </script>
 <div class="row wrapper border-bottom white-bg page-heading">
@@ -74,7 +60,7 @@
                         <div class="tabs-container">
 
                             <ul class="nav nav-tabs">
-                                <li class=""><a href="{{ route('addUser_basic_information') }}">Basic Information</a></li>
+                                <li class=""><a href="javascript:;">Basic Information</a></li>
                                 <li class=""><a href="{{ route('addUser_payment_modes') }}">Payment Modes</a></li>
                                 <li class=""><a href="{{ route('addUser_business_timing') }}">Business Timing</a></li>
                                 <li class="active"><a href="javascript:;">Business Keywords</a></li>
@@ -126,7 +112,7 @@
                                         
                                         <div class="col-md-12 text-right">
                                             <hr>
-                                            <input type="submit" name="addUser" class="btn btn-success" value="Next" style="margin-bottom: 30px;">
+                                            <a href="{{ route('addUser_logo_images') }}" class="btn btn-success" style="margin-bottom: 30px;">Next</a>
                                         </div>
                                     </div>
                                 </div>
