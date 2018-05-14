@@ -61,6 +61,8 @@
 
                     // If request term limit is greater than 2 word
                     if(request.term.length < 3) return;
+					
+					$('#filter_title').removeAttr('alt');
 
                     $.ajax({
                         url: "{{ route('searchCategoriesAndCompanies') }}",
@@ -101,36 +103,35 @@
             $(document).on('click', '#search-filter', function(){
 
                 var location = $('#location').val();                    // It has city id
+				var loc_name = $('#location option[value="'+location+'"]').text();	// It has location name
                 var sub_location = $('#sub_location').val();            // It has area id
-                var filter_title = $('#filter_title').val();            // It has keyword name
-
+                var sub_loc_name = $('#sub_location option[value="'+sub_location+'"]').text(); // It has area name
+                var filter_title = $('#filter_title').val();            // It has keyword name				
+				var filter_title_alt = $('#filter_title').attr('alt');	// It has keyword id and identity
+				
                 var original_title = filter_title;
 
                 // space reolace by dash
-                location = location.replace(/\s+/g, '-');
-                filter_title = filter_title.replace(/\s+/g, '-');
+                loc_name = loc_name.replace(/\s+/g, '-');
 
-                alert(location);
-                alert(sub_location);
-                alert(filter_title);
+                alert(filter_title_alt);
 
-                if(filter_title == '')
+                if(filter_title_alt == '' || filter_title_alt == 'undefined' || filter_title_alt == null)
                 {
                     alert('Please select any Category or Company name');
                 }
                 else
-                {
-                    var filter_title_alt = $('#filter_title').attr('alt');
-
-                    // first check filter title keyword is valid or not
+                {							
                     $.ajax({
                         method : 'post',
-                        url: "{{ route('checkKeywordExistOrNot') }}",
+                        url: "{{ route('getPageUrl') }}",
                         async : true,
-                        data : {"_token": "{{ csrf_token() }}", 'filter_title_attr' : filter_title_alt, 'filter_title' : original_title},
+                        data : {"_token": "{{ csrf_token() }}", 'filter_title_attr' : filter_title_alt, 'location' : location, 'sub_location' : sub_location},
                         success:function(response){
+							
+							console.log(response);
 
-                            if(response == 1)
+                            if(response != 1)
                             {
                                 // all is well
                                 var encoded = makeid()+'-'+filter_title_alt;

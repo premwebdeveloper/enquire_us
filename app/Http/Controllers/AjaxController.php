@@ -721,6 +721,76 @@ class AjaxController extends Controller
 
         }
     }
+	
+	# Get Page URL
+	public function getPageUrl(Request $request)
+	{
+		$filter_title_attr = $request->filter_title_attr;
+        $location = $request->location;
+        $sub_location = $request->sub_location;
+
+		# explode id and identity and seprate values
+        $temp = explode('-', $filter_title_attr);
+        $keyword_id = $temp[0];
+        $keyword_identity = $temp[1];
+		
+		# If keyword is category
+		if($keyword_identity == 1)
+		{
+			$category = DB::table('websites_page_head_titles')->where('status', 1);
+			$category->where('category', $keyword_id);
+			
+			# Check if area is blank or not
+			if(!empty($sub_location))
+			{
+				$category->where('area', $sub_location);
+			}
+			else
+			{
+				$category->where('city', $location);
+			}
+			$category->select('page_url');						
+			$row = $category->first();
+		}
+		
+		# If keyword is subcategory
+		if($keyword_identity == 2)
+		{
+			$subcategory = DB::table('websites_page_head_titles')->where('status', 1);
+			$subcategory->where('subcategory', $keyword_id);
+			
+			# Check if area is blank or not
+			if(!empty($sub_location))
+			{
+				$subcategory->where('area', $sub_location);
+			}
+			else
+			{
+				$subcategory->where('city', $location);
+			}
+			$subcategory->select('page_url');						
+			$row = $subcategory->first();
+		}
+		
+		# If keyword is business name
+		if($keyword_identity == 3)
+		{
+			$business = DB::table('websites_page_head_titles')->where('status', 1);
+			$business->where('business_page', $keyword_id);			
+			$business->select('page_url');						
+			$row = $business->first();
+		}
+		
+		if(!empty($row->page_url))
+		{
+			echo $row->page_url;
+		}
+		else
+		{
+			echo 0;
+		}		
+		exit;
+	}
 
     // Get campany area
     public function getCompanyArea(Request $request)
