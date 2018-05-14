@@ -564,14 +564,13 @@ class AjaxController extends Controller
 
         foreach ($categories as $cat) {
 
-            $data[] = array('cat_id'=>$cat->id,'category'=>$cat->category,'status'=>'1'); //,'sub_cat_id'=>'','sub_category'=>''
+            $data[] = array('cat_id'=>$cat->id,'category'=>$cat->category,'status'=>'1');
 
             // Get sub categories of this category
-            $sub_categories = DB::table('subcategory')->where('cat_id', $cat->id)->get();
+            /*$sub_categories = DB::table('subcategory')->where('cat_id', $cat->id)->get();
             foreach ($sub_categories as $key => $sub_cat) {
-                //$data[] = array('cat_id'=>$cat->id.'-'.$sub_cat->id,'category'=>$cat->category.'-'.$sub_cat->subcategory);
                 $data[] = array('cat_id'=>$sub_cat->id,'category'=>$sub_cat->subcategory,'status'=>'2');
-            }
+            }*/
         }
 
         // Get all matched sub categories and their category and show
@@ -580,23 +579,41 @@ class AjaxController extends Controller
         $subcategories = $subcategories->get();
 
         foreach ($subcategories as $subcat) {
+
             $data[] = array('cat_id'=>$subcat->id,'category'=>$subcat->subcategory,'status'=>'2');
 
-            // Get main category of this sub category
-            $cate = DB::table('category')->where('id', $subcat->cat_id)->first();
-
-            $avail = 0;
-            foreach ($data as $key => $d) {
-                if($d['cat_id'] == $cate->id && $d['status'] == 1)
+            // First check this subcategory is in data array or not
+            /*$avail_subcat = 0;
+            foreach ($data as $key => $row) {
+                if($row['cat_id'] == $subcat->id && $row['status'] == 2)
                 {
-                    $avail++;
+                    $avail_subcat++;
                 }
             }
 
-            if($avail == 0)
+            // If not then add this subcategory in data array
+            if($avail_subcat == 0)
+            {
+                $data[] = array('cat_id'=>$subcat->id,'category'=>$subcat->subcategory,'status'=>'2');
+            }*/
+
+            // Get main category of this sub category
+            /*$cate = DB::table('category')->where('id', $subcat->cat_id)->first();
+
+            // First check this category is in data array or not
+            $avail_cat = 0;
+            foreach ($data as $key => $d) {
+                if($d['cat_id'] == $cate->id && $d['status'] == 1)
+                {
+                    $avail_cat++;
+                }
+            }
+
+            // If not then add this in data array
+            if($avail_cat == 0)
             {
                 $data[] = array('cat_id'=>$cate->id,'category'=>$cate->category,'status'=>'1');
-            }
+            }*/
         }
 
         // Get all Comopany names according to search keyword
@@ -663,7 +680,7 @@ class AjaxController extends Controller
 
         $title_status = $temp[1];
 
-        if($title_status == 1){     // // if selected keyword is category
+        if($title_status == 1){     // if selected keyword is category
 
             $where = array('category' => $filter_title, 'status' => 1);
             $category = DB::table('category')->where($where)->first();

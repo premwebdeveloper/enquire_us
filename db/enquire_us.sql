@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 08, 2018 at 04:05 PM
+-- Generation Time: May 14, 2018 at 12:42 PM
 -- Server version: 10.1.26-MariaDB
 -- PHP Version: 7.1.8
 
@@ -52,7 +52,7 @@ INSERT INTO `areas` (`id`, `country`, `state`, `city`, `area`, `pincode`, `creat
 (5, 101, 33, 3378, 'bani park', 0, '2018-03-12 13:33:50', '2018-03-12 13:33:50', 1),
 (6, 101, 33, 3378, 'vaishali nagar', 0, '2018-03-12 13:34:02', '2018-03-12 13:34:02', 1),
 (7, 101, 33, 3378, 'sitapura', 0, '2018-04-24 14:53:39', '2018-04-24 14:53:39', 1),
-(8, 101, 33, 3378, 'sitapura', 0, '2018-03-12 13:34:20', '2018-03-12 13:34:20', 1),
+(8, 101, 33, 3378, 'jagatpura', 0, '2018-03-12 13:34:20', '2018-03-12 13:34:20', 1),
 (9, 101, 33, 3378, 'sodala', 0, '2018-04-26 14:06:49', '2018-04-26 14:06:49', 1),
 (10, 101, 33, 3378, 'raja park', 0, '2018-03-12 13:34:38', '2018-03-12 13:34:38', 1),
 (11, 101, 33, 3378, 'mansarovar', 0, '2018-03-12 13:34:49', '2018-03-12 13:34:49', 1),
@@ -85,7 +85,8 @@ INSERT INTO `category` (`id`, `category`, `description`, `created_at`, `updated_
 (5, 'Clothes', 'Clothes description', '2018-04-24 15:02:56', '2018-04-24 15:02:56', 1),
 (6, 'Shoes', 'shoes description', '2018-04-24 15:05:01', '2018-04-24 15:05:01', 1),
 (7, 'Hardware', 'description', '2018-04-24 15:05:38', '2018-04-24 15:26:02', 1),
-(8, 'Electricity', 'Electricity description', '2018-04-24 15:06:37', '2018-04-24 15:25:21', 1);
+(8, 'Electricity', 'Electricity description', '2018-04-24 15:06:37', '2018-04-24 15:25:21', 1),
+(9, 'abc', 'abc', '2018-05-08 15:19:30', '2018-05-08 15:19:47', 1);
 
 -- --------------------------------------------------------
 
@@ -54084,7 +54085,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `phone`, `password`, `remember_token`, `verify_token`, `created_at`, `updated_at`, `status`) VALUES
-(1, 'Administrator', 'admin@admin.com', '8003947560', '$2y$10$HjMrFSc/mNuJWcM23w5C4u73.EU3Lxcwi.5pLxLQB0SzBVqJsYL8W', 'T0yhDAP2lCDhDNOg8CVUpGIQuxIQxYkKPqkt5btLaGujhtK3PORaI9bEx5GB', NULL, '2018-01-18 07:49:49', '2018-01-18 07:49:49', 1),
+(1, 'Administrator', 'admin@admin.com', '8003947560', '$2y$10$HjMrFSc/mNuJWcM23w5C4u73.EU3Lxcwi.5pLxLQB0SzBVqJsYL8W', 'NFIFTDjHIamo97DjvCa2FbmYCHJWG3bOhFu1GjBfihlbK4bfV1XOTpzfsJS4', NULL, '2018-01-18 07:49:49', '2018-01-18 07:49:49', 1),
 (8, 'Prem saini', 'prem_saini@hotmail.com', '9602947878', '$2y$10$tNn5eNlmSWi5LJ3hIh7EduubauY9IEvAnUayhsysaoy2Ng98cWzI.', '38qHohYZ6cM0cFFhV15MMvvoHcKAyhxmlKbBVHyySYgpVpa8LfKsI2MoV5br', 'h1Y7DLQ8fUrFtYkY8uenFvYolTwc3SIuTajJ2J69', '2018-01-31 09:43:12', '2018-01-31 09:43:12', 1),
 (10, 'Amit Sharma', 'amitsharma6681@gmail.com', '8003947560', '$2y$10$bL0ypdA4HTnmOEZahLYR8uZA7gOpcuM32z0gVL5DObxs4B8N1D05K', '68fcAzdQERNI5sfAb20fJBbnqWQmzGYZwdJqDACpW0nr7ogbczkuvywPws2y', 'BanU4rns7mNtrh3uLzhDhcTJoCvvr3NMRumMLvPX', '2018-03-06 07:49:41', '2018-03-06 07:49:41', 1),
 (11, 'Saini Prem', 'premsaini9602@gmail.com', '8005609866', '$2y$10$vFpRhPz2DwdV8N3t2UcpkemX3ekMJUlvrBiQpgb8Y.D/HWivsHtSe', '6ted3nbqV6cnMOw50Yyte8I4Fjs9wkHY94x7HRi0XqHy1ncqKsJUopsh6lo2', 'oYuuifmHbhAQZxaYKXH4ejiJl3ZJwUmF9z0lWej1', '2018-03-06 08:03:45', '2018-03-06 08:03:45', 1),
@@ -54365,7 +54366,10 @@ INSERT INTO `user_roles` (`id`, `role_id`, `user_id`, `created_at`, `updated_at`
 
 CREATE TABLE `websites_page_head_titles` (
   `id` int(11) NOT NULL,
-  `page` varchar(1255) DEFAULT NULL,
+  `category` int(11) DEFAULT NULL,
+  `subcategory` int(11) DEFAULT NULL,
+  `city` int(11) DEFAULT NULL,
+  `area` int(11) DEFAULT NULL,
   `business_page` varchar(255) DEFAULT NULL,
   `page_url` varchar(1055) DEFAULT NULL,
   `title` text,
@@ -54381,8 +54385,48 @@ CREATE TABLE `websites_page_head_titles` (
 -- Dumping data for table `websites_page_head_titles`
 --
 
-INSERT INTO `websites_page_head_titles` (`id`, `page`, `business_page`, `page_url`, `title`, `keyword`, `description`, `created_at`, `updated_at`, `update_status`, `status`) VALUES
-(1, '1||3378|', NULL, 'dhaba-in-jaipur', 'asd', 'dfg', 'ghj', '2018-05-08 14:04:56', '2018-05-08 14:04:56', 1, 1);
+INSERT INTO `websites_page_head_titles` (`id`, `category`, `subcategory`, `city`, `area`, `business_page`, `page_url`, `title`, `keyword`, `description`, `created_at`, `updated_at`, `update_status`, `status`) VALUES
+(1, NULL, NULL, NULL, NULL, NULL, 'about', 'about title', 'about keyword', 'about description', '2018-05-09 14:03:14', '2018-05-09 14:03:14', 1, 1),
+(2, NULL, NULL, NULL, NULL, '10', 'Hotel-Dexus-in-murlipura', 'hotel dexus title', 'hotel dexus keyword', 'hotel dexus description', '2018-05-09 14:04:17', '2018-05-09 14:04:17', 1, 1),
+(3, 1, NULL, 3378, NULL, NULL, 'dhaba', 'title dhaba in jaipur', 'keyword dhaba in jaipur', 'description dhaba in jaipur', '2018-05-09 14:06:03', '2018-05-09 15:09:21', 1, 1),
+(4, 1, NULL, 3378, 1, NULL, 'dhaba-in-vidhyadhar-nagar', 'title dhaba in vidhyadhar nagar', 'keyword dhaba in vidhyadhar nagar', 'description dhaba in vidhyadhar nagar', '2018-05-09 14:06:03', '2018-05-09 14:06:03', 1, 1),
+(5, 1, NULL, 3378, 2, NULL, 'dhaba-in-malviya-nagar', 'title dhaba in malviya nagar', 'keyword dhaba in malviya nagar', 'description dhaba in malviya nagar', '2018-05-09 14:06:03', '2018-05-09 14:06:03', 1, 1),
+(6, 1, NULL, 3378, 3, NULL, 'dhaba-in-shashtri-nagar', 'title dhaba in shashtri nagar', 'keyword dhaba in shashtri nagar', 'description dhaba in shashtri nagar', '2018-05-09 14:06:03', '2018-05-09 14:06:03', 1, 1),
+(7, 1, NULL, 3378, 4, NULL, 'dhaba-in-murlipura', 'title dhaba in murlipura', 'keyword dhaba in murlipura', 'description dhaba in murlipura', '2018-05-09 14:06:03', '2018-05-09 14:06:03', 1, 1),
+(8, 1, NULL, 3378, 5, NULL, 'dhaba-in-bani-park', 'title dhaba in bani park', 'keyword dhaba in bani park', 'description dhaba in bani park', '2018-05-09 14:06:03', '2018-05-09 14:06:03', 1, 1),
+(9, 1, NULL, 3378, 6, NULL, 'dhaba-in-vaishali-nagar', 'title dhaba in vaishali nagar', 'keyword dhaba in vaishali nagar', 'description dhaba in vaishali nagar', '2018-05-09 14:06:03', '2018-05-09 14:06:03', 1, 1),
+(10, 1, NULL, 3378, 7, NULL, 'dhaba-in-sitapura', 'title dhaba in sitapura', 'keyword dhaba in sitapura', 'description dhaba in sitapura', '2018-05-09 14:06:03', '2018-05-09 14:06:03', 1, 1),
+(11, 1, NULL, 3378, 8, NULL, 'dhaba-in-sitapura', 'title dhaba in sitapura', 'keyword dhaba in sitapura', 'description dhaba in sitapura', '2018-05-09 14:06:03', '2018-05-09 14:06:03', 1, 1),
+(12, 1, NULL, 3378, 9, NULL, 'dhaba-in-sodala', 'title dhaba in sodala', 'keyword dhaba in sodala', 'description dhaba in sodala', '2018-05-09 14:06:03', '2018-05-09 14:06:03', 1, 1),
+(13, 1, NULL, 3378, 10, NULL, 'dhaba-in-raja-park', 'title dhaba in raja park', 'keyword dhaba in raja park', 'description dhaba in raja park', '2018-05-09 14:06:03', '2018-05-09 14:06:03', 1, 1),
+(14, 1, NULL, 3378, 11, NULL, 'dhaba-in-mansarovar', 'title dhaba in mansarovar', 'keyword dhaba in mansarovar', 'description dhaba in mansarovar', '2018-05-09 14:06:03', '2018-05-09 14:06:03', 1, 1),
+(15, 1, NULL, 3378, 12, NULL, 'dhaba-in-amba-bari', 'title dhaba in amba bari', 'keyword dhaba in amba bari', 'description dhaba in amba bari', '2018-05-09 14:06:03', '2018-05-09 14:06:03', 1, 1),
+(16, 3, 6, 3378, NULL, NULL, 'Three-Star', 'title three star in jaipur', 'keyword three star in jaipur', 'description three star in jaipur', '2018-05-09 14:08:05', '2018-05-09 14:08:05', 1, 1),
+(17, 3, 6, 3378, 1, NULL, 'Three-Star-in-vidhyadhar-nagar', 'title three star in vidhyadhar nagar', 'keyword three star in vidhyadhar nagar', 'description three star in vidhyadhar nagar', '2018-05-09 14:08:05', '2018-05-09 15:11:08', 1, 1),
+(18, 3, 6, 3378, 2, NULL, 'Three-Star-in-malviya-nagar', 'title three star in malviya nagar', 'keyword three star in malviya nagar', 'description three star in malviya nagar', '2018-05-09 14:08:05', '2018-05-09 14:08:05', 1, 1),
+(19, 3, 6, 3378, 3, NULL, 'Three-Star-in-shashtri-nagar', 'title three star in shashtri nagar', 'keyword three star in shashtri nagar', 'description three star in shashtri nagar', '2018-05-09 14:08:05', '2018-05-09 14:08:05', 1, 1),
+(20, 3, 6, 3378, 4, NULL, 'Three-Star-in-murlipura', 'title three star in murlipura', 'keyword three star in murlipura', 'description three star in murlipura', '2018-05-09 14:08:05', '2018-05-09 14:08:05', 1, 1),
+(21, 3, 6, 3378, 5, NULL, 'Three-Star-in-bani-park', 'title three star in bani park', 'keyword three star in bani park', 'description three star in bani park', '2018-05-09 14:08:05', '2018-05-09 14:08:05', 1, 1),
+(22, 3, 6, 3378, 6, NULL, 'Three-Star-in-vaishali-nagar', 'title three star in vaishali nagar', 'keyword three star in vaishali nagar', 'description three star in vaishali nagar', '2018-05-09 14:08:05', '2018-05-09 14:08:05', 1, 1),
+(23, 3, 6, 3378, 7, NULL, 'Three-Star-in-sitapura', 'title three star in sitapura', 'keyword three star in sitapura', 'description three star in sitapura', '2018-05-09 14:08:05', '2018-05-09 14:08:05', 1, 1),
+(24, 3, 6, 3378, 8, NULL, 'Three-Star-in-sitapura', 'title three star in sitapura', 'keyword three star in sitapura', 'description three star in sitapura', '2018-05-09 14:08:05', '2018-05-09 14:08:05', 1, 1),
+(25, 3, 6, 3378, 9, NULL, 'Three-Star-in-sodala', 'title three star in sodala', 'keyword three star in sodala', 'description three star in sodala', '2018-05-09 14:08:05', '2018-05-09 14:08:05', 1, 1),
+(26, 3, 6, 3378, 10, NULL, 'Three-Star-in-raja-park', 'title three star in raja park', 'keyword three star in raja park', 'description three star in raja park', '2018-05-09 14:08:05', '2018-05-09 14:08:05', 1, 1),
+(27, 3, 6, 3378, 11, NULL, 'Three-Star-in-mansarovar', 'title three star in mansarovar', 'keyword three star in mansarovar', 'description three star in mansarovar', '2018-05-09 14:08:05', '2018-05-09 14:08:05', 1, 1),
+(28, 3, 6, 3378, 12, NULL, 'Three-Star-in-amba-bari', 'title three star in amba bari', 'keyword three star in amba bari', 'description three star in amba bari', '2018-05-09 14:08:05', '2018-05-09 14:08:05', 1, 1),
+(32, 4, NULL, 3378, NULL, NULL, 'Fashion', 'fashion title in jaipur', 'fashion keyword in jaipur', 'fashion description in jaipur', '2018-05-09 14:20:30', '2018-05-09 15:09:50', 1, 1),
+(33, 4, NULL, 3378, 1, NULL, 'Fashion-in-vidhyadhar-nagar', 'fashion title in vidhyadhar nagar', 'fashion keyword in vidhyadhar nagar', 'fashion description in vidhyadhar nagar', '2018-05-09 14:20:30', '2018-05-09 14:20:30', 1, 1),
+(34, 4, NULL, 3378, 2, NULL, 'Fashion-in-malviya-nagar', 'fashion title in malviya nagar', 'fashion keyword in malviya nagar', 'fashion description in malviya nagar', '2018-05-09 14:20:30', '2018-05-09 14:20:30', 1, 1),
+(35, 4, NULL, 3378, 3, NULL, 'Fashion-in-shashtri-nagar', 'fashion title in shashtri nagar', 'fashion keyword in shashtri nagar', 'fashion description in shashtri nagar', '2018-05-09 14:20:30', '2018-05-09 14:20:30', 1, 1),
+(36, 4, NULL, 3378, 4, NULL, 'Fashion-in-murlipura', 'fashion title in murlipura', 'fashion keyword in murlipura', 'fashion description in murlipura', '2018-05-09 14:20:30', '2018-05-09 14:20:30', 1, 1),
+(37, 4, NULL, 3378, 5, NULL, 'Fashion-in-bani-park', 'fashion title in bani park', 'fashion keyword in bani park', 'fashion description in bani park', '2018-05-09 14:20:30', '2018-05-09 14:20:30', 1, 1),
+(38, 4, NULL, 3378, 6, NULL, 'Fashion-in-vaishali-nagar', 'fashion title in vaishali nagar', 'fashion keyword in vaishali nagar', 'fashion description in vaishali nagar', '2018-05-09 14:20:30', '2018-05-09 14:20:30', 1, 1),
+(39, 4, NULL, 3378, 7, NULL, 'Fashion-in-sitapura', 'fashion title in sitapura', 'fashion keyword in sitapura', 'fashion description in sitapura', '2018-05-09 14:20:30', '2018-05-09 14:20:30', 1, 1),
+(40, 4, NULL, 3378, 8, NULL, 'Fashion-in-jagatpura', 'fashion title in jagatpura', 'fashion keyword in jagatpura', 'fashion description in jagatpura', '2018-05-09 14:20:30', '2018-05-09 14:20:30', 1, 1),
+(41, 4, NULL, 3378, 9, NULL, 'Fashion-in-sodala', 'fashion title in sodala', 'fashion keyword in sodala', 'fashion description in sodala', '2018-05-09 14:20:30', '2018-05-09 14:20:30', 1, 1),
+(42, 4, NULL, 3378, 10, NULL, 'Fashion-in-raja-park', 'fashion title in raja park', 'fashion keyword in raja park', 'fashion description in raja park', '2018-05-09 14:20:30', '2018-05-09 14:20:30', 1, 1),
+(43, 4, NULL, 3378, 11, NULL, 'Fashion-in-mansarovar', 'fashion title in mansarovar', 'fashion keyword in mansarovar', 'fashion description in mansarovar', '2018-05-09 14:20:30', '2018-05-09 14:20:30', 1, 1),
+(44, 4, NULL, 3378, 12, NULL, 'Fashion-in-amba-bari', 'fashion title in amba bari', 'fashion keyword in amba bari', 'fashion description in amba bari', '2018-05-09 14:20:30', '2018-05-09 14:20:30', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -54404,7 +54448,7 @@ CREATE TABLE `website_pages` (
 --
 
 INSERT INTO `website_pages` (`id`, `page_title`, `page_description`, `created_at`, `updated_at`, `status`) VALUES
-(1, 'About Us', 'Justdial\'s MissionTo provides fast, free, reliable and comprehensive information to our users and connects buyers to sellers.Corporate Information\r\nThe company started offering local search services in 1996 under the Justdial brand and is now the leading local search engine in India.\r\nThe official website www.justdial.com was launched in 2007.\r\nJustdial\'s search service is available to users across multiple platforms, such as the internet, mobile Internet, over the telephone (voice) and text (SMS).\r\nJustdial\'s search service bridges the gap between the users and businesses by helping users find relevant providers of products and services quickly while helping businesses listed in Justdial\'s database to market their offerings.Justdial has also initiated its ‘Search Plus’ Services for the users. These services are aimed at making several day-to-day tasks conveniently actionable and accessible to the users. With this step, Justdial is transitioning from being purely a provider of local search and related information to being an enabler of such transactions. Justdial intends to provide an online platform to thousands of SME’s to get them discovered and transacted.', '2018-02-16 06:29:18', '2018-02-16 15:18:18', 1),
+(1, 'About Us', 'Justdial\'s MissionTo provides fast, free, reliable and comprehensive information to our users and connects buyers to sellers.Corporate Information\r\nThe company started offering local search services in 1996 under the Justdial brand and is now the leading local search engine in India.\r\nThe official website www.justdial.com was launched in 2007.\r\nJustdial\'s search service is available to users across multiple platforms, such as the internet, mobile Internet, over the telephone (voice) and text (SMS).\r\nJustdial\'s search service bridges the gap between the users and businesses by helping users find relevant providers of products and services quickly while helping businesses listed in Justdial\'s database to market their offerings.Justdial has also initiated its ‘Search Plus’ Services for the users. These services are aimed at making several day-to-day tasks conveniently actionable and accessible to the users. With this step, Justdial is transitioning from being purely a provider of local search and related information to being an enabler of such transactions. Justdial intends to provide an online platform to thousands of SME’s to get them discovered and transacted.', '2018-02-16 06:29:18', '2018-05-09 13:18:02', 1),
 (2, 'FAQ', 'MissionTo provides fast, free, reliable and comprehensive information to our users and connects buyers to sellers.Corporate Information The company started offering local search services', '0000-00-00 00:00:00', '2018-04-12 13:30:28', 1);
 
 --
@@ -54556,7 +54600,7 @@ ALTER TABLE `areas`
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 --
 -- AUTO_INCREMENT for table `category_clubs`
 --
@@ -54651,7 +54695,7 @@ ALTER TABLE `user_roles`
 -- AUTO_INCREMENT for table `websites_page_head_titles`
 --
 ALTER TABLE `websites_page_head_titles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 --
 -- AUTO_INCREMENT for table `website_pages`
 --
