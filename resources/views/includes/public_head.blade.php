@@ -58,6 +58,10 @@
             $("#filter_title").autocomplete({
 
                 source: function( request, response ) {
+
+                    // If request term limit is greater than 2 word
+                    if(request.term.length < 3) return;
+
                     $.ajax({
                         url: "{{ route('searchCategoriesAndCompanies') }}",
                         dataType: "json",
@@ -96,15 +100,19 @@
             // Onclick search button
             $(document).on('click', '#search-filter', function(){
 
-                var location = $('#location').val();
-                var sub_location = $('#sub_location').val();
-                var filter_title = $('#filter_title').val();
+                var location = $('#location').val();                    // It has city id
+                var sub_location = $('#sub_location').val();            // It has area id
+                var filter_title = $('#filter_title').val();            // It has keyword name
 
                 var original_title = filter_title;
 
                 // space reolace by dash
                 location = location.replace(/\s+/g, '-');
                 filter_title = filter_title.replace(/\s+/g, '-');
+
+                alert(location);
+                alert(sub_location);
+                alert(filter_title);
 
                 if(filter_title == '')
                 {
@@ -124,7 +132,6 @@
 
                             if(response == 1)
                             {
-
                                 // all is well
                                 var encoded = makeid()+'-'+filter_title_alt;
                                 // encode parameter

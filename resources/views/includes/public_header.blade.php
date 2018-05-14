@@ -129,26 +129,30 @@
                             {{ csrf_field() }}
                             <div id="top_search" class="form-group form-group-cus" role="form">
 
+                                <!-- Search button -->
                                 <div class="form-group  col-sm-1 col-xcus-1">
                                   <button id="search-filter" type="button" class="btn success btn-custom-search" disabled="disabled">Search</button>
                                 </div>
 
+                                <!-- Select area -->
                                 <div class="form-group col-sm-3 col-cus-3 input-width">
                                     <select name="sub_location" id="sub_location" class="form-control selectWidth form-cus input-border">
                                         <option value="">Select Area</option>
                                         @foreach($areas as $area)
-                                            <option value="{{ $area->area }}">{{ $area->area }}</option>
+                                            <option value="{{ $area->id }}">{{ $area->area }}</option>
                                         @endforeach
                                         <option value="">Select Area</option>
                                     </select>
                                 </div>
 
+                                <!-- Select city -->
                                 <div class="form-group col-sm-3 col-cus-3 input-width">
                                     <select name="location" id="location" class="form-control selectWidth form-cus input-border">
-                                        <option value="jaipur">Jaipur</option>
+                                        <option value="3378">Jaipur</option>
                                     </select>
                                 </div>
 
+                                <!-- Search keyword -->
                                 <div class="form-group col-sm-3 col-cus-3 search-input-key">
                                     <input type="text" name="filter_title" id="filter_title" class="form-control form-cus"  placeholder="Type keywords e.g. Burger, Salon, Beauty…" required>
                                 </div>
