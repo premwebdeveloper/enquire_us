@@ -739,6 +739,7 @@ class AjaxController extends Controller
 		{
 			$category = DB::table('websites_page_head_titles')->where('status', 1);
 			$category->where('category', $keyword_id);
+			$category->where('subcategory', null);
 			
 			# Check if area is blank or not
 			if(!empty($sub_location))
@@ -749,7 +750,10 @@ class AjaxController extends Controller
 			{
 				$category->where('city', $location);
 			}
-			$category->select('page_url');						
+			$category->select('page_url');	
+
+			//echo ($category->tosql()); exit;
+				
 			$row = $category->first();
 		}
 		
@@ -768,7 +772,10 @@ class AjaxController extends Controller
 			{
 				$subcategory->where('city', $location);
 			}
-			$subcategory->select('page_url');						
+			$subcategory->select('page_url');
+
+			//echo ($subcategory->tosql()); exit;
+			
 			$row = $subcategory->first();
 		}
 		
@@ -776,8 +783,22 @@ class AjaxController extends Controller
 		if($keyword_identity == 3)
 		{
 			$business = DB::table('websites_page_head_titles')->where('status', 1);
-			$business->where('business_page', $keyword_id);			
-			$business->select('page_url');						
+			$business->where('business_page', $keyword_id);
+
+			# Check if area is blank or not If not then get exact company url with area If area is not correct then result not found
+			if(!empty($sub_location))
+			{
+				$business->where('area', $sub_location);
+			}
+			else	// If area not selected then auto create page url with exact location
+			{
+				$business->where('city', $location);
+			}
+			
+			$business->select('page_url');	
+
+			//echo ($business->tosql()); exit;
+			
 			$row = $business->first();
 		}
 		

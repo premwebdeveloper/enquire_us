@@ -110,18 +110,21 @@
 				var filter_title_alt = $('#filter_title').attr('alt');	// It has keyword id and identity
 				
                 var original_title = filter_title;
+				
+				alert(filter_title_alt);
+				alert(location);
+				alert(sub_location);
 
                 // space reolace by dash
                 loc_name = loc_name.replace(/\s+/g, '-');
 
-                alert(filter_title_alt);
-
                 if(filter_title_alt == '' || filter_title_alt == 'undefined' || filter_title_alt == null)
                 {
-                    alert('Please select any Category or Company name');
+                    alert('Please select any category or company name from suggestions.');
                 }
                 else
-                {							
+                {
+					// If keyword selected from suggestions then get page URL
                     $.ajax({
                         method : 'post',
                         url: "{{ route('getPageUrl') }}",
@@ -130,72 +133,20 @@
                         success:function(response){
 							
 							console.log(response);
+							
+							if(response == 0)
+							{
+								alert('Result not found!');
+							}
+							else
+							{
+								// all is well
+								var encoded = makeid()+'-'+filter_title_alt;
+								// encode parameter
+								encoded = encodeURIComponent(window.btoa(encoded));
 
-                            if(response != 1)
-                            {
-                                // all is well
-                                var encoded = makeid()+'-'+filter_title_alt;
-                                // encode parameter
-                                encoded = encodeURIComponent(window.btoa(encoded));
-
-                                if(sub_location != '')
-                                {
-                                    // space reolace by dash
-                                    sub_location = sub_location.replace(/\s+/g, '-');
-
-                                    window.location.href = "{{url('filter')}}"+"/"+location+"/" +filter_title+"-in-"+sub_location+"/" +encoded;
-                                }
-                                else
-                                {
-                                    // check selected title is company then
-                                    var what_is_title = filter_title_alt.split('-');
-                                    var title_company = what_is_title[1];
-                                    if(title_company == 3)
-                                    {
-                                        // If sublocation / area not selected then get real area of company
-                                        $.ajax({
-                                            method : 'post',
-                                            url: "{{ route('getCompanyArea') }}",
-                                            async : true,
-                                            data : {"_token": "{{ csrf_token() }}", 'filter_title' : original_title},
-                                            success:function(response){
-
-                                                // if area is not blank
-                                                if(response != '' && response != null)
-                                                {
-                                                    response = response.replace(/\s+/g, '-');
-
-                                                    sub_location = sub_location.replace(/\s+/g, '-');
-
-                                                    window.location.href = "{{url('filter')}}"+"/"+location+"/" +filter_title+"-in-" +response+"/" +encoded;
-                                                }
-                                                else
-                                                {
-                                                    alert('something went wrong!');
-                                                }
-                                            },
-                                            error: function(data){
-                                                console.log(data);
-                                            },
-
-                                        });
-                                    }
-                                    else    // selected title is not company
-                                    {
-                                        sub_location = sub_location.replace(/\s+/g, '-');
-                                        window.location.href = "{{url('filter')}}"+"/"+location+"/" +filter_title+"/" +encoded;
-                                    }
-
-                                    // window.location.href = "{{url('filter')}}"+"/"+location+"/" +filter_title+"/" +encoded;
-
-                                }
-                            }
-                            else
-                            {
-                                // something went wrong
-                                alert('Please select any keyword!');
-                            }
-
+								window.location.href = "{{url('filter')}}"+"/"+loc_name+"/" +response+"/" +encoded;
+							}							
                         },
                         error: function(data){
                             console.log(data);
