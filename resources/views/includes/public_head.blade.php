@@ -61,7 +61,7 @@
 
                     // If request term limit is greater than 2 word
                     if(request.term.length < 3) return;
-					
+
 					$('#filter_title').removeAttr('alt');
 
                     $.ajax({
@@ -106,14 +106,10 @@
 				var loc_name = $('#location option[value="'+location+'"]').text();	// It has location name
                 var sub_location = $('#sub_location').val();            // It has area id
                 var sub_loc_name = $('#sub_location option[value="'+sub_location+'"]').text(); // It has area name
-                var filter_title = $('#filter_title').val();            // It has keyword name				
+                var filter_title = $('#filter_title').val();            // It has keyword name
 				var filter_title_alt = $('#filter_title').attr('alt');	// It has keyword id and identity
-				
+
                 var original_title = filter_title;
-				
-				alert(filter_title_alt);
-				alert(location);
-				alert(sub_location);
 
                 // space reolace by dash
                 loc_name = loc_name.replace(/\s+/g, '-');
@@ -131,9 +127,9 @@
                         async : true,
                         data : {"_token": "{{ csrf_token() }}", 'filter_title_attr' : filter_title_alt, 'location' : location, 'sub_location' : sub_location},
                         success:function(response){
-							
+
 							console.log(response);
-							
+
 							if(response == 0)
 							{
 								alert('Result not found!');
@@ -146,7 +142,7 @@
 								encoded = encodeURIComponent(window.btoa(encoded));
 
 								window.location.href = "{{url('filter')}}"+"/"+loc_name+"/" +response+"/" +encoded;
-							}							
+							}
                         },
                         error: function(data){
                             console.log(data);

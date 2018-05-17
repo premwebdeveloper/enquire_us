@@ -160,7 +160,7 @@
 
                             <div clear="both">&nbsp;</div>
 
-                            <div class="col-sm-3">
+                            <!-- <div class="col-sm-3">
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <label for="page" class="control-label">Business Name</label>
@@ -172,9 +172,9 @@
                                         </select>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
 
-                            <div class="col-sm-3">
+                            <div class="col-sm-4">
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <label for="page" class="control-label">Page</label>
@@ -183,7 +183,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-6">
+                            <div class="col-sm-8">
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <label for="page" class="control-label">Title</label>

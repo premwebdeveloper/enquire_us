@@ -75,7 +75,7 @@
     Route::post('getCategoryDetails', 'AjaxController@getCategoryDetails')->name('getCategoryDetails');
     # Get subcategory details according to subcategory id
     Route::post('getSubCategoryDetails', 'AjaxController@getSubCategoryDetails')->name('getSubCategoryDetails');
-	
+
 	# Get page url
 	Route::post('getPageUrl', 'AjaxController@getPageUrl')->name('getPageUrl');
 

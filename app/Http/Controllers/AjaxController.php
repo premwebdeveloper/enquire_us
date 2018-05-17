@@ -26,22 +26,52 @@ class AjaxController extends Controller
         $state = $request->state;
         $country = $request->country;
 
-        $basic_info_update = DB::table('user_location')->where('user_id', $user_id)->update(
+        // Update location information
+        $basic_info_update = DB::table('user_location')->where('user_id', $user_id)->update([
+            'business_name' => $business_name,
+            'building' => $building,
+            'street' => $street,
+            'landmark' => $landmark,
+            'area' => $area,
+            'city' => $city,
+            'pincode' => $pin_code,
+            'state' => $state,
+            'country' => $country,
+            'updated_at' => $date,
+            'status' => 1
+        ]);
 
-            array(
-                    'business_name' => $business_name,
-                    'building' => $building,
-                    'street' => $street,
-                    'landmark' => $landmark,
-                    'area' => $area,
-                    'city' => $city,
-                    'pincode' => $pin_code,
-                    'state' => $state,
-                    'country' => $country,
-                    'updated_at' => $date,
-                    'status' => 1
-            )
-        );
+        // Create page url, title, keyword and description for this business If not created before this time
+        $is_exist = DB::table('websites_page_head_titles')->where('business_page', $user_id)->first();
+
+        // If not exist then insert entry page url, title, keyword and description
+        if(empty($is_exist))
+        {
+            // get area name by area id
+            $area_info = DB::table('areas')->where('id', $area)->first();
+            $area_name = $area_info->area;
+
+            $title = $business_name.' in '.$area_name;
+            $keyword = $business_name.' in '.$area_name;
+            $description = $business_name.' in '.$area_name;
+
+            $business_name = preg_replace('/[^A-Za-z0-9\-]/', '-', $business_name);
+            $area_name = preg_replace('/[^A-Za-z0-9\-]/', '-', $area_name);
+
+            $page_url = $business_name.'-in-'.$area_name;
+
+            $basic_info_update = DB::table('websites_page_head_titles')->insert([
+                'city' => $city,
+                'area' => $area,
+                'business_page' => $user_id,
+                'page_url' => $page_url,
+                'title' => $title,
+                'keyword' => $keyword,
+                'description' => $description,
+                'created_at' => $date,
+                'updated_at' => $date
+            ]);
+        }
 
         $response = array('messager' => 'Update Location Information');
 
@@ -200,7 +230,7 @@ class AjaxController extends Controller
     {
         $area = $request->area;
 
-        $pincodes = DB::table('areas')->where('area', $area)->get();
+        $pincodes = DB::table('areas')->where('id', $area)->get();
 
         return response()->json($pincodes);
     }
@@ -721,7 +751,7 @@ class AjaxController extends Controller
 
         }
     }
-	
+
 	# Get Page URL
 	public function getPageUrl(Request $request)
 	{
@@ -733,14 +763,14 @@ class AjaxController extends Controller
         $temp = explode('-', $filter_title_attr);
         $keyword_id = $temp[0];
         $keyword_identity = $temp[1];
-		
+
 		# If keyword is category
 		if($keyword_identity == 1)
 		{
 			$category = DB::table('websites_page_head_titles')->where('status', 1);
 			$category->where('category', $keyword_id);
 			$category->where('subcategory', null);
-			
+
 			# Check if area is blank or not
 			if(!empty($sub_location))
 			{
@@ -750,19 +780,19 @@ class AjaxController extends Controller
 			{
 				$category->where('city', $location);
 			}
-			$category->select('page_url');	
+			$category->select('page_url');
 
 			//echo ($category->tosql()); exit;
-				
+
 			$row = $category->first();
 		}
-		
+
 		# If keyword is subcategory
 		if($keyword_identity == 2)
 		{
 			$subcategory = DB::table('websites_page_head_titles')->where('status', 1);
 			$subcategory->where('subcategory', $keyword_id);
-			
+
 			# Check if area is blank or not
 			if(!empty($sub_location))
 			{
@@ -775,10 +805,10 @@ class AjaxController extends Controller
 			$subcategory->select('page_url');
 
 			//echo ($subcategory->tosql()); exit;
-			
+
 			$row = $subcategory->first();
 		}
-		
+
 		# If keyword is business name
 		if($keyword_identity == 3)
 		{
@@ -794,14 +824,14 @@ class AjaxController extends Controller
 			{
 				$business->where('city', $location);
 			}
-			
-			$business->select('page_url');	
+
+			$business->select('page_url');
 
 			//echo ($business->tosql()); exit;
-			
+
 			$row = $business->first();
 		}
-		
+
 		if(!empty($row->page_url))
 		{
 			echo $row->page_url;
@@ -809,7 +839,7 @@ class AjaxController extends Controller
 		else
 		{
 			echo 0;
-		}		
+		}
 		exit;
 	}
 

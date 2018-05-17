@@ -34,18 +34,34 @@ $(document).ready(function(){
             var state = $('#state').val();
             var country = $('#country').val();
 
-            $.ajax({
-                method : 'post',
-                url : 'update_location_info',
-                async : true,
-                data : {"_token": "{{ csrf_token() }}", 'user_id': user_id, 'business_name': business_name, 'building': building, 'street': street, 'landmark': landmark, 'area': area, 'city': city, 'pin_code': pin_code, 'state': state, 'country': country},
-                success:function(response){
-                    $(window).scrollTop(0);
-                },
-                error: function(data){
-                    //console.log(data);
-                },
-            });
+            // First check business name, city, area and pincode is not blank then update location information
+            if(business_name != '' && city != '' && area != '' && pin_code != '')
+            {
+                // If pincode is not correct
+                if(pin_code.length < 6)
+                {
+                    alert('Pincode is not correct. Please contact to Administrator !');
+                }
+                else
+                {
+                    $.ajax({
+                        method : 'post',
+                        url : 'update_location_info',
+                        async : true,
+                        data : {"_token": "{{ csrf_token() }}", 'user_id': user_id, 'business_name': business_name, 'building': building, 'street': street, 'landmark': landmark, 'area': area, 'city': city, 'pin_code': pin_code, 'state': state, 'country': country},
+                        success:function(response){
+                            $(window).scrollTop(0);
+                        },
+                        error: function(data){
+                            //console.log(data);
+                        },
+                    });
+                }
+            }
+            else
+            {
+                alert('Please fill mendatory fields !');
+            }
 
             $('.continue').click(function(){
                 $('.nav-tabs > .active').next('li').find('a').trigger('click');
@@ -186,7 +202,7 @@ $(document).ready(function(){
 
                     var areas = '<option value="">Select Area</option>';
                     $.each(response, function(i, item) {
-                    areas += '<option value="'+item.area+'">'+item.area+'</option>';
+                    areas += '<option value="'+item.id+'">'+item.area+'</option>';
                 })
 
                 $("#area").html('');
@@ -200,34 +216,6 @@ $(document).ready(function(){
         }
     });
 
-    // Page Load Get Pincode
-    $(document).ready(function(){
-        var area = '<?= $location->area; ?>';
-
-        $.ajax({
-            method: 'post',
-            url: 'getPincodeByAreaForUser',
-            data: {"_token": "{{ csrf_token() }}", 'area' : area},
-            async: true,
-            success: function(response){
-
-                //console.log(response);
-
-                var pincodes = '';
-                $.each(response, function(i, item) {
-                pincodes += '<option value="'+item.pincode+'">'+item.pincode+'</option>';
-            })
-
-            $("#pin_code").html('');
-            $("#pin_code").html(pincodes);
-            $("#pin_code").removeAttr('disabled');
-            },
-            error: function(data){
-               //console.log(data);
-            },
-        });
-    });
-
     // Select Area
     $(document).on("change", "#area", function(){
         var area = $('#area').val();
@@ -235,7 +223,7 @@ $(document).ready(function(){
         if(area == '')
         {
             $("#pin_code").html('');
-            $("#pin_code").html('<option value="">Select Pin Code</option>');
+            $("#pin_code").html('<option value="" selected="selected">Select Pin Code</option>');
             $("#pin_code").attr('disabled', 'disabled');
         }
         else
@@ -449,12 +437,15 @@ $(document).ready(function(){
                                         <input class="form-control" name="state" id="state" value="Rajasthan" readonly>
                                       </div>
                                     </div>
-                                        <script>
-                                            $(document).ready(function(){
-                                                var city_id = <?= $location->city; ?>
-                                                $('#city option[value='+city_id+']').prop('selected', true);
-                                            });
-                                        </script>
+
+                                    <!-- Get selected city and fill -->
+                                    <script>
+                                        $(document).ready(function(){
+                                            var city_id = <?= $location->city; ?>
+                                            $('#city option[value='+city_id+']').prop('selected', true);
+                                        });
+                                    </script>
+
                                     <div class="form-group required">
                                       <label for="Country" class="col-sm-4 control-label">City:</label>
                                       <div class="col-sm-6">
@@ -466,27 +457,30 @@ $(document).ready(function(){
                                         </select>
                                       </div>
                                     </div>
-                                        <script>
-                                            $(document).ready(function(){
-                                                var area_id = "<?= $location->area; ?>";
-                                                $('#area').val(area_id).attr('selected', 'selected');
-                                            });
-                                        </script>
-                                        <?php
-                                            $city = '3378';
 
-                                            $areas = DB::table('areas')->where('city', $city)->get();
-                                        ?>
+                                    <script>
+                                        $(document).ready(function(){
+                                            var area_id = "<?= $location->area; ?>";
+                                            $('#area').val(area_id).attr('selected', 'selected');
+                                        });
+                                    </script>
+
+                                    <?php
+                                        $city = '3378';
+
+                                        $areas = DB::table('areas')->where('city', $city)->get();
+                                    ?>
+
                                     <div class="form-group required">
                                       <label for="Country" class="col-sm-4 control-label">Area:</label>
                                         <div class="col-sm-6">
                                             <select name="area" id="area" class="validate[required] form-control">
 
-                                                <option value="">Select Area</option>
+                                                <option value="" selected="selected">Select Area</option>
 
-                                                @foreach($areas as $area)
-                                                    <option value="{{$area->area}}">{{$area->area}}</option>
-                                                @endforeach
+                                                <!-- @foreach($areas as $area)
+                                                    <option value="{{$area->id}}">{{$area->area}}</option>
+                                                @endforeach -->
 
                                             </select>
                                         </div>
@@ -496,7 +490,7 @@ $(document).ready(function(){
                                       <label for="Country" class="col-sm-4 control-label">Pin Code:</label>
                                       <div class="col-sm-6">
                                         <select name="pin_code" id="pin_code" class="validate[required] form-control">
-                                            <option value="">Select Pincode</option>
+                                            <option value="" selected="selected">Select Pincode</option>
                                         </select>
                                       </div>
                                     </div>
