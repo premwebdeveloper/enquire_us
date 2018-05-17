@@ -241,3 +241,6 @@ ALTER TABLE `websites_page_head_titles` ADD `update_status` TINYINT(1) NOT NULL 
 ALTER TABLE `websites_page_head_titles` ADD `category` INT NOT NULL AFTER `page`, ADD `subcategory` INT NULL AFTER `category`, ADD `city` INT NOT NULL AFTER `subcategory`, ADD `area` INT NULL AFTER `city`;
 ALTER TABLE `websites_page_head_titles` DROP `page`;
 ALTER TABLE `websites_page_head_titles` CHANGE `category` `category` INT(11) NULL, CHANGE `city` `city` INT(11) NULL;
+
+-- ---------------------------ALTER "user_location" on 15-05-2018----------------------
+ALTER TABLE `user_location` CHANGE `area` `area` INT NULL DEFAULT NULL, CHANGE `city` `city` INT NULL DEFAULT NULL;
