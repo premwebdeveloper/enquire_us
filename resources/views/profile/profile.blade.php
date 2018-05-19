@@ -180,7 +180,7 @@ $(document).ready(function(){
         });
     });*/
 
-    $(document).on("change", "#city", function(){
+    /*$(document).on("change", "#city", function(){
         var city = $('#city').val();
           //alert(city);
         if(city == '')
@@ -214,7 +214,7 @@ $(document).ready(function(){
                 },
             });
         }
-    });
+    });*/
 
     // Select Area
     $(document).on("change", "#area", function(){
@@ -235,16 +235,7 @@ $(document).ready(function(){
                 async: true,
                 success: function(response){
 
-                    //console.log(response);
-
-                    var pincodes = '';
-                    $.each(response, function(i, item) {
-                    pincodes += '<option value="'+item.pincode+'">'+item.pincode+'</option>';
-                })
-
-                $("#pin_code").html('');
-                $("#pin_code").html(pincodes);
-                $("#pin_code").removeAttr('disabled');
+                    $("#pin_code").val(response.pincode);
                 },
                 error: function(data){
                     //console.log(data);
@@ -441,23 +432,21 @@ $(document).ready(function(){
                                     <!-- Get selected city and fill -->
 
                                     <?php
-                                    print_r($location);
+                                    // echo '<pre>';
+                                    // print_r($location);
                                     ?>
                                     <script>
-                                        $(document).ready(function(){
-                                            var city_id = <?= $location->city; ?>
-                                            $('#city option[value='+city_id+']').attr('selected', 'selected');
-                                        });
+                                        // $(document).ready(function(){
+                                        //     var city_id = <?= $location->city; ?>
+                                        //     $('#city option[value="'+city_id+'"]').attr('selected', 'selected');
+                                        // });
                                     </script>
 
                                     <div class="form-group required">
                                       <label for="Country" class="col-sm-4 control-label">City:</label>
                                       <div class="col-sm-6">
                                         <select class="validate[required] form-control" name="city" id="city">
-
-                                            <option value=""> Select City</option>
-                                            <option value="3378"> Jaipur</option>
-
+                                            <option value="3378" selected="selected"> Jaipur</option>
                                         </select>
                                       </div>
                                     </div>
@@ -482,9 +471,9 @@ $(document).ready(function(){
 
                                                 <option value="" selected="selected">Select Area</option>
 
-                                                <!-- @foreach($areas as $area)
+                                                @foreach($areas as $area)
                                                     <option value="{{$area->id}}">{{$area->area}}</option>
-                                                @endforeach -->
+                                                @endforeach
 
                                             </select>
                                         </div>
@@ -493,9 +482,10 @@ $(document).ready(function(){
                                     <div class="form-group required">
                                       <label for="Country" class="col-sm-4 control-label">Pin Code:</label>
                                       <div class="col-sm-6">
-                                        <select name="pin_code" id="pin_code" class="validate[required] form-control">
+                                        <!-- <select name="pin_code" id="pin_code" class="validate[required] form-control">
                                             <option value="" selected="selected">Select Pincode</option>
-                                        </select>
+                                        </select> -->
+                                        <input type="text" name="pin_code" id="pin_code" value="{{ $location->pincode }}" class="validate[required] form-control">
                                       </div>
                                     </div>
 

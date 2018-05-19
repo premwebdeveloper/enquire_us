@@ -88,7 +88,9 @@ class HomeController extends Controller
                 ->join('category', 'category.id', '=', 'user_keywords.keyword_id')
                 ->join('user_details', 'user_keywords.user_id', '=', 'user_details.user_id')
                 ->join('user_location', 'user_location.user_id', '=', 'user_details.user_id')
-                ->where('user_keywords.keyword_identity', 1);
+                ->where('user_keywords.keyword_identity', 1)
+                ->where('user_location.status', 1)
+                ->where('user_details.status', 1);
 
                 $query->where('category.id', $title_id);
 
@@ -120,7 +122,9 @@ class HomeController extends Controller
                 ->join('subcategory', 'subcategory.id', '=', 'user_keywords.keyword_id')
                 ->join('user_details', 'user_keywords.user_id', '=', 'user_details.user_id')
                 ->join('user_location', 'user_location.user_id', '=', 'user_details.user_id')
-                ->where('user_keywords.keyword_identity', 2);
+                ->where('user_keywords.keyword_identity', 2)
+                ->where('user_location.status', 1)
+                ->where('user_details.status', 1);
 
                 $query->where('subcategory.id', $title_id);
 
@@ -150,7 +154,7 @@ class HomeController extends Controller
             $client = DB::table('user_details')
                 ->join('user_company_information', 'user_company_information.user_id', '=', 'user_details.user_id')
                 ->join('user_location', 'user_location.user_id', '=', 'user_details.user_id')
-                ->where(array('user_details.user_id' => $title_id))
+                ->where(array('user_details.user_id' => $title_id, 'user_details.status' => 1))
                 ->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country', 'user_company_information.payment_mode', 'user_company_information.year_establishment', 'user_company_information.annual_turnover', 'user_company_information.no_of_emps', 'user_company_information.professional_associations', 'user_company_information.certifications')
                 ->first();
 
@@ -187,8 +191,6 @@ class HomeController extends Controller
 
         $category = $request->category;
 
-
-
         $category = str_replace("-", " ", $category);
 
         $categories = DB::table('category')->where('status', 1)->get();
@@ -197,7 +199,7 @@ class HomeController extends Controller
             ->join('category', 'category.id', '=', 'user_keywords.keyword_id')
             ->join('user_details', 'user_keywords.user_id', '=', 'user_details.user_id')
             ->join('user_location', 'user_location.user_id', '=', 'user_details.user_id')
-            ->where(array('user_keywords.keyword_identity' => 1, 'category.category' => $category))
+            ->where(array('user_keywords.keyword_identity' => 1, 'category.category' => $category, 'user_details.status' => 1, 'user_location.status' => 1))
             ->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country')
             //->groupBy('user_id')
             ->get();

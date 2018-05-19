@@ -230,7 +230,7 @@ class AjaxController extends Controller
     {
         $area = $request->area;
 
-        $pincodes = DB::table('areas')->where('id', $area)->get();
+        $pincodes = DB::table('areas')->where('id', $area)->first();
 
         return response()->json($pincodes);
     }
@@ -646,9 +646,10 @@ class AjaxController extends Controller
             }*/
         }
 
-        // Get all Comopany names according to search keyword
+        // Get all Comopany names according to search keyword if company is approved by admin
         $business = DB::table('user_location');
         $business->where('business_name','LIKE','%'.$term.'%');
+        $business->where('status','=', 1);
         $business = $business->get();
 
         foreach ($business as $busi) {
