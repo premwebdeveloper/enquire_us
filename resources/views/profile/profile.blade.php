@@ -439,10 +439,14 @@ $(document).ready(function(){
                                     </div>
 
                                     <!-- Get selected city and fill -->
+
+                                    <?php
+                                    print_r($location);
+                                    ?>
                                     <script>
                                         $(document).ready(function(){
                                             var city_id = <?= $location->city; ?>
-                                            $('#city option[value='+city_id+']').prop('selected', true);
+                                            $('#city option[value='+city_id+']').attr('selected', 'selected');
                                         });
                                     </script>
 
