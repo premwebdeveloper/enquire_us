@@ -43,9 +43,9 @@ class AdminUsers extends Controller
 
     // new User Update Business Timining
     public function addUser_business_timing()
-    {   
+    {
         $user_details = DB::table('user_details')->where('status', 1)->orderBy('user_id', 'desc')->first();
-        
+
         $lastInsertId = $user_details->user_id;
 
         $other = DB::table('user_other_information')->where('user_id', $lastInsertId )->get();
@@ -255,27 +255,35 @@ class AdminUsers extends Controller
         	$status = 1;
         }
 
-        // update user details
-        $update = DB::table('user_details')->where('user_id', $user_id)->update(
-            array(
-                    'status' => $status
-            )
-        );
+        // first check if the user have updated their city, area and pincode / location information
 
-        // update user location
-        $update_location = DB::table('user_location')->where('user_id', $user_id)->update(
-            array(
-                    'status' => $status
-            )
-        );
+        $check = Db::table('user_location')->where('user_id', $user_id)->first();
 
-        if($update)
+        // if yes then Active this user
+        if(!empty($check->city) && !empty($check->area) && !empty($check->pincode))
         {
-            $status = 'User successfully.';
+            // update user details
+            $update = DB::table('user_details')->where('user_id', $user_id)->update(array('status' => $status));
+
+            // update user location
+            $update_location = DB::table('user_location')->where('user_id', $user_id)->update(array('status' => $status));
+
+            $update = 1;
         }
         else
         {
-            $status = 'Something went wrong !';
+            // If not then hit error and send email to this user to information that update your location information like area pincode
+
+            $update = 0;
+        }
+
+        if($update)
+        {
+            $status = 'Client Updated Successfully.';
+        }
+        else
+        {
+            $status = 'Client did not update their location information ! Inform client to update their location information.';
         }
 
         return redirect('users')->with('status', $status);

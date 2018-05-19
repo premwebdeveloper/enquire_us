@@ -17,7 +17,7 @@
         <h2>
             <a href="{{ route('addUser_basic_information') }}" class="btn btn-info">Add User</a>
         </h2>
-    </div> 
+    </div>
 </div>
 
 <div class="wrapper wrapper-content animated fadeInRight">
@@ -36,8 +36,12 @@
 
 	            <div class="ibox-content">
                     @if(session('status'))
-                       <div class="alert alert-success">{{ session('status') }}</div>
+                        <div class="alert alert-success alert-dismissible">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            {{ session('status') }}
+                        </div>
                     @endif
+
 	                <div class="table-responsive">
 	                    <table class="table table-striped table-bordered table-hover dataTables-example">
 	                        <thead>
@@ -71,6 +75,8 @@
 	                                        @endif
 	                                    </td>
 	                                </tr>
+
+                                    <!-- active / inactive user modal -->
 									<div id="{{$user->user_id}}" class="modal fade" role="dialog">
 										<div class="modal-dialog">
 											<div class="modal-content">
@@ -79,15 +85,10 @@
 												<h4 class="modal-title"><i class="fa fa-trash"></i> User Approval</h4>
 											  </div>
 											  <div class="modal-body">
-
 												<form method="post" action="{{route('active_inactive')}}">
-
 													{{ csrf_field() }}
-
-													<input type="hidden" id="delt" name="user_id" value="{{$user->user_id}}">
-
-													<input type="hidden" id="status" name="status" value="{{$user->status}}">
-
+													<input type="hidden" name="user_id" value="{{$user->user_id}}">
+													<input type="hidden" name="status" value="{{$user->status}}">
 													<p>
 													  	@if($user->status==2)
 															Are you sure you want to Active this client ?
@@ -95,17 +96,15 @@
 															Are you sure you want to Inactive this client ?
 														@endif
 
-														<button class="btn btn-danger pull-right" type="submit" name="delete" value="{{$user->user_id}}">Yes</button>
+														<button class="btn btn-danger pull-right" type="submit" name="approve" value="{{$user->user_id}}">Yes</button>
 
 													</p>
-
 												</form>
 											  </div>
-
 											</div>
-
 										</div>
 									</div>
+
 	                            @endforeach
 
 	                        </tbody>
