@@ -32,7 +32,13 @@ class HomeController extends Controller
 
     public function index()
     {
-        $category = DB::table('category')->where('status', 1)->get();
+        $category = DB::table('category')
+                    ->join('websites_page_head_titles', 'websites_page_head_titles.category', '=', 'category.id')
+                    ->where('category.status', 1)
+                    ->where('websites_page_head_titles.subcategory', null)
+                    ->where('websites_page_head_titles.area', null)
+                    ->select('category.*', 'websites_page_head_titles.page_url')
+                    ->get();
 
         $sliders = DB::table('slider')->get();
 
@@ -82,19 +88,26 @@ class HomeController extends Controller
 
         if($title_status == 1) {        // If title is category
 
-            $categories = DB::table('category')->where('status', 1)->get();
+            $categories = DB::table('category')
+                    ->join('websites_page_head_titles', 'websites_page_head_titles.category', '=', 'category.id')
+                    ->where('category.status', 1)
+                    ->where('websites_page_head_titles.subcategory', null)
+                    ->where('websites_page_head_titles.area', null)
+                    ->select('category.*', 'websites_page_head_titles.page_url')
+                    ->get();
 
             $query = DB::table('user_keywords')
                 ->join('category', 'category.id', '=', 'user_keywords.keyword_id')
                 ->join('user_details', 'user_keywords.user_id', '=', 'user_details.user_id')
                 ->join('user_location', 'user_location.user_id', '=', 'user_details.user_id')
+                ->join('websites_page_head_titles', 'websites_page_head_titles.business_page', '=', 'user_details.user_id')
                 ->where('user_keywords.keyword_identity', 1)
                 ->where('user_location.status', 1)
                 ->where('user_details.status', 1);
 
                 $query->where('category.id', $title_id);
 
-                $query->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country');
+                $query->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country', 'websites_page_head_titles.page_url');
 
                 $clients = $query->get();
 
@@ -102,19 +115,26 @@ class HomeController extends Controller
         }
         elseif ($title_status == 2) {   // If title is sub category
 
-            $categories = DB::table('category')->where('status', 1)->get();
+            $categories = DB::table('category')
+                    ->join('websites_page_head_titles', 'websites_page_head_titles.category', '=', 'category.id')
+                    ->where('category.status', 1)
+                    ->where('websites_page_head_titles.subcategory', null)
+                    ->where('websites_page_head_titles.area', null)
+                    ->select('category.*', 'websites_page_head_titles.page_url')
+                    ->get();
 
             $query = DB::table('user_keywords')
                 ->join('subcategory', 'subcategory.id', '=', 'user_keywords.keyword_id')
                 ->join('user_details', 'user_keywords.user_id', '=', 'user_details.user_id')
                 ->join('user_location', 'user_location.user_id', '=', 'user_details.user_id')
+                ->join('websites_page_head_titles', 'websites_page_head_titles.business_page', '=', 'user_details.user_id')
                 ->where('user_keywords.keyword_identity', 2)
                 ->where('user_location.status', 1)
                 ->where('user_details.status', 1);
 
                 $query->where('subcategory.id', $title_id);
 
-                $query->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country');
+                $query->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country', 'websites_page_head_titles.page_url');
 
                  $clients = $query->get();
 
@@ -156,7 +176,13 @@ class HomeController extends Controller
         $category = str_replace("-", " ", $category);
 
         // get all categories to show
-        $categories = DB::table('category')->where('status', 1)->get();
+        $categories = DB::table('category')
+                    ->join('websites_page_head_titles', 'websites_page_head_titles.category', '=', 'category.id')
+                    ->where('category.status', 1)
+                    ->where('websites_page_head_titles.subcategory', null)
+                    ->where('websites_page_head_titles.area', null)
+                    ->select('category.*', 'websites_page_head_titles.page_url')
+                    ->get();
 
         // Get this keyword / category'sclient and their details
         $clients = DB::table('user_keywords')
@@ -173,20 +199,25 @@ class HomeController extends Controller
 
     public function view(Request $request)
     {
-        $title = 'Category View';
-        $meta_description = 'Category View description';
-        $meta_keywords = 'Category View keywords';
-
-        $businesswitharea = $request->businesswitharea;
-
-        $business = $request->business;
-
-        $business = Crypt::decrypt($business);
-
-        //dd($business);
-
+        $business_url = $request->business_url;
         $id = $request->id;
         $user_id = Crypt::decrypt($id);
+
+        // Get client page titles
+        $page_titles = DB::table('websites_page_head_titles')->where(['business_page' => $user_id, 'status' => 1])->first();
+
+        if(!empty($page_titles))
+        {
+            $title = $page_titles->title;
+            $meta_description = $page_titles->keyword;
+            $meta_keywords = $page_titles->description;
+        }
+        else
+        {
+            $title = '';
+            $meta_description = '';
+            $meta_keywords = '';
+        }
 
         // Get client all details
         $client = DB::table('user_details')

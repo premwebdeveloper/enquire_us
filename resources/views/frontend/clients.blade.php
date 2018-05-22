@@ -20,7 +20,7 @@
                                         $cat_name = preg_replace('/[^A-Za-z0-9\-]/', '-', $cat_name);
                                         $encrypted = Crypt::encrypt($category->id);
                                     ?>
-                                    <a href="{{ URL::to('category',array('category' => $cat_name, 'id' => $encrypted)) }}" class="list-group-item">
+                                    <a href="{{ URL::to('category',array('category' => $category->page_url, 'id' => $encrypted)) }}" class="list-group-item">
                                         {{ $category->category }}
                                     </a>
                                 @endforeach
@@ -34,6 +34,12 @@
                             <h1 class="brand-header">Latest offers </h1>
                         </div>
 
+                        <?php
+                        // echo '<pre>';
+                        // print_r($clients);
+                        // exit;
+                        ?>
+
 						<div class="row">
                             @if(!empty($clients[0]))
                                 @foreach($clients as $client)
@@ -43,14 +49,10 @@
 
                                         <?php
                                         $business_name = $client->business_name;
-                                        $business_name = preg_replace('/[^A-Za-z0-9\-]/', '-', $business_name);
-
-                                        $area_name = preg_replace('/[^A-Za-z0-9\-]/', '-', $client->area);
-                                        $business_name = $business_name.'-in-'.$area_name;
                                         ?>
 
     									<div class="vendor-image">
-    										<a href="{{ URL::to('view', array('businesswitharea'=>$business_name, 'business'=>Crypt::encrypt($client->business_name), 'id'=>Crypt::encrypt($client->user_id) )) }}">
+    										<a href="{{ URL::to('view', array('business_url' => $client->page_url, 'id' => Crypt::encrypt($client->user_id) )) }}">
                                                 <?php
                                                     if(!empty($client->logo))
                                                     {

@@ -31,7 +31,7 @@
     # Get all clients for perticular category
     Route::any('category/{category}/{id}', 'HomeController@category');
     Route::any('webpage/{webpage}', 'HomeController@webpage');
-    Route::any('view/{businesswitharea}/{business}/{id}', 'HomeController@view')->name('view');
+    Route::any('view/{business_url}/{id}', 'HomeController@view')->name('view');
 
     # Subcribers route
     Route::post('subscribers', 'HomeController@subscribers')->name('subscribers');

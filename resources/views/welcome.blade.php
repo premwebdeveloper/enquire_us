@@ -20,7 +20,7 @@
                                     $cat_name = preg_replace('/[^A-Za-z0-9\-]/', '-', $cat_name);
                                     $encrypted = Crypt::encrypt($cat->id);
                                 ?>
-								    <a class="cata-box" href="{{ URL::to('category',array('category' => $cat_name, 'id' => $encrypted)) }}">
+								    <a class="cata-box" href="{{ URL::to('category',array('category' => $cat->page_url, 'id' => $encrypted)) }}">
                                         <span>
         									<img src="resources/frontend_assets//images/food.png" alt="{{ $cat->category }}" />{{ $cat->category }}
                                         </span>
