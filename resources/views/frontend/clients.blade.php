@@ -18,8 +18,9 @@
                                     <?php
                                         $cat_name = $category->category;
                                         $cat_name = preg_replace('/[^A-Za-z0-9\-]/', '-', $cat_name);
+                                        $encrypted = Crypt::encrypt($category->id);
                                     ?>
-                                    <a href="{{ URL::to('category',array('category'=>$cat_name)) }}" class="list-group-item">
+                                    <a href="{{ URL::to('category',array('category' => $cat_name, 'id' => $encrypted)) }}" class="list-group-item">
                                         {{ $category->category }}
                                     </a>
                                 @endforeach

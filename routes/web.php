@@ -24,12 +24,12 @@
     Route::any('/', 'HomeController@index')->name('/');
     Route::any('/home', 'HomeController@index')->name('home');
     # Filter data according to location and any keyword
-    Route::any('filter/{location}/{cat}/{encoded}', [
+    Route::any('filter/{location}/{page_url}/{encoded}', [
         "uses" => 'HomeController@filter',
         "as" => 'filter'
     ]);
     # Get all clients for perticular category
-    Route::any('category/{category}', 'HomeController@category');
+    Route::any('category/{category}/{id}', 'HomeController@category');
     Route::any('webpage/{webpage}', 'HomeController@webpage');
     Route::any('view/{businesswitharea}/{business}/{id}', 'HomeController@view')->name('view');
 

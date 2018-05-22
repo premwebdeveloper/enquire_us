@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 14, 2018 at 12:42 PM
+-- Generation Time: May 22, 2018 at 02:20 PM
 -- Server version: 10.1.26-MariaDB
 -- PHP Version: 7.1.8
 
@@ -45,10 +45,10 @@ CREATE TABLE `areas` (
 --
 
 INSERT INTO `areas` (`id`, `country`, `state`, `city`, `area`, `pincode`, `created_at`, `updated_at`, `status`) VALUES
-(1, 101, 33, 3378, 'vidhyadhar nagar', 0, '2018-03-12 13:32:48', '2018-03-12 13:32:48', 1),
-(2, 101, 33, 3378, 'malviya nagar', 0, '2018-03-12 13:33:17', '2018-03-12 13:33:17', 1),
-(3, 101, 33, 3378, 'shashtri nagar', 0, '2018-03-12 13:33:28', '2018-03-12 13:33:28', 1),
-(4, 101, 33, 3378, 'murlipura', 0, '2018-03-12 13:33:39', '2018-03-12 13:33:39', 1),
+(1, 101, 33, 3378, 'vidhyadhar nagar', 302039, '2018-03-12 13:32:48', '2018-03-12 13:32:48', 1),
+(2, 101, 33, 3378, 'malviya nagar', 302022, '2018-03-12 13:33:17', '2018-03-12 13:33:17', 1),
+(3, 101, 33, 3378, 'shashtri nagar', 302021, '2018-03-12 13:33:28', '2018-03-12 13:33:28', 1),
+(4, 101, 33, 3378, 'murlipura', 302023, '2018-03-12 13:33:39', '2018-03-12 13:33:39', 1),
 (5, 101, 33, 3378, 'bani park', 0, '2018-03-12 13:33:50', '2018-03-12 13:33:50', 1),
 (6, 101, 33, 3378, 'vaishali nagar', 0, '2018-03-12 13:34:02', '2018-03-12 13:34:02', 1),
 (7, 101, 33, 3378, 'sitapura', 0, '2018-04-24 14:53:39', '2018-04-24 14:53:39', 1),
@@ -78,7 +78,7 @@ CREATE TABLE `category` (
 --
 
 INSERT INTO `category` (`id`, `category`, `description`, `created_at`, `updated_at`, `status`) VALUES
-(1, 'dhaba', 'description', '2018-04-24 14:53:15', '2018-04-24 15:26:22', 1),
+(1, 'dhaba dhaba', 'description', '2018-04-24 14:53:15', '2018-05-17 14:35:02', 1),
 (2, 'Restaurant star', NULL, '2018-02-07 14:02:04', '2018-02-07 14:02:04', 1),
 (3, 'Hotel', NULL, '2018-02-06 14:37:52', '2018-02-06 14:37:52', 1),
 (4, 'Fashion', NULL, '2018-02-07 13:40:57', '2018-02-07 13:40:57', 1),
@@ -54085,11 +54085,12 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `phone`, `password`, `remember_token`, `verify_token`, `created_at`, `updated_at`, `status`) VALUES
-(1, 'Administrator', 'admin@admin.com', '8003947560', '$2y$10$HjMrFSc/mNuJWcM23w5C4u73.EU3Lxcwi.5pLxLQB0SzBVqJsYL8W', 'NFIFTDjHIamo97DjvCa2FbmYCHJWG3bOhFu1GjBfihlbK4bfV1XOTpzfsJS4', NULL, '2018-01-18 07:49:49', '2018-01-18 07:49:49', 1),
-(8, 'Prem saini', 'prem_saini@hotmail.com', '9602947878', '$2y$10$tNn5eNlmSWi5LJ3hIh7EduubauY9IEvAnUayhsysaoy2Ng98cWzI.', '38qHohYZ6cM0cFFhV15MMvvoHcKAyhxmlKbBVHyySYgpVpa8LfKsI2MoV5br', 'h1Y7DLQ8fUrFtYkY8uenFvYolTwc3SIuTajJ2J69', '2018-01-31 09:43:12', '2018-01-31 09:43:12', 1),
+(1, 'Administrator', 'admin@admin.com', '8003947560', '$2y$10$HjMrFSc/mNuJWcM23w5C4u73.EU3Lxcwi.5pLxLQB0SzBVqJsYL8W', 'VwucYgnsddw7GfQWeB60xyFIOUTHEuy3WQsJnih6VYqNN5hL5VqdYD5KLDWl', NULL, '2018-01-18 07:49:49', '2018-01-18 07:49:49', 1),
+(8, 'Prem saini', 'prem_saini@hotmail.com', '9602947878', '$2y$10$tNn5eNlmSWi5LJ3hIh7EduubauY9IEvAnUayhsysaoy2Ng98cWzI.', 'iH9tbZjmuIAlUyrOqvt7SienQ5hVSPrpPjawpLGwTcn5SsRkmy7YltwATQ4Y', 'h1Y7DLQ8fUrFtYkY8uenFvYolTwc3SIuTajJ2J69', '2018-01-31 09:43:12', '2018-01-31 09:43:12', 1),
 (10, 'Amit Sharma', 'amitsharma6681@gmail.com', '8003947560', '$2y$10$bL0ypdA4HTnmOEZahLYR8uZA7gOpcuM32z0gVL5DObxs4B8N1D05K', '68fcAzdQERNI5sfAb20fJBbnqWQmzGYZwdJqDACpW0nr7ogbczkuvywPws2y', 'BanU4rns7mNtrh3uLzhDhcTJoCvvr3NMRumMLvPX', '2018-03-06 07:49:41', '2018-03-06 07:49:41', 1),
-(11, 'Saini Prem', 'premsaini9602@gmail.com', '8005609866', '$2y$10$vFpRhPz2DwdV8N3t2UcpkemX3ekMJUlvrBiQpgb8Y.D/HWivsHtSe', '6ted3nbqV6cnMOw50Yyte8I4Fjs9wkHY94x7HRi0XqHy1ncqKsJUopsh6lo2', 'oYuuifmHbhAQZxaYKXH4ejiJl3ZJwUmF9z0lWej1', '2018-03-06 08:03:45', '2018-03-06 08:03:45', 1),
-(12, 'prem', 'premsaini@gmail.com', '9602947878', '$2y$10$xsxbhDL57EuSnUnx90kG.era7tL40Kv6JQxz1cY8F26fCHZLxMuEK', 'Ob75nc7cRsbhiTqGUh2ZPJ5vSpzTIkojtQfuFSPXPlK1dBbXsOjlLh5IQX0c', NULL, '2018-04-12 07:10:40', '2018-04-12 07:10:40', 1);
+(11, 'Saini Prem', 'premsaini9602@gmail.com', '8005609866', '$2y$10$vFpRhPz2DwdV8N3t2UcpkemX3ekMJUlvrBiQpgb8Y.D/HWivsHtSe', 'tFEsRRj5A75kmmbjdgiPzO27M0vaflCR3YEpgOv80Q32KdXOUEC2kvCIkTNj', 'oYuuifmHbhAQZxaYKXH4ejiJl3ZJwUmF9z0lWej1', '2018-03-06 08:03:45', '2018-03-06 08:03:45', 1),
+(12, 'prem', 'premsaini@gmail.com', '9602947878', '$2y$10$xsxbhDL57EuSnUnx90kG.era7tL40Kv6JQxz1cY8F26fCHZLxMuEK', 'Ob75nc7cRsbhiTqGUh2ZPJ5vSpzTIkojtQfuFSPXPlK1dBbXsOjlLh5IQX0c', NULL, '2018-04-12 07:10:40', '2018-04-12 07:10:40', 1),
+(14, 'prem singhania', 'premsinghania2402@gmail.com', '8005609866', '$2y$10$yvIG6rB9AbJVRwgsopg9z.m3KLMUhjrl.CtTDvplokYjYWYUuReA2', NULL, NULL, '2018-05-19 07:45:19', '2018-05-19 07:45:52', 1);
 
 -- --------------------------------------------------------
 
@@ -54120,7 +54121,9 @@ INSERT INTO `user_company_information` (`id`, `user_id`, `payment_mode`, `year_e
 (2, 8, '3|4|5|9|10|11', '2015', '1515151515', '1000-2000', 'Professional Associations', 'Certifications', '2018-02-13 15:12:51', '2018-02-13 15:12:51', 1, 1),
 (4, 10, '3|4', '2005', '10000', '10-100', 'profs', 'ceertifies', '2018-03-06 13:30:49', '2018-03-06 13:30:49', 1, 1),
 (5, 11, NULL, NULL, NULL, NULL, NULL, NULL, '2018-03-06 13:33:45', '2018-03-06 13:33:45', 1, 1),
-(6, 12, NULL, NULL, NULL, NULL, NULL, NULL, '2018-04-12 12:40:40', '2018-04-12 12:40:40', 1, 1);
+(6, 12, NULL, NULL, NULL, NULL, NULL, NULL, '2018-04-12 12:40:40', '2018-04-12 12:40:40', 1, 1),
+(7, 13, NULL, NULL, NULL, NULL, NULL, NULL, '2018-05-19 13:08:55', '2018-05-19 13:08:55', 1, 1),
+(8, 14, NULL, NULL, NULL, NULL, NULL, NULL, '2018-05-19 13:15:19', '2018-05-19 13:15:19', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -54156,7 +54159,8 @@ INSERT INTO `user_details` (`id`, `user_id`, `name`, `designation`, `email`, `la
 (4, 8, 'Prem saini', 'PHP Developer', 'prem_saini@hotmail.com', '0141 - 222333', '0141 - 235689', '0141 - 798456', '1800 9602 7878', '1800 8005 9866', 'http://www.dexusmedia.com', '9602947878', '14fa3d.jpg', '2018-01-31 09:43:12', '2018-02-06 07:59:53', 1, 1),
 (6, 10, 'Amit Sharma', NULL, 'amitsharma6681@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, '8003947560', NULL, '2018-03-06 07:49:41', '2018-03-06 07:49:41', 1, 1),
 (7, 11, 'Saini Prem', NULL, 'premsaini9602@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, '8005609866', 'eb6581.jpg', '2018-03-06 08:03:45', '2018-03-06 08:03:45', 1, 1),
-(8, 12, 'prem', NULL, 'premsaini@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, '9602947878', NULL, '2018-04-12 07:10:40', '2018-04-12 07:10:40', 1, 1);
+(8, 12, 'prem', NULL, 'premsaini@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, '9602947878', NULL, '2018-04-12 07:10:40', '2018-04-12 07:10:40', 1, 1),
+(10, 14, 'prem singhania', NULL, 'premsinghania2402@gmail.com', NULL, NULL, NULL, NULL, NULL, NULL, '8005609866', NULL, '2018-05-19 07:45:19', '2018-05-19 07:45:19', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -54215,7 +54219,11 @@ INSERT INTO `user_keywords` (`id`, `user_id`, `keyword_id`, `keyword_identity`, 
 (59, 11, 2, 1, '2018-05-08 13:30:50', '2018-05-08 13:30:50', 0, 1),
 (60, 11, 1, 1, '2018-05-08 13:31:08', '2018-05-08 13:31:08', 0, 1),
 (61, 11, 1, 2, '2018-05-08 13:31:14', '2018-05-08 13:31:14', 0, 1),
-(62, 11, 4, 2, '2018-05-08 13:31:19', '2018-05-08 13:31:19', 0, 1);
+(62, 11, 4, 2, '2018-05-08 13:31:19', '2018-05-08 13:31:19', 0, 1),
+(63, 14, 3, 1, '2018-05-19 13:19:40', '2018-05-19 13:20:08', 0, 0),
+(64, 14, 1, 1, '2018-05-19 13:20:18', '2018-05-19 13:20:18', 0, 1),
+(65, 14, 1, 2, '2018-05-19 13:28:20', '2018-05-19 13:28:20', 0, 1),
+(66, 14, 4, 2, '2018-05-19 13:28:20', '2018-05-19 13:28:20', 0, 1);
 
 -- --------------------------------------------------------
 
@@ -54230,8 +54238,8 @@ CREATE TABLE `user_location` (
   `building` varchar(255) DEFAULT NULL,
   `street` varchar(255) DEFAULT NULL,
   `landmark` varchar(255) DEFAULT NULL,
-  `area` varchar(255) DEFAULT NULL,
-  `city` varchar(255) DEFAULT NULL,
+  `area` int(11) DEFAULT NULL,
+  `city` int(11) DEFAULT NULL,
   `pincode` varchar(6) DEFAULT NULL,
   `state` varchar(255) DEFAULT NULL,
   `country` varchar(255) DEFAULT NULL,
@@ -54246,10 +54254,11 @@ CREATE TABLE `user_location` (
 --
 
 INSERT INTO `user_location` (`id`, `user_id`, `business_name`, `building`, `street`, `landmark`, `area`, `city`, `pincode`, `state`, `country`, `created_at`, `updated_at`, `update_status`, `status`) VALUES
-(2, 8, 'Resto Dexus Media', 'Unnati Tower', 'Central Spine', 'Opposite - Dana Shivam Hospital', 'Vidhyadhar Nagar', 'Jaipur', '302001', 'Rajasthan', 'India', '2018-01-31 15:13:12', '2018-02-06 14:29:02', 1, 1),
-(4, 10, 'Hotel Dexus', 'unnati tower', 'central spine', 'oppo dana shivam hospital', 'murlipura', 'Jaipur', '591', 'Rajasthan', 'India', '2018-03-06 13:19:41', '2018-03-06 13:32:49', 1, 1),
-(5, 11, 'Hotel Jannat', NULL, NULL, NULL, 'murlipura', NULL, NULL, NULL, NULL, '2018-03-06 13:33:45', '2018-03-06 13:33:45', 1, 1),
-(6, 12, 'ITQerty', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-04-12 12:40:40', '2018-04-12 12:40:40', 1, 1);
+(2, 8, 'Resto Dexus Media', 'Unnati Tower', 'Central Spine', 'Opposite - Dana Shivam Hospital', 1, 3378, '302039', 'Rajasthan', 'India', '2018-01-31 15:13:12', '2018-05-17 14:28:28', 1, 1),
+(4, 10, 'Hotel Dexus', 'unnati tower', 'central spine', 'oppo dana shivam hospital', 4, 3378, '302023', 'Rajasthan', 'India', '2018-03-06 13:19:41', '2018-03-06 13:32:49', 1, 1),
+(5, 11, 'Hotel Jannat jannat', 'unnati tower', 'central spine', 'oppo shekhawati hospital', 1, 3378, '302039', 'Rajasthan', 'India', '2018-03-06 13:33:45', '2018-05-19 12:56:12', 1, 1),
+(6, 12, 'ITQerty', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2018-04-12 12:40:40', '2018-04-12 12:40:40', 1, 1),
+(8, 14, 'singhania corp', NULL, NULL, NULL, 2, 3378, '302022', 'Rajasthan', 'India', '2018-05-19 13:15:19', '2018-05-21 13:22:47', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -54331,7 +54340,21 @@ INSERT INTO `user_other_information` (`id`, `user_id`, `operation_timing`, `day`
 (81, 12, 2, 'thursday', NULL, NULL, 0, '2018-04-12 12:40:40', '2018-04-12 12:40:40', 1, 1),
 (82, 12, 2, 'friday', NULL, NULL, 0, '2018-04-12 12:40:40', '2018-04-12 12:40:40', 1, 1),
 (83, 12, 2, 'saturday', NULL, NULL, 0, '2018-04-12 12:40:40', '2018-04-12 12:40:40', 1, 1),
-(84, 12, 2, 'sunday', NULL, NULL, 0, '2018-04-12 12:40:40', '2018-04-12 12:40:40', 1, 1);
+(84, 12, 2, 'sunday', NULL, NULL, 0, '2018-04-12 12:40:40', '2018-04-12 12:40:40', 1, 1),
+(99, 14, 1, 'monday', NULL, NULL, 0, '2018-05-19 13:15:19', '2018-05-19 13:15:19', 1, 1),
+(100, 14, 1, 'tuesday', NULL, NULL, 0, '2018-05-19 13:15:19', '2018-05-19 13:15:19', 1, 1),
+(101, 14, 1, 'wednesday', NULL, NULL, 0, '2018-05-19 13:15:19', '2018-05-19 13:15:19', 1, 1),
+(102, 14, 1, 'thursday', NULL, NULL, 0, '2018-05-19 13:15:19', '2018-05-19 13:15:19', 1, 1),
+(103, 14, 1, 'friday', NULL, NULL, 0, '2018-05-19 13:15:19', '2018-05-19 13:15:19', 1, 1),
+(104, 14, 1, 'saturday', NULL, NULL, 0, '2018-05-19 13:15:19', '2018-05-19 13:15:19', 1, 1),
+(105, 14, 1, 'sunday', NULL, NULL, 0, '2018-05-19 13:15:19', '2018-05-19 13:15:19', 1, 1),
+(106, 14, 2, 'monday', NULL, NULL, 0, '2018-05-19 13:15:19', '2018-05-19 13:15:19', 1, 1),
+(107, 14, 2, 'tuesday', NULL, NULL, 0, '2018-05-19 13:15:19', '2018-05-19 13:15:19', 1, 1),
+(108, 14, 2, 'wednesday', NULL, NULL, 0, '2018-05-19 13:15:19', '2018-05-19 13:15:19', 1, 1),
+(109, 14, 2, 'thursday', NULL, NULL, 0, '2018-05-19 13:15:19', '2018-05-19 13:15:19', 1, 1),
+(110, 14, 2, 'friday', NULL, NULL, 0, '2018-05-19 13:15:19', '2018-05-19 13:15:19', 1, 1),
+(111, 14, 2, 'saturday', NULL, NULL, 0, '2018-05-19 13:15:19', '2018-05-19 13:15:19', 1, 1),
+(112, 14, 2, 'sunday', NULL, NULL, 0, '2018-05-19 13:15:19', '2018-05-19 13:15:19', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -54356,7 +54379,8 @@ INSERT INTO `user_roles` (`id`, `role_id`, `user_id`, `created_at`, `updated_at`
 (5, 2, 8, '2018-01-31 09:43:12', '2018-01-31 09:43:12'),
 (7, 2, 10, '2018-03-06 07:49:41', '2018-03-06 07:49:41'),
 (8, 2, 11, '2018-03-06 08:03:45', '2018-03-06 08:03:45'),
-(9, 2, 12, '2018-04-12 07:10:40', '2018-04-12 07:10:40');
+(9, 2, 12, '2018-04-12 07:10:40', '2018-04-12 07:10:40'),
+(11, 2, 14, '2018-05-19 07:45:19', '2018-05-19 07:45:19');
 
 -- --------------------------------------------------------
 
@@ -54387,7 +54411,6 @@ CREATE TABLE `websites_page_head_titles` (
 
 INSERT INTO `websites_page_head_titles` (`id`, `category`, `subcategory`, `city`, `area`, `business_page`, `page_url`, `title`, `keyword`, `description`, `created_at`, `updated_at`, `update_status`, `status`) VALUES
 (1, NULL, NULL, NULL, NULL, NULL, 'about', 'about title', 'about keyword', 'about description', '2018-05-09 14:03:14', '2018-05-09 14:03:14', 1, 1),
-(2, NULL, NULL, NULL, NULL, '10', 'Hotel-Dexus-in-murlipura', 'hotel dexus title', 'hotel dexus keyword', 'hotel dexus description', '2018-05-09 14:04:17', '2018-05-09 14:04:17', 1, 1),
 (3, 1, NULL, 3378, NULL, NULL, 'dhaba', 'title dhaba in jaipur', 'keyword dhaba in jaipur', 'description dhaba in jaipur', '2018-05-09 14:06:03', '2018-05-09 15:09:21', 1, 1),
 (4, 1, NULL, 3378, 1, NULL, 'dhaba-in-vidhyadhar-nagar', 'title dhaba in vidhyadhar nagar', 'keyword dhaba in vidhyadhar nagar', 'description dhaba in vidhyadhar nagar', '2018-05-09 14:06:03', '2018-05-09 14:06:03', 1, 1),
 (5, 1, NULL, 3378, 2, NULL, 'dhaba-in-malviya-nagar', 'title dhaba in malviya nagar', 'keyword dhaba in malviya nagar', 'description dhaba in malviya nagar', '2018-05-09 14:06:03', '2018-05-09 14:06:03', 1, 1),
@@ -54426,7 +54449,36 @@ INSERT INTO `websites_page_head_titles` (`id`, `category`, `subcategory`, `city`
 (41, 4, NULL, 3378, 9, NULL, 'Fashion-in-sodala', 'fashion title in sodala', 'fashion keyword in sodala', 'fashion description in sodala', '2018-05-09 14:20:30', '2018-05-09 14:20:30', 1, 1),
 (42, 4, NULL, 3378, 10, NULL, 'Fashion-in-raja-park', 'fashion title in raja park', 'fashion keyword in raja park', 'fashion description in raja park', '2018-05-09 14:20:30', '2018-05-09 14:20:30', 1, 1),
 (43, 4, NULL, 3378, 11, NULL, 'Fashion-in-mansarovar', 'fashion title in mansarovar', 'fashion keyword in mansarovar', 'fashion description in mansarovar', '2018-05-09 14:20:30', '2018-05-09 14:20:30', 1, 1),
-(44, 4, NULL, 3378, 12, NULL, 'Fashion-in-amba-bari', 'fashion title in amba bari', 'fashion keyword in amba bari', 'fashion description in amba bari', '2018-05-09 14:20:30', '2018-05-09 14:20:30', 1, 1);
+(44, 4, NULL, 3378, 12, NULL, 'Fashion-in-amba-bari', 'fashion title in amba bari', 'fashion keyword in amba bari', 'fashion description in amba bari', '2018-05-09 14:20:30', '2018-05-09 14:20:30', 1, 1),
+(45, NULL, NULL, 3378, 2, '8', 'Resto-Dexus-Media-in-malviya-nagar', 'Resto Dexus Media in malviya nagar', 'Resto Dexus Media in malviya nagar', 'Resto Dexus Media in malviya nagar', '2018-05-17 14:27:08', '2018-05-17 14:27:08', 1, 1),
+(46, NULL, NULL, 3378, 3, '11', 'Hotel-Jannat-in-shashtri-nagar', 'Hotel Jannat jannat in shashtri nagar', 'Hotel Jannat jannat in shashtri nagar', 'Hotel Jannat jannat in shashtri nagar', '2018-05-17 14:30:40', '2018-05-17 14:36:27', 1, 1),
+(47, 1, 4, 3378, NULL, NULL, 'Pizza-Hut', 'pizza hut in jaipur title', 'pizza hut in jaipur keyword', 'pizza hut in jaipur description', '2018-05-19 13:29:26', '2018-05-19 13:29:26', 1, 1),
+(48, 1, 4, 3378, 1, NULL, 'Pizza-Hut-in-vidhyadhar-nagar', 'pizza hut in vidhyadhar nagar title', 'pizza hut in vidhyadhar nagar keyword', 'pizza hut in vidhyadhar nagar description', '2018-05-19 13:29:26', '2018-05-19 13:29:26', 1, 1),
+(49, 1, 4, 3378, 2, NULL, 'Pizza-Hut-in-malviya-nagar', 'pizza hut in malviya nagar title', 'pizza hut in malviya nagar keyword', 'pizza hut in malviya nagar description', '2018-05-19 13:29:26', '2018-05-19 13:29:26', 1, 1),
+(50, 1, 4, 3378, 3, NULL, 'Pizza-Hut-in-shashtri-nagar', 'pizza hut in shashtri nagar title', 'pizza hut in shashtri nagar keyword', 'pizza hut in shashtri nagar description', '2018-05-19 13:29:26', '2018-05-19 13:29:26', 1, 1),
+(51, 1, 4, 3378, 4, NULL, 'Pizza-Hut-in-murlipura', 'pizza hut in murlipura title', 'pizza hut in murlipura keyword', 'pizza hut in murlipura description', '2018-05-19 13:29:26', '2018-05-19 13:29:26', 1, 1),
+(52, 1, 4, 3378, 5, NULL, 'Pizza-Hut-in-bani-park', 'pizza hut in bani park title', 'pizza hut in bani park keyword', 'pizza hut in bani park description', '2018-05-19 13:29:26', '2018-05-19 13:29:26', 1, 1),
+(53, 1, 4, 3378, 6, NULL, 'Pizza-Hut-in-vaishali-nagar', 'pizza hut in vaishali nagar title', 'pizza hut in vaishali nagar keyword', 'pizza hut in vaishali nagar description', '2018-05-19 13:29:26', '2018-05-19 13:29:26', 1, 1),
+(54, 1, 4, 3378, 7, NULL, 'Pizza-Hut-in-sitapura', 'pizza hut in sitapura title', 'pizza hut in sitapura keyword', 'pizza hut in sitapura description', '2018-05-19 13:29:26', '2018-05-19 13:29:26', 1, 1),
+(55, 1, 4, 3378, 8, NULL, 'Pizza-Hut-in-jagatpura', 'pizza hut in jagatpura title', 'pizza hut in jagatpura keyword', 'pizza hut in jagatpura description', '2018-05-19 13:29:26', '2018-05-19 13:29:26', 1, 1),
+(56, 1, 4, 3378, 9, NULL, 'Pizza-Hut-in-sodala', 'pizza hut in sodala title', 'pizza hut in sodala keyword', 'pizza hut in sodala description', '2018-05-19 13:29:26', '2018-05-19 13:29:26', 1, 1),
+(57, 1, 4, 3378, 10, NULL, 'Pizza-Hut-in-raja-park', 'pizza hut in raja park title', 'pizza hut in raja park keyword', 'pizza hut in raja park description', '2018-05-19 13:29:26', '2018-05-19 13:29:26', 1, 1),
+(58, 1, 4, 3378, 11, NULL, 'Pizza-Hut-in-mansarovar', 'pizza hut in mansarovar title', 'pizza hut in mansarovar keyword', 'pizza hut in mansarovar description', '2018-05-19 13:29:26', '2018-05-19 13:29:26', 1, 1),
+(59, 1, 4, 3378, 12, NULL, 'Pizza-Hut-in-amba-bari', 'pizza hut in amba bari title', 'pizza hut in amba bari keyword', 'pizza hut in amba bari description', '2018-05-19 13:29:26', '2018-05-19 13:29:26', 1, 1),
+(61, NULL, NULL, 3378, 2, '14', 'singhania-corp-in-malviya-nagar', 'singhania corp in malviya nagar', 'singhania corp in malviya nagar', 'singhania corp in malviya nagar', '2018-05-21 13:22:47', '2018-05-21 13:22:47', 1, 1),
+(62, 1, 1, 3378, NULL, NULL, 'Coffee-Shop', 'coffee shop in jaipur title', 'coffee shop in jaipur keyword', 'coffee shop in jaipur description', '2018-05-21 13:58:17', '2018-05-21 13:58:17', 1, 1),
+(63, 1, 1, 3378, 1, NULL, 'Coffee-Shop-in-vidhyadhar-nagar', 'coffee shop in vidhyadhar nagar title', 'coffee shop in vidhyadhar nagar keyword', 'coffee shop in vidhyadhar nagar description', '2018-05-21 13:58:17', '2018-05-21 13:58:17', 1, 1),
+(64, 1, 1, 3378, 2, NULL, 'Coffee-Shop-in-malviya-nagar', 'coffee shop in malviya nagar title', 'coffee shop in malviya nagar keyword', 'coffee shop in malviya nagar description', '2018-05-21 13:58:17', '2018-05-21 13:58:17', 1, 1),
+(65, 1, 1, 3378, 3, NULL, 'Coffee-Shop-in-shashtri-nagar', 'coffee shop in shashtri nagar title', 'coffee shop in shashtri nagar keyword', 'coffee shop in shashtri nagar description', '2018-05-21 13:58:17', '2018-05-21 13:58:17', 1, 1),
+(66, 1, 1, 3378, 4, NULL, 'Coffee-Shop-in-murlipura', 'coffee shop in murlipura title', 'coffee shop in murlipura keyword', 'coffee shop in murlipura description', '2018-05-21 13:58:17', '2018-05-21 13:58:17', 1, 1),
+(67, 1, 1, 3378, 5, NULL, 'Coffee-Shop-in-bani-park', 'coffee shop in bani park title', 'coffee shop in bani park keyword', 'coffee shop in bani park description', '2018-05-21 13:58:17', '2018-05-21 13:58:17', 1, 1),
+(68, 1, 1, 3378, 6, NULL, 'Coffee-Shop-in-vaishali-nagar', 'coffee shop in vaishali nagar title', 'coffee shop in vaishali nagar keyword', 'coffee shop in vaishali nagar description', '2018-05-21 13:58:17', '2018-05-21 13:58:17', 1, 1),
+(69, 1, 1, 3378, 7, NULL, 'Coffee-Shop-in-sitapura', 'coffee shop in sitapura title', 'coffee shop in sitapura keyword', 'coffee shop in sitapura description', '2018-05-21 13:58:17', '2018-05-21 13:58:17', 1, 1),
+(70, 1, 1, 3378, 8, NULL, 'Coffee-Shop-in-jagatpura', 'coffee shop in jagatpura title', 'coffee shop in jagatpura keyword', 'coffee shop in jagatpura description', '2018-05-21 13:58:17', '2018-05-21 13:58:17', 1, 1),
+(71, 1, 1, 3378, 9, NULL, 'Coffee-Shop-in-sodala', 'coffee shop in sodala title', 'coffee shop in sodala keyword', 'coffee shop in sodala description', '2018-05-21 13:58:17', '2018-05-21 13:58:17', 1, 1),
+(72, 1, 1, 3378, 10, NULL, 'Coffee-Shop-in-raja-park', 'coffee shop in raja park title', 'coffee shop in raja park keyword', 'coffee shop in raja park description', '2018-05-21 13:58:17', '2018-05-21 13:58:17', 1, 1),
+(73, 1, 1, 3378, 11, NULL, 'Coffee-Shop-in-mansarovar', 'coffee shop in mansarovar title', 'coffee shop in mansarovar keyword', 'coffee shop in mansarovar description', '2018-05-21 13:58:17', '2018-05-21 13:58:17', 1, 1),
+(74, 1, 1, 3378, 12, NULL, 'Coffee-Shop-in-amba-bari', 'coffee shop in amba bari title', 'coffee shop in amba bari keyword', 'coffee shop in amba bari description', '2018-05-21 13:58:17', '2018-05-21 13:58:17', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -54655,17 +54707,17 @@ ALTER TABLE `subscribers`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 --
 -- AUTO_INCREMENT for table `user_company_information`
 --
 ALTER TABLE `user_company_information`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `user_details`
 --
 ALTER TABLE `user_details`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `user_images`
 --
@@ -54675,27 +54727,27 @@ ALTER TABLE `user_images`
 -- AUTO_INCREMENT for table `user_keywords`
 --
 ALTER TABLE `user_keywords`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 --
 -- AUTO_INCREMENT for table `user_location`
 --
 ALTER TABLE `user_location`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 --
 -- AUTO_INCREMENT for table `user_other_information`
 --
 ALTER TABLE `user_other_information`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=113;
 --
 -- AUTO_INCREMENT for table `user_roles`
 --
 ALTER TABLE `user_roles`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `websites_page_head_titles`
 --
 ALTER TABLE `websites_page_head_titles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=75;
 --
 -- AUTO_INCREMENT for table `website_pages`
 --

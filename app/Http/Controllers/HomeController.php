@@ -47,14 +47,14 @@ class HomeController extends Controller
     public function filter(Request $request)
     {
         $location = $request->location;
-        $cat = $request->cat;
+        $page_url = $request->page_url;
         $encoded = $request->encoded;
 
         // decode encoded parameter
         $encoded = base64_decode(urldecode($encoded));
 
         // get page title for this page
-        $page_titles = DB::table('websites_page_head_titles')->where(array('status' => 1, 'page_url' => $cat))->first();
+        $page_titles = DB::table('websites_page_head_titles')->where(array('status' => 1, 'page_url' => $page_url))->first();
 
         if(!empty($page_titles))
         {
@@ -94,20 +94,6 @@ class HomeController extends Controller
 
                 $query->where('category.id', $title_id);
 
-                $temp = explode('-in-', $cat);
-
-                if(count($temp) > 1)
-                {
-                    $selected_area = $temp[1];
-
-                    $selected_area = str_replace("-", " ", $selected_area);
-
-                    if(!empty($selected_area))
-                    {
-                       $query->where('user_location.area', $selected_area);
-                    }
-                }
-
                 $query->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country');
 
                 $clients = $query->get();
@@ -127,20 +113,6 @@ class HomeController extends Controller
                 ->where('user_details.status', 1);
 
                 $query->where('subcategory.id', $title_id);
-
-                $temp = explode('-in-', $cat);
-
-                if(count($temp) > 1)
-                {
-                    $selected_area = $temp[1];
-
-                    $selected_area = str_replace("-", " ", $selected_area);
-
-                    if(!empty($selected_area))
-                    {
-                       $query->where('user_location.area', $selected_area);
-                    }
-                }
 
                 $query->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country');
 
@@ -164,17 +136,6 @@ class HomeController extends Controller
             // Get client images
             $images = DB::table('user_images')->where('user_id', $title_id)->get();
 
-            $actual_area = $client->area;
-            $actual_area = str_replace(" ","-",$actual_area);
-
-            $selected_company = explode('-in-', $cat);
-            $selected_company_area = $selected_company[1];
-
-            if($selected_company_area != $actual_area)
-            {
-                $client = array();
-            }
-
             return view('frontend.client_view', array('client' => $client, 'other_info' => $other_info, 'images' => $images, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords));
 
         }
@@ -190,18 +151,21 @@ class HomeController extends Controller
         $meta_keywords = 'Category keywords';
 
         $category = $request->category;
+        $cat_id = Crypt::decrypt($request->id);
 
         $category = str_replace("-", " ", $category);
 
+        // get all categories to show
         $categories = DB::table('category')->where('status', 1)->get();
 
+        // Get this keyword / category'sclient and their details
         $clients = DB::table('user_keywords')
             ->join('category', 'category.id', '=', 'user_keywords.keyword_id')
             ->join('user_details', 'user_keywords.user_id', '=', 'user_details.user_id')
             ->join('user_location', 'user_location.user_id', '=', 'user_details.user_id')
-            ->where(array('user_keywords.keyword_identity' => 1, 'category.category' => $category, 'user_details.status' => 1, 'user_location.status' => 1))
-            ->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country')
-            //->groupBy('user_id')
+            ->join('websites_page_head_titles', 'websites_page_head_titles.business_page', '=', 'user_details.user_id')
+            ->where(array('user_keywords.keyword_identity' => 1, 'category.id' => $cat_id, 'user_details.status' => 1, 'user_location.status' => 1))
+            ->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country', 'websites_page_head_titles.page_url')
             ->get();
 
         return view('frontend.clients', array('clients' => $clients, 'categories' => $categories, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords));
