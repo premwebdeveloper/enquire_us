@@ -588,8 +588,14 @@ class AjaxController extends Controller
         $data = array();
 
         // Get all matched category and their sub categories and show
-        $categories = DB::table('category');
-        $categories->where('category','LIKE','%'.$term.'%');
+        $categories = DB::table('category')
+                    ->join('websites_page_head_titles', 'websites_page_head_titles.category', '=', 'category.id')
+                    ->where('category.category','LIKE','%'.$term.'%')
+                    ->where('category.status', '=', 1)
+                    ->where('websites_page_head_titles.subcategory', '=', null)
+                    ->where('websites_page_head_titles.area', '=', null)
+                    ->select('category.*');
+
         $categories = $categories->get();
 
         foreach ($categories as $cat) {
@@ -604,8 +610,13 @@ class AjaxController extends Controller
         }
 
         // Get all matched sub categories and their category and show
-        $subcategories = DB::table('subcategory');
-        $subcategories->where('subcategory','LIKE','%'.$term.'%');
+        $subcategories = DB::table('subcategory')
+                        ->join('websites_page_head_titles', 'websites_page_head_titles.subcategory', '=', 'subcategory.id')
+                        ->where('subcategory.subcategory','LIKE','%'.$term.'%')
+                        ->where('subcategory.status', '=', 1)
+                        ->select('subcategory.*')
+                        ->limit(1);
+
         $subcategories = $subcategories->get();
 
         foreach ($subcategories as $subcat) {
