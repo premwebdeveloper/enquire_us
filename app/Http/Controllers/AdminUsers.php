@@ -239,7 +239,7 @@ class AdminUsers extends Controller
         return view('admin_users.view', array('user_details' => $user_details, 'other_information' => $user_other_information, 'images' => $images));
     }
 
-    // Active / Inactive user
+    // Active / Inactive user with update location
     public function active_inactive(Request $request)
     {
         $user_id = $request->user_id;
