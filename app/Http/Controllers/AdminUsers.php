@@ -21,7 +21,15 @@ class AdminUsers extends Controller
     public function index()
     {
         # Get All Users
-        $users = DB::table('user_details')->where('status','!=', 0)->get();
+        $users = DB::table('user_details')
+                ->join('user_location', 'user_location.user_id', '=', 'user_details.user_id')
+                ->join('user_keywords', 'user_keywords.user_id', '=', 'user_details.user_id')
+                ->join('category', 'category.id', '=', 'user_keywords.keyword_id')
+                ->where('user_details.status', '!=', 0)
+                ->where('user_keywords.keyword_identity', '=', 1)
+                ->distinct('user_id')
+                ->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.state', 'user_location.country', 'user_location.pincode', 'category.category')
+                ->get();
 
         return view('admin_users.index', array('users' => $users));
     }

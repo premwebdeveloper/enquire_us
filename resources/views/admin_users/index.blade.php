@@ -42,13 +42,18 @@
                         </div>
                     @endif
 
+                    <?php //echo '<pre>'; print_r($users);?>
+
 	                <div class="table-responsive">
 	                    <table class="table table-striped table-bordered table-hover dataTables-example">
 	                        <thead>
 	                            <tr>
-                                    <th>Name</th>
+                                    <th>Company</th>
+                                    <th>Contact Person</th>
                                     <th>Email</th>
                                     <th>Phone</th>
+                                    <th>Address</th>
+                                    <th>Category</th>
                                     <th>Action</th>
 	                            </tr>
 	                        </thead>
@@ -57,9 +62,12 @@
 	                            @foreach($users as $user)
 
 	                                <tr class="gradeX">
+                                        <td>{{ $user->business_name }}</td>
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td>
                                         <td>{{ $user->phone }}</td>
+                                        <td>{{ $user->building }}</td>
+                                        <td>{{ $user->category }}</td>
 	                                    <td>
                                             <a class="btn btn-success" title="View" href="{{ route('view', ['user_id' => $user->user_id]) }}">
                                                 <i class="fa fa-eye" aria-hidden="true"></i>
