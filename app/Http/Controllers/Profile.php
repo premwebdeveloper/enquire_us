@@ -88,7 +88,25 @@ class Profile extends Controller
 
                 $filesize = $file->getClientSize();
 
-                $destinationPath = config('app.fileDestinationPath').'/'.$filename;
+                // First check file extension if file is not image then hit error
+                $extensions = ['jpg', 'jpeg', 'png', 'gig', 'bmp'];
+
+                if(! in_array($ext, $extensions))
+                {
+                    $status = 'File type is not allowed you have uploaded. Please upload any image !';
+                    return redirect('profile')->with('status', $status);
+                }
+
+                // first check file size if greater than 1mb than hit error
+                if($filesize > 1052030){
+                    $status = 'File size is too large. Please upload file less than 1MB !';
+                    return redirect('profile')->with('status', $status);
+                }
+
+                $destinationPath = 'resources/frontend_assets/user_imgs/'.$filename;
+
+                echo $destinationPath; exit;
+
                 $uploaded = Storage::put($destinationPath, file_get_contents($file->getRealPath()));
 
                 if($uploaded)
@@ -126,7 +144,22 @@ class Profile extends Controller
 
             $filename .= '.'.$ext;
 
+            // First check file extension if file is not image then hit error
+            $extensions = ['jpg', 'jpeg', 'png', 'gig', 'bmp'];
+
+            if(! in_array($ext, $extensions))
+            {
+                $status = 'File type is not allowed you have uploaded. Please upload any image !';
+                return redirect('profile')->with('status', $status);
+            }
+
             $filesize = $file->getClientSize();
+
+            // first check file size if greater than 1mb than hit error
+            if($filesize > 1052030){
+                $status = 'File size is too large. Please upload file less than 1MB !';
+                return redirect('profile')->with('status', $status);
+            }
 
             $destinationPath = config('app.fileDestinationPath').'/'.$filename;
             $uploaded = Storage::put($destinationPath, file_get_contents($file->getRealPath()));

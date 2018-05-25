@@ -113,11 +113,11 @@
                                                     <td>Landmark</td>
                                                     <td>{{ $user_details->landmark }}</td>
                                                     <td>Area</td>
-                                                    <td>{{ $user_details->area }}</td>
+                                                    <td>{{ $user_details->area_name }}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>City</td>
-                                                    <td>{{ $user_details->city }}</td>
+                                                    <td>{{ $user_details->city_name }}</td>
                                                     <td>Pincode</td>
                                                     <td>{{ $user_details->pincode }}</td>
                                                 </tr>
@@ -232,7 +232,7 @@
                                                 @foreach($images as $image)
                                                     <tr>
                                                         <td>{{ $i }}</td>
-                                                        <td><img src="resources/assets/images/{{ $image->image }}" width="100"></td>
+                                                        <td><img src="resources/frontend_assets/user_imgs/{{ $image->image }}" width="100"></td>
                                                     </tr>
                                                     <?php $i++; ?>
                                                 @endforeach
