@@ -45,6 +45,10 @@
             <li><a href="{{route('subCategory')}}"><i class="fa fa-users"></i> <span class="nav-label">subCategory</span></a></li>
 
             <li><a href="{{route('area')}}"><i class="fa fa-users"></i> <span class="nav-label">Areas</span></a></li>
+			
+            <li><a href="{{route('client_area_visibility')}}"><i class="fa fa-users">
+				</i> <span class="nav-label">Client Area Visibility</span></a>
+			</li>
 
             <li><a href="{{route('slider')}}"><i class="fa fa-users"></i> <span class="nav-label">Home Slider</span></a></li>
 

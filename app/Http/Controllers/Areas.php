@@ -95,4 +95,34 @@ class Areas extends Controller
 
         return redirect('area')->with('status', $status);
     }
+	
+	// Client area visibility page view
+	public function client_area_visibility()
+	{
+		# Get All Users
+        $clients = DB::table('user_details')
+                ->join('user_location', 'user_location.user_id', '=', 'user_details.user_id')
+                ->join('areas', 'areas.id', '=', 'user_location.area')
+                ->join('cities', 'cities.id', '=', 'user_location.city')
+                ->where('user_details.status', '!=', 0)
+                ->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.state', 'user_location.country', 'user_location.pincode', 'areas.area as area_name', 'cities.name as city_name')
+                ->get();
+
+		return view('admin.client_area_visibility', array('clients' => $clients));
+	}
+	
+	// Edit client area visibility
+	public function edit_client_area_visibility(Request $request)
+	{
+		$user_id = $request->user_id;
+		
+		// If user id is empty / user hit on url
+		if(empty($user_id))
+		{
+			return redirect('client_area_visibility');
+		}
+		
+		return view('admin.edit_client_area_visibility');
+	}
+	
 }

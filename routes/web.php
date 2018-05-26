@@ -126,6 +126,10 @@
     Route::post('addarea', 'Areas@addarea')->name('addarea');
     Route::get('area', 'Areas@area')->name('area');
     Route::post('update_area', 'Areas@update_area')->name('update_area');
+	
+	# Client area visibility view page
+	Route::get('client_area_visibility', 'Areas@client_area_visibility')->name('client_area_visibility');
+	Route::any('edit_client_area_visibility', 'Areas@edit_client_area_visibility')->name('edit_client_area_visibility');
 
     # Slider As Add / Delete
     Route::get('slider', 'AdminUsers@slider')->name('slider');
