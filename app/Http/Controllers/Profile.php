@@ -103,9 +103,7 @@ class Profile extends Controller
                     return redirect('profile')->with('status', $status);
                 }
 
-                $destinationPath = 'resources/frontend_assets/user_imgs/'.$filename;
-
-                echo $destinationPath; exit;
+                $destinationPath = config('app.fileDestinationPath').'/'.$filename;
 
                 $uploaded = Storage::put($destinationPath, file_get_contents($file->getRealPath()));
 

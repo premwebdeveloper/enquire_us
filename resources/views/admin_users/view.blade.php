@@ -232,7 +232,7 @@
                                                 @foreach($images as $image)
                                                     <tr>
                                                         <td>{{ $i }}</td>
-                                                        <td><img src="resources/frontend_assets/user_imgs/{{ $image->image }}" width="100"></td>
+                                                        <td><img src="storage/app/uploads/{{ $image->image }}" width="100"></td>
                                                     </tr>
                                                     <?php $i++; ?>
                                                 @endforeach
