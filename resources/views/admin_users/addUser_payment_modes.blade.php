@@ -65,7 +65,14 @@
             <div class="ibox-title">
                 <h5>Add User</h5>
             </div>
-
+            @if(session('status'))
+                <div class="alert alert-success alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                   {{ session('status') }}
+                </div>
+            @endif            
+           
+           {{session('user_id')}}
                         
             <div class="ibox float-e-margins">
 
@@ -86,17 +93,35 @@
                                <!-- Payment Modes-->
                                 <div id="tab-2" class="tab-pane active">
                                     <div class="panel-body">
-                                        <form action="javascript:;" method="post" id="other_information_form" class="form-horizontal">
+                                        <form action="{{ route('addUser_payment_modes', ['user_id' => $user_details->user_id]) }}" method="post" id="other_information_form" class="form-horizontal">
                                             
                                             {{ csrf_field() }}
 
                                             <fieldset>
-                                            <input type="hidden" name="user_id" class="user_id" id="current_user_id" value="{{ $user_details->user_id }}">
-                                              <div class="controls">
+                                            
+                                            <input type="hidden" name="check_validation" value="1">
+                                            
+                                            <div class="controls">
 
-                                              <h4>Payment Modes Accepted By You</h4>
+                                            <h4>Payment Modes Accepted By You</h4>
+                                            <?php
+                                                $payment_mode = $user_details->payment_mode;
+                                                if(!empty($payment_mode))
+                                                {
+                                                  $payment_mode = explode('|', $payment_mode);
 
-                                              <div class="form-group required">
+                                                  foreach ($payment_mode as $mode) {
+                                                    ?>
+                                                    <script type="text/javascript">
+                                                        $(document).ready(function(){
+                                                           $(".payment_mode[type='checkbox'][value='<?= $mode; ?>']").prop('checked', true);
+                                                        });
+                                                    </script>
+                                                    <?php
+                                                  }
+                                                }
+                                            ?>
+                                            <div class="form-group required">
 
                                                 <div class="col-sm-4">
                                                     <input type="checkbox" value="0" class="checkAll">
@@ -155,46 +180,46 @@
 
                                                 <div class="form-group required">
                                                   <label for="Name" class="col-sm-4 control-label">Year Of Establishment: </label>
-                                                  <div class="col-sm-2">
-                                                    <input class="form-control" name="establishment_year" id="establishment_year" type="text" placeholder="1995">
-                                                  </div>
+                                                    <div class="col-sm-2">
+                                                        <input class="form-control" name="establishment_year" id="establishment_year" type="text" placeholder="1995" value="{{ $user_details->year_establishment }}">
+                                                    </div>
 
-                                                  <div class="col-sm-3">
-                                                    <input class="form-control" name="annual_turnover" id="annual_turnover" placeholder="Annual Turnover" type="text">
-                                                  </div>
+                                                    <div class="col-sm-3">
+                                                        <input class="form-control" name="annual_turnover" id="annual_turnover" placeholder="Annual Turnover" type="text" value="{{ $user_details->annual_turnover }}">
+                                                    </div>
 
-                                                  <div class="col-sm-3">
-                                                    <select class="form-control" id="number_employees" name="number_employees">
-                                                        <option value="">Select Employees</option>
-                                                        <option value="Less than 10">Less than 10</option>
-                                                        <option value="10-100">10-100</option>
-                                                        <option value="100-500">100-500</option>
-                                                        <option value="500-1000">500-1000</option>
-                                                        <option value="1000-2000">1000-2000</option>
-                                                        <option value="2000-5000">2000-5000</option>
-                                                        <option value="5000-10000">5000-10000</option>
-                                                        <option value="More than 10000">More than 10000</option>
-                                                    </select>
-                                                  </div>
+                                                    <div class="col-sm-3">
+                                                        <select class="form-control" id="number_employees" name="number_employees">
+                                                          <option value="">Select Employees</option>
+                                                          <option value="Less than 10" <?= $user_details->no_of_emps == 'Less than 10' ? ' selected="selected"' : '';?>>Less than 10</option>
+                                                          <option value="10-100" <?= $user_details->no_of_emps == '10-100' ? ' selected="selected"' : '';?>>10-100</option>
+                                                          <option value="100-500" <?= $user_details->no_of_emps == '100-500' ? ' selected="selected"' : '';?>>100-500</option>
+                                                          <option value="500-1000" <?= $user_details->no_of_emps == '500-1000' ? ' selected="selected"' : '';?>>500-1000</option>
+                                                          <option value="1000-2000" <?= $user_details->no_of_emps == '1000-2000' ? ' selected="selected"' : '';?>>1000-2000</option>
+                                                          <option value="2000-5000" <?= $user_details->no_of_emps == '2000-5000' ? ' selected="selected"' : '';?>>2000-5000</option>
+                                                          <option value="5000-10000" <?= $user_details->no_of_emps == '5000-10000' ? ' selected="selected"' : '';?>>5000-10000</option>
+                                                          <option value="More than 10000" <?= $user_details->no_of_emps == 'More than 10000' ? ' selected="selected"' : '';?>>More than 10000</option>
+                                                        </select>
+                                                    </div>
 
                                                 </div>
 
                                                 <div class="form-group required">
                                                     <label class="col-sm-4 control-label">Professional Associations: </label>
                                                     <div class="col-sm-8">
-                                                        <input class="form-control" name="professional_association" id="professional_association">
+                                                        <input class="form-control" name="professional_association" id="professional_association" value="{{ $user_details->professional_associations }}">
                                                     </div>
                                                 </div>
 
                                                 <div class="form-group required">
                                                     <label for="Email" class="col-sm-4 control-label">Certifications: </label>
                                                     <div class="col-sm-8">
-                                                        <input class="form-control" name="certification" id="certification">
+                                                        <input class="form-control" name="certification" id="certification" value="{{ $user_details->certifications }}">
                                                     </div>
                                                 </div>
 
                                                 <div class="col-md-12 text-right">
-                                                    <a href="{{ route('addUser_business_timing') }}" class="btn btn-success" style="margin-bottom: 30px;">Skip</a>
+                                                    <a href="{{ route('addUser_business_timing', ['user_id' => $user_details->user_id]) }}" class="btn btn-success" style="margin-bottom: 30px;">Skip</a>
                                                     <input type="submit" name="addUser" class="btn btn-success" value="Next" style="margin-bottom: 30px;">
                                                 </div>
 

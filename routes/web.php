@@ -95,9 +95,9 @@
 // {
 	Route::get('dashboard', 'Dashboard@dashboard')->name('dashboard');
     Route::get('addUser_basic_information', 'AdminUsers@addUser_basic_information')->name('addUser_basic_information');
-    Route::any('addUser_payment_modes', 'AdminUsers@addUser_payment_modes')->name('addUser_payment_modes');
-    Route::get('addUser_business_timing', 'AdminUsers@addUser_business_timing')->name('addUser_business_timing');
-    Route::get('addUser_business_keywords', 'AdminUsers@addUser_business_keywords')->name('addUser_business_keywords');
+    Route::any('addUser_payment_modes/{user_id}', 'AdminUsers@addUser_payment_modes')->name('addUser_payment_modes');
+    Route::any('addUser_business_timing/{user_id}', 'AdminUsers@addUser_business_timing')->name('addUser_business_timing');
+    Route::any('addUser_business_keywords/{user_id}', 'AdminUsers@addUser_business_keywords')->name('addUser_business_keywords');
     Route::get('addUser_logo_images', 'AdminUsers@addUser_logo_images')->name('addUser_logo_images');
     Route::post('add_user', 'AdminUsers@add_user')->name('add_user');
 	Route::get('users', 'AdminUsers@index')->name('users');

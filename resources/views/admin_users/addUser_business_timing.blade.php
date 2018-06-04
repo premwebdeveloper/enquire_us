@@ -19,7 +19,47 @@
 </style>
 <script>
     $(document).ready(function(){
+    // Copy timing from monday to sunday shift 1
+        $(document).on('click', '.timing', function(){
+            var id = $(this).attr('id');
 
+            if(id == 'timing1')
+            {
+              var from_time = $("#from_time_1").val();
+              var to_time = $("#to_time_1").val();
+
+              if($("#close_1").is(":checked"))
+              {
+                $(".closed1").prop('checked', true);
+              }
+              else
+              {
+                $(".closed1").prop('checked', false);
+              }
+
+              $(".timing_one_from_time [value='"+from_time+"']").prop('selected', true);
+              $(".timing_one_to_time [value='"+to_time+"']").prop('selected', true);
+
+            }
+            else if(id == 'timing2')
+            {
+              var from_time = $("#from_time_8").val();
+              var to_time = $("#to_time_8").val();
+
+              if($("#close_8").is(":checked"))
+              {
+                $(".closed2").prop('checked', true);
+              }
+              else
+              {
+                $(".closed2").prop('checked', false);
+              }
+
+              $(".timing_two_from_time [value='"+from_time+"']").prop('selected', true);
+              $(".timing_two_to_time [value='"+to_time+"']").prop('selected', true);
+            }
+
+        });
         // Dual time hide and show
         $("#dual_time").click(function() {
             $("#dual_time_show").toggle();
@@ -84,7 +124,12 @@
             <div class="ibox-title">
                 <h5>Add User</h5>
             </div>
-
+            @if(session('status'))
+                <div class="alert alert-success alert-dismissible">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                   {{ session('status') }}
+                </div>
+            @endif
             <div class="ibox float-e-margins">
 
                 <div class="ibox-content">
@@ -93,7 +138,7 @@
 
                             <ul class="nav nav-tabs">
                                 <li class=""><a href="javascript:;">Basic Information</a></li>
-                                <li class=""><a href="{{ route('addUser_payment_modes') }}">Payment Modes</a></li>
+                                <li class=""><a href="{{ route('addUser_payment_modes', ['user_id' => $user_details->user_id]) }}">Payment Modes</a></li>
                                 <li class="active"><a href="javascript:;">Business Timing</a></li>
                                 <li class=""><a href="javascript:;">Business Keywords</a></li>
                                 <li class=""><a href="javascript:;">Images</a></li>
@@ -103,9 +148,11 @@
                                 <div id="tab-3" class="tab-pane active">
                                     <div class="panel-body">
                                     <h4>Hours of Operation</h4>
-                                <form action="javascript:;" method="post" class="form-horizontal">
+                                <form action="{{ route('addUser_business_timing', ['user_id' => $user_details->user_id]) }}" method="post" class="form-horizontal">
+                                    {{ csrf_field() }}
                                     <fieldset>
-                                        <input type="hidden" name="user_id" class="user_id" id="current_user_id" value="{{ $user_details->user_id }}">
+
+                                        <input type="hidden" name="check_validation" value="1">
 
                                         <p>
                                             <input type="radio" value="1" name="other" class="hour_operation"> Display hours of operation
@@ -209,14 +256,14 @@
                                         </div>
 
                                         <script type="text/javascript">
-                                          $(document).ready(function(){
-                                            $(".closed[type='checkbox'][value='0']").prop('checked', true);
-                                          });
+                                            $(document).ready(function(){
+                                                $(".closed[type='checkbox'][value='0']").prop('checked', true);
+                                            });
                                         </script>
 
                                     </div>
                                     <div class="col-md-12 text-right">
-                                        <a href="{{ route('addUser_business_keywords') }}" class="btn btn-success" style="margin-bottom: 30px;">Skip</a>
+                                        <a href="{{ route('addUser_business_keywords', ['user_id' => $user_details->user_id]) }}" class="btn btn-success" style="margin-bottom: 30px;">Skip</a>
                                         <input type="submit" name="addUser" class="btn btn-success" value="Next" style="margin-bottom: 30px;">
                                     </div>
                                     </fieldset>

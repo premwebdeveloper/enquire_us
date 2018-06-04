@@ -61,10 +61,10 @@
 
                             <ul class="nav nav-tabs">
                                 <li class=""><a href="javascript:;">Basic Information</a></li>
-                                <li class=""><a href="{{ route('addUser_payment_modes') }}">Payment Modes</a></li>
-                                <li class=""><a href="{{ route('addUser_business_timing') }}">Business Timing</a></li>
+                                <li class=""><a href="{{ route('addUser_payment_modes', ['user_id' => $user_details->user_id]) }}">Payment Modes</a></li>
+                                <li class=""><a href="{{ route('addUser_business_timing', ['user_id' => $user_details->user_id]) }}">Business Timing</a></li>
                                 <li class="active"><a href="javascript:;">Business Keywords</a></li>
-                                <li class=""><a href="{{ route('addUser_logo_images') }}">Images</a></li>
+                                <li class=""><a href="javascript:;">Images</a></li>
                             </ul>
 
                             <div class="tab-content">
@@ -84,7 +84,8 @@
 
                                     <div class="panel-body" id="add_keyword" style="display:none;">
                                         <h4>Type your Business Keywords and click Search</h4>
-                                        <form method="post" class="form-horizontal" action="{{ route('add_user') }}">
+                                        <form method="post" class="form-horizontal" action="{{ route('addUser_business_keywords', ['user_id' => $user_details->user_id]) }}">
+                                            {{ csrf_field() }}
                                             <div class="row">
 
                                                 <div class="col-md-12">

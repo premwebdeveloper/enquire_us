@@ -43,42 +43,6 @@ class AdminUsers extends Controller
         return view('admin_users.addUser_basic_information');
     }
 
-    // new User Update Payment Modes
-    public function addUser_payment_modes()
-    {
-        $user_details = DB::table('user_other_information')->where('status', 1)->orderBy('user_id', 'desc')->first();
-
-        return view('admin_users.addUser_payment_modes', array("user_details" => $user_details));
-    }
-
-    // new User Update Business Timining
-    public function addUser_business_timing()
-    {
-        $user_details = DB::table('user_details')->where('status', 1)->orderBy('user_id', 'desc')->first();
-
-        $lastInsertId = $user_details->user_id;
-
-        $other = DB::table('user_other_information')->where('user_id', $lastInsertId )->get();
-
-        return view('admin_users.addUser_business_timing', array("other" => $other, "user_details" => $user_details));
-    }
-
-    // new User Update Business Keywords
-    public function addUser_business_keywords()
-    {
-        $user_details = DB::table('user_other_information')->where('status', 1)->orderBy('user_id', 'desc')->first();
-
-        return view('admin_users.addUser_business_keywords', array("user_details" => $user_details));
-    }
-
-    // new User Update Logo and Images
-    public function addUser_logo_images()
-    {
-        $user_details = DB::table('user_other_information')->where('status', 1)->orderBy('user_id', 'desc')->first();
-
-        return view('admin_users.addUser_logo_images', array("user_details" => $user_details));
-    }
-
     // add new User
     public function add_user(AddUserValidation $request)
     {
@@ -216,14 +180,177 @@ class AdminUsers extends Controller
 
         if($user_details)
         {
-            $status = 'Add User successfully.';
+            $status = 'Add User Basic Informations Successfully.';
         }
         else
         {
             $status = 'Something went wrong !';
         }
+        //dd($user_id);
+        //return redirect('addUser_payment_modes')->with('status', $status)->with('user_id', $user_id);
+        return redirect()->route('addUser_payment_modes', ['user_id' => $user_id]);
+    }
 
-        return redirect('addUser_payment_modes')->with('status', $status);
+    // new User Update Payment Modes
+    public function addUser_payment_modes(Request $request)
+    {
+        $date = date('Y-m-d H:i:s');
+
+        $user_id = $request->user_id;
+        $check_validation = $request->check_validation;
+
+        $establishment_year = $request->establishment_year;
+        $annual_turnover = $request->annual_turnover;
+        $number_employees = $request->number_employees;
+        $professional_association = $request->professional_association;
+        $certification = $request->certification;
+        $from_time = $request->from_time;
+        $to_time = $request->to_time;
+        $payment_mode = $request->payment_mode;
+
+
+        if(!empty($user_id) && !empty($check_validation))
+        {
+
+            if(!empty($payment_mode))
+            {
+                $payment_mode = implode("|", $payment_mode);
+            }
+            else
+            {
+                $payment_mode = '';
+            }
+
+            $other_info_update = DB::table('user_company_information')->where('user_id', $user_id)->update(
+                array(
+                    'payment_mode' => $payment_mode,
+                    'year_establishment' => $establishment_year,
+                    'annual_turnover' => $annual_turnover,
+                    'no_of_emps' => $number_employees,
+                    'professional_associations' => $professional_association,
+                    'certifications' => $certification,
+                    'created_at' => $date,
+                    'updated_at' => $date,
+                    'status' => 1
+                )
+            );
+            
+            if($other_info_update)
+            {
+                $status = 'Add Payment Modes Information Successfully.';
+            }
+
+            else
+            {
+                $status = 'Something went wrong !';
+            }
+
+            return redirect()->route('addUser_business_timing', ['user_id' => $user_id]);
+        }
+
+        else
+        {
+
+            $where = array('user_id' => $user_id);
+
+            $user_details = DB::table('user_company_information')->where($where)->first();
+
+            return view('admin_users.addUser_payment_modes', array("user_details" => $user_details)); 
+        }
+
+    }
+
+    // new User Update Business Timining
+    public function addUser_business_timing(Request $request)
+    {  
+        
+        $date = date('Y-m-d H:i:s');
+
+        $user_id = $request->user_id;
+        $check_validation = $request->check_validation;
+        $from_time = $request->from_time;
+        $to_time = $request->to_time;
+
+        if(!empty($user_id) && !empty($check_validation))
+        {
+            $i = 1;
+            $p = 0;
+            foreach ($from_time as $from)
+            {
+                $operation_timing = 1;
+                if($i > 7){ $operation_timing = 2; }
+
+                if($i == 1 || $i == 8){ $day = 'monday'; }
+                if($i == 2 || $i == 9){ $day = 'tuesday'; }
+                if($i == 3 || $i == 10){ $day = 'wednesday'; }
+                if($i == 4 || $i == 11){ $day = 'thursday'; }
+                if($i == 5 || $i == 12){ $day = 'friday'; }
+                if($i == 6 || $i == 13){ $day = 'saturday'; }
+                if($i == 7 || $i == 14){ $day = 'sunday'; }
+
+                if($from == 'closed')
+                {
+                    $from = '00:00';
+                    $working_status = 0;
+                }
+                else
+                {
+                    $working_status = 1;
+                }
+
+                if($to_time[$p] == 'closed')
+                {
+                    $time = '00:00';
+                }
+                else
+                {
+                    $time = $to_time[$p];
+                }
+
+                $where = ['user_id' => $user_id, 'operation_timing' => $operation_timing, 'day' => $day];
+
+                DB::table('user_other_information')->where($where)->update(
+                        array(
+                            'from_time' => $from,
+                            'to_time' => $time,
+                            'working_status' => $working_status,
+                            'updated_at' => $date
+                        )
+                );
+                $i++;
+                $p++;
+            }
+
+            return redirect()->route('addUser_business_keywords', ['user_id' => $user_id]);
+        }
+        else
+        {
+            $user_details = DB::table('user_details')->where('user_id', $user_id)->first();
+        
+            $other = DB::table('user_other_information')->where('user_id', $user_id)->get();
+
+            return view('admin_users.addUser_business_timing', array("other" => $other, "user_details" => $user_details));
+        }
+
+    }
+
+    // new User Update Business Keywords
+    public function addUser_business_keywords(Request $request)
+    {
+        $user_id = $request->user_id;
+        
+        $user_details = DB::table('user_details')->where('user_id', $user_id)->first();
+        $user_keywords = DB::table('user_keywords')->where('user_id', $user_id)->get();
+        
+        return view('admin_users.addUser_business_keywords', array("user_details" => $user_details, "user_keywords" => $user_details));
+    }
+
+    // new User Update Logo and Images
+    public function addUser_logo_images()
+    {
+        $user_details = DB::table('user_other_information')->where('status', 1)->orderBy('user_id', 'desc')->first();
+
+        return view('admin_users.addUser_logo_images', array("user_details" => $user_details));
     }
 
     // View User Detail
@@ -267,35 +394,27 @@ class AdminUsers extends Controller
         	$status = 1;
         }
 
-        // first check if the user have updated their city, area and pincode / location information
+        // update user details
+        $update = DB::table('user_details')->where('user_id', $user_id)->update(
+            array(
+                    'status' => $status
+            )
+        );
 
-        $check = Db::table('user_location')->where('user_id', $user_id)->first();
-
-        // if yes then Active this user
-        if(!empty($check->city) && !empty($check->area) && !empty($check->pincode))
-        {
-            // update user details
-            $update = DB::table('user_details')->where('user_id', $user_id)->update(array('status' => $status));
-
-            // update user location
-            $update_location = DB::table('user_location')->where('user_id', $user_id)->update(array('status' => $status));
-
-            $update = 1;
-        }
-        else
-        {
-            // If not then hit error and send email to this user to information that update your location information like area pincode
-
-            $update = 0;
-        }
+        // update user location
+        $update_location = DB::table('user_location')->where('user_id', $user_id)->update(
+            array(
+                    'status' => $status
+            )
+        );
 
         if($update)
         {
-            $status = 'Client Updated Successfully.';
+            $status = 'User successfully.';
         }
         else
         {
-            $status = 'Client did not update their location information ! Inform client to update their location information.';
+            $status = 'Something went wrong !';
         }
 
         return redirect('users')->with('status', $status);
