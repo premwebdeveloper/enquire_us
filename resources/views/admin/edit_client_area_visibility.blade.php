@@ -60,15 +60,25 @@
 								</thead>
 								<tbody>
 									@foreach($areas as $key => $area)
-									<tr class="gradeX">
-										<td><input type="checkbox" name="areas[]" id="area_{{ $area['id'] }}" value="{{ $area['id'] }}"></td>
-										<td>{{ $area['area'] }}</td>
-									</tr>
+										
+										<?php $selected_area = ''; ?>
+										
+										@foreach($visible_area as $v_key => $visible)
+											@if($visible->area == $area['id'])
+												<?php $selected_area = 'checked'; ?>									
+											@endif
+										@endforeach										
+
+										<tr class="gradeX">
+											<td>
+												<input type="checkbox" name="areas[]" id="area_{{ $area['id'] }}" value="{{ $area['id'] }}" {{ $selected_area }}>
+											</td>
+											<td>{{ $area['area'] }}</td>
+										</tr>
 									@endforeach
 								</tbody>
 							</table>
-						</div>
-						
+						</div>						
 						
 						<input type="submit" name="edit_client_area_visibility" value="Edit Client Area Visibility" class="btn btn-info">
 					

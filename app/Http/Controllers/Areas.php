@@ -160,6 +160,19 @@ class Areas extends Controller
 		
 		$date = date('Y-m-d H:i:s');
 		
+		// First check if this user already have another areas or not
+		$exist_areas = DB::table('user_area_visibility')->where('user_id', $user_id)->get();
+		
+		if(!empty($exist_areas))
+		{
+			foreach($exist_areas as $e_key => $e_area)
+			{
+				// If already exist areas then remove all and after then inser new areas
+				$delete_area = DB::table('user_area_visibility')->where('id', $e_area->id)->delete();
+			}
+		}
+		
+		// Insert areas in db
 		foreach($areas as $key => $area)
 		{
 			// Insert this area in area visible table

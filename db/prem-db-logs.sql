@@ -263,3 +263,6 @@ ALTER TABLE `user_area_visibility`
 
 -- ---------------ALTER "user_area_visibility" on 05-06-2018----------------------  
 ALTER TABLE `user_area_visibility` DROP `category`, DROP `subcategory`, DROP `city`;
+
+-- ---------------ALTER "user_area_visibility" on 06-06-2018---------------------- 
+ALTER TABLE `user_area_visibility` CHANGE `id` `id` INT(11) NOT NULL AUTO_INCREMENT;

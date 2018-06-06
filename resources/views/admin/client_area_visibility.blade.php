@@ -62,7 +62,6 @@
 												
 												<button type="submit" name="edit_area_visibility" class="btn btn-success">Edit Area Visibility</button>
 											</form>
-											
                                         </td>
                                     </tr>
                                 @endforeach
