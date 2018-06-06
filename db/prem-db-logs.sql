@@ -244,3 +244,22 @@ ALTER TABLE `websites_page_head_titles` CHANGE `category` `category` INT(11) NUL
 
 -- ---------------------------ALTER "user_location" on 15-05-2018----------------------
 ALTER TABLE `user_location` CHANGE `area` `area` INT NULL DEFAULT NULL, CHANGE `city` `city` INT NULL DEFAULT NULL;
+
+-- ---------------CREATE "user_area_visibility" on 04-06-2018----------------------
+CREATE TABLE `user_area_visibility` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `category` int(11) NOT NULL,
+  `subcategory` int(11) DEFAULT NULL,
+  `city` int(11) NOT NULL,
+  `area` int(11) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `user_area_visibility`
+  ADD PRIMARY KEY (`id`);
+
+-- ---------------ALTER "user_area_visibility" on 05-06-2018----------------------  
+ALTER TABLE `user_area_visibility` DROP `category`, DROP `subcategory`, DROP `city`;

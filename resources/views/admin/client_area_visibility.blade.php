@@ -44,8 +44,6 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Phone</th>
-                                    <th>City</th>
-                                    <th>Area</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -54,10 +52,8 @@
                                     <tr class="gradeX">
                                         <td>{{ $client->business_name }}</td>
                                         <td>{{ $client->name }}</td>
-                                        <td>{{ $client->email }}</td>                                        
-                                        <td>{{ $client->phone }}</td>                                        
-                                        <td>{{ $client->city_name }}</td>                                        
-                                        <td>{{ $client->area_name }}</td>                                        
+                                        <td>{{ $client->email }}</td>
+                                        <td>{{ $client->phone }}</td>         
                                         <td>
 											<form method="post" action="{{ route('edit_client_area_visibility')}}">
 											
@@ -66,6 +62,7 @@
 												
 												<button type="submit" name="edit_area_visibility" class="btn btn-success">Edit Area Visibility</button>
 											</form>
+											
                                         </td>
                                     </tr>
                                 @endforeach

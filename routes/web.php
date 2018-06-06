@@ -129,7 +129,10 @@
 	
 	# Client area visibility view page
 	Route::get('client_area_visibility', 'Areas@client_area_visibility')->name('client_area_visibility');
+	# Edit client area visibility page
 	Route::any('edit_client_area_visibility', 'Areas@edit_client_area_visibility')->name('edit_client_area_visibility');
+	# Edit client area visibility
+	Route::post('edit_area_visibility', 'Areas@edit_area_visibility')->name('edit_area_visibility');
 
     # Slider As Add / Delete
     Route::get('slider', 'AdminUsers@slider')->name('slider');

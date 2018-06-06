@@ -111,7 +111,7 @@ class Areas extends Controller
 		return view('admin.client_area_visibility', array('clients' => $clients));
 	}
 	
-	// Edit client area visibility
+	// Edit client area visibility Page
 	public function edit_client_area_visibility(Request $request)
 	{
 		$user_id = $request->user_id;
@@ -121,8 +121,57 @@ class Areas extends Controller
 		{
 			return redirect('client_area_visibility');
 		}
+				
+		// First get user details like user location info and other visible areas if available
+		$location_info = DB::table('user_location')->where('user_id', $user_id)->first();
+				
+		// Get total areas of user selectes city
+		$areas = DB::table('areas')->where('city', $location_info->city)->get();
 		
-		return view('admin.edit_client_area_visibility');
+		// Convert stdClass into array
+		$areas = json_decode(json_encode($areas), True);
+		
+		// First remove user selected area from all areas array
+		foreach($areas as $key => $area)
+		{
+			// If match area then remove area
+			if($area['id'] == $location_info->area)
+			{
+				// Remove array index
+				unset($areas[$key]);
+			}
+		}
+		
+		// Convert again array into stdClass object
+		$areas = (object)$areas;
+				
+		// Get total visible areas
+		$area_visibility_info = DB::table('user_area_visibility')->where('user_id', $user_id)->get();
+					
+		return view('admin.edit_client_area_visibility', array('visible_area' => $area_visibility_info, 'areas' => $areas, 'user_info' => $location_info));
+	}
+	
+	# Edit client area visibility function
+	public function edit_area_visibility(Request $request)
+	{
+		// Get all selectes areas
+		$areas = $request->areas;
+		$user_id = $request->this_user;
+		
+		$date = date('Y-m-d H:i:s');
+		
+		foreach($areas as $key => $area)
+		{
+			// Insert this area in area visible table
+			$assign = DB::table('user_area_visibility')->insert([
+				'user_id' => $user_id,
+				'area' => $area,
+				'created_at' => $date,
+				'updated_at' => $date,
+			]);			
+		}
+		
+		return redirect('client_area_visibility')->with('status', 'Areas Assigned successfully.');
 	}
 	
 }

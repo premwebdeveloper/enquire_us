@@ -29,20 +29,27 @@
                 @endif
 
                 <div class="ibox-title">
-                    <h5>Edit Client Area Visibility</h5>
+                    <h5>
+						Edit Area Visibility for 
+						<strong>{{ $user_info->business_name }}</strong>
+					</h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
                         </a>
                     </div>
                 </div>
-
+				
                 <div class="ibox-content">
 				
-					<form method="post" action="{{ route('edit_client_area_visibility') }}">
+					<form method="post" action="{{ route('edit_area_visibility') }}">
 					
-					{{ csrf_field() }}
-
+						{{ csrf_field() }}
+					
+						<!-- Current user id -->
+						<input type='hidden' name='this_user' value='{{ $user_info->user_id }}'>
+						
+						<!-- All areas without clients default area -->
 						<div class="table-responsive">
 							<table class="table table-striped table-bordered table-hover dataTables-example">
 								<thead>
@@ -52,10 +59,12 @@
 									</tr>
 								</thead>
 								<tbody>
+									@foreach($areas as $key => $area)
 									<tr class="gradeX">
-										<td><input type="checkbox" name="area[]" id="area_1"></td>
-										<td>Area Name</td>
+										<td><input type="checkbox" name="areas[]" id="area_{{ $area['id'] }}" value="{{ $area['id'] }}"></td>
+										<td>{{ $area['area'] }}</td>
 									</tr>
+									@endforeach
 								</tbody>
 							</table>
 						</div>
