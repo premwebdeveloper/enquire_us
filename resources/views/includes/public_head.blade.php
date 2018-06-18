@@ -33,26 +33,17 @@
 
     <link href="{{ asset ('resources/frontend_assets/css/validationEngine.jquery.css') }}" rel="stylesheet" />
 
+    <style type="text/css">
+        /*.theme-default .nivoSlider img {
+            position: absolute;
+            top: 0px;
+            left: 0px;
+            display: block;
+        }*/
+    </style>
+
     <script type="text/javascript">
         $(document).ready(function(){
-
-            /*var city = '3378';
-
-            // Get cities according to state
-            $.ajax({
-                method : 'post',
-                url: "{{ route('getAreasAccordingToCity') }}",
-                async : true,
-                    data : {"_token": "{{ csrf_token() }}", 'city': city},
-                      success:function(response){
-
-                        $('#sub_location').html(response);
-
-                      },
-                    error: function(data){
-                    console.log(data);
-                },
-            });*/
 
             // Autocomplete on search category and firm name
             $("#filter_title").autocomplete({
@@ -153,6 +144,7 @@
             });
         });
 
+        // generate random id
         function makeid() {
             var text = "";
             var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";

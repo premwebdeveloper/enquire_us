@@ -135,6 +135,12 @@
                                 </div>
 
                                 <!-- Select area -->
+                                <?php 
+                                    $city = '3378';
+                                    // Get all cities of rajasthan state
+                                    $areas = DB::table('areas')->where('city', $city)->get();
+                                ?>
+                                
                                 <div class="form-group col-sm-3 col-cus-3 input-width">
                                     <select name="sub_location" id="sub_location" class="form-control selectWidth form-cus input-border">
                                         <option value="">Select Area</option>

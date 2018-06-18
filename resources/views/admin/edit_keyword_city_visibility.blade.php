@@ -3,16 +3,16 @@
 @section('content')
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-lg-10">
-        <h2>Area Visibility</h2>
+        <h2>City Visibility</h2>
         <ol class="breadcrumb">
             <li>
                 <a href="{{ route('dashboard') }}">Home</a>
             </li>
             <li>
-                <a href="{{ route('client_area_visibility') }}">Client Area Visibility</a>
+                <a href="{{ route('keyword_city_visibility') }}">Keyword City Visibility</a>
             </li>
             <li class="active">
-                <strong>Edit Client Area Visibility</strong>
+                <strong>Edit Keyword City Visibility</strong>
             </li>
         </ol>
     </div>
@@ -30,8 +30,8 @@
 
                 <div class="ibox-title">
                     <h5>
-						Edit Area Visibility for 
-						<strong>{{ $user_info->business_name }}</strong>
+						Edit City Visibility for keyword
+						<strong>{{ ($keyword_info->identity == 1 ) ? $keyword_info->category : $keyword_info->subcategory  }}</strong>
 					</h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
@@ -42,38 +42,21 @@
 				
                 <div class="ibox-content">
 				
-					<form method="post" action="{{ route('edit_area_visibility') }}">
+					<form method="post" action="{{ route('edit_city_visibility') }}">
 					
 						{{ csrf_field() }}
-
-						<!-- select keyword of this user with whome assigning areas -->
-
-						<!-- <label>Select Any Keyword</label>
-						<select name="keyword_name" id="keyword_name" class="form-control" required="required">
-							<option value="0">Select All Keyword</option>
-
-							@foreach($client_keywords as $key => $keyword)
-
-								@php
-									if($keyword->keyword_identity == 1){
-										$key_identity = 1;
-									}
-									else{
-										$key_identity = 2;										
-									}
-								@endphp	
-
-								<option value="{{ $keyword->keyword_id.'_'.$key_identity }}">
-									{{ !empty($keyword->category) ? $keyword->category : $keyword->subcategory }}
-								</option>
-							@endforeach
-
-						</select> -->
-
-						<br />
 					
 						<!-- Current user id -->
-						<input type='hidden' name='this_user' id='this_user' value='{{ $user_info->user_id }}'>
+						<input type='hidden' name='this_keyword' id='this_keyword' value='{{ $keyword_info->id }}'>
+						<input type='hidden' name='keyword_identity' id='keyword_identity' value='{{ $keyword_info->identity }}'>
+
+						<label for="this_city">Select Any City</label>
+						<select name="this_city" id="this_city" class="form-control" required="required">
+							<option value="">Select Any City</option>
+							<option value="3378">Jaipur</option>
+						</select>
+
+						<br />
 						
 						<!-- All areas without clients default area -->
 						<div class="table-responsive">
@@ -85,28 +68,22 @@
 									</tr>
 								</thead>
 								<tbody>
-									@foreach($areas as $key => $area)
+									@foreach($clients as $key => $client)
 
-										<?php $selected_area = ''; ?>
-
-										@foreach($visible_area as $v_key => $visible)
-											@if($visible->area == $area['id'])
-												<?php $selected_area = 'checked'; ?>
-											@endif
-										@endforeach
+										<?php $selected_client = ''; ?>
 
 										<tr class="gradeX">
 											<td>
-												<input type="checkbox" name="areas[]" class="areas" id="area_{{ $area['id'] }}" value="{{ $area['id'] }}" {{ $selected_area }}>
+												<input type="checkbox" name="clients[]" class="clients" id="client_{{ $client->user_id }}" value="{{ $client->user_id }}" {{ $selected_client }}>
 											</td>
-											<td>{{ $area['area'] }}</td>
+											<td>{{ $client->business_name }}</td>
 										</tr>
 									@endforeach
 								</tbody>
 							</table>
 						</div>						
 						
-						<input type="submit" name="edit_client_area_visibility" value="Edit Client Area Visibility" class="btn btn-info">
+						<input type="submit" name="edit_city_visibility" value="Edit Keyword City Visibility" class="btn btn-info">
 					
 					</form>
 
@@ -119,25 +96,27 @@
 <!-- Get all areas according to keyword and show check them -->
 <script type="text/javascript">
 	$(document).ready(function(){
-		$(document).on('change', '#keyword_name', function(){
-			var keyword = $('#keyword_name option:selected').val();
-			var this_user = $('#this_user').val();
+		$(document).on('change', '#this_city', function(){
+			var city = $('#this_city option:selected').val();
+			var this_keyword = $('#this_keyword').val();
+			var keyword_identity = $('#keyword_identity').val();
 			
 			$.ajax({
-				url : 'getVisibleAreasAccordingToKeyword',
+				url : 'getAssignedClientsToThisKeyword',
 				type : 'post',
-				data : { "_token": "{{ csrf_token() }}", 'keyword' : keyword, 'user_id' : this_user },
+				data : { "_token": "{{ csrf_token() }}", 'keyword' : this_keyword, 'keyword_identity' : keyword_identity, 'city' : city },
 				success : function(response)
 				{
 					// convert response into object
 					var obj = $.parseJSON(response);
+					console.log(obj);
 
 					// First remove all checkes areas
-					$('.areas').prop('checked', false);
+					$('.clients').prop('checked', false);
 
 					// Check area accorfing to keyword
 					$( obj ).each(function( i, l ) {
-						$('#area_'+l.area).prop('checked', true);
+						$('#client_'+l.user_id).prop('checked', true);
 					});
 				},
 				error:function(data)

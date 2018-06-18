@@ -266,3 +266,24 @@ ALTER TABLE `user_area_visibility` DROP `category`, DROP `subcategory`, DROP `ci
 
 -- ---------------ALTER "user_area_visibility" on 06-06-2018---------------------- 
 ALTER TABLE `user_area_visibility` CHANGE `id` `id` INT(11) NOT NULL AUTO_INCREMENT;
+
+-- ---------------ALTER "user_area_visibility" on 13-06-2018----------------------
+ALTER TABLE `user_area_visibility` ADD `keyword_id` INT NOT NULL AFTER `user_id`, ADD `keyword_identity` INT NOT NULL AFTER `keyword_id`;
+
+-- ---------------CREATE "keyword_city_client_visibility" on 15-06-2018----------------------
+CREATE TABLE `keyword_city_client_visibility` (
+  `id` int(11) NOT NULL,
+  `keyword` int(11) NOT NULL,
+  `keyword_identity` int(11) NOT NULL,
+  `city` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `status` tinyint(1) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `keyword_city_client_visibility`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `keyword_city_client_visibility`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;

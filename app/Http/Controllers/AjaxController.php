@@ -903,4 +903,33 @@ class AjaxController extends Controller
         exit;
     }
 
+    # Get visible areas according to keyword
+    public function getVisibleAreasAccordingToKeyword(Request $request)
+    {
+        $keyword = $request->keyword;
+        $user_id = $request->user_id;
+
+        $temp = explode('_', $keyword);
+        $keyword_id = $temp[0];
+        $keyword_identity = $temp[1];
+
+        $data = DB::table('user_area_visibility')->where(['user_id' => $user_id, 'keyword_id' => $keyword_id, 'keyword_identity' => $keyword_identity])->get();
+
+        echo json_encode($data);
+        exit;
+    }
+
+    # Get assignes clients to this keyword
+    public function getAssignedClientsToThisKeyword(Request $request)
+    {
+        $keyword = $request->keyword;
+        $keyword_identity = $request->keyword_identity;
+        $city = $request->city;
+
+        $data = DB::table('keyword_city_client_visibility')->where(['keyword' => $keyword, 'keyword_identity' => $keyword_identity, 'city' => $city])->get();
+
+        echo json_encode($data);
+        exit;
+    }
+
 }

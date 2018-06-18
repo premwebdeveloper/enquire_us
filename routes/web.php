@@ -82,6 +82,11 @@
     # Get page titles data
     Route::post('getPageUrlTitles', 'AjaxController@getPageUrlTitles')->name('getPageUrlTitles');
 
+    # Get visible areas according to keyword
+    Route::post('getVisibleAreasAccordingToKeyword', 'AjaxController@getVisibleAreasAccordingToKeyword')->name('getVisibleAreasAccordingToKeyword');
+    
+    # Get assignes clients to this keyword
+    Route::post('getAssignedClientsToThisKeyword', 'AjaxController@getAssignedClientsToThisKeyword')->name('getAssignedClientsToThisKeyword');
 
     # Upload logo and photos
     Route::post('uploadLogoAndPhotos', 'Profile@uploadLogoAndPhotos')->name('uploadLogoAndPhotos');
@@ -127,7 +132,18 @@
     Route::get('area', 'Areas@area')->name('area');
     Route::post('update_area', 'Areas@update_area')->name('update_area');
 	
-	# Client area visibility view page
+
+
+    # Client area visibility view page
+    Route::get('keyword_city_visibility', 'Areas@keyword_city_visibility')->name('keyword_city_visibility');
+    # Edit keyword city visibility page
+    Route::any('edit_keyword_city_visibility', 'Areas@edit_keyword_city_visibility')->name('edit_keyword_city_visibility');
+    # Edit keyword city visibility
+    Route::post('edit_city_visibility', 'Areas@edit_city_visibility')->name('edit_city_visibility');
+
+
+	
+    # Client area visibility view page
 	Route::get('client_area_visibility', 'Areas@client_area_visibility')->name('client_area_visibility');
 	# Edit client area visibility page
 	Route::any('edit_client_area_visibility', 'Areas@edit_client_area_visibility')->name('edit_client_area_visibility');

@@ -7,6 +7,7 @@
 	<div class="container">
 		<div class="row">
 
+
 			<!--Banner-->
 			<div class="col-sm-12 banner-slider">
 			    <div class="row">
