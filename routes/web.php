@@ -103,7 +103,14 @@
     Route::any('addUser_payment_modes/{user_id}', 'AdminUsers@addUser_payment_modes')->name('addUser_payment_modes');
     Route::any('addUser_business_timing/{user_id}', 'AdminUsers@addUser_business_timing')->name('addUser_business_timing');
     Route::any('addUser_business_keywords/{user_id}', 'AdminUsers@addUser_business_keywords')->name('addUser_business_keywords');
-    Route::get('addUser_logo_images', 'AdminUsers@addUser_logo_images')->name('addUser_logo_images');
+    Route::any('addUser_logo_images/{user_id}', 'AdminUsers@addUser_logo_images')->name('addUser_logo_images');
+    
+    # User Delete Logo
+    Route::post('userDeteteLogo', 'AdminUsers@userDeteteLogo')->name('userDeteteLogo');    
+
+    # User Delete Image
+    Route::post('userDeteteImage', 'AdminUsers@userDeteteImage')->name('userDeteteImage');
+
     Route::post('add_user', 'AdminUsers@add_user')->name('add_user');
 	Route::get('users', 'AdminUsers@index')->name('users');
     Route::post('active_inactive', 'AdminUsers@active_inactive')->name('active_inactive');
@@ -165,5 +172,14 @@
 
     # Update page titles data
     Route::post('editPageUrlTitle', 'WebsitePages@editPageUrlTitle')->name('editPageUrlTitle');
+
+    # Save Keywords By Admin
+    Route::post('save_keywords_by_admin', 'AjaxController@save_keywords_by_admin')->name('save_keywords_by_admin');
+
+    # get Save Keywords By Admin
+    Route::post('getSavedKeywords_By_Admin', 'AjaxController@getSavedKeywords_By_Admin')->name('getSavedKeywords_By_Admin');
+    
+    # Delete Keywords By Admin
+    Route::post('delete_keywords_by_admin', 'AjaxController@delete_keywords_by_admin')->name('delete_keywords_by_admin');
 
 // });

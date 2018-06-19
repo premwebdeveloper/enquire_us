@@ -14,12 +14,178 @@
     {
         margin-left: 0px;
     }
+.keywords{
+        margin-bottom: 10px;
+    }
 </style>
 <script>
     $(document).ready(function(){
         $(".add_keyword").click(function() {
             $("#add_keyword").show();
             $("#hide_add_button").hide();
+        });
+    });
+</script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+<style type="text/css">
+    .ui-autocomplete {
+        position:absolute;
+        cursor:default;
+        z-index:1001 !important
+    }
+</style>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        // Search Keywords using jquery auto complete
+
+        $("#search_keywords").autocomplete({
+            source: function( request, response ) {
+
+                // If request term limit is greater than 2 word
+                if(request.term.length < 3) return;
+
+                $.ajax({
+                    url: "{{ route('searchajax') }}",
+                    dataType: "json",
+                    data: {
+                        term : request.term,
+                    },
+                    success: function(data) {
+
+                        if (data.category !== '' && data.category !== null)
+                        {
+                            var array = $.map(data, function (item) {
+                                return {
+                                        label: item.category,
+                                        value: item.cat_id,
+                                        data : item
+                                }
+                            });
+                            response(array)
+                        }
+
+                    }
+                });
+            },
+            select: function( event, ui ) {
+                console.log(ui.item);
+                $('#search_keywords').val(ui.item.data.category);
+                var category = ui.item.data.category;
+                var cat_id = ui.item.data.cat_id;
+                var status = ui.item.data.status;
+
+                // Show searched data in "searched_result" section
+                $.ajax({
+                    method : 'post',
+                    url : '{{ route("getRelatedCategoryAndSubCatregories") }}',
+                    async : true,
+                    data : {"_token": "{{ csrf_token() }}", 'cat_id': cat_id, 'category': category, 'status': status},
+                    success:function(response){;
+
+                        // Searched entry
+                        var html = '<p style="margin:0px;"><input type="checkbox" name="keyword" value="'+cat_id+'-'+status+'" class="status_'+status+'" checked> '+category+' </p>';
+
+                        $.each(response, function (key, val) {
+                            html += '<p style="margin:0px;"><input type="checkbox" name="keyword" value="'+val.id+'-'+val.status+'" class="status_'+val.status+'"> '+val.category+' </p>';
+                        });
+
+                        $("#searched_result").html(html);
+                    },
+                    error: function(data){
+                        //console.log(data);
+                    },
+                });
+
+                return false;
+            }
+        });
+
+        // Save keywords
+        $(document).on("click", "#save_keywords", function(){
+            $('input:checkbox [name="keyword"]')
+
+            var checked_keywords = [];
+            $('input:checkbox:checked[name="keyword"]').each(function(i){
+              checked_keywords[i] = $(this).val();
+            });
+
+            var user_id = $("#user_id").val();
+
+            $.ajax({
+                method : 'post',
+                url : '{{ route("save_keywords_by_admin") }}',
+                async : true,
+                data : {"_token": "{{ csrf_token() }}", 'checked_keywords': checked_keywords, 'user_id': user_id},
+                success:function(response){
+
+                    if(response != 1)
+                    {
+                         // Get all Selected kwywords
+                        $.ajax({
+                            method : 'post',
+                            url : '{{ route("getSavedKeywords_By_Admin") }}',
+                            async : true,
+                            data : {"_token": "{{ csrf_token() }}", 'user_id': user_id},
+                            success:function(response){
+
+                                $('input:checkbox[name="keyword"]').prop('checked', false);
+
+                                $("#searched_result").html('');
+                                $("#savedKeywords").html('');
+                                $("#savedKeywords").html(response);
+                                console.log(response);
+
+                                
+                                    $("#add_keyword").hide();
+                                    $("#hide_add_button").show();
+                                
+                                //console.log(search_keywords);
+                            },
+                            error: function(data){
+                                //console.log(data);
+                            },
+                        });
+                    }
+                    else
+                    {
+                        alert('This keyword is already added!');
+                    }
+                },
+                error: function(data){
+                    console.log(data);
+                },
+            });
+
+        });
+
+        // Delete keyword
+        $(document).on('click', '.deleteKeyword', function(){
+            var id = $(this).attr('id');
+            var temp = id.split('_');
+            var keyword_id = temp[1];
+            var keyword_identity = temp[2];
+            
+            var user_id = "<?= $user_details->user_id;?>";
+
+            $.ajax({
+                method : 'post',
+                url : '{{ route("delete_keywords_by_admin") }}',
+                async : true,
+                data : {"_token": "{{ csrf_token() }}", 'keyword_id': keyword_id, 'keyword_identity': keyword_identity, 'user_id': user_id},
+                success:function(response){
+                    if(response == 1)
+                    {
+                        $("#keyword_"+keyword_id+"_"+keyword_identity+"").remove();
+                    }
+                },
+                error: function(data){
+                    //console.log(data);
+                },
+            });
+
         });
     });
 </script>
@@ -75,46 +241,43 @@
                                         <h4>Business Keywords</h4>
                                         <p>For business keywords that you no longer wish to be listed in simply click on cross next to the keyword and when you are done, Click "Save"</p>
 
-                                        <div class="col-sm-12" style="padding: 0px;border-bottom: 1px solid #ddd;">
+                                        <div class="col-sm-12" style="padding: 0px;border-bottom: 1px solid #ddd;    margin-bottom: 10px;">
                                             <a class="add_keyword" style="color:#3b5998;font-weight: bold;float:right">
                                                 Add more keywords
                                             </a>
+                                        </div>
+                                        <!-- Searched result will show here -->
+                                        <div class="col-sm-12" style="margin-bottom: 20px;">
+                                            <div id="savedKeywords"> <?= $keywords; ?> </div>
                                         </div>
                                     </div>
 
                                     <div class="panel-body" id="add_keyword" style="display:none;">
                                         <h4>Type your Business Keywords and click Search</h4>
-                                        <form method="post" class="form-horizontal" action="{{ route('addUser_business_keywords', ['user_id' => $user_details->user_id]) }}">
-                                            {{ csrf_field() }}
-                                            <div class="row">
-
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <div class="col-md-12">
-                                                            <input id="company_name" type="text" class="form-control" name="company_name" value="{{ old('company_name') }}">
-
-                                                            @if ($errors->has('company_name'))
-                                                                <span class="help-block red">
-                                                                    <strong>{{ $errors->first('company_name') }}</strong>
-                                                                </span>
-                                                            @endif
+                                            <form action="javascript:;" method="post" class="form-horizontal">
+                                                <fieldset>
+                                                    <div class="controls">
+                                                        <div class="form-group required">
+                                                            <div class="col-sm-12">
+                                                                <input type="hidden" id="user_id" name="check_validation" value="<?= $user_details->user_id;?>">
+                                                                <input class="form-control" name="search_keywords" id="search_keywords" type="text" placeholder="Search Keyword ...">
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </fieldset>
+                                            </form>
+                                        <div class="col-lg-12" style="margin-bottom: 10px;">
+                                            <div id="searched_result"> </div>
+                                        </div>
 
-                                            </div>
-                                        </form>
-
-                                        <!-- Searched result will show here -->
-                                        <div id="searched_result"> </div>
                                         <div class="col-md-3 text-right">
                                             <button class="btn btn-info btn-block" id="save_keywords">Save</button>
                                         </div>
                                         
-                                        <div class="col-md-12 text-right">
-                                            <hr>
-                                            <a href="{{ route('addUser_logo_images') }}" class="btn btn-success" style="margin-bottom: 30px;">Next</a>
-                                        </div>
+                                    </div>
+                                    <div class="col-md-12 text-right">
+                                        <hr>
+                                        <a href="{{ route('addUser_logo_images', ['user_id' => $user_details->user_id]) }}" class="btn btn-success" style="margin-bottom: 30px;">Next</a>
                                     </div>
                                 </div>
 

@@ -273,54 +273,55 @@ class AdminUsers extends Controller
 
         if(!empty($user_id) && !empty($check_validation))
         {
-            $i = 1;
-            $p = 0;
-            foreach ($from_time as $from)
-            {
-                $operation_timing = 1;
-                if($i > 7){ $operation_timing = 2; }
-
-                if($i == 1 || $i == 8){ $day = 'monday'; }
-                if($i == 2 || $i == 9){ $day = 'tuesday'; }
-                if($i == 3 || $i == 10){ $day = 'wednesday'; }
-                if($i == 4 || $i == 11){ $day = 'thursday'; }
-                if($i == 5 || $i == 12){ $day = 'friday'; }
-                if($i == 6 || $i == 13){ $day = 'saturday'; }
-                if($i == 7 || $i == 14){ $day = 'sunday'; }
-
-                if($from == 'closed')
+            if(!empty($from_time)){
+                $i = 1;
+                $p = 0;
+                foreach ($from_time as $from)
                 {
-                    $from = '00:00';
-                    $working_status = 0;
-                }
-                else
-                {
-                    $working_status = 1;
-                }
+                    $operation_timing = 1;
+                    if($i > 7){ $operation_timing = 2; }
 
-                if($to_time[$p] == 'closed')
-                {
-                    $time = '00:00';
-                }
-                else
-                {
-                    $time = $to_time[$p];
-                }
+                    if($i == 1 || $i == 8){ $day = 'monday'; }
+                    if($i == 2 || $i == 9){ $day = 'tuesday'; }
+                    if($i == 3 || $i == 10){ $day = 'wednesday'; }
+                    if($i == 4 || $i == 11){ $day = 'thursday'; }
+                    if($i == 5 || $i == 12){ $day = 'friday'; }
+                    if($i == 6 || $i == 13){ $day = 'saturday'; }
+                    if($i == 7 || $i == 14){ $day = 'sunday'; }
 
-                $where = ['user_id' => $user_id, 'operation_timing' => $operation_timing, 'day' => $day];
+                    if($from == 'closed')
+                    {
+                        $from = '00:00';
+                        $working_status = 0;
+                    }
+                    else
+                    {
+                        $working_status = 1;
+                    }
 
-                DB::table('user_other_information')->where($where)->update(
-                        array(
-                            'from_time' => $from,
-                            'to_time' => $time,
-                            'working_status' => $working_status,
-                            'updated_at' => $date
-                        )
-                );
-                $i++;
-                $p++;
+                    if($to_time[$p] == 'closed')
+                    {
+                        $time = '00:00';
+                    }
+                    else
+                    {
+                        $time = $to_time[$p];
+                    }
+
+                    $where = ['user_id' => $user_id, 'operation_timing' => $operation_timing, 'day' => $day];
+
+                    DB::table('user_other_information')->where($where)->update(
+                            array(
+                                'from_time' => $from,
+                                'to_time' => $time,
+                                'working_status' => $working_status,
+                                'updated_at' => $date
+                            )
+                    );
+                    $i++;
+                    $p++;
+                }
             }
-
             return redirect()->route('addUser_business_keywords', ['user_id' => $user_id]);
         }
         else
@@ -340,17 +341,222 @@ class AdminUsers extends Controller
         $user_id = $request->user_id;
         
         $user_details = DB::table('user_details')->where('user_id', $user_id)->first();
-        $user_keywords = DB::table('user_keywords')->where('user_id', $user_id)->get();
         
-        return view('admin_users.addUser_business_keywords', array("user_details" => $user_details, "user_keywords" => $user_details));
+        $where = array('user_id' => $user_id, 'status' => 1);
+
+        $keywords = DB::table('user_keywords')->where($where)->get();
+
+        $saved_keywords = '';
+
+        foreach ($keywords as $key => $words)
+        {
+            if($words->keyword_identity == 1)
+            {
+                $category = DB::table('category')->where('id', $words->keyword_id)->first();
+
+                $saved_keywords .= '<div class="col-md-4 keywords p0" id="keyword_'.$category->id.'_1">'.$category->category.' &nbsp;&nbsp;<i class="fa fa-times deleteKeyword red text-right" id="delete_'.$category->id.'_1"></i></div>';
+            }
+            else
+            {
+                $subcategory = DB::table('subcategory')->where('id', $words->keyword_id)->first();
+
+                $saved_keywords .= '<div class="col-md-4 keywords p0" id="keyword_'.$subcategory->id.'_2">'.$subcategory->subcategory.' &nbsp;&nbsp;<i class="fa fa-times deleteKeyword red text-right" id="delete_'.$subcategory->id.'_2"></i></div>';
+            }
+        }
+        
+        return view('admin_users.addUser_business_keywords', array("user_details" => $user_details, "keywords" => $saved_keywords));
     }
 
     // new User Update Logo and Images
-    public function addUser_logo_images()
+    public function addUser_logo_images(Request $request)
     {
-        $user_details = DB::table('user_other_information')->where('status', 1)->orderBy('user_id', 'desc')->first();
 
-        return view('admin_users.addUser_logo_images', array("user_details" => $user_details));
+        $date = date('Y-m-d H:i:s');
+
+        $user_id = $request->user_id;
+
+        $check_validation = $request->check_validation;
+
+        if(!empty($user_id) && !empty($check_validation)){
+
+            $status = 'Please Select Image';
+
+            // Upload multiple images
+            if($request->hasFile('photos')) {
+
+                foreach ($request->photos as $file) {
+
+                    $filename = $file->getClientOriginalName();
+
+                    $ext = pathinfo($filename, PATHINFO_EXTENSION);
+
+                    $filename = substr(md5(microtime()),rand(0,26),6);
+
+                    $filename .= '.'.$ext;
+
+                    $filesize = $file->getClientSize();
+
+                    // First check file extension if file is not image then hit error
+                    $extensions = ['jpg', 'jpeg', 'png', 'gig', 'bmp'];
+
+                    if(! in_array($ext, $extensions))
+                    {
+                        $status = 'File type is not allowed you have uploaded. Please upload any image !';
+                        return redirect('profile')->with('status', $status);
+                    }
+
+                    // first check file size if greater than 1mb than hit error
+                    if($filesize > 1052030){
+                        $status = 'File size is too large. Please upload file less than 1MB !';
+                        return redirect('profile')->with('status', $status);
+                    }
+
+                    $destinationPath = config('app.fileDestinationPath').'/'.$filename;
+
+                    $uploaded = Storage::put($destinationPath, file_get_contents($file->getRealPath()));
+
+                    if($uploaded)
+                    {
+                         $image_update = DB::table('user_images')->insert(
+                            array(
+                                'user_id' => $user_id,
+                                'image' => $filename,
+                                'status' => 1
+                            )
+                        );
+                    }
+
+                    if($uploaded)
+                    {
+                        $status = 'Profile image successfully.';
+                    }
+                    else
+                    {
+                        $status = 'No File Selected';
+                    }
+                }
+            }
+
+            // Upload logo
+            if($request->hasFile('logo')) {
+
+                $file = $request->logo;
+
+                $filename = $file->getClientOriginalName();
+
+                $ext = pathinfo($filename, PATHINFO_EXTENSION);
+
+                $filename = substr(md5(microtime()),rand(0,26),6);
+
+                $filename .= '.'.$ext;
+
+                // First check file extension if file is not image then hit error
+                $extensions = ['jpg', 'jpeg', 'png', 'gig', 'bmp'];
+
+                if(! in_array($ext, $extensions))
+                {
+                    $status = 'File type is not allowed you have uploaded. Please upload any image !';
+                    return redirect('profile')->with('status', $status);
+                }
+
+                $filesize = $file->getClientSize();
+
+                // first check file size if greater than 1mb than hit error
+                if($filesize > 1052030){
+                    $status = 'File size is too large. Please upload file less than 1MB !';
+                    return redirect('profile')->with('status', $status);
+                }
+
+                $destinationPath = config('app.fileDestinationPath').'/'.$filename;
+                $uploaded = Storage::put($destinationPath, file_get_contents($file->getRealPath()));
+
+                if($uploaded)
+                {
+                     $image_update = DB::table('user_details')->where('user_id', $user_id)->update(
+                        array(
+                            'logo' => $filename
+                        )
+                    );
+                }
+
+                if($uploaded)
+                {
+                    $status = 'Profile logo successfully.';
+                }
+                else
+                {
+                    $status = 'No File Selected';
+                }
+            }
+            
+            $user_details = DB::table('user_other_information')->where('status', 1)->orderBy('user_id', 'desc')->first();
+
+            $user_images = DB::table('user_images')->where('user_id', $user_id)->get();
+            
+            $user_logo = DB::table('user_details')->where('user_id', $user_id)->first();
+
+            return view('admin_users.addUser_logo_images', array("user_details" => $user_details, "user_images" => $user_images, "user_logo" => $user_logo))->with('status', $status);
+        }
+        else
+        {
+
+            $user_details = DB::table('user_other_information')->where('status', 1)->orderBy('user_id', 'desc')->first();
+
+            $user_images = DB::table('user_images')->where('user_id', $user_id)->get();
+            
+            $user_logo = DB::table('user_details')->where('user_id', $user_id)->first();
+
+            return view('admin_users.addUser_logo_images', array("user_details" => $user_details, "user_images" => $user_images, "user_logo" => $user_logo));
+        }
+    }
+
+    # User Delete Logo
+    public function userDeteteLogo(Request $request)
+    {
+        $user_id = $request->user_id;
+
+        // update user details
+        $update = DB::table('user_details')->where('user_id', $user_id)->update(
+            array(
+                'logo' => Null
+            )
+        );
+
+        if($update)
+        {
+            $status = 'Delete Logo successfully.';
+        }
+        else
+        {
+            $status = 'Something went wrong !';
+        }
+        return redirect()->route('addUser_logo_images', ['user_id' => $user_id]);
+        //return redirect('addUser_logo_images')->with('status', $status);
+    }
+
+    # User Delete Logo
+    public function userDeteteImage(Request $request)
+    {
+        $user_id = $request->user_id;
+        $id = $request->id;
+
+        // update user details
+        $update = DB::table('user_images')->where('user_id', $user_id)->delete(
+            array(
+                'id' => $id
+            )
+        );
+
+        if($update)
+        {
+            $status = 'Delete Image successfully.';
+        }
+        else
+        {
+            $status = 'Something went wrong !';
+        }
+        return redirect()->route('addUser_logo_images', ['user_id' => $user_id]);
+        //return redirect('addUser_logo_images')->with('status', $status);
     }
 
     // View User Detail
@@ -387,11 +593,11 @@ class AdminUsers extends Controller
 
         if($status == 1)
         {
-        	$status = 2;
+            $status = 2;
         }
         else
         {
-        	$status = 1;
+            $status = 1;
         }
 
         // update user details

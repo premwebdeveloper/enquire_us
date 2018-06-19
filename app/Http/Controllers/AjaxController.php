@@ -903,6 +903,103 @@ class AjaxController extends Controller
         exit;
     }
 
+    #save keywords by admin
+    public function save_keywords_by_admin(Request $request)
+    {
+        $date = date('Y-m-d H:i:s');
+        $currentuserid = $request->user_id;
+        $checked_keywords = $request->checked_keywords;
+
+        // First check if this keyword is already exist or not
+        foreach ($checked_keywords as $key => $word) {
+            $temp = explode("-", $word);
+            $key_word = $temp[0];
+            $key_identity = $temp[1];
+
+            // Get old keywords to match current keywords
+            $where = array('user_id' => $currentuserid, 'status' => 1, 'keyword_id' => $key_word, 'keyword_identity' => $key_identity);
+            $exist = DB::table('user_keywords')->where($where)->first();
+            
+            if(!empty($exist))
+            {
+                echo 1;
+                exit;
+            }
+        }
+
+        // Insert keywords in database table If all is well
+        foreach ($checked_keywords as $key => $keyword) {
+            $temp = explode("-", $keyword);
+            $key_word = $temp[0];
+            $key_identity = $temp[1];
+
+            $insert = DB::table('user_keywords')->insert([
+                'user_id' => $currentuserid,
+                'keyword_id' => $key_word,
+                'keyword_identity' => $key_identity,
+                'created_at' => $date,
+                'updated_at' => $date,
+                'update_status' => 0,
+                'status' => 1
+            ]);
+        }
+        echo 0;
+
+    }
+
+    // Get saved keywords
+    public function getSavedKeywords_By_Admin(Request $request)
+    {
+        $currentuserid = $request->user_id;
+
+        $saved_keywords = '';
+
+        $where = array('user_id' => $currentuserid, 'status' => 1);
+
+        $keywords = DB::table('user_keywords')->where($where)->get();
+
+        foreach ($keywords as $key => $words) {
+
+            if($words->keyword_identity == 1)
+            {
+                $category = DB::table('category')->where('id', $words->keyword_id)->first();
+
+                $saved_keywords .= '<div class="col-md-4 keywords p0" id="keyword_'.$category->id.'_1">'.$category->category.' &nbsp;&nbsp;<i class="fa fa-times deleteKeyword red text-right" title="Delete" id="delete_'.$category->id.'_1"></i></div>';
+            }
+            else
+            {
+                $subcategory = DB::table('subcategory')->where('id', $words->keyword_id)->first();
+
+                $saved_keywords .= '<div class="col-md-4 keywords p0" id="keyword_'.$subcategory->id.'_2">'.$subcategory->subcategory.' &nbsp;&nbsp;<i class="fa fa-times deleteKeyword red text-right" title="Delete" id="delete_'.$subcategory->id.'_2"></i></div>';
+            }
+        }
+
+        echo $saved_keywords;
+        exit;
+    }
+
+    #delete keywords by admin
+    public function delete_keywords_by_admin(Request $request)
+    {
+        $date = date('Y-m-d H:i:s');
+        $user_id = $request->user_id;
+       
+        $keyword_id = $request->keyword_id;
+        $keyword_identity = $request->keyword_identity;
+
+        $where = array('user_id' => $user_id, 'keyword_id' => $keyword_id, 'keyword_identity' => $keyword_identity);
+
+        $delete = DB::table('user_keywords')->where($where)->update(
+            array(
+                'updated_at' => $date,
+                'status' => 0
+            )
+        );
+
+        echo 1; exit;
+
+    }
+
     # Get visible areas according to keyword
     public function getVisibleAreasAccordingToKeyword(Request $request)
     {
@@ -931,5 +1028,4 @@ class AjaxController extends Controller
         echo json_encode($data);
         exit;
     }
-
 }

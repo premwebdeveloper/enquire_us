@@ -1123,40 +1123,41 @@ $(document).ready(function(){
                             <hr />
 
                             <form action="{{ route('uploadLogoAndPhotos') }}" method="post" class="form-horizontal" enctype="multipart/form-data">
-                              <fieldset>
-                                <div class="controls">
+                                <input type="hidden" class="form-control" name="check_validation" value="1" >
+                                <fieldset>
+                                    <div class="controls">
 
-                                    {{ csrf_field() }}
+                                        {{ csrf_field() }}
 
-                                  <div class="form-group required">
-                                    <label for="Name" class="col-sm-4 control-label">Upload Logo: </label>
-                                    <div class="col-sm-6">
-                                        <input class="form-control" name="logo" id="logo" type="file">
+                                      <div class="form-group required">
+                                        <label for="Name" class="col-sm-4 control-label">Upload Logo: </label>
+                                        <div class="col-sm-6">
+                                            <input class="form-control" name="logo" id="logo" type="file">
+                                        </div>
+                                      </div>
+
+                                      <div class="form-group required">
+                                        <label for="Name" class="col-sm-4 control-label">Upload Photos: </label>
+                                        <div class="col-sm-6">
+                                            <input class="form-control" name="photos[]" id="photos" type="file" multiple>
+                                        </div>
+                                      </div>
+
                                     </div>
-                                  </div>
-
-                                  <div class="form-group required">
-                                    <label for="Name" class="col-sm-4 control-label">Upload Photos: </label>
-                                    <div class="col-sm-6">
-                                        <input class="form-control" name="photos[]" id="photos" type="file" multiple>
+                                    <div class="buttons">
+                                        <div class="left">
+                                            <label class="checkbox-inline" style="padding-left: 0px;">
+                                              <a class="btn btn-primary back" data-original-title="" title="">Prev</a>
+                                            </label>
+                                        </div>
+                                        <div class="right">
+                                            <label class="checkbox-inline">
+                                              <!-- <a class="btn btn-primary continue" data-original-title="" title="">Save & Exit</a> -->
+                                              <input type="submit" name="save_exit" class="btn btn-primary continue" value="Save & Exit">
+                                            </label>
+                                          </div>
                                     </div>
-                                  </div>
-
-                                </div>
-                                <div class="buttons">
-                                  <div class="left">
-                                    <label class="checkbox-inline" style="padding-left: 0px;">
-                                      <a class="btn btn-primary back" data-original-title="" title="">Prev</a>
-                                    </label>
-                                  </div>
-                                  <div class="right">
-                                    <label class="checkbox-inline">
-                                      <!-- <a class="btn btn-primary continue" data-original-title="" title="">Save & Exit</a> -->
-                                      <input type="submit" name="save_exit" class="btn btn-primary continue" value="Save & Exit">
-                                    </label>
-                                  </div>
-                                </div>
-                              </fieldset>
+                                </fieldset>
                           </form>
                         </div>
 
