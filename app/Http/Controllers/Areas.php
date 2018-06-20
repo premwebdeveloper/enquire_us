@@ -183,8 +183,10 @@ class Areas extends Controller
 		// First check if this user already have another areas or not
 		//$exist_areas = DB::table('user_area_visibility')->where(['user_id' => $user_id, 'keyword_id' => $keyword_id, 'keyword_identity' =>$keyword_identity])->get();
 		
+		// get all exist areas assigned by admin
 		$exist_areas = DB::table('user_area_visibility')->where(['user_id' => $user_id])->get();
 		
+		// delete all assigned area
 		if(!empty($exist_areas))
 		{
 			foreach($exist_areas as $e_key => $e_area)
@@ -194,8 +196,8 @@ class Areas extends Controller
 			}
 		}
 
-		// Get clients all keyword
-		$client_keywords =  DB::table('user_keywords')->where(['user_keywords.user_id' => $user_id, 'user_keywords.status' => 1])
+		// Get clients all keyword which are approved keyword by admin
+		$client_keywords =  DB::table('user_keywords')->where(['user_keywords.user_id' => $user_id, 'user_keywords.status' => 1, 'user_keywords.update_status' => 1])
 							->leftjoin("category", function($join) use($user_id) {
 								$join->on("category.id", "=", "user_keywords.keyword_id")
 				                	 ->where("user_keywords.keyword_identity", "1");
@@ -206,7 +208,7 @@ class Areas extends Controller
 				            })
 				            ->select('user_keywords.*', 'category.category', 'subcategory.subcategory')->get();
 
-		# loop all keywords
+		# Assign area with keyword for client
 		if(!empty($client_keywords{0})  && !empty($areas))
 		{
 			foreach($areas as $a_key => $area)
@@ -274,6 +276,7 @@ class Areas extends Controller
 		# Get all clients
 		$clients =  DB::table('user_location')
 					->join('user_keywords', 'user_keywords.user_id', '=', 'user_location.user_id')
+					->join('websites_page_head_titles', 'websites_page_head_titles.business_page', '=', 'user_location.user_id')
 					->where('user_keywords.status', 1)
 					->where('user_keywords.keyword_id', $keyword_id)
 					->where('user_keywords.keyword_identity', $keyword_identity)

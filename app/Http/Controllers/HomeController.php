@@ -86,6 +86,9 @@ class HomeController extends Controller
         $title_id = $encoded[1];
         $title_status = $encoded[2];
 
+        $city = $encoded[3];
+        $area = $encoded[4];
+
         if($title_status == 1) {        // If title is category
 
             $categories = DB::table('category')
@@ -96,20 +99,92 @@ class HomeController extends Controller
                     ->select('category.*', 'websites_page_head_titles.page_url')
                     ->get();
 
-            $query = DB::table('user_keywords')
+
+          /*  $query = DB::table('user_keywords')
                 ->join('category', 'category.id', '=', 'user_keywords.keyword_id')
                 ->join('user_details', 'user_keywords.user_id', '=', 'user_details.user_id')
                 ->join('user_location', 'user_location.user_id', '=', 'user_details.user_id')
                 ->join('websites_page_head_titles', 'websites_page_head_titles.business_page', '=', 'user_details.user_id')
                 ->where('user_keywords.keyword_identity', 1)
                 ->where('user_location.status', 1)
+                ->where('user_keywords.update_status', 1)
                 ->where('user_details.status', 1);
 
-                $query->where('category.id', $title_id);
+*/
+                // if searching being on city
+                if(empty($area)){
 
-                $query->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country', 'websites_page_head_titles.page_url');
+                    $query = DB::table('user_keywords')
+                        ->join('category', 'category.id', '=', 'user_keywords.keyword_id')
+                        ->join('user_details', 'user_keywords.user_id', '=', 'user_details.user_id')
+                        ->join('user_location', 'user_location.user_id', '=', 'user_details.user_id')
+                        ->join('websites_page_head_titles', 'websites_page_head_titles.business_page', '=', 'user_details.user_id')
+                        ->join('keyword_city_client_visibility', 'keyword_city_client_visibility.user_id', '=', 'user_details.user_id')
+                        ->where('user_keywords.keyword_identity', 1)
+                        ->where('user_keywords.update_status', 1)
+                        ->where('user_location.status', 1)
+                        ->where('user_details.status', 1)
+                        ->where('keyword_city_client_visibility.status', 1)
+                        ->where('keyword_city_client_visibility.keyword', $title_id)
+                        ->where('keyword_city_client_visibility.keyword_identity', 1);
 
-                $clients = $query->get();
+                        $query->where('category.id', $title_id);
+
+                        $query->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country', 'websites_page_head_titles.page_url');
+
+                        $clients = $query->get();
+                }
+                else
+                {
+                    $query = DB::table('user_keywords')
+                        ->join('category', 'category.id', '=', 'user_keywords.keyword_id')
+                        ->join('user_details', 'user_keywords.user_id', '=', 'user_details.user_id')
+                        ->join('user_location', 'user_location.user_id', '=', 'user_details.user_id')
+                        ->join('websites_page_head_titles', 'websites_page_head_titles.business_page', '=', 'user_details.user_id')
+                        ->where('user_keywords.keyword_identity', 1)
+                        ->where('user_location.status', 1)
+                        ->where('user_location.area', $area)
+                        ->where('user_keywords.update_status', 1)
+                        ->where('user_details.status', 1);
+
+                    $query->where('category.id', $title_id);
+
+                    $query->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country', 'websites_page_head_titles.page_url');
+
+                    $clients = $query->get();
+                   
+                    // get clients on selected area with this keyword assigned by admin from table 'user_area_visibility'
+                    $queryA = DB::table('user_keywords')
+                        ->join('category', 'category.id', '=', 'user_keywords.keyword_id')
+                        ->join('user_details', 'user_keywords.user_id', '=', 'user_details.user_id')
+                        ->join('user_location', 'user_location.user_id', '=', 'user_details.user_id')
+                        ->join('websites_page_head_titles', 'websites_page_head_titles.business_page', '=', 'user_details.user_id')
+                        ->join('user_area_visibility', 'user_area_visibility.user_id', '=', 'user_details.user_id')
+                        ->where('user_keywords.keyword_identity', 1)
+                        ->where('user_location.status', 1)
+                        ->where('user_keywords.update_status', 1)
+                        ->where('user_details.status', 1)
+                        ->where('user_area_visibility.keyword_id', $title_id)
+                        ->where('user_area_visibility.keyword_identity', 1)
+                        ->where('user_area_visibility.area', $area)
+                        ->where('user_area_visibility.status', 1);
+
+                    $queryA->where('category.id', $title_id);
+
+                    $queryA->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country', 'websites_page_head_titles.page_url');
+
+                    $clientsA = $queryA->get();
+
+                    $index = count($clients);
+
+                    // merge both searched clients array  
+                    foreach ($clientsA as $keyA => $cA) {
+                        $clients{$index} = $cA;
+                        $index++;
+                    }
+
+                }
+        
 
             return view('frontend.clients', array('clients' => $clients, 'categories' => $categories, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords));
         }
@@ -123,20 +198,79 @@ class HomeController extends Controller
                     ->select('category.*', 'websites_page_head_titles.page_url')
                     ->get();
 
-            $query = DB::table('user_keywords')
-                ->join('subcategory', 'subcategory.id', '=', 'user_keywords.keyword_id')
-                ->join('user_details', 'user_keywords.user_id', '=', 'user_details.user_id')
-                ->join('user_location', 'user_location.user_id', '=', 'user_details.user_id')
-                ->join('websites_page_head_titles', 'websites_page_head_titles.business_page', '=', 'user_details.user_id')
-                ->where('user_keywords.keyword_identity', 2)
-                ->where('user_location.status', 1)
-                ->where('user_details.status', 1);
+            if(empty($area)){
 
-                $query->where('subcategory.id', $title_id);
+                $query = DB::table('user_keywords')
+                        ->join('subcategory', 'subcategory.id', '=', 'user_keywords.keyword_id')
+                        ->join('user_details', 'user_keywords.user_id', '=', 'user_details.user_id')
+                        ->join('user_location', 'user_location.user_id', '=', 'user_details.user_id')
+                        ->join('websites_page_head_titles', 'websites_page_head_titles.business_page', '=', 'user_details.user_id')
+                        ->join('keyword_city_client_visibility', 'keyword_city_client_visibility.user_id', '=', 'user_details.user_id')
+                        ->where('user_keywords.keyword_identity', 2)
+                        ->where('user_location.status', 1)
+                        ->where('user_details.status', 1)
+                        ->where('user_keywords.update_status', 1)
+                        ->where('keyword_city_client_visibility.status', 1)
+                        ->where('keyword_city_client_visibility.keyword', $title_id)
+                        ->where('keyword_city_client_visibility.keyword_identity', 2);
 
-                $query->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country', 'websites_page_head_titles.page_url');
+                        $query->where('subcategory.id', $title_id);
 
-                 $clients = $query->get();
+                        $query->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country', 'websites_page_head_titles.page_url');
+
+                         $clients = $query->get();
+
+            }else{
+
+                $query = DB::table('user_keywords')
+                        ->join('subcategory', 'subcategory.id', '=', 'user_keywords.keyword_id')
+                        ->join('user_details', 'user_keywords.user_id', '=', 'user_details.user_id')
+                        ->join('user_location', 'user_location.user_id', '=', 'user_details.user_id')
+                        ->join('websites_page_head_titles', 'websites_page_head_titles.business_page', '=', 'user_details.user_id')
+                        ->where('user_keywords.keyword_identity', 2)
+                        ->where('user_location.status', 1)
+                        ->where('user_location.area', $area)
+                        ->where('user_keywords.update_status', 1)
+                        ->where('user_details.status', 1);
+
+                    $query->where('subcategory.id', $title_id);
+
+                    $query->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country', 'websites_page_head_titles.page_url');
+
+                    $clients = $query->get();
+                   
+                    // get clients on selected area with this keyword assigned by admin from table 'user_area_visibility'
+                    $queryA = DB::table('user_keywords')
+                        ->join('subcategory', 'subcategory.id', '=', 'user_keywords.keyword_id')
+                        ->join('user_details', 'user_keywords.user_id', '=', 'user_details.user_id')
+                        ->join('user_location', 'user_location.user_id', '=', 'user_details.user_id')
+                        ->join('websites_page_head_titles', 'websites_page_head_titles.business_page', '=', 'user_details.user_id')
+                        ->join('user_area_visibility', 'user_area_visibility.user_id', '=', 'user_details.user_id')
+                        ->where('user_keywords.keyword_identity', 2)
+                        ->where('user_location.status', 1)
+                        ->where('user_keywords.update_status', 1)
+                        ->where('user_details.status', 1)
+                        ->where('user_area_visibility.keyword_id', $title_id)
+                        ->where('user_area_visibility.keyword_identity', 2)
+                        ->where('user_area_visibility.area', $area)
+                        ->where('user_area_visibility.status', 1);
+
+                    $queryA->where('subcategory.id', $title_id);
+
+                    $queryA->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country', 'websites_page_head_titles.page_url');
+
+                    $clientsA = $queryA->get();
+
+                    $index = count($clients);
+
+                    // merge both searched clients array  
+                    foreach ($clientsA as $keyA => $cA) {
+                        $clients{$index} = $cA;
+                        $index++;
+                    }
+
+            }
+            
 
             return view('frontend.clients', array('clients' => $clients, 'categories' => $categories, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords));
         }

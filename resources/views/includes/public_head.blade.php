@@ -128,7 +128,7 @@
 							else
 							{
 								// all is well
-								var encoded = makeid()+'-'+filter_title_alt;
+								var encoded = makeid()+'-'+filter_title_alt+'-'+location+'-'+sub_location;
 								// encode parameter
 								encoded = encodeURIComponent(window.btoa(encoded));
 
