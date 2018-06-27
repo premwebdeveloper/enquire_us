@@ -4,6 +4,9 @@
 
 <!-- #header -->
 <div id="main" class="site-main">
+    <div class="shop-banner"> 
+        <img style="width:100%;" alt="Best Dhaka Restaurants Discount, Deals, Vouchers, Coupons, Offers, SMS in Bangladesh | savetk.com" src="http://savetk.com/assets/uploads/cache/bb1688447f5584f6274c712dd9651a0a-1366x250.jpg"> 
+    </div>
 	<div class="container">
 		<div class="row">
 			<!--Latest offers-->
@@ -11,47 +14,51 @@
 				<div class="row">
 
                     <div class="col-sm-3">
-                        <div class="col-sm-12 top30 p0">
-                            <h1 class="brand-header">Categories </h1>
-                            <div class="list-group category_list">
-                                @foreach($categories as $category)
-                                    <?php
-                                        $cat_name = $category->category;
-                                        $cat_name = preg_replace('/[^A-Za-z0-9\-]/', '-', $cat_name);
-                                        $encrypted = Crypt::encrypt($category->id);
-                                    ?>
-                                    <a href="{{ URL::to('category',array('category' => $category->page_url, 'id' => $encrypted)) }}" class="list-group-item">
-                                        {{ $category->category }}
-                                    </a>
-                                @endforeach
+                        <div class="col-sm-12">
+                            <div class="catagory-name">
+                                <h3>Food &amp; Drinks</h3>
+                            </div>
+                            <div class="filter top30 cata-dis-none">
+                                <h1 class="brand-header">Categories </h1>
+                                <div class="list-group category_list">
+                                    @foreach($categories as $category)
+                                        <?php
+                                            $cat_name = $category->category;
+                                            $cat_name = preg_replace('/[^A-Za-z0-9\-]/', '-', $cat_name);
+                                            $encrypted = Crypt::encrypt($category->id);
+                                        ?>
+                                        <a href="{{ URL::to('category',array('category' => $category->page_url, 'id' => $encrypted)) }}" class="list-group-item">
+                                            {{ $category->category }}
+                                        </a>
+                                    @endforeach
+                                </div>
                             </div>
                         </div>
                     </div>
 
-					<div class="col-sm-9">
+					<div class="col-sm-6 top60">
 
-                        <div class="col-sm-12 top30 p0">
+                        <div class="col-sm-12 top40 p0">
                             <h1 class="brand-header">Latest offers </h1>
                         </div>
 
-                        <?php
-                        // echo '<pre>';
-                        // print_r($clients);
-                        // exit;
-                        ?>
-
 						<div class="row">
+                            <?php
+/*                                echo "<pre>";
+                                print_r($clients);
+                                exit;*/
+                            ?>
                             @if(!empty($clients[0]))
                                 @foreach($clients as $client)
 
-    							<div class="col-lg-3 col-sm-3 col-xs-6 res-cop-box">
+    							<div class="col-lg-12 col-sm-12 col-xs-12 res-cop-box">
     								<div class="offer-small offer">
 
                                         <?php
-                                        $business_name = $client->business_name;
+                                            $business_name = $client->business_name;
                                         ?>
 
-    									<div class="vendor-image">
+    									<div class="col-lg-6 col-sm-6 col-xs-12 vendor-image">
     										<a href="{{ URL::to('view', array('business_url' => $client->page_url, 'id' => Crypt::encrypt($client->user_id) )) }}">
                                                 <?php
                                                     if(!empty($client->logo))
@@ -70,28 +77,33 @@
     										</a>
     									</div>
 
-    									<div class="offer-title">
-                                            <span href="javascript:;"> {{ $client->business_name }} </span>
+    									<div class="offer-title col-lg-6 col-sm-6 col-xs-12 ">
+                                            <h3 class="margin0"> 
+                                                <a href="{{ URL::to('view', array('business_url' => $client->page_url, 'id' => Crypt::encrypt($client->user_id) )) }}">
+                                                    {{ $client->business_name }} 
+                                                </a>
+                                            </h3>
                                             <div class="offer-ends trim-content">
-                                                <i class="fa fa-mobile" aria-hidden="true"></i> {{ $client->phone }}
-                                            </div>
-    										<div class="col-md-12 offer-location trim-content">
-                                                @if(!empty($client->building))
-
+                                                <p class="margin0">
+                                                    <i class="fa fa-phone" aria-hidden="true"></i> 
+                                                    <span>{{ $client->phone }}</span>
+                                                </p>
+                                                @if(!empty($client->area))
+                                                <p>
                                                     <i class="fa fa-map-marker"></i>
-                                                    {{ $client->building }}, {{ $client->street }}, {{ $client->area }}, {{ $client->city }}, {{ $client->state }}, {{ $client->country }} - {{ $client->pincode }}
-
+                                                    <span>
+                                                        {{ $client->building }}, {{ $client->street }}, {{ $client->landmark }}...
+                                                    </span>
+                                                </p>
                                                 @endif
                                             </div>
-    									</div>
-
-    									<div class="col-md-12" style="height: 15px;"></div>
-
-    									<div class="offer-getcode">
-    										<button onclick="viewCount(899)" class="btn btn-cd btn-sms" data-toggle="modal" data-target="#myModal_899">
-                                                Get Sms
-                                            </button>
-    									</div>
+    									
+                                            <div class="offer-getcode">
+                                                <a href="{{ URL::to('view', array('business_url' => $client->page_url, 'id' => Crypt::encrypt($client->user_id) )) }}" class="btn btn-cd btn-coupon">
+        										    View Details
+                                                </a>   
+        									</div>
+                                        </div>
 
     								</div>
     							</div>
@@ -107,6 +119,16 @@
 						</div>
 
 					</div>
+
+                    <div class="col-sm-3">
+                        <div class="col-sm-12">
+                            <div class="filter top30 cata-dis-none">
+                                <div class="list-group category_list">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
 				</div>
 			</div>

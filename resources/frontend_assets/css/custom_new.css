@@ -1010,8 +1010,11 @@ header {
 	font-size: 15px;
 }
 .offer-small {
-	min-height: 315px;
-	margin-bottom: 25px;
+    min-height: 130px;
+    margin-bottom: 25px;
+}
+.offer-small .amit img {
+	height: 130px;
 }
 .offer {
 	background-color: #fff;
@@ -1027,21 +1030,23 @@ header {
 	width: 100%;
 }
 .offer-small .offer-title {
-	height: 100px;
-	text-align: center;
-	overflow: hidden;
-	margin-top: 10px;
+	height: 130px;
+	text-align: left;
+	/*overflow: hidden;*/
+	margin-top: 0px;
 }
 .offer-title a {
-	color: #333;
+    /*color: #333;*/
     display: block;
-    font-size: 15px;
-    height: 45px;
+    font-size: 17px;
     line-height: 22px;
     margin-bottom: 0;
     overflow: hidden;
     text-transform: uppercase;
-	padding:0 5px;
+    padding:5px 5px;
+}
+.offer-title h3 a{
+	color: #333;
 }
 .offer-title a:hover {
 	color: #006A4E;
@@ -1050,7 +1055,7 @@ header {
 	display: block;
 	float: none;
 	width: 100%;
-	text-align: center;
+	text-align: left;
 	font-size: 13px;
 }
 .offer-ends {
@@ -1062,7 +1067,7 @@ header {
 	font-size: 14px;
 }
 .offer-ends, .offer-verified {
-	line-height: 30px;
+	line-height: 22px;
 	vertical-align: top;
 }
 
@@ -1110,7 +1115,7 @@ header {
 .offer-small .offer-getcode {
 	float: left;
 	margin-bottom: 20px;
-	text-align: center;
+	text-align: left;
 	width: 100%;
 }
 .offer-getcode {
@@ -1188,9 +1193,9 @@ header {
 }
 .btn-cd {
 	color: #fff;
-	font-size: 15px;
+	font-size: 12px!important;
 	line-height: 23px;
-	width: 150px;
+	width: 100px;
 	text-transform: uppercase;
 	border: none;
 	font-family: 'open_sanssemibold';
@@ -1804,7 +1809,7 @@ footer {
 .time-counter, .buy-counter {
 	font-family: "open_sansregular";
 	margin-left: 5px;
-	font-size: 12px;
+	font-size: 14px;
 }
 .share-box ul {
 	float: left;

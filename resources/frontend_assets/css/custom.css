@@ -61,3 +61,8 @@ option.option_padding
 {
     padding-top: 30px;
 }
+.col-lg-55, .col-lg-sm, .col-md-55 {
+    width: 20%;
+   /* padding: 0 5px;*/
+    margin-bottom: 10px;
+}

@@ -40,13 +40,33 @@ class HomeController extends Controller
                     ->select('category.*', 'websites_page_head_titles.page_url')
                     ->get();
 
+        // Get home page client details
+        $home_page_clients = DB::table('user_details')
+            ->join('websites_page_head_titles', 'websites_page_head_titles.business_page', '=', 'user_details.user_id')
+            ->join('user_location', 'user_location.user_id', '=', 'user_details.user_id')
+            ->where(array('user_details.update_status' => 1))
+            ->take(20)
+            ->select('user_details.*', 'websites_page_head_titles.page_url', 'user_location.business_name')
+            ->get();
+
+        // Get latest listed home page client details
+        $latest_home_page_clients = DB::table('user_details')
+            ->join('websites_page_head_titles', 'websites_page_head_titles.business_page', '=', 'user_details.user_id')
+            ->join('user_location', 'user_location.user_id', '=', 'user_details.user_id')
+            ->where(array('user_details.update_status' => 1))
+            ->orderBy('user_location.id', 'desc')
+            ->take(5)
+            ->select('user_details.*', 'websites_page_head_titles.page_url', 'user_location.business_name')
+            ->get();
+
+        // home page slider
         $sliders = DB::table('slider')->get();
 
         $title = 'Home';
         $meta_description = 'Home keywords';
         $meta_keywords = 'Home keywords';
 
-        return view('welcome', array('category' => $category, 'sliders' => $sliders, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords));
+        return view('welcome', array('category' => $category, 'sliders' => $sliders, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'home_page_clients' => $home_page_clients, 'latest_home_page_clients' => $latest_home_page_clients));
     }
 
     // Filter data according to location and any keyword

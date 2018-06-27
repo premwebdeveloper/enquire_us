@@ -3,7 +3,11 @@
 @section('content')
 
 <div class="container">
-
+<?php
+/*    echo "<pre>";
+    print_r($client);
+    exit;*/
+?>
     @if(!empty($client))
 
         <link rel="stylesheet" href="http://savetk.com/assets/css/lightslider.css" type="text/css">
@@ -53,9 +57,9 @@
                                     ?>
                                     @foreach($images as $image)
 
-                                            <li data-thumb="{{url('/')}}/storage/app/uploads/{{ $image->image}}" class="lslide" id="slide_<?= $i;?>" style="width: 539px; margin-right: 0px;">
-                                                <img alt="" src="{{url('/')}}/storage/app/uploads/{{ $image->image}}" style="width:100%;height: 270px;">
-                                            </li>
+                                        <li data-thumb="{{url('/')}}/storage/app/uploads/{{ $image->image}}" class="lslide" id="slide_<?= $i;?>" style="width: 539px; margin-right: 0px;">
+                                            <img alt="" src="{{url('/')}}/storage/app/uploads/{{ $image->image}}" style="width:100%;height: 270px;">
+                                        </li>
 
                                     <?php
                                         $i++;
@@ -78,9 +82,9 @@
 
                                 <ul id="lightSlider" class="lightSlider lsGrab lSSlide" style="width: 3234px; transform: translate3d(-539px, 0px, 0px); height: 298px; padding-bottom: 0%;">
 
-                                        <li data-thumb="{{url('/')}}/resources/frontend_assets/images/logo.png" class="lslide active" style="width: 539px; margin-right: 0px;">
-                                            <img alt="" src="{{url('/')}}/resources/frontend_assets/images/logo.png" style="width:100%;height: 270px;">
-                                        </li>
+                                    <li data-thumb="{{url('/')}}/resources/frontend_assets/images/logo.png" class="lslide active" style="width: 539px; margin-right: 0px;">
+                                        <img alt="" src="{{url('/')}}/resources/frontend_assets/images/logo.png" style="width:100%;height: 270px;">
+                                    </li>
 
                                 </ul>
 
@@ -97,29 +101,33 @@
 
                                 <div class="col-sm-12 shop-title">
                                     <h3><a style="color:#006A4E;" href="javascript:;">{{ $client->business_name }}</a></h3>
-                                    <h4 style="margin-bottom:15px;">Get 10% Discount on Any Food Bill.</h4>
                                 </div>
 
-                                <div class="buy-button-section top15">
+                                <!-- <div class="buy-button-section top15">
                                     <button type="button" class="btn btn-cd btn-sms" data-toggle="modal" title="">GET SMS</button>
                                 </div>
-
+ -->
                                 <div class="offer-bought" style="border-top:1px solid #d7d7d7; margin-top:10px;">
-                                    <div class="col-sm-6 unlimited-offer">
+                                    <div class="col-sm-4 unlimited-offer">
+                                        <span class="glyphicon glyphicon-user"></span>
+                                        <span class="buy-counter">Mr. {{ $client->name }}</span>
+                                    </div>
+                                    <div class="col-sm-6 ">
                                         <span><i class="fa fa-tag"></i></span>
                                         <span class="time-counter">Unlimited Offer</span>
                                     </div>
-                                    <div class="col-sm-4 bought-section">
-                                        <span class="glyphicon glyphicon-user"></span>
-                                        <span class="buy-counter">8 Got This </span>
-                                    </div>
+                                  
                                 </div>
 
                                 <div class="address-phn">
                                     <ul>
                                         <li> <i class="fa fa-map-marker"></i>{{ $client->city }}</li>
-                                        <li> <i class="fa fa-mobile"></i><a href="tel:{{ $client->phone }}">{{ $client->phone }}</a></li>
-                                        <li> <i class="fa fa-phone"></i><a href="tel:{{ $client->landline }}">{{ $client->landline }}</a></li>
+                                        <li> <i class="fa fa-phone"></i>
+                                            <a href="tel:{{ $client->phone }}">{{ $client->phone }}</a>
+                                        </li>
+                                        <li> <i class="fa fa-mobile"></i>
+                                            <a href="tel:{{ $client->landline }}">{{ $client->landline }}</a>
+                                        </li>
                                     </ul>
                                 </div>
 
@@ -316,7 +324,7 @@
 
             <div class="similar_coupons col-md-3" style="float:left;">
 
-                <h2 class="page-title" style="margin-bottom:20px;">Similar Offers</h2>
+                <h4><strong>Hours of Operation</strong></h4>
                 <div style="width:100%;">
                     <div class="offer-small offer">
                         <div class="vendor-image">
