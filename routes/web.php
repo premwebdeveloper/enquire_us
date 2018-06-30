@@ -20,19 +20,28 @@
     Route::get('verify/{email}/{verifyToken}', 'Auth\RegisterController@sendEmailDone')->name('sendEmailDone');
     Route::get('verifyEmailFirst', 'Auth\RegisterController@verifyEmailFirst')->name('verifyEmailFirst');
 
+    # Get all clients for perticular category
+    Route::any('category/{category}/{id}', 'HomeController@category');
+    Route::any('view/{business_url}/{id}', 'HomeController@view')->name('view');
+
+    Route::any('webpage/{webpage}', 'HomeController@webpage');
+
+    # search function / search client by keywords
+    Route::get('/{location}/{page_url}/{encoded}', [
+        "uses" => 'HomeController@filter',
+        "as" => 'filter'
+    ]);
+
+    /*Route::get('/filter/{location}/{page_url}/{encoded}', [
+        "uses" => 'HomeController@filter',
+        "as" => 'filter'
+    ]);*/
+
     # Home page after login
     Route::any('/', 'HomeController@index')->name('/');
     Route::any('/home', 'HomeController@index')->name('home');
     # Filter data according to location and any keyword
-    Route::any('filter/{location}/{page_url}/{encoded}', [
-        "uses" => 'HomeController@filter',
-        "as" => 'filter'
-    ]);
-    # Get all clients for perticular category
-    Route::any('category/{category}/{id}', 'HomeController@category');
-    Route::any('webpage/{webpage}', 'HomeController@webpage');
-    Route::any('view/{business_url}/{id}', 'HomeController@view')->name('view');
-
+    
     # Subcribers route
     Route::post('subscribers', 'HomeController@subscribers')->name('subscribers');
 
