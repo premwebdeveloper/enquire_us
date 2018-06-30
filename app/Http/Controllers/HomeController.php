@@ -386,14 +386,12 @@ class HomeController extends Controller
             ->first();
 
         // Get Client Keywords
-        $keywords = DB::table('user_keywords')
+/*        $keywords = DB::table('user_keywords')
             ->join('user_keywords', 'user_keywords.keyword_id', '=', 'category.id')
             ->where('user_keywords.user_id', $user_id)
             ->select('user_keywords.*', 'category.category')
-            ->get();
-        echo "<pre>";
-        print_r($keywords);
-        exit;
+            ->get();*/
+
         // Get client other information
         $other_info = DB::table('user_other_information')->where('user_id', $user_id)->get();
 

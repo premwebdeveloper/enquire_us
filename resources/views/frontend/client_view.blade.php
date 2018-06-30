@@ -11,9 +11,9 @@
 </style>
 <div class="container">
 <?php
-    echo "<pre>";
+/*    echo "<pre>";
     print_r($client);
-    exit;
+    exit;*/
 ?>
     @if(!empty($client))
 
