@@ -1010,7 +1010,7 @@ header {
 	font-size: 15px;
 }
 .offer-small {
-    min-height: 130px;
+    /*min-height: 130px;*/
     margin-bottom: 25px;
 }
 .offer-small .amit img {
@@ -1018,7 +1018,7 @@ header {
 }
 .offer {
 	background-color: #fff;
-	border: 1px solid #d7d7d7;
+	/*border: 1px solid #d7d7d7;*/
 	position: relative;
 }
 .offer-small .vendor-image {
@@ -1078,7 +1078,13 @@ header {
 	font-size: 13px;
 }
 
+.ab_enquire{
+    padding-left: 0;
+}
 
+.ab_enquire li{
+    list-style-type: none;
+}
 .old_price {
 	text-decoration: line-through;
 	color: #de4b39;
@@ -1793,6 +1799,7 @@ footer {
 	float: left;
 	padding: 10px 0 0;
 	width: 100%;
+    border-bottom: 1px solid #d7d7d7;
 }
 .limited-time {
 	border-right: 1px solid #d7d7d7;
@@ -1804,7 +1811,7 @@ footer {
 }
 .share-box {
 	float: left;
-	margin-left: 30px;
+	/*margin-left: 30px;*/
 }
 .time-counter, .buy-counter {
 	font-family: "open_sansregular";
@@ -1856,13 +1863,15 @@ footer {
 }
 .share-box {
 	padding-right: 0;
+    margin-bottom: 5px;
 }
 .share-box span {
 	float: left;
 	font-family: 'open_sanssemibold';
 	font-size: 13px;
 	color: #333;
-	margin-top: 3px;
+	margin-bottom: 5px;
+    margin-right: 5px;
 }
 .share-box ul {
 	margin: 0;
@@ -1871,6 +1880,8 @@ footer {
 .share-box ul li {
 	float: left;
 	list-style: none;
+    padding-right: 5px;
+    color: #000;
 }
 .share-box ul li a {
 	margin-left: 10px;

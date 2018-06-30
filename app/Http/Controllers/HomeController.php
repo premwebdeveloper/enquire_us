@@ -300,8 +300,10 @@ class HomeController extends Controller
             $client = DB::table('user_details')
                 ->join('user_company_information', 'user_company_information.user_id', '=', 'user_details.user_id')
                 ->join('user_location', 'user_location.user_id', '=', 'user_details.user_id')
+                ->join('areas', 'areas.id', '=', 'user_location.area')
+                ->join('cities', 'cities.id', '=', 'user_location.city')
                 ->where(array('user_details.user_id' => $title_id, 'user_details.status' => 1))
-                ->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country', 'user_company_information.payment_mode', 'user_company_information.year_establishment', 'user_company_information.annual_turnover', 'user_company_information.no_of_emps', 'user_company_information.professional_associations', 'user_company_information.certifications')
+                ->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country', 'user_company_information.payment_mode', 'user_company_information.year_establishment', 'user_company_information.annual_turnover', 'user_company_information.no_of_emps', 'user_company_information.professional_associations', 'user_company_information.certifications', 'areas.area as area_name', 'cities.name as city_name')
                 ->first();
 
             // Get client other information
@@ -377,10 +379,21 @@ class HomeController extends Controller
         $client = DB::table('user_details')
             ->join('user_company_information', 'user_company_information.user_id', '=', 'user_details.user_id')
             ->join('user_location', 'user_location.user_id', '=', 'user_details.user_id')
+            ->join('areas', 'areas.id', '=', 'user_location.area')
+            ->join('cities', 'cities.id', '=', 'user_location.city')
             ->where(array('user_details.user_id' => $user_id))
-            ->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country', 'user_company_information.payment_mode', 'user_company_information.year_establishment', 'user_company_information.annual_turnover', 'user_company_information.no_of_emps', 'user_company_information.professional_associations', 'user_company_information.certifications')
+            ->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country', 'user_company_information.payment_mode', 'user_company_information.year_establishment', 'user_company_information.annual_turnover', 'user_company_information.no_of_emps', 'user_company_information.professional_associations', 'user_company_information.certifications', 'areas.area as area_name', 'cities.name as city_name')
             ->first();
 
+        // Get Client Keywords
+        $keywords = DB::table('user_keywords')
+            ->join('user_keywords', 'user_keywords.keyword_id', '=', 'category.id')
+            ->where('user_keywords.user_id', $user_id)
+            ->select('user_keywords.*', 'category.category')
+            ->get();
+        echo "<pre>";
+        print_r($keywords);
+        exit;
         // Get client other information
         $other_info = DB::table('user_other_information')->where('user_id', $user_id)->get();
 

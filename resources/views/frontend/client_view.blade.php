@@ -1,12 +1,19 @@
 @extends('layouts.public_app')
 
 @section('content')
-
+<style>
+    .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+        padding: 3px;
+        border-top: none;
+        padding-left: 0;
+        padding-right: 15px;
+    }
+</style>
 <div class="container">
 <?php
-/*    echo "<pre>";
+    echo "<pre>";
     print_r($client);
-    exit;*/
+    exit;
 ?>
     @if(!empty($client))
 
@@ -113,30 +120,79 @@
                                         <span class="buy-counter">Mr. {{ $client->name }}</span>
                                     </div>
                                     <div class="col-sm-6 ">
-                                        <span><i class="fa fa-tag"></i></span>
-                                        <span class="time-counter">Unlimited Offer</span>
+                                        <span><i class="fa fa-graduation-cap"></i></span>
+                                        <span class="time-counter"> {{ $client->designation }}</span>
                                     </div>
                                   
                                 </div>
 
                                 <div class="address-phn">
                                     <ul>
-                                        <li> <i class="fa fa-map-marker"></i>{{ $client->city }}</li>
+                                        <li> <i class="fa fa-envelope"></i>{{ $client->email }}</li>
                                         <li> <i class="fa fa-phone"></i>
                                             <a href="tel:{{ $client->phone }}">{{ $client->phone }}</a>
                                         </li>
                                         <li> <i class="fa fa-mobile"></i>
                                             <a href="tel:{{ $client->landline }}">{{ $client->landline }}</a>
+                                        </li>                                        
+                                    </ul>
+                                </div>
+                                <div class="address-phn">
+                                    <ul>                                        
+                                        <li> <i class="fa fa-mobile"></i>
+                                            <a href="tel:{{ $client->toll_free1 }}">{{ $client->toll_free1 }}</a>
+                                        </li>                                        
+                                        <li> <i class="fa fa-mobile"></i>
+                                            <a href="tel:{{ $client->toll_free2 }}">{{ $client->toll_free2 }}</a>
+                                        </li>                                        
+                                        <li> <i class="fa fa-fax"></i>
+                                            <a href="tel:{{ $client->fax1 }}">{{ $client->fax1 }}</a>
                                         </li>
                                     </ul>
                                 </div>
 
                                 <div class="time-share">
-                                    <div class="limited-time">
-                                        <span class="glyphicon glyphicon-time"></span>
-                                        <span class="time-counter">Expires: 38 days, 1 hours, 29 mins..</span>
-                                    </div>
                                     <div class="share-box">
+                                        <ul class="addthis_default_style">
+                                            <li>
+                                                <span><i class="fa fa-map-marker"></i></span> 
+                                            </li>                                            
+                                            <li>
+                                                {{ $client->building }},
+                                            </li>
+                                            <li>
+                                                {{ $client->street }},
+                                            </li>
+                                            <li>
+                                                {{ $client->landmark }},
+                                            </li>                                            
+                                            <li>
+                                                {{ $client->area_name }},
+                                            </li>                                            
+                                            <li>
+                                                {{ $client->city_name }},
+                                            </li>                                           
+                                            <li>
+                                                {{ $client->state }},
+                                            </li>                                            
+                                            <li>
+                                                {{ $client->country }},
+                                            </li>                                            
+                                            <li>
+                                                {{ $client->pincode }}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                                <div class="time-share">
+                                    <div class="limited-time">
+                                        <i class="fa fa-globe"></i>
+                                        <span class="time-counter">
+                                            <a href="{{ $client->website }}" target="_blank">{{ $client->website }}</a>
+                                        </span>
+                                    </div>
+                                    <div class="share-box mr30">
                                         <span>Share</span>
                                         <ul class="addthis_default_style">
                                             <li>
@@ -163,7 +219,7 @@
                                          <i class="fa fa-wechat" style="font-size:16px; color:#A5A5A5;"></i> <a href="#review_tab">0 reviews</a> /
                                          <a href="#review_tab">Write a review</a><p></p>
                                     </div>
-                                    <div class="share-box">
+                                    <div class="share-box mr30">
                                         <div class="rating_star"><span style="width:0%;"></span></div>
                                     </div>
                                 </div>
@@ -176,206 +232,229 @@
         </div>
 
         <div class="row">
-            <div class="col-md-9">
-                <div class="row">
-
-                    <div class="col-lg-12  col-xs-12">
-                        <div class="description">
-                            <!--<h2 class="page-title">Description</h2>-->
-                            <div class="page-para" style="float:left; width:100%;">
-                                <h4>Deal Highlights</h4>
-                                <ul>
-                                    <li>Kindly show your SMS before availing the offer.</li>
-                                </ul>
-                                <h4>Deal Terms</h4>
-                                <ul>
-                                    <li>1 SMS per Customer.</li>
-                                </ul>
-                                <h4>How to Use</h4>
-                                <ul>
-                                    <li>1st click the "GET SMS" button.</li>
-                                </ul>
-                            </div>
-                            <div class="page-para" style="float:left; width:100%;"> </div>
+            <div class="col-md-8">
+                <div class="col-lg-12  col-xs-12">
+                    <div class="description">
+                        <!--<h2 class="page-title">Description</h2>-->
+                        <div class="page-para" style="float:left; width:100%;">
+                            <h4>Deal Highlights</h4>
+                            <ul>
+                                <li>Kindly show your SMS before availing the offer.</li>
+                            </ul>
+                            <h4>Deal Terms</h4>
+                            <ul>
+                                <li>1 SMS per Customer.</li>
+                            </ul>
+                            <h4>How to Use</h4>
+                            <ul>
+                                <li>1st click the "GET SMS" button.</li>
+                            </ul>
                         </div>
+                        <div class="page-para" style="float:left; width:100%;"> </div>
+                    </div>
 
-                        <div class="location-body">
-                            <div class="row">
-                                <div class="col-sm-8">
+                    <div class="location-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3556.2231484551985!2d75.7762477150459!3d26.959831883107462!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396db3b47a84b429%3A0x92b38efd91251d5d!2sDexus+Media+Best+website+development+company!5e0!3m2!1sen!2sin!4v1530094876331" width="100%" height="200" frameborder="0" style="border:0" allowfullscreen></iframe>
+<!--                                     <div id="map"></div>
+                                <script>
+                                  function initMap() {
+                                    var uluru = {lat: 26.9501613, lng: 75.7792332};
+                                    var map = new google.maps.Map(document.getElementById('map'), {
+                                      zoom: 4,
+                                      center: uluru
+                                    });
+                                    var marker = new google.maps.Marker({
+                                      position: uluru,
+                                      map: map
+                                    });
+                                  }
+                                </script>
+                                <script async defer
+                                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIb6z-OH2-_nWIC-nK2_OI-r2ZO0BGr5c&callback=initMap">
+                                </script> -->
 
-                                    <div id="map"></div>
-                                    <script>
-                                      function initMap() {
-                                        var uluru = {lat: 26.9501613, lng: 75.7792332};
-                                        var map = new google.maps.Map(document.getElementById('map'), {
-                                          zoom: 4,
-                                          center: uluru
-                                        });
-                                        var marker = new google.maps.Marker({
-                                          position: uluru,
-                                          map: map
-                                        });
-                                      }
-                                    </script>
-                                    <script async defer
-                                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIb6z-OH2-_nWIC-nK2_OI-r2ZO0BGr5c&callback=initMap">
-                                    </script>
-
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="location">
-                                        <div class="location-details clear">
-                                            <h3>{{ $client->business_name }}</h3>
-                                            <p>
-                                                <span class="glyphicon glyphicon-road"></span>
-                                                <span id="address">
-                                                    {{ $client->building }}, {{ $client->street }}, {{ $client->city }}, {{ $client->state }}, {{ $client->country }} - {{ $client->pincode }}
-                                                </span>
-                                            </p>
-
-                                            <p>
-                                                <span class="glyphicon glyphicon-earphone"></span>
-                                                <a href="tel:01768130391">{{ $client->phone }}</a>
-                                            </p>
-
-                                            <p>
-                                                <span class="glyphicon glyphicon-envelope"></span>
-                                                <a href="mailto:thaikitchencity@gmail.com">{{ $client->email }}</a>
-                                            </p>
-
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <div class="col-lg-12  col-xs-12">
+                <div class="col-lg-12  col-xs-12">
 
-                        <ul class="nav nav-tabs" id="review_tab">
-                            <li class="active">
-                                <a style="text-transform:inherit;" data-toggle="tab" href="#tab-review-list">Reviews (0)</a>
-                            </li>
-                            <li class="">
-                                <a style="text-transform:inherit;" data-toggle="tab" href="#tab-review">Write a Review</a>
-                            </li>
-                        </ul>
+                    <ul class="nav nav-tabs" id="review_tab">
+                        <li class="active">
+                            <a style="text-transform:inherit;" data-toggle="tab" href="#tab-review-list">Reviews (0)</a>
+                        </li>
+                        <li class="">
+                            <a style="text-transform:inherit;" data-toggle="tab" href="#tab-review">Write a Review</a>
+                        </li>
+                    </ul>
 
-                        <div class="tab-content">
-                            <div id="tab-review-list" class="tab-pane active">
-                                <p>There are no reviews for this offer.</p>
-                            </div>
-                            <div id="tab-review" class="tab-pane">
-                                <div id="review_msg"></div>
-                                <form class="form-horizontal">
-                                    <div class="form-group required">
-                                        <div class="col-sm-12">
-                                            <label for="input-name" class="control-label">Your Name</label>
-                                            <input name="name" value="" id="input-name" class="form-control" type="text">
-                                            <input name="customer_id" value="" id="input-customer_id" type="hidden">
-                                            <input name="merchant_id" value="172" id="input-merchant-id" type="hidden">
-                                        </div>
+                    <div class="tab-content">
+                        <div id="tab-review-list" class="tab-pane active">
+                            <p>There are no reviews for this offer.</p>
+                        </div>
+                        <div id="tab-review" class="tab-pane">
+                            <div id="review_msg"></div>
+                            <form class="form-horizontal">
+                                <div class="form-group required">
+                                    <div class="col-sm-12">
+                                        <label for="input-name" class="control-label">Your Name</label>
+                                        <input name="name" value="" id="input-name" class="form-control" type="text" required="">
+                                        <input name="customer_id" value="" id="input-customer_id" type="hidden">
+                                        <input name="merchant_id" value="172" id="input-merchant-id" type="hidden">
                                     </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-12">
-                                            <label for="input-r_email" class="control-label">Your Email</label>
-                                            <input name="r_email" value="" id="input-email" class="form-control" type="text">
-                                        </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <label for="input-r_email" class="control-label">Your Email</label>
+                                        <input name="r_email" value="" id="input-email" class="form-control" type="text">
                                     </div>
-                                    <div class="form-group required">
-                                        <div class="col-sm-12">
-                                            <label for="input-review" class="control-label">Your Review</label>
-                                            <textarea class="form-control" id="input-review" rows="5" name="text"></textarea>
-                                            <div class="help-block"><span class="text-danger">Note:</span> HTML is not translated!</div>
-                                        </div>
+                                </div>
+                                <div class="form-group required">
+                                    <div class="col-sm-12">
+                                        <label for="input-review" class="control-label">Your Review</label>
+                                        <textarea class="form-control" id="input-review" rows="5" name="text"></textarea>
+                                        <div class="help-block"><span class="text-danger">Note:</span> HTML is not translated!</div>
                                     </div>
-                                    <div class="form-group required">
-                                        <div class="col-sm-12">
-                                            <label class="control-label">Rating</label>
-                                            &nbsp;&nbsp;
-                                            <input id="r_1" title="Ordinary" value="1" name="rating" type="radio">
-                                            <label for="r_1" title="Ordinary">1</label>
-                                            &nbsp;&nbsp;
-                                            <input id="r_2" title="Average" value="2" name="rating" type="radio">
-                                            <label for="r_2" title="Average">2</label>
-                                            &nbsp;&nbsp;
-                                            <input id="r_3" title="Good" value="3" name="rating" type="radio">
-                                            <label for="r_3" title="Good">3</label>
-                                            &nbsp;&nbsp;
-                                            <input id="r_4" title="Very Good" value="4" name="rating" type="radio">
-                                            <label for="r_4" title="Very Good">4</label>
-                                            &nbsp;&nbsp;
-                                            <input id="r_5" title="Excellent" value="5" name="rating" type="radio">
-                                            <label for="r_5" title="Excellent">5</label>
-                                        </div>
+                                </div>
+                                <div class="form-group required">
+                                    <div class="col-sm-12">
+                                        <label class="control-label">Rating</label>
+                                        &nbsp;&nbsp;
+                                        <input id="r_1" title="Ordinary" value="1" name="rating" type="radio">
+                                        <label for="r_1" title="Ordinary">1</label>
+                                        &nbsp;&nbsp;
+                                        <input id="r_2" title="Average" value="2" name="rating" type="radio">
+                                        <label for="r_2" title="Average">2</label>
+                                        &nbsp;&nbsp;
+                                        <input id="r_3" title="Good" value="3" name="rating" type="radio">
+                                        <label for="r_3" title="Good">3</label>
+                                        &nbsp;&nbsp;
+                                        <input id="r_4" title="Very Good" value="4" name="rating" type="radio">
+                                        <label for="r_4" title="Very Good">4</label>
+                                        &nbsp;&nbsp;
+                                        <input id="r_5" title="Excellent" value="5" name="rating" type="radio">
+                                        <label for="r_5" title="Excellent">5</label>
                                     </div>
+                                </div>
 
-                                    <div class="buttons">
-                                        <div class="pull-right">
-                                            <button class="btn btn-primary" data-loading-text="Loading..." id="button-review" type="button" data-original-title="" title="">Submit</button>
-                                        </div>
+                                <div class="buttons">
+                                    <div class="pull-right">
+                                        <button class="btn btn-primary" id="button-review" type="submit">Submit</button>
                                     </div>
-                                </form>
-                            </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="similar_coupons col-md-3" style="float:left;">
+            <div class="similar_coupons col-md-4">
 
                 <h4><strong>Hours of Operation</strong></h4>
-                <div style="width:100%;">
-                    <div class="offer-small offer">
-                        <div class="vendor-image">
-                            <a title="MetroSTAR" href="javascript:;">
-                                <img alt="Grameenphone (22 offers) | Metro Kitchens - 12% off on all food (except drinks/water/tea) to GP STAR" src="http://savetk.com/assets/uploads/cache/coupons/b73d37dd5a34a49f253d4fb1ddff5e21-260x142.jpg" class="img-responsive">
-                            </a>
-                        </div>
-                        <div class="offer-title">
-                            <a href="javascript:;">
-                                Metro Kitchens - 12% off on all food (except drinks/water/tea) to GP STAR
-                            </a>
-                            <div class="offer-location trim-content"><i class="fa fa-tag"></i> Promotional deal</div>
-                            <div class="offer-ends trim-content"><i class="fa fa-clock-o"></i> 299 days, 21 hours, 29 mins.</div>
-                        </div>
 
-                        <div class="col-md-12" style="height: 15px;"></div>
-
-                        <div class="offer-getcode">
-                            <a href="javascript:;" class="btn btn-cd btn-coupon" data-original-title="" title="">View Details</a>
-                        </div>
-
-                        <div class="vendor-offer-count trim-content">
-                            <a href="javascript:;">Grameenphone (22 offers)</a>
-                        </div>
-                    </div>
+                <div class="offer-small offer">
+                    <table class="table">
+                        <tbody>
+                            @foreach($other_info as $other)
+                                @if($other->operation_timing=='1')
+                                    <tr>
+                                        <td style="text-transform: capitalize;">{{ $other->day }}</td>
+                                        <td>{{ $other->from_time }}</td>
+                                        <td>-</td>
+                                        <td>{{ $other->to_time }}</td>
+                                        @if($other->working_status==1)
+                                            <td class="green">Open</td>
+                                        @else
+                                            <td class="red">Close</td>
+                                        @endif
+                                    </tr> 
+                                @endif
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
 
-                <div style="width:100%;">
-                    <div class="offer-small offer">
-                        <div class="vendor-image">
-                            <a title="Flat" href="javascript:;">
-                              <img alt="Bay" src="http://savetk.com/assets/uploads/cache/coupons/ad444982d291c272b2fa9e0ed7cd9427-260x142.png" class="img-responsive">
-                             </a>
-                        </div>
-                        <div class="offer-title">
-                            <a href="javascript:;">
-                                Flat 10% discount on any food bill. (without party)
-                            </a>
-                            <div class="offer-location trim-content"><i class="fa fa-map-marker"></i> Mirpur</div>
-                            <div class="offer-ends trim-content"><i class="fa fa-clock-o"></i> 36 days, 1 hours, 30 mins.</div>
-                        </div>
-                        <div class="col-md-12" style="height: 15px;"></div>
-                        <div class="offer-getcode">
-                            <button class="btn btn-cd btn-sms" data-toggle="modal" data-target="#myModal_1116" data-original-title="" title="">Get Sms</button>
-                        </div>
-                        <div class="vendor-offer-count trim-content">
-                            <a href="javascript:;">Bay Leaf Restaurant (1 offer)</a>
-                        </div>
-                    </div>
+                <h4><strong>Also Listed in</strong></h4>
+
+                <div class="offer-small offer">
+                    <ul class="ab_enquire">
+                        <li><a href="javascript:;">Biryani Restaurants</a></li>
+                        <li><a href="javascript:;">Biryani Restaurants</a></li>
+                        <li><a href="javascript:;">Biryani Restaurants</a></li>
+                    </ul>
                 </div>
 
+                <h4><strong>Modes of Payment</strong></h4>
+
+                <div class="offer-small offer">
+                    <ul class="ab_enquire"> 
+                    <?php
+                        $payment_mode = $client->payment_mode;
+                        $payment_mode = explode("|", $payment_mode);
+
+                        for($i=0; $i<count($payment_mode); $i++)
+                        {
+                            if(isset($payment_mode[0])){
+                                $payment_mode[0] = "Cash";   
+                            }                            
+                            
+                            if(isset($payment_mode[1])){
+                                $payment_mode[1] = "Master";   
+                            }                            
+
+                            if(isset($payment_mode[2])){
+                                $payment_mode[2] = "Visa";   
+                            }   
+                                                     
+                            if(isset($payment_mode[3])){
+                                $payment_mode[3] = "Debit";   
+                            }                            
+
+                            if(isset($payment_mode[4])){
+                                $payment_mode[4] = "Money";   
+                            }  
+
+                            if(isset($payment_mode[5])){
+                                $payment_mode[5] = "Cheques";   
+                            }                            
+
+                            if(isset($payment_mode[6])){
+                                $payment_mode[6] = "Credit Card";   
+                            } 
+                                                                                
+                            if(isset($payment_mode[7])){
+                                $payment_mode[7] = "Travelers Cheque";   
+                            }                            
+
+                            if(isset($payment_mode[8])){
+                                $payment_mode[8] = "Financing Available";   
+                            }  
+
+                            if(isset($payment_mode[9])){
+                                $payment_mode[9] = "American Express Card";   
+                            }                            
+
+                            if(isset($payment_mode[10])){
+                                $payment_mode[10] = "Diners Club Card";   
+                            }
+                    ?>
+                        <li><?= $payment_mode[$i];?></li>
+                    <?php
+                    //break;
+                        }
+
+                    ?>
+                    </ul>
+                </div>
+
+                <h4><strong>Year Established</strong></h4>
+
+                <div class="offer-small offer">
+                    <p>{{ $client->year_establishment }}</p>
+                </div>
             </div>
         </div>
 

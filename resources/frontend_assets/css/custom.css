@@ -61,6 +61,16 @@ option.option_padding
 {
     padding-top: 30px;
 }
+.mr30
+{
+    margin-left: 30px!important;
+}
+.red{
+    color: red!important;
+}
+.green{
+    color: #006a4e!important;
+}
 .col-lg-55, .col-lg-sm, .col-md-55 {
     width: 20%;
    /* padding: 0 5px;*/

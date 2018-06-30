@@ -735,9 +735,9 @@ $(document).ready(function(){
                                     $payment_mode = $company->payment_mode;
                                     if(!empty($payment_mode))
                                     {
-                                      $payment_mode = explode('|', $payment_mode);
+                                        $payment_mode = explode('|', $payment_mode);
 
-                                      foreach ($payment_mode as $mode) {
+                                        foreach ($payment_mode as $mode) {
                                         ?>
                                         <script type="text/javascript">
                                             $(document).ready(function(){
