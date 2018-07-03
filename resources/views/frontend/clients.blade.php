@@ -27,7 +27,7 @@
                                             $cat_name = preg_replace('/[^A-Za-z0-9\-]/', '-', $cat_name);
                                             $encrypted = Crypt::encrypt($category->id);
                                         ?>
-                                        <a href="{{ URL::to('category',array('category' => $category->page_url, 'id' => $encrypted)) }}" class="list-group-item">
+                                        <a href="javascript:;" class="list-group-item cat_ies" id="cate_<?= $category->id; ?>">
                                             {{ $category->category }}
                                         </a>
                                     @endforeach
@@ -43,11 +43,7 @@
                         </div>
 
 						<div class="row">
-                            <?php
-/*                                echo "<pre>";
-                                print_r($clients);
-                                exit;*/
-                            ?>
+                            
                             @if(!empty($clients[0]))
                                 @foreach($clients as $client)
 
@@ -59,27 +55,27 @@
                                         ?>
 
     									<div class="col-lg-6 col-sm-6 col-xs-12 vendor-image">
-    										<a href="{{ URL::to('view', array('business_url' => $client->page_url, 'id' => Crypt::encrypt($client->user_id) )) }}">
+                                            <a href="javascript:;" class="client_view_details" id="client-view_{{ $client->user_id }}">
                                                 <?php
                                                     if(!empty($client->logo))
                                                     {
-                                                ?>
-                                                <img alt="" src="{{url('/')}}/storage/app/uploads/{{ $client->logo}}" class="img-responsive" style="height: 125px;">
-                                                <?php
+                                                        ?>
+                                                        <img alt="" src="{{url('/')}}/storage/app/uploads/{{ $client->logo}}" class="img-responsive" style="height: 125px;">
+                                                        <?php
                                                     }
                                                     else
                                                     {
-                                                ?>
-    											<img alt="" src="{{url('/')}}/resources/frontend_assets/images/logo.png" class="img-responsive" style="height: 125px;">
-                                                <?php
+                                                        ?>
+            											<img alt="" src="{{url('/')}}/resources/frontend_assets/images/logo.png" class="img-responsive" style="height: 125px;">
+                                                        <?php
                                                     }
                                                 ?>
     										</a>
     									</div>
 
     									<div class="offer-title col-lg-6 col-sm-6 col-xs-12 ">
-                                            <h3 class="margin0"> 
-                                                <a href="{{ URL::to('view', array('business_url' => $client->page_url, 'id' => Crypt::encrypt($client->user_id) )) }}">
+                                            <h3 class="margin0">
+                                                <a href="javascript:;" class="client_view_details" id="client-view_{{ $client->user_id }}">
                                                     {{ $client->business_name }} 
                                                 </a>
                                             </h3>
@@ -99,7 +95,7 @@
                                             </div>
     									
                                             <div class="offer-getcode">
-                                                <a href="{{ URL::to('view', array('business_url' => $client->page_url, 'id' => Crypt::encrypt($client->user_id) )) }}" class="btn btn-cd btn-coupon">
+                                                <a href="javascript:;" class="client_view_details btn btn-cd btn-coupon" id="client-view_{{ $client->user_id }}">
         										    View Details
                                                 </a>   
         									</div>
