@@ -144,7 +144,7 @@
                 <div class="form-group">
                     <div class="col-sm-12">
                         <label for="input-r_email" class="control-label">Your Phone</label>
-                        <input name="r_phone" value="" id="input-email" class="form-control" type="text">
+                        <input name="r_phone" value="" id="input-phone" class="form-control" type="text">
                     </div>
                 </div>
                 <div class="form-group required">
