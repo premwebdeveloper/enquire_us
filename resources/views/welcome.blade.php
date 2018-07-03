@@ -26,20 +26,29 @@
                     <div class="col-sm-4">
                         <div class="slider-wrapper theme-default">
                             <div id="slider1" class="nivoSlider">
-                                @foreach($sliders as $slider)
-                                    <a href="javascript:;">
-                                        <img class="img-responsive" src="storage/app/uploads/{{$slider->image}}" alt="Grand Sultan Tea Resort & Golf" />
-                                    </a>
-                                @endforeach
+                                
+                                <a href="javascript:;">
+                                    <img class="img-responsive" src="storage/app/uploads/apple.png" alt="Apple Caterers" />
+                                </a>                                
+                                <a href="javascript:;">
+                                    <img class="img-responsive" src="storage/app/uploads/legal-dekho.png" alt="Legal Dekho" />
+                                </a>                                
+                                <a href="javascript:;">
+                                    <img class="img-responsive" src="storage/app/uploads/mt-sales.png" alt="MT Sales Corp" />
+                                </a>
+                                
                             </div>
                         </div>
                         <div class="slider-wrapper theme-default">
                             <div id="slider2" class="nivoSlider">
-                                @foreach($sliders as $slider)
-                                    <a href="javascript:;">
-                                        <img class="img-responsive" src="storage/app/uploads/{{$slider->image}}" alt="Grand Sultan Tea Resort & Golf" />
-                                    </a>
-                                @endforeach
+                                
+                                <a href="javascript:;">
+                                    <img class="img-responsive" src="storage/app/uploads/saras-kripa.png" alt="Saras Kripa" />
+                                </a>                                
+                                <a href="javascript:;">
+                                    <img class="img-responsive" src="storage/app/uploads/system-indus.png" alt="System Indus" />
+                                </a>
+                                
                             </div>
                         </div>
                     </div>

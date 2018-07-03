@@ -2,6 +2,7 @@
 <script src="{{ asset('resources/frontend_assets/js/fancybox/jquery.fancybox.js') }}"></script>
 <script src="{{ asset('resources/frontend_assets/js/owlcarousel/owl.carousel.min.js') }}"></script>
 <script src="{{ asset('resources/frontend_assets/js/ZeroClipboard.js') }}"></script>
+<script src="{{ asset('resources/frontend_assets/js/lightslider.js') }}"></script>
 
 <script src="{{ asset('resources/frontend_assets/js/nivo-slider/jquery.nivo.slider.pack.js') }}"></script>
 

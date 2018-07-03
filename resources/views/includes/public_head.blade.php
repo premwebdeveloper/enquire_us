@@ -28,19 +28,10 @@
     <link href="{{ asset('resources/frontend_assets/css/bootstrap-checkbox.css') }}" rel="stylesheet">
     <link href="{{ asset('resources/frontend_assets/css/custom_new.css') }}" rel="stylesheet">
     <link href="{{ asset('resources/frontend_assets/css/theme.css') }}" rel="stylesheet">
+    <link href="{{ asset('resources/frontend_assets/css/lightslider.css') }}" rel="stylesheet">
     <link href="{{ asset('resources/frontend_assets/js/fancybox/jquery.fancybox.css') }}" rel="stylesheet">
     <link href="{{ asset('resources/frontend_assets/js/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
-
     <link href="{{ asset ('resources/frontend_assets/css/validationEngine.jquery.css') }}" rel="stylesheet" />
-
-    <style type="text/css">
-        /*.theme-default .nivoSlider img {
-            position: absolute;
-            top: 0px;
-            left: 0px;
-            display: block;
-        }*/
-    </style>
 
     <script type="text/javascript">
         $(document).ready(function(){

@@ -12,13 +12,11 @@
 <div class="container">
 <?php
 /*    echo "<pre>";
-    print_r($client);
+    print_r($client_keywords);
     exit;*/
 ?>
     @if(!empty($client))
 
-        <link rel="stylesheet" href="http://savetk.com/assets/css/lightslider.css" type="text/css">
-        <script type="text/javascript" src="http://savetk.com/assets/js/lightslider.js"></script>
         <script>
             $(document).ready(function() {
                 $('#lightSlider').lightSlider({
@@ -47,7 +45,7 @@
 
                     <div class="wishlist-corner">
                         <a data-toggle="modal" data-target="#myLogin" data-original-title="Add to Wishlist" class="btn" style="padding:0;">
-                            <i id="star-icon-261" class="fa fa-star "></i>
+                            <i class="fa fa-envelope" title="send enquiry"></i>
                         </a>
                     </div>
 
@@ -311,6 +309,12 @@
                                         <label for="input-r_email" class="control-label">Your Email</label>
                                         <input name="r_email" value="" id="input-email" class="form-control" type="text">
                                     </div>
+                                </div>                                
+                                <div class="form-group">
+                                    <div class="col-sm-12">
+                                        <label for="input-r_email" class="control-label">Your Phone</label>
+                                        <input name="r_phone" value="" id="input-email" class="form-control" type="text">
+                                    </div>
                                 </div>
                                 <div class="form-group required">
                                     <div class="col-sm-12">
@@ -381,9 +385,13 @@
 
                 <div class="offer-small offer">
                     <ul class="ab_enquire">
-                        <li><a href="javascript:;">Biryani Restaurants</a></li>
-                        <li><a href="javascript:;">Biryani Restaurants</a></li>
-                        <li><a href="javascript:;">Biryani Restaurants</a></li>
+                        @foreach($client_keywords as $client_keyword)
+                            @if(!is_null($client_keyword->category))
+                                <li><i class="fa fa-check"></i> <a href="javascript:;">{{$client_keyword->category}}</a></li>
+                            @else
+                            <li><i class="fa fa-check"></i> <a href="javascript:;">{{$client_keyword->subcategory}}</a></li>
+                            @endif
+                        @endforeach
                     </ul>
                 </div>
 
@@ -441,7 +449,7 @@
                                 $payment_mode[10] = "Diners Club Card";   
                             }
                     ?>
-                        <li><?= $payment_mode[$i];?></li>
+                        <li><i class="fa fa-check-square"></i> <?= $payment_mode[$i];?></li>
                     <?php
                     //break;
                         }

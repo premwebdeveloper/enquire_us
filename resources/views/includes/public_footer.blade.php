@@ -115,7 +115,60 @@
     </div>
     </footer>
 </div>
+  <!-- Modal -->
+<div class="modal fade" id="myLogin" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Send Enquiry</h4>
+        </div>
+        <div class="modal-body">
+            <form class="form-horizontal">
+                <div class="form-group required">
+                    <div class="col-sm-12">
+                        <label for="input-name" class="control-label">Your Name</label>
+                        <input name="name" value="" id="input-name" class="form-control" type="text" required="">
+                        <input name="customer_id" value="" id="input-customer_id" type="hidden">
+                        <input name="merchant_id" value="172" id="input-merchant-id" type="hidden">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <label for="input-r_email" class="control-label">Your Email</label>
+                        <input name="r_email" value="" id="input-email" class="form-control" type="text">
+                    </div>
+                </div>                                
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <label for="input-r_email" class="control-label">Your Phone</label>
+                        <input name="r_phone" value="" id="input-email" class="form-control" type="text">
+                    </div>
+                </div>
+                <div class="form-group required">
+                    <div class="col-sm-12">
+                        <label for="input-review" class="control-label">Your Review</label>
+                        <textarea class="form-control" id="input-review" rows="5" name="text"></textarea>
+                        <div class="help-block"><span class="text-danger">Note:</span> HTML is not translated!</div>
+                    </div>
+                </div>
 
+                <div class="buttons">
+                    <div class="pull-right">
+                        <button class="btn btn-primary" id="button-review" type="submit">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+</div>
   <!-- Scripts -->
   @include('includes.public_scripts')
   @include('includes.public_custom_scripts')

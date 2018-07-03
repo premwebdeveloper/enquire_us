@@ -335,14 +335,27 @@ class HomeController extends Controller
                     ->where(array('user_details.user_id' => $title_id, 'user_details.status' => 1))
                     ->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country', 'user_company_information.payment_mode', 'user_company_information.year_establishment', 'user_company_information.annual_turnover', 'user_company_information.no_of_emps', 'user_company_information.professional_associations', 'user_company_information.certifications', 'areas.area as area_name', 'cities.name as city_name')
                     ->first();
-
+                        // Get Client Keywords
+                $client_keywords =  DB::table('user_keywords')->where(['user_keywords.user_id' => $title_id, 'user_keywords.status' => 1, 'user_keywords.update_status' => 1])
+                ->leftjoin("category", function($join) use($title_id) {
+                    $join->on("category.id", "=", "user_keywords.keyword_id")
+                         ->where("user_keywords.keyword_identity", "1");
+                })
+                ->leftjoin("subcategory",function($sjoin) use($title_id) {
+                    $sjoin->on("subcategory.id", "=", "user_keywords.keyword_id")
+                          ->where("user_keywords.keyword_identity", "2");
+                })
+                ->select('user_keywords.*', 'category.category', 'subcategory.subcategory')
+            //dd($client_keywords->tosql());
+              
+                ->get();
                 // Get client other information
                 $other_info = DB::table('user_other_information')->where('user_id', $title_id)->get();
 
                 // Get client images
                 $images = DB::table('user_images')->where('user_id', $title_id)->get();
 
-                return view('frontend.client_view', array('client' => $client, 'other_info' => $other_info, 'images' => $images, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords));
+                return view('frontend.client_view', array('client' => $client, 'other_info' => $other_info, 'images' => $images, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'client_keywords' => $client_keywords));
 
             }
         }
@@ -416,13 +429,30 @@ class HomeController extends Controller
             ->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country', 'user_company_information.payment_mode', 'user_company_information.year_establishment', 'user_company_information.annual_turnover', 'user_company_information.no_of_emps', 'user_company_information.professional_associations', 'user_company_information.certifications', 'areas.area as area_name', 'cities.name as city_name')
             ->first();
 
+        // Get Client Keywords
+        $client_keywords =  DB::table('user_keywords')->where(['user_keywords.user_id' => $user_id, 'user_keywords.status' => 1, 'user_keywords.update_status' => 1])
+                ->leftjoin("category", function($join) use($user_id) {
+                    $join->on("category.id", "=", "user_keywords.keyword_id")
+                         ->where("user_keywords.keyword_identity", "1");
+                })
+                ->leftjoin("subcategory",function($sjoin) use($user_id) {
+                    $sjoin->on("subcategory.id", "=", "user_keywords.keyword_id")
+                          ->where("user_keywords.keyword_identity", "2");
+                })
+                ->select('user_keywords.*', 'category.category', 'subcategory.subcategory')
+            //dd($client_keywords->tosql());
+              
+                ->get();
+    echo "<pre>";
+    print_r($client_keywords);
+    exit;
         // Get client other information
         $other_info = DB::table('user_other_information')->where('user_id', $user_id)->get();
 
         // Get client images
         $images = DB::table('user_images')->where('user_id', $user_id)->get();
 
-        return view('frontend.client_view', array('client' => $client, 'other_info' => $other_info, 'images' => $images, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords));
+        return view('frontend.client_view', array('client' => $client, 'other_info' => $other_info, 'images' => $images, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'client_keywords' => $client_keywords));
 
         exit;
     }
