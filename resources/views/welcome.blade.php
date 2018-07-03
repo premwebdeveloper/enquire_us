@@ -88,11 +88,10 @@
 			    <div class="row">
                     @foreach($category as $cat)
                     <?php
-
                         $cat_name = $cat->category;
                         $cat_name = preg_replace('/[^A-Za-z0-9\-]/', '-', $cat_name);
                         $encrypted = Crypt::encrypt($cat->id);
-                    ?>
+                        ?>
     					<div class="col-sm-2">
     						<div class="row">
     							<div class="col-lg-12 res-catagories">
@@ -140,23 +139,6 @@
                                                     }
                                                 ?>
                                             </a>
-
-                                            <!-- <a title="{{$home_page_client->business_name}}." href="{{ URL::to('view', array('business_url' => $home_page_client->page_url, 'id' => Crypt::encrypt($home_page_client->user_id) )) }}">
-                                                <?php
-                                                    if(!empty($home_page_client->logo))
-                                                    {
-                                                        ?>
-                                                        <img alt="" src="{{url('/')}}/storage/app/uploads/{{ $home_page_client->logo}}" class="img-responsive" style="height: 125px;">  
-                                                        <?php
-                                                    }
-                                                    else
-                                                    {
-                                                        ?>
-                                                        <img alt="" src="{{url('/')}}/resources/frontend_assets/images/logo.png" class="img-responsive">
-                                                        <?php
-                                                    }
-                                                ?>
-                                                </a> -->
 
     									</div>
                                         
@@ -211,6 +193,3 @@
 	</div>
 </div>
 @endsection
-
-
-
