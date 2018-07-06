@@ -147,8 +147,6 @@
     Route::post('addarea', 'Areas@addarea')->name('addarea');
     Route::get('area', 'Areas@area')->name('area');
     Route::post('update_area', 'Areas@update_area')->name('update_area');
-	
-
 
     # Client area visibility view page
     Route::get('keyword_city_visibility', 'Areas@keyword_city_visibility')->name('keyword_city_visibility');
@@ -156,8 +154,6 @@
     Route::any('edit_keyword_city_visibility', 'Areas@edit_keyword_city_visibility')->name('edit_keyword_city_visibility');
     # Edit keyword city visibility
     Route::post('edit_city_visibility', 'Areas@edit_city_visibility')->name('edit_city_visibility');
-
-
 	
     # Client area visibility view page
 	Route::get('client_area_visibility', 'Areas@client_area_visibility')->name('client_area_visibility');
@@ -190,5 +186,16 @@
     
     # Delete Keywords By Admin
     Route::post('delete_keywords_by_admin', 'AjaxController@delete_keywords_by_admin')->name('delete_keywords_by_admin');
+
+    # Show super categories
+    Route::get('superCategories', 'superCategories@index')->name('superCategories');
+
+    # Show super categories
+    Route::any('createSuperCategory', 'superCategories@create')->name('createSuperCategory');
+    
+    # Show super categories
+    Route::any('editSuperCategory', 'superCategories@edit')->name('editSuperCategory');
+
+
 
 // });

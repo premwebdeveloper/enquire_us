@@ -287,3 +287,21 @@ ALTER TABLE `keyword_city_client_visibility`
 
 ALTER TABLE `keyword_city_client_visibility`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+-- ---------------CREATE "super_categories" on 05-07-2018----------------------
+CREATE TABLE `super_categories` (
+  `id` int(11) NOT NULL,
+  `name` varchar(191) NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `super_categories`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `super_categories`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+-- ---------------ALTER "super_categories" on 05-07-2018----------------------
+ALTER TABLE `super_categories` ADD `image` VARCHAR(191) NOT NULL AFTER `name`;

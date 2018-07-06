@@ -40,6 +40,8 @@
 
             <li><a href="{{route('users')}}"><i class="fa fa-users"></i> <span class="nav-label">Users</span></a></li>
 
+            <li><a href="{{route('superCategories')}}"><i class="fa fa-users"></i> <span class="nav-label">Super Categories</span></a></li>
+
             <li><a href="{{route('Category')}}"><i class="fa fa-users"></i> <span class="nav-label">Category</span></a></li>
 
             <li><a href="{{route('subCategory')}}"><i class="fa fa-users"></i> <span class="nav-label">subCategory</span></a></li>
