@@ -11,7 +11,7 @@
                             <div class="top-link pull-right">
                                 <ul>
                                     <li>
-                                        <a href="javascript:;"><i class="fa fa-phone" aria-hidden="true"></i>&nbsp;Contact</a>
+                                        <a href="tel:+8426833930"><i class="fa fa-phone" aria-hidden="true"></i>&nbsp;Contact</a>
                                     </li>
                                     @guest
                                     <li>
@@ -129,9 +129,16 @@
                             {{ csrf_field() }}
                             <div id="top_search" class="form-group form-group-cus" role="form">
 
-                                <!-- Search button -->
-                                <div class="form-group  col-sm-1 col-xcus-1">
-                                  <button id="search-filter" type="button" class="btn success btn-custom-search" disabled="disabled">Search</button>
+                                <!-- Search keyword -->
+                                <div class="form-group col-sm-3 col-cus-3 search-input-key">
+                                    <input type="text" name="filter_title" id="filter_title" class="form-control form-cus"  placeholder="Type keywords e.g. Burger, Salon, Beauty…" required>
+                                </div>
+
+                                <!-- Select city -->
+                                <div class="form-group col-sm-3 col-cus-3 input-width">
+                                    <select name="location" id="location" class="form-control selectWidth form-cus input-border">
+                                        <option value="3378">Jaipur</option>
+                                    </select>
                                 </div>
 
                                 <!-- Select area -->
@@ -151,18 +158,10 @@
                                     </select>
                                 </div>
 
-                                <!-- Select city -->
-                                <div class="form-group col-sm-3 col-cus-3 input-width">
-                                    <select name="location" id="location" class="form-control selectWidth form-cus input-border">
-                                        <option value="3378">Jaipur</option>
-                                    </select>
+                                <!-- Search button -->
+                                <div class="form-group  col-sm-1 col-xcus-1">
+                                    <button id="search-filter" type="button" class="btn success btn-custom-search" disabled="disabled">Search</button>
                                 </div>
-
-                                <!-- Search keyword -->
-                                <div class="form-group col-sm-3 col-cus-3 search-input-key">
-                                    <input type="text" name="filter_title" id="filter_title" class="form-control form-cus"  placeholder="Type keywords e.g. Burger, Salon, Beauty…" required>
-                                </div>
-
                             </div>
                         </form>
 
@@ -184,7 +183,7 @@
                   </button>
                 </div>
                 <!-- Collection of nav links, forms, and other content for toggling -->
-                <div id="navbarCollapse" class="collapse navbar-collapse row">
+                <div id="navbarCollapse" class="collapse navbar-collapse">
                   <ul class="nav navbar-nav">
                     <!--<li class="active"><a href="http://savetk.com/home">Home</a></li>-->
                     <li><a href="{{url('/')}}">Home</a></li>

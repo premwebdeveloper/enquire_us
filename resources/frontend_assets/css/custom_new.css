@@ -610,7 +610,7 @@ header {
 	background: #006A4E;
 }
 .navbar-default {
-	background-color: transparent;
+	background-color: #3b5998;
 	border: 0 none;
 }
 .navbar-default .navbar-brand {
@@ -735,7 +735,7 @@ header {
 
 #top_search >.form-group
 {
-  float:right;
+  float:left;
 
 }
 
@@ -3280,7 +3280,7 @@ footer {
 	margin-right: 15px;
 }
 .cata-dis-none {
-	display: none;
+	display: block;
 }
 .res-cata-menu {
 	display: block;
@@ -3468,9 +3468,14 @@ ul.intro-social-buttons > li:last-child {
 	display: none;
 }
 
+.offer-small .vendor-image img{
+    height: auto!important;
+}
 
 
-
+}
+.offer-small .vendor-image img{
+    height: 125px;
 }
  @media (max-width: 639px) {
 .coupon-popup {
@@ -3542,7 +3547,7 @@ ul.intro-social-buttons > li:last-child {
     min-height: 295px;
 }
 }
-@media (max-width: 479px) {
+@media (max-width: 768px) {
 .reg-btn {
 	margin-top: 15px;
 }
@@ -3633,7 +3638,7 @@ ul.intro-social-buttons > li:last-child {
     width: 100%;
 }
 .offer-small {
-    min-height: 295px;
+    min-height: 125px;
 }
 .offer-small .offer-title {
     height: 70px;
@@ -3664,7 +3669,7 @@ ul.intro-social-buttons > li:last-child {
 	padding: 0;
 }
 .offer-small {
-    min-height: 360px;
+    min-height: 125px;
 }
 .offer-small .offer-title {
     height: 70px;
@@ -3733,16 +3738,32 @@ ul.intro-social-buttons > li:last-child {
 
 }
 
-@media (max-width: 479px) {
-#top_search .search-input-key
-{
-	width:75%;
-}	
-#top_search2 .search-input-key
-{
-	width:75%;
-}	
-		
+@media (max-width: 768px){
+    #top_search .search-input-key
+    {
+    	width:100%;
+        margin-top: 10px;
+    }	
+    #top_search >.form-group .form-cus{
+        border: 1px solid #ddd;
+    }
+    #top_search >.form-group{
+        float: right;
+        margin-top: 10px;
+    }
+    #top_search2 .search-input-key
+    {
+    	width:75%;
+    }
+    #slider{
+        margin-bottom:10px;
+    }	
+    .col-sm-55, .col-md-55{
+        width: 49%;
+    }
+    .navbar-default .navbar-nav > li:after{
+        display: none;
+    }
 }
 
 
@@ -4121,7 +4142,8 @@ a.btn:hover {
 
 #top_search > .input-width
 {
-	display:none;
+	display:block;
+    width: 100%;
 }
 #top_search2 > .input-width
 {

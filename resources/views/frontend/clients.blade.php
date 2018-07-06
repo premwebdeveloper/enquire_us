@@ -19,16 +19,16 @@
                                 <h3>Food &amp; Drinks</h3>
                             </div>
                             <div class="filter top30 cata-dis-none">
-                                <h1 class="brand-header">Categories </h1>
+                                <h1 class="brand-header">SubCategories </h1>
                                 <div class="list-group category_list">
-                                    @foreach($categories as $category)
+                                    @foreach($subcategories as $subcat)
                                         <?php
-                                            $cat_name = $category->category;
+                                            $cat_name = $subcat->subcategory;
                                             $cat_name = preg_replace('/[^A-Za-z0-9\-]/', '-', $cat_name);
-                                            $encrypted = Crypt::encrypt($category->id);
+                                            $encrypted = Crypt::encrypt($subcat->id);
                                         ?>
-                                        <a href="javascript:;" class="list-group-item cat_ies" id="cate_<?= $category->id; ?>">
-                                            {{ $category->category }}
+                                        <a href="javascript:;" class="list-group-item cat_ies" id="cate_<?= $subcat->id; ?>">
+                                            {{ $subcat->subcategory }}
                                         </a>
                                     @endforeach
                                 </div>

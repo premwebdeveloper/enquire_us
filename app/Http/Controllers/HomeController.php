@@ -110,14 +110,23 @@ class HomeController extends Controller
             $title_status = $encoded[2];
             $city = $encoded[3];
 
-            // Get all categories
+            // Get all subcategories
+            $subcategories = DB::table('subcategory')
+                    ->join('websites_page_head_titles', 'websites_page_head_titles.subcategory', '=', 'subcategory.id')
+                    ->where('subcategory.status', 1)
+                    ->where('websites_page_head_titles.category', $title_id)
+                    ->where('websites_page_head_titles.area', null)
+                    ->select('subcategory.*', 'websites_page_head_titles.page_url')
+                    ->get();
+
+/*            // Get all categories
             $categories = DB::table('category')
                     ->join('websites_page_head_titles', 'websites_page_head_titles.category', '=', 'category.id')
                     ->where('category.status', 1)
                     ->where('websites_page_head_titles.subcategory', null)
                     ->where('websites_page_head_titles.area', null)
                     ->select('category.*', 'websites_page_head_titles.page_url')
-                    ->get();
+                    ->get();*/
 
                
             $query = DB::table('user_keywords')
@@ -140,7 +149,7 @@ class HomeController extends Controller
 
                 $clients = $query->get();
             
-            return view('frontend.clients', array('clients' => $clients, 'categories' => $categories, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords));            
+            return view('frontend.clients', array('clients' => $clients, 'subcategories' => $subcategories, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords));            
 
         }
         else{

@@ -71,7 +71,7 @@ option.option_padding
 .green{
     color: #006a4e!important;
 }
-.col-lg-55, .col-lg-sm, .col-md-55 {
+.col-lg-55{
     width: 20%;
    /* padding: 0 5px;*/
     margin-bottom: 10px;
