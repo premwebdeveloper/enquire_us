@@ -17,7 +17,10 @@ class Categories extends Controller
 	//add category page
 	public function add_category()
 	{
-		return view('admin.addCategory');
+        # get all super categoriees
+        $super_categories = DB::table('super_categories')->get();
+
+		return view('admin.addCategory', array('super_categories' => $super_categories));
 	}
 
 	//view category page
@@ -33,10 +36,12 @@ class Categories extends Controller
     {
         $date = date('Y-m-d H:i:s');
 
+        $super_category = $request->super_category;
         $category = $request->category;
         $description = $request->description;
 
         $create_cat = DB::table('category')->insert([
+            'super_category' => $super_category,
             'category' => $category,
             'description' => $description,
             'created_at' => $date,

@@ -194,7 +194,9 @@
     Route::any('createSuperCategory', 'superCategories@create')->name('createSuperCategory');
     
     # Show super categories
-    Route::any('editSuperCategory', 'superCategories@edit')->name('editSuperCategory');
+    Route::any('editSuperCategory/{id}', 'superCategories@edit')->name('editSuperCategory');
+
+    Route::any('updateSuperCategory', 'superCategories@update')->name('updateSuperCategory');
 
 
 

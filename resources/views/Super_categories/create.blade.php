@@ -40,6 +40,7 @@
                         <label class="col-sm-2 control-label">Name</label>
                         <div class="col-sm-8">
                             <input type="text" name="super_cat_name" class="form-control">
+                            
                             @if($errors->has('super_cat_name'))
                                 <span class="help-block red">
                                     <strong>{{ $errors->first('super_cat_name') }}</strong>

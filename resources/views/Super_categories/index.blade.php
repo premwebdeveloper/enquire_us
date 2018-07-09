@@ -56,7 +56,7 @@
                                     <td>{{ $cat->name }}</td>
                                     <td><img src="storage/app/uploads/super_category/{{$cat->image}}" alt="" style="width: 100px; height: 100px;"></td>
                                     <td>
-                                        <a class="btn btn-success editcat" title="Update" id="{{ $cat->id }}">
+                                        <a href="{{ route('editSuperCategory', ['id' => $cat->id]) }}" class="btn btn-success editcat" title="Update" id="{{ $cat->id }}">
                                             <i class="fa fa-pencil" aria-hidden="true"></i>
                                         </a>
                                     </td>

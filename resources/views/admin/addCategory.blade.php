@@ -46,6 +46,17 @@
                     {{ csrf_field() }}
 
                     <div class="form-group">
+                        <label class="col-sm-2 control-label">Super Category</label>
+                        <div class="col-sm-10">
+                            <select name="super_category" id="super_category" class="form-control" required>
+                                <option value="">Select Super Category</option>
+                                @foreach($super_categories as $super_cat)
+                                    <option value="{{ $super_cat->id }}">{{ $super_cat->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
                         <label class="col-sm-2 control-label">Category</label>
                         <div class="col-sm-10">
                             <input type="text" name="category" id="category" class="form-control" placeholder="Category" required="required">

@@ -305,3 +305,6 @@ ALTER TABLE `super_categories`
 
 -- ---------------ALTER "super_categories" on 05-07-2018----------------------
 ALTER TABLE `super_categories` ADD `image` VARCHAR(191) NOT NULL AFTER `name`;
+
+-- ---------------ALTER "super_categories" on 09-07-2018----------------------
+ALTER TABLE `category` ADD `super_category` INT NOT NULL AFTER `id`;
