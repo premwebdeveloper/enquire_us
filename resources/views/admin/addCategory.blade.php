@@ -41,7 +41,7 @@
                     </div>
                 @endif
 
-                <form method="post" class="form-horizontal" action="{{ route('addCategory') }}">
+                <form method="post" class="form-horizontal" action="{{ route('addCategory') }}" enctype="multipart/form-data">
 
                     {{ csrf_field() }}
 
@@ -54,18 +54,48 @@
                                     <option value="{{ $super_cat->id }}">{{ $super_cat->name }}</option>
                                 @endforeach
                             </select>
+
+                            @if($errors->has('super_category'))
+                                <span class="help-block red">
+                                    <strong>{{ $errors->first('super_category') }}</strong>
+                                </span>
+                            @endif
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Category</label>
                         <div class="col-sm-10">
                             <input type="text" name="category" id="category" class="form-control" placeholder="Category" required="required">
+
+                            @if($errors->has('category'))
+                                <span class="help-block red">
+                                    <strong>{{ $errors->first('category') }}</strong>
+                                </span>
+                            @endif
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Image</label>
+                        <div class="col-sm-10">
+                            <input type="file" name="image" id="image" class="form-control">
+
+                            @if($errors->has('image'))
+                                <span class="help-block red">
+                                    <strong>{{ $errors->first('image') }}</strong>
+                                </span>
+                            @endif
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Category Description</label>
                         <div class="col-sm-10">
                             <textarea name="description" class="form-control" placeholder="Description"></textarea>
+
+                            @if($errors->has('description'))
+                                <span class="help-block red">
+                                    <strong>{{ $errors->first('description') }}</strong>
+                                </span>
+                            @endif
                         </div>
                     </div>
                     <div class="row">

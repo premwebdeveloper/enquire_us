@@ -46,7 +46,8 @@
 	                        <thead>
 	                            <tr>
                                     <th>#</th>
-                                    <th>Cateogry Name</th>
+                                    <th>Cateogry</th>
+                                    <th>Image</th>
                                     <th>Action</th>
 	                            </tr>
 	                        </thead>
@@ -58,7 +59,10 @@
 
 	                                <tr class="gradeX">
                                     	<td>{{ $i }}</td>
-                                    	<td id="exitCat_{{ $cat->id }}">{{ $cat->category }}</td>
+                                        <td id="exitCat_{{ $cat->id }}">{{ $cat->category }}</td>
+                                    	<td>
+                                            <img src="storage/app/uploads/categories/{{ $cat->image }}" alt="{{ $cat->image }}" style="height: 50px;">
+                                        </td>
                                        	<td>
                                             <a class="btn btn-success editcat" title="Update" id="{{ $cat->id }}">
                                                 <i class="fa fa-pencil" aria-hidden="true"></i>

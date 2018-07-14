@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use DB;
 use App\User;
+use Storage;
+use Session;
+use File;
+
 class Categories extends Controller
 {
     # construct function
@@ -39,14 +43,43 @@ class Categories extends Controller
     {
         $date = date('Y-m-d H:i:s');
 
+        # Set validation for
+        $this->validate($request, [
+            'super_category' => 'required',
+            'category' => 'required',
+            'description' => 'required',
+            'image' => 'mimes:jpg,jpeg,png,gif | max:512',
+        ]);
+
         $super_category = $request->super_category;
         $category = $request->category;
         $description = $request->description;
+        $filename = 'category.png';
+
+        # upload image for category
+        if($request->hasFile('image')) {
+
+            $file = $request->image;
+
+            $filename = $file->getClientOriginalName();
+
+            $ext = pathinfo($filename, PATHINFO_EXTENSION);
+
+            $filename = substr(md5(microtime()),rand(0,26),6);
+
+            $filename .= '.'.$ext;
+
+            $filesize = $file->getClientSize();
+
+            $destinationPath = config('app.fileDestinationPath').'/categories/'.$filename;
+            $uploaded = Storage::put($destinationPath, file_get_contents($file->getRealPath()));                
+        }
 
         $create_cat = DB::table('category')->insert([
             'super_category' => $super_category,
             'category' => $category,
             'description' => $description,
+            'image' => $filename,
             'created_at' => $date,
             'updated_at' => $date
         ]);
