@@ -92,32 +92,52 @@
                 });
             </script>
             
-            <!-- Show all category -->
-			<div class="col-sm-12 banner-slider">
-			    <div class="row">
+            <!-- Show all super category -->
+            <div class="col-sm-12 banner-slider">
+                <div class="row">
+                    @foreach($super_catgory as $super_cat)                    
+                        <div class="col-sm-2">
+                            <div class="row">
+                                <div class="col-lg-12 res-catagories text-center">
+                                    <a href="{{ route('categories', ['super_cat_id' => $super_cat->id]) }}" class="list-group-item super_caties">                                       
+                                        <img src="storage/app/uploads/super_category/{{ $super_cat->image }}" alt="{{ $super_cat->name }}" width="120" />
+                                        <br>
+                                        {{ $super_cat->name }}
+                                    </a>                                    
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+
+            <!--
+            Old show all categories 
+            <div class="col-sm-12 banner-slider">
+                <div class="row">
                     @foreach($category as $cat)
                     <?php
                         $cat_name = $cat->category;
                         $cat_name = preg_replace('/[^A-Za-z0-9\-]/', '-', $cat_name);
                         $encrypted = Crypt::encrypt($cat->id);
                         ?>
-    					<div class="col-sm-2">
-    						<div class="row">
-    							<div class="col-lg-12 res-catagories">
+                        <div class="col-sm-2">
+                            <div class="row">
+                                <div class="col-lg-12 res-catagories">
                                     
-                                    <!-- get all clients according to this category by js url -->
+                                    get all clients according to this category by js url
                                     <a href="javascript:;" class="list-group-item cat_ies" id="cate_<?= $cat->id; ?>">
                                         <span>
                                             <img src="resources/frontend_assets//images/food.png" alt="{{ $cat->category }}" />
                                         </span>
                                         {{ $cat->category }}
                                     </a>                                    
-    							</div>
-    						</div>
-    					</div>
+                                </div>
+                            </div>
+                        </div>
                     @endforeach
                 </div>
-			</div>
+            </div> -->
 
 			<!-- Our partners -->
 			<div class="col-sm-12 offset-margin-2">

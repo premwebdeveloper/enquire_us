@@ -26,9 +26,12 @@ class Categories extends Controller
 	//view category page
 	public function Category()
 	{
+        # get all super categoriees
+        $super_categories = DB::table('super_categories')->get();
+
 		$category = DB::table('category')->where('status', 1)->get();
 
-		return view('admin.Category', array('category' => $category));
+		return view('admin.Category', array('category' => $category, 'super_categories' => $super_categories));
 	}
 
     //Add Category
@@ -65,11 +68,13 @@ class Categories extends Controller
     {
     	$date = date('Y-m-d H:i:s');
 
+        $super_category = $request->super_category;
         $cat_id = $request->cat_id;
         $category = $request->category;
     	$description = $request->category_description;
 
     	$create_cat = DB::table('category')->where('id', $cat_id)->update([
+            'super_category' => $super_category,
             'category' => $category,
             'description' => $description,
             'updated_at' => $date

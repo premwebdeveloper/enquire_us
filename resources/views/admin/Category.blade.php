@@ -100,16 +100,26 @@
 
                     <div class="form-group">
                         <label>Category</label>
+                        <select name="super_category" id="super_category" class="form-control" required>
+                            <option value="">Select Super Category</option>
+                            @foreach($super_categories as $super_cat)
+                                <option value="{{ $super_cat->id }}">{{ $super_cat->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Category</label>
                         <input type="text" name="category" id="cat" required="required" class="form-control" placeholder="Category">
                     </div>
 
                     <div class="form-group">
                         <label>Description</label>
-                        <textarea name="category_description" id="category_description" class="form-control" placeholder="Category Description"></textarea>
+                        <textarea name="category_description" id="category_description" class="form-control" placeholder="Category Description" required="required"></textarea>
                     </div>
 
                     <div class="form-group text-right">
-                        <input type="submit" name="editCaste" class="btn btn-warning" id="editCaste" value="Update">
+                        <input type="submit" name="editCategory" class="btn btn-warning" id="editCaste" value="Update">
                     </div>
                 </form>
             </p>
@@ -119,6 +129,7 @@
     </div>
 </div>
 
+<!-- Edit category -->
 <script type="text/javascript">
     $(document).ready(function(){
         $(document).on('click', '.editcat', function(){
@@ -138,6 +149,8 @@
                     $('#category_description').val(obj.description);
                     $('#catModal').modal('show');
 
+                    // old super category selected
+                    $('#super_category option[value="'+obj.super_category+'"]').prop('selected', true);
                 },
                 error: function(data){
                     console.log(data);

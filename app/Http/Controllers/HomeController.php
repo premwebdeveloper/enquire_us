@@ -62,11 +62,14 @@ class HomeController extends Controller
         // home page slider
         $sliders = DB::table('slider')->get();
 
+        // get all super category
+        $super_catgory = DB::table('super_categories')->get();
+
         $title = 'Home';
         $meta_description = 'Home keywords';
         $meta_keywords = 'Home keywords';
 
-        return view('welcome', array('category' => $category, 'sliders' => $sliders, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'home_page_clients' => $home_page_clients, 'latest_home_page_clients' => $latest_home_page_clients));
+        return view('welcome', array('super_catgory' => $super_catgory, 'category' => $category, 'sliders' => $sliders, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'home_page_clients' => $home_page_clients, 'latest_home_page_clients' => $latest_home_page_clients));
     }
 
     // Filter data according to location and any keyword
@@ -119,8 +122,8 @@ class HomeController extends Controller
                     ->select('subcategory.*', 'websites_page_head_titles.page_url')
                     ->get();
 
-/*            // Get all categories
-            $categories = DB::table('category')
+            // Get all categories
+            /*$categories = DB::table('category')
                     ->join('websites_page_head_titles', 'websites_page_head_titles.category', '=', 'category.id')
                     ->where('category.status', 1)
                     ->where('websites_page_head_titles.subcategory', null)
@@ -452,9 +455,7 @@ class HomeController extends Controller
             //dd($client_keywords->tosql());
               
                 ->get();
-    echo "<pre>";
-    print_r($client_keywords);
-    exit;
+    
         // Get client other information
         $other_info = DB::table('user_other_information')->where('user_id', $user_id)->get();
 
@@ -498,5 +499,19 @@ class HomeController extends Controller
         Session::flash('subscribe', 'You are active subscriber now.');
 
         return redirect('/');
+    }
+
+    // show all categories on click super category
+    public function categories(Request $request){
+
+        $super_cat_id = $request->super_cat_id;
+        
+        // Get all categories according to this super category
+        $categories = DB::table('category')->where(['super_category' =>$super_cat_id, 'status' => 1])->get();
+
+        // get all super categories
+        $super_catgories = DB::table('super_categories')->get();
+
+        return view('frontend.categories', array('categories' => $categories, 'super_catgories' => $super_catgories));
     }
 }

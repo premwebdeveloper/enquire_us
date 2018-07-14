@@ -37,6 +37,9 @@
         "as" => 'filter'
     ]);*/
 
+    // Show all categories on click super category
+    Route::get('categories/{super_cat_id}', 'HomeController@categories')->name('categories');
+
     # Home page after login
     Route::any('/', 'HomeController@index')->name('/');
     Route::any('/home', 'HomeController@index')->name('home');
@@ -188,15 +191,15 @@
     Route::post('delete_keywords_by_admin', 'AjaxController@delete_keywords_by_admin')->name('delete_keywords_by_admin');
 
     # Show super categories
-    Route::get('superCategories', 'superCategories@index')->name('superCategories');
+    Route::get('superCategories', 'SuperCategories@index')->name('superCategories');
 
     # Show super categories
-    Route::any('createSuperCategory', 'superCategories@create')->name('createSuperCategory');
+    Route::any('createSuperCategory', 'SuperCategories@create')->name('createSuperCategory');
     
     # Show super categories
-    Route::any('editSuperCategory/{id}', 'superCategories@edit')->name('editSuperCategory');
+    Route::any('editSuperCategory/{id}', 'SuperCategories@edit')->name('editSuperCategory');
 
-    Route::any('updateSuperCategory', 'superCategories@update')->name('updateSuperCategory');
+    Route::any('updateSuperCategory', 'SuperCategories@update')->name('updateSuperCategory');
 
 
 
