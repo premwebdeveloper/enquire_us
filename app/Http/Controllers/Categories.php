@@ -33,8 +33,12 @@ class Categories extends Controller
         # get all super categoriees
         $super_categories = DB::table('super_categories')->get();
 
-		$category = DB::table('category')->where('status', 1)->get();
-
+		$category = DB::table('category')
+                    ->join('super_categories', 'category.super_category', '=', 'super_categories.id')
+                    ->where('category.status', 1)
+                    ->select('category.*', 'super_categories.name')
+                    //dd($category->tosql());
+                    ->get();
 		return view('admin.Category', array('category' => $category, 'super_categories' => $super_categories));
 	}
 

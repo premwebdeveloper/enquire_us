@@ -46,6 +46,7 @@
 	                        <thead>
 	                            <tr>
                                     <th>#</th>
+                                    <th>Super Cateogry</th>
                                     <th>Cateogry</th>
                                     <th>Image</th>
                                     <th>Action</th>
@@ -55,6 +56,7 @@
 	                            @foreach($category as $key => $cat)
 	                                <tr class="gradeX">
                                     	<td>{{ $key+1 }}</td>
+                                        <td>{{ $cat->name }}</td>
                                         <td>{{ $cat->category }}</td>
                                     	<td>
                                             <img src="storage/app/uploads/categories/{{ $cat->image }}" alt="{{ $cat->image }}" style="height: 50px;">

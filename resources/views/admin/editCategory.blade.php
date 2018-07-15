@@ -98,7 +98,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Category Description</label>
                         <div class="col-sm-10">
-                            <textarea name="description" class="form-control" placeholder="Description">{{ $category->category }}</textarea>
+                            <textarea name="description" class="form-control summernote" placeholder="Description">{{ $category->category }}</textarea>
 
                             @if($errors->has('description'))
                                 <span class="help-block red">
