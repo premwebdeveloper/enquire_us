@@ -96,24 +96,71 @@ class Categories extends Controller
         return redirect('add_category')->with('status', $status);
     }
 
+    // Edit category page view
+    public function editCategory(Request $request){
+
+        $cat_id = $request->cat_id;
+
+        # Get this category details
+        $category = DB::table('category')->where('id', $cat_id)->first();
+
+        # get all super categoriees
+        $super_categories = DB::table('super_categories')->get();
+        
+        return view('admin.editCategory', array('category' => $category, 'super_categories' => $super_categories));
+    }
+
+
     //edit Category
     public function editCat(Request $request)
     {
     	$date = date('Y-m-d H:i:s');
-
         $super_category = $request->super_category;
         $cat_id = $request->cat_id;
         $category = $request->category;
     	$description = $request->category_description;
 
-    	$create_cat = DB::table('category')->where('id', $cat_id)->update([
+        # Get this category details
+        $category_info = DB::table('category')->where('id', $cat_id)->first();
+
+        $filename = $category_info->image;
+
+        # upload image for category
+        if($request->hasFile('image')) {
+
+            $file = $request->image;
+
+            $filename = $file->getClientOriginalName();
+
+            $ext = pathinfo($filename, PATHINFO_EXTENSION);
+
+            $filename = substr(md5(microtime()),rand(0,26),6);
+
+            $filename .= '.'.$ext;
+
+            $filesize = $file->getClientSize();
+
+            $destinationPath = config('app.fileDestinationPath').'/categories/'.$filename;
+            $uploaded = Storage::put($destinationPath, file_get_contents($file->getRealPath()));                
+        }
+
+        # Set validation for
+        $this->validate($request, [
+            'super_category' => 'required',
+            'category' => 'required',
+            'description' => 'required',
+            'image' => 'mimes:jpg,jpeg,png,gif | max:512',
+        ]);
+
+    	$edit_cat = DB::table('category')->where('id', $cat_id)->update([
             'super_category' => $super_category,
             'category' => $category,
             'description' => $description,
+            'image' => $filename,
             'updated_at' => $date
     	]);
 
-        if($create_cat)
+        if($edit_cat)
         {
             $status = 'Category Update successfully.';
         }

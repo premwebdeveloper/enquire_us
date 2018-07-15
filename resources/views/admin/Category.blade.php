@@ -52,26 +52,19 @@
 	                            </tr>
 	                        </thead>
 	                        <tbody>
-	                        	<?php
-	                        		$i=1;
-	                        	?>
-	                            @foreach($category as $cat)
-
+	                            @foreach($category as $key => $cat)
 	                                <tr class="gradeX">
-                                    	<td>{{ $i }}</td>
-                                        <td id="exitCat_{{ $cat->id }}">{{ $cat->category }}</td>
+                                    	<td>{{ $key+1 }}</td>
+                                        <td>{{ $cat->category }}</td>
                                     	<td>
                                             <img src="storage/app/uploads/categories/{{ $cat->image }}" alt="{{ $cat->image }}" style="height: 50px;">
                                         </td>
                                        	<td>
-                                            <a class="btn btn-success editcat" title="Update" id="{{ $cat->id }}">
+                                            <a href="{{ route('editCategory', ['cat_id' => $cat->id]) }}" class="btn btn-success" title="Update Category">
                                                 <i class="fa fa-pencil" aria-hidden="true"></i>
                                             </a>
 	                                    </td>
 	                                </tr>
-                                <?php
-                                	$i++;
-                                ?>
 	                            @endforeach
 
 	                        </tbody>
@@ -84,84 +77,4 @@
     </div>
 </div>
 
-<!-- Edit category Modal -->
-<div id="catModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal">&times;</button>
-            <h4 class="modal-title">Update Category</h4>
-        </div>
-        <div class="modal-body">
-            <p>
-                <form method="post" action="{{ route('editCat') }}">
-
-                    {{ csrf_field() }}
-
-                    <input type="hidden" name="cat_id" id="cat_id">
-
-                    <div class="form-group">
-                        <label>Category</label>
-                        <select name="super_category" id="super_category" class="form-control" required>
-                            <option value="">Select Super Category</option>
-                            @foreach($super_categories as $super_cat)
-                                <option value="{{ $super_cat->id }}">{{ $super_cat->name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Category</label>
-                        <input type="text" name="category" id="cat" required="required" class="form-control" placeholder="Category">
-                    </div>
-
-                    <div class="form-group">
-                        <label>Description</label>
-                        <textarea name="category_description" id="category_description" class="form-control" placeholder="Category Description" required="required"></textarea>
-                    </div>
-
-                    <div class="form-group text-right">
-                        <input type="submit" name="editCategory" class="btn btn-warning" id="editCaste" value="Update">
-                    </div>
-                </form>
-            </p>
-        </div>
-    </div>
-
-    </div>
-</div>
-
-<!-- Edit category -->
-<script type="text/javascript">
-    $(document).ready(function(){
-        $(document).on('click', '.editcat', function(){
-            var id = $(this).attr('id');
-
-            $.ajax({
-                method : 'post',
-                url : 'getCategoryDetails',
-                async : true,
-                data : {"_token": "{{ csrf_token() }}", 'id': id},
-                success:function(response){
-
-                    var obj = $.parseJSON(response);
-
-                    $('#cat_id').val(obj.id);
-                    $('#cat').val(obj.category);
-                    $('#category_description').val(obj.description);
-                    $('#catModal').modal('show');
-
-                    // old super category selected
-                    $('#super_category option[value="'+obj.super_category+'"]').prop('selected', true);
-                },
-                error: function(data){
-                    console.log(data);
-                },
-            });
-
-        });
-    });
-</script>
 @endsection

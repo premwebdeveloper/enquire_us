@@ -132,6 +132,7 @@
     Route::get('add_category', 'Categories@add_category')->name('add_category');
     Route::post('addCategory', 'Categories@addCategory')->name('addCategory');
     Route::get('Category', 'Categories@Category')->name('Category');
+    Route::get('editCategory/{cat_id}', 'Categories@editCategory')->name('editCategory');
     Route::post('editCat', 'Categories@editCat')->name('editCat');
     # Add category club
     Route::get('categoryClubs', 'Categories@categoryClubs')->name('categoryClubs');
