@@ -100,6 +100,10 @@ class HomeController extends Controller
 
         $encoded = explode('-', $encoded);
 
+        // echo "<pre>";
+        // print_r($encoded);
+        // exit;
+
         # If there is something wrong with url and array is not proper then redirect to home
         if(count($encoded) < 4){
             
@@ -113,15 +117,6 @@ class HomeController extends Controller
             $title_status = $encoded[2];
             $city = $encoded[3];
 
-            // Get all subcategories
-            $subcategories = DB::table('subcategory')
-                    ->join('websites_page_head_titles', 'websites_page_head_titles.subcategory', '=', 'subcategory.id')
-                    ->where('subcategory.status', 1)
-                    ->where('websites_page_head_titles.category', $title_id)
-                    ->where('websites_page_head_titles.area', null)
-                    ->select('subcategory.*', 'websites_page_head_titles.page_url')
-                    ->get();
-
             // Get all categories
             /*$categories = DB::table('category')
                     ->join('websites_page_head_titles', 'websites_page_head_titles.category', '=', 'category.id')
@@ -131,8 +126,19 @@ class HomeController extends Controller
                     ->select('category.*', 'websites_page_head_titles.page_url')
                     ->get();*/
 
-               
-            $query = DB::table('user_keywords')
+            // Here check the title status if title status is category then
+            if($title_status == 1){
+
+                // Get all subcategories
+                $subcategories = DB::table('subcategory')
+                    ->join('websites_page_head_titles', 'websites_page_head_titles.subcategory', '=', 'subcategory.id')
+                    ->where('subcategory.status', 1)
+                    ->where('websites_page_head_titles.category', $title_id)
+                    ->where('websites_page_head_titles.area', null)
+                    ->select('subcategory.*', 'websites_page_head_titles.page_url')
+                    ->get();
+
+                $query = DB::table('user_keywords')
                 ->join('category', 'category.id', '=', 'user_keywords.keyword_id')
                 ->join('user_details', 'user_keywords.user_id', '=', 'user_details.user_id')
                 ->join('user_location', 'user_location.user_id', '=', 'user_details.user_id')
@@ -151,7 +157,43 @@ class HomeController extends Controller
                 $query->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country', 'websites_page_head_titles.page_url');
 
                 $clients = $query->get();
-            
+
+            }else{
+
+                // First get category id of this sub category
+                $this_category = DB::table('subcategory')->where('id', $title_id)->first();
+
+                // Get all subcategories
+                $subcategories = DB::table('subcategory')
+                    ->join('websites_page_head_titles', 'websites_page_head_titles.subcategory', '=', 'subcategory.id')
+                    ->where('subcategory.status', 1)
+                    ->where('websites_page_head_titles.category', $this_category->cat_id)
+                    ->where('websites_page_head_titles.area', null)
+                    ->select('subcategory.*', 'websites_page_head_titles.page_url')
+                    ->get();
+
+                // If the title status is sub category then
+                $query = DB::table('user_keywords')
+                        ->join('subcategory', 'subcategory.id', '=', 'user_keywords.keyword_id')
+                        ->join('user_details', 'user_keywords.user_id', '=', 'user_details.user_id')
+                        ->join('user_location', 'user_location.user_id', '=', 'user_details.user_id')
+                        ->join('websites_page_head_titles', 'websites_page_head_titles.business_page', '=', 'user_details.user_id')
+                        ->join('keyword_city_client_visibility', 'keyword_city_client_visibility.user_id', '=', 'user_details.user_id')
+                        ->where('user_keywords.keyword_identity', 2)
+                        ->where('user_location.status', 1)
+                        ->where('user_details.status', 1)
+                        ->where('user_keywords.update_status', 1)
+                        ->where('keyword_city_client_visibility.status', 1)
+                        ->where('keyword_city_client_visibility.keyword', $title_id)
+                        ->where('keyword_city_client_visibility.keyword_identity', 2);
+
+                        $query->where('subcategory.id', $title_id);
+
+                        $query->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country', 'websites_page_head_titles.page_url');
+
+                         $clients = $query->get();
+            }
+                        
             return view('frontend.clients', array('clients' => $clients, 'subcategories' => $subcategories, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords));            
 
         }
@@ -358,8 +400,7 @@ class HomeController extends Controller
                           ->where("user_keywords.keyword_identity", "2");
                 })
                 ->select('user_keywords.*', 'category.category', 'subcategory.subcategory')
-            //dd($client_keywords->tosql());
-              
+                          
                 ->get();
                 // Get client other information
                 $other_info = DB::table('user_other_information')->where('user_id', $title_id)->get();

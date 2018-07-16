@@ -27,7 +27,7 @@
                                             $cat_name = preg_replace('/[^A-Za-z0-9\-]/', '-', $cat_name);
                                             $encrypted = Crypt::encrypt($subcat->id);
                                         ?>
-                                        <a href="javascript:;" class="list-group-item cat_ies" id="cate_<?= $subcat->id; ?>">
+                                        <a href="javascript:;" class="list-group-item sub_cat_ies" id="sub_cate_<?= $subcat->id; ?>">
                                             {{ $subcat->subcategory }}
                                         </a>
                                     @endforeach

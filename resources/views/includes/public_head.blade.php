@@ -184,6 +184,52 @@
 
             });
 
+            // Show all clients after click on sub category name
+            $(document).on('click', '.sub_cat_ies', function(){
+
+                // get category id
+                var id = $(this).attr('id');
+                var temp = id.split('_');
+                var sub_cat_id = temp[2];
+
+                // get location name and location id
+                var location = $('#location').val();                                // This is location id
+                var loc_name = $('#location option[value="'+location+'"]').text();  // It has location name
+                loc_name = loc_name.replace(/\s+/g, '-');                           // space reolace by dash
+             
+                var sub_cat_id_identity = sub_cat_id+'-2';                          // Sub Category id with identity
+
+                // Get page url of this category
+                $.ajax({
+                    method : 'post',
+                    url: "{{ route('getPageUrl') }}",
+                    async : true,
+                    data : {"_token": "{{ csrf_token() }}", 'filter_title_attr' : sub_cat_id_identity, 'location' : location},
+                    success:function(response){
+
+                        console.log(response);
+
+                        if(response == 0)
+                        {
+                            alert('Result not found!');
+                        }
+                        else
+                        {
+                            // If all is well
+                            var encoded = makeid()+'-'+sub_cat_id_identity+'-'+location;                 // Collect all parameters
+                            encoded = encodeURIComponent(window.btoa(encoded));                 // encode parameter
+
+                            //window.location.href = "{{url('filter')}}"+"/"+loc_name+"/" +response+"/" +encoded;
+                            window.location.href = "{{ url('/') }}"+"/"+loc_name+"/" +response+"/" +encoded;
+                        }
+                    },
+                    error: function(data){
+                        console.log(data);
+                    },
+                });
+
+            });
+
             // Client view / Show client details on click client namw
             $(document).on('click', '.client_view_details', function(){
                 
