@@ -95,49 +95,34 @@
             <!-- Show all super category -->
             <div class="col-sm-12 banner-slider">
                 <div class="row">
-                    @foreach($super_catgory as $super_cat)                    
+                    @php $s = 6; $l = 11; @endphp
+                    @for($i = 1; $i < count($super_catgory); $i++)
+                                    
                         <div class="col-sm-2">
                             <div class="row">
                                 <div class="col-lg-12 res-catagories text-center">
-                                    <a href="{{ route('categories', ['super_cat_id' => $super_cat->id]) }}" class="list-group-item super_caties">                                       
-                                        <img src="storage/app/uploads/super_category/{{ $super_cat->image }}" alt="{{ $super_cat->name }}" width="120" />
+                                    <a href="{{ route('categories', ['super_cat_id' => $super_catgory[$i]->id]) }}" class="list-group-item super_caties">                                       
+                                        <img src="storage/app/uploads/super_category/{{ $super_catgory[$i]->image }}" alt="{{ $super_catgory[$i]->name }}" width="150" />
                                         <br>
-                                        {{ $super_cat->name }}
+                                        {{ $super_catgory[$i]->name }}
                                     </a>                                    
                                 </div>
                             </div>
                         </div>
-                    @endforeach
+
+                        @if($s == $i)
+                            <div class="col-sm-1"> &nbsp; </div>
+                            @php $s += 11; @endphp  
+                        @endif
+
+                        @if($l == $i)
+                            <div class="col-sm-1"> &nbsp; </div>
+                            @php $l += 11; @endphp
+                        @endif
+
+                    @endfor
                 </div>
             </div>
-
-            <!--
-            Old show all categories 
-            <div class="col-sm-12 banner-slider">
-                <div class="row">
-                    @foreach($category as $cat)
-                    <?php
-                        $cat_name = $cat->category;
-                        $cat_name = preg_replace('/[^A-Za-z0-9\-]/', '-', $cat_name);
-                        $encrypted = Crypt::encrypt($cat->id);
-                        ?>
-                        <div class="col-sm-2">
-                            <div class="row">
-                                <div class="col-lg-12 res-catagories">
-                                    
-                                    get all clients according to this category by js url
-                                    <a href="javascript:;" class="list-group-item cat_ies" id="cate_<?= $cat->id; ?>">
-                                        <span>
-                                            <img src="resources/frontend_assets//images/food.png" alt="{{ $cat->category }}" />
-                                        </span>
-                                        {{ $cat->category }}
-                                    </a>                                    
-                                </div>
-                            </div>
-                        </div>
-                    @endforeach
-                </div>
-            </div> -->
 
 			<!-- Our partners -->
 			<div class="col-sm-12 offset-margin-2">
