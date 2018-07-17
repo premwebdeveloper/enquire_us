@@ -126,6 +126,16 @@
                         </div>
                     </div>
 
+                    <div class="col-sm-9 col-sm-offset-3">
+                        <div class="col-sm-12">
+                            <div class="filter top30 cata-dis-none">
+                                @if(!empty($title_info))
+                                    {{ $title_info->description }}
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+
 				</div>
 			</div>
 		</div>

@@ -485,7 +485,7 @@ $(document).ready(function(){
                                         <!-- <select name="pin_code" id="pin_code" class="validate[required] form-control">
                                             <option value="" selected="selected">Select Pincode</option>
                                         </select> -->
-                                        <input type="text" name="pin_code" id="pin_code" value="{{ $location->pincode }}" class="validate[required] form-control">
+                                        <input type="text" name="pin_code" id="pin_code" value="{{ $location->pincode }}" class="validate[required] form-control" readonly="">
                                       </div>
                                     </div>
 
