@@ -1,7 +1,37 @@
 @extends('layouts.auth_app')
 
 @section('content')
+<script>
+    $(document).ready(function(){
+        // Select Area
+        $(document).on("change", "#area", function(){
+            var area = $('#area').val();
+              //alert(city);
+            if(area == '')
+            {
+                $("#pin_code").html('');
+                $("#pin_code").html('<option value="" selected="selected">Select Pin Code</option>');
+                $("#pin_code").attr('disabled', 'disabled');
+            }
+            else
+            {
+                $.ajax({
+                    method: 'post',
+                    url: 'getPincodeByAreaForUser',
+                    data: {"_token": "{{ csrf_token() }}", 'area' : area},
+                    async: true,
+                    success: function(response){
 
+                        $("#pin_code").val(response.pincode);
+                    },
+                    error: function(data){
+                        //console.log(data);
+                    },
+                });
+            }
+        });
+    });
+</script>
 <style type="text/css">
 .form-horizontal .control-label
     {
@@ -266,6 +296,7 @@
                                                         </div>
                                                     </div>
                                                 </div>
+
                                                 <?php
                                                     $city = '3378';
 
@@ -281,20 +312,20 @@
                                                                 <option value="">Select Area</option>
 
                                                                 @foreach($areas as $area)
-                                                                    <option value="{{$area->area}}">{{$area->area}}</option>
+                                                                    <option value="{{$area->id}}">{{$area->area}}</option>
                                                                 @endforeach
 
                                                             </select>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div>                                                
 
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="pin_code" class="col-md-2 control-label">Pin Code</label>
 
                                                         <div class="col-md-10">
-                                                            <input id="pin_code" type="text" class="form-control" name="pin_code" value="{{ old('pin_code') }}">
+                                                            <input type="text" name="pin_code" id="pin_code" class="validate[required] form-control" readonly="">
 
                                                             @if ($errors->has('pin_code'))
                                                                 <span class="help-block red">
@@ -413,216 +444,6 @@
 
                                         </form>
 
-                                    </div>
-                                </div>
-
-                               <!-- Location Information -->
-                                <div id="tab-2" class="tab-pane">
-                                    <div class="panel-body">
-                                        <form action="javascript:;" method="post" id="other_information_form" class="form-horizontal">
-                                            <fieldset>
-
-                                              <div class="controls">
-
-                                              <h4>Payment Modes Accepted By You</h4>
-
-                                              <div class="form-group required">
-
-                                                <div class="col-sm-4">
-                                                    <input type="checkbox" value="0" class="checkAll">
-                                                    <span style="color:#de4b39;">Select All</span>
-                                                </div>
-
-                                                <div class="col-sm-4">
-                                                    <input type="checkbox" value="1" name="payment_mode[]" class="payment_mode"> Cash
-                                                </div>
-
-                                                <div class="col-sm-4">
-                                                    <input type="checkbox" value="2" name="payment_mode[]" class="payment_mode"> Master Card
-                                                </div>
-
-                                                <div class="col-sm-4">
-                                                    <input type="checkbox" value="3" name="payment_mode[]" class="payment_mode"> Visa Card
-                                                </div>
-
-                                                <div class="col-sm-4">
-                                                    <input type="checkbox" value="4" name="payment_mode[]" class="payment_mode"> Debit Cards
-                                                </div>
-
-                                                <div class="col-sm-4">
-                                                    <input type="checkbox" value="5" name="payment_mode[]" class="payment_mode"> Money Orders
-                                                </div>
-
-                                                <div class="col-sm-4">
-                                                    <input type="checkbox" value="6" name="payment_mode[]" class="payment_mode"> Cheques
-                                                </div>
-
-                                                <div class="col-sm-4">
-                                                    <input type="checkbox" value="7" name="payment_mode[]" class="payment_mode"> Credit Card
-                                                </div>
-
-                                                <div class="col-sm-4">
-                                                    <input type="checkbox" value="8" name="payment_mode[]" class="payment_mode"> Travelers Cheque
-                                                </div>
-
-                                                <div class="col-sm-4">
-                                                    <input type="checkbox" value="9" name="payment_mode[]" class="payment_mode"> Financing Available
-                                                </div>
-
-                                                <div class="col-sm-4">
-                                                    <input type="checkbox" value="10" name="payment_mode[]" class="payment_mode"> American Express Card
-                                                </div>
-
-                                                <div class="col-sm-4">
-                                                    <input type="checkbox" value="11" name="payment_mode[]" class="payment_mode"> Diners Club Card
-                                                </div>
-
-                                              </div>
-
-                                              <hr />
-
-                                              <h4>Company Information</h4>
-
-                                                <div class="form-group required">
-                                                  <label for="Name" class="col-sm-4 control-label">Year Of Establishment: </label>
-                                                  <div class="col-sm-2">
-                                                    <input class="form-control" name="establishment_year" id="establishment_year" type="text" placeholder="1995">
-                                                  </div>
-
-                                                  <div class="col-sm-3">
-                                                    <input class="form-control" name="annual_turnover" id="annual_turnover" placeholder="Annual Turnover" type="text">
-                                                  </div>
-
-                                                  <div class="col-sm-3">
-                                                    <select class="form-control" id="number_employees" name="number_employees">
-                                                        <option value="">Select Employees</option>
-                                                        <option value="Less than 10">Less than 10</option>
-                                                        <option value="10-100">10-100</option>
-                                                        <option value="100-500">100-500</option>
-                                                        <option value="500-1000">500-1000</option>
-                                                        <option value="1000-2000">1000-2000</option>
-                                                        <option value="2000-5000">2000-5000</option>
-                                                        <option value="5000-10000">5000-10000</option>
-                                                        <option value="More than 10000">More than 10000</option>
-                                                    </select>
-                                                  </div>
-
-                                                </div>
-
-                                                <div class="form-group required">
-                                                    <label class="col-sm-4 control-label">Professional Associations: </label>
-                                                    <div class="col-sm-8">
-                                                        <input class="form-control" name="professional_association" id="professional_association">
-                                                    </div>
-                                                </div>
-
-                                                <div class="form-group required">
-                                                    <label for="Email" class="col-sm-4 control-label">Certifications: </label>
-                                                    <div class="col-sm-8">
-                                                        <input class="form-control" name="certification" id="certification">
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-md-12 text-right">
-                                                    <input type="submit" name="addUser" class="btn btn-success" value="Next" style="margin-bottom: 30px;">
-                                                </div>
-
-                                              </div>
-                                            </fieldset>
-
-                                        </form>
-                                    </div>
-                                </div>
-
-                                <!-- Company Information -->
-                                <div id="tab-3" class="tab-pane">
-                                    <div class="panel-body">
-
-                                    </div>
-                                </div>
-
-                                <!-- Other Information -->
-                                <div id="tab-4" class="tab-pane">
-                                    <div class="panel-body" id="hide_add_button">
-                                        <h4>Business Keywords</h4>
-                                        <p>For business keywords that you no longer wish to be listed in simply click on cross next to the keyword and when you are done, Click "Save"</p>
-
-                                        <div class="col-sm-12" style="padding: 0px;border-bottom: 1px solid #ddd;">
-                                            <a class="add_keyword" style="color:#3b5998;font-weight: bold;float:right">
-                                                Add more keywords
-                                            </a>
-                                        </div>
-                                    </div>
-                                    <div class="panel-body" id="add_keyword" style="display:none;">
-                                        <h4>Type your Business Keywords and click Search</h4>
-                                        <form method="post" class="form-horizontal" action="{{ route('add_user') }}">
-                                            <div class="row">
-
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <div class="col-md-12">
-                                                            <input id="company_name" type="text" class="form-control" name="company_name" value="{{ old('company_name') }}">
-
-                                                            @if ($errors->has('company_name'))
-                                                                <span class="help-block red">
-                                                                    <strong>{{ $errors->first('company_name') }}</strong>
-                                                                </span>
-                                                            @endif
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        </form>
-
-                                        <!-- Searched result will show here -->
-                                        <div id="searched_result"> </div>
-                                        <div class="col-md-3 text-right">
-                                            <button class="btn btn-info btn-block" id="save_keywords">Save</button>
-                                        </div>
-                                        
-                                        <div class="col-md-12 text-right">
-                                            <hr>
-                                            <input type="submit" name="addUser" class="btn btn-success" value="Next" style="margin-bottom: 30px;">
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <!-- Images Information -->
-                                <div id="tab-5" class="tab-pane">
-                                    <div class="panel-body">
-                                        <div class="box">
-                                            <h4>Upload logo/Photos</h4>
-                                            <hr />
-
-                                            <form action="{{ route('uploadLogoAndPhotos') }}" method="post" class="form-horizontal" enctype="multipart/form-data">
-                                              <fieldset>
-                                                <div class="controls">
-
-                                                    {{ csrf_field() }}
-
-                                                  <div class="form-group required">
-                                                    <label for="Name" class="col-sm-4 control-label">Upload Logo: </label>
-                                                    <div class="col-sm-6">
-                                                        <input class="form-control" name="logo" id="logo" type="file">
-                                                    </div>
-                                                  </div>
-
-                                                  <div class="form-group required">
-                                                    <label for="Name" class="col-sm-4 control-label">Upload Photos: </label>
-                                                    <div class="col-sm-6">
-                                                        <input class="form-control" name="photos[]" id="photos" type="file" multiple>
-                                                    </div>
-                                                  </div>
-
-                                                </div>
-                                                <div class="col-md-12 text-right">
-                                                      <!-- <a class="btn btn-primary continue" data-original-title="" title="">Save & Exit</a> -->
-                                                      <input type="submit" name="save_exit" class="btn btn-success" value="Save & Exit">
-                                                </div>
-                                              </fieldset>
-                                            </form>
-                                        </div>
                                     </div>
                                 </div>
 

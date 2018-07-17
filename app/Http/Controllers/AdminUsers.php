@@ -177,6 +177,31 @@ class AdminUsers extends Controller
                 'status' => 1
             )
         );
+        
+        // get area name by area id
+        $area_info = DB::table('areas')->where('id', $area)->first();
+        $area_name = $area_info->area;
+
+        $title = $company_name.' in '.$area_name;
+        $keyword = $company_name.' in '.$area_name;
+        $description = $company_name.' in '.$area_name;
+
+        $company_name = preg_replace('/[^A-Za-z0-9\-]/', '-', $company_name);
+        $area_name = preg_replace('/[^A-Za-z0-9\-]/', '-', $area_name);
+
+        $page_url = $company_name.'-in-'.$area_name;
+
+        $basic_info_update = DB::table('websites_page_head_titles')->insert([
+            'city' => $city,
+            'area' => $area,
+            'business_page' => $user_id,
+            'page_url' => $page_url,
+            'title' => $title,
+            'keyword' => $keyword,
+            'description' => $description,
+            'created_at' => $date,
+            'updated_at' => $date
+        ]);
 
         if($user_details)
         {

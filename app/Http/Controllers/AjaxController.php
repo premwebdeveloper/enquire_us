@@ -939,7 +939,7 @@ class AjaxController extends Controller
                 'keyword_identity' => $key_identity,
                 'created_at' => $date,
                 'updated_at' => $date,
-                'update_status' => 0,
+                'update_status' => 1,
                 'status' => 1
             ]);
         }
