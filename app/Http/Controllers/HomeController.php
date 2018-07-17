@@ -207,13 +207,22 @@ class HomeController extends Controller
 
             if($title_status == 1) {        // If title is category
 
-                // Get all categories
-                $categories = DB::table('category')
-                        ->join('websites_page_head_titles', 'websites_page_head_titles.category', '=', 'category.id')
-                        ->where('category.status', 1)
-                        ->where('websites_page_head_titles.subcategory', null)
+                    // Get all categories
+                    /*$categories = DB::table('category')
+                            ->join('websites_page_head_titles', 'websites_page_head_titles.category', '=', 'category.id')
+                            ->where('category.status', 1)
+                            ->where('websites_page_head_titles.subcategory', null)
+                            ->where('websites_page_head_titles.area', null)
+                            ->select('category.*', 'websites_page_head_titles.page_url')
+                            ->get();*/
+
+                    // Get all subcategories
+                    $subcategories = DB::table('subcategory')
+                        ->join('websites_page_head_titles', 'websites_page_head_titles.subcategory', '=', 'subcategory.id')
+                        ->where('subcategory.status', 1)
+                        ->where('websites_page_head_titles.category', $title_id)
                         ->where('websites_page_head_titles.area', null)
-                        ->select('category.*', 'websites_page_head_titles.page_url')
+                        ->select('subcategory.*', 'websites_page_head_titles.page_url')
                         ->get();
 
                     // if searching being on city
@@ -291,16 +300,25 @@ class HomeController extends Controller
                     }
             
 
-                return view('frontend.clients', array('clients' => $clients, 'categories' => $categories, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords));
+                return view('frontend.clients', array('clients' => $clients, 'subcategories' => $subcategories, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords));
             }
             elseif ($title_status == 2) {   // If title is sub category
 
-                $categories = DB::table('category')
+                    /*$categories = DB::table('category')
                         ->join('websites_page_head_titles', 'websites_page_head_titles.category', '=', 'category.id')
                         ->where('category.status', 1)
                         ->where('websites_page_head_titles.subcategory', null)
                         ->where('websites_page_head_titles.area', null)
                         ->select('category.*', 'websites_page_head_titles.page_url')
+                        ->get();*/
+
+                    // Get all subcategories
+                    $subcategories = DB::table('subcategory')
+                        ->join('websites_page_head_titles', 'websites_page_head_titles.subcategory', '=', 'subcategory.id')
+                        ->where('subcategory.status', 1)
+                        ->where('websites_page_head_titles.category', $title_id)
+                        ->where('websites_page_head_titles.area', null)
+                        ->select('subcategory.*', 'websites_page_head_titles.page_url')
                         ->get();
 
                 if(empty($area)){
@@ -343,6 +361,9 @@ class HomeController extends Controller
                         $query->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country', 'websites_page_head_titles.page_url');
 
                         $clients = $query->get();
+
+                        // echo '<pre>';
+                        // print_r($clients);
                        
                         // get clients on selected area with this keyword assigned by admin from table 'user_area_visibility'
                         $queryA = DB::table('user_keywords')
@@ -366,6 +387,8 @@ class HomeController extends Controller
 
                         $clientsA = $queryA->get();
 
+                        // print_r($clientsA);
+
                         $index = count($clients);
 
                         // merge both searched clients array  
@@ -374,9 +397,11 @@ class HomeController extends Controller
                             $index++;
                         }
 
+                        // print_r($clients);
+                        // exit;
                 }                
 
-                return view('frontend.clients', array('clients' => $clients, 'categories' => $categories, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords));
+                return view('frontend.clients', array('clients' => $clients, 'subcategories' => $subcategories, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords));
             }
             else {                          // If title is company
 
