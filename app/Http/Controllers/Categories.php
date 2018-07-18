@@ -122,7 +122,7 @@ class Categories extends Controller
         $super_category = $request->super_category;
         $cat_id = $request->cat_id;
         $category = $request->category;
-    	$description = $request->category_description;
+    	$description = $request->description;
 
         # Get this category details
         $category_info = DB::table('category')->where('id', $cat_id)->first();
