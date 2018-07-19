@@ -63,13 +63,12 @@
 
 	                                <tr class="gradeX">
                                     	<td>{{ $i }}</td>
-                                        <td id="exitCat_{{ $subcat->id }}">
-                                            <input type="hidden" name="cat_id" id="exitCatid_{{ $subcat->id }}" value="{{ $subcat->id }}">
+                                        <td>
                                             {{ $subcat->category }}
                                         </td>
-                                    	<td id="exitsubCat_{{ $subcat->id }}">{{ $subcat->subcategory }}</td>
+                                    	<td>{{ $subcat->subcategory }}</td>
                                        	<td>
-                                            <a class="btn btn-success editsubcat" title="Update" id="{{ $subcat->id }}">
+                                            <a href="{{ route('editSubCategory', ['subcat_id' => $subcat->id]) }}" class="btn btn-success" title="Update Sub Category">
                                                 <i class="fa fa-pencil" aria-hidden="true"></i>
                                             </a>
 	                                    </td>
