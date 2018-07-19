@@ -114,7 +114,6 @@ class Categories extends Controller
         return view('admin.editCategory', array('category' => $category, 'super_categories' => $super_categories));
     }
 
-
     //edit Category
     public function editCat(Request $request)
     {
@@ -226,25 +225,38 @@ class Categories extends Controller
         return redirect('add_subCategory')->with('status', $status);
     }
 
+    // Edit category page view
+    public function editSubCategory(Request $request){
+
+        $subcat_id = $request->subcat_id;
+
+        # Get this subcategory details
+        $subcategory = DB::table('subcategory')->where('id', $subcat_id)->first();
+
+        # get all categories
+        $categories = DB::table('category')->get();
+        
+        return view('admin.editSubCategory', array('subcategory' => $subcategory, 'categories' => $categories));
+    }
+
     //edit subCatgory page
     public function editsubCat(Request $request)
     {
     	$date = date('Y-m-d H:i:s');
 
         $subcat_id = $request->subcat_id;
-
     	$category = $request->category;
-        $subCategory = $request->subcategory;
+        $subcategory = $request->subcategory;
     	$description = $request->description;
 
-    	$create_cat = DB::table('subcategory')->where('id', $subcat_id)->update([
+    	$updateSubCat = DB::table('subcategory')->where('id', $subcat_id)->update([
             'cat_id' => $category,
-            'subcategory' => $subCategory,
+            'subcategory' => $subcategory,
             'description' => $description,
             'updated_at' => $date
     	]);
 
-        if($create_cat)
+        if($updateSubCat)
         {
             $status = 'Sub Category Update successfully.';
         }
