@@ -144,6 +144,7 @@
     Route::get('add_subCategory', 'Categories@add_subCategory')->name('add_subCategory');
     Route::post('addSubCategory', 'Categories@addSubCategory')->name('addSubCategory');
     Route::get('subCategory', 'Categories@subCategory')->name('subCategory');
+    Route::get('editSubCategory/{subcat_id}', 'Categories@editSubCategory')->name('editSubCategory');
     Route::post('editsubCat', 'Categories@editsubCat')->name('editsubCat');
 
     # area
