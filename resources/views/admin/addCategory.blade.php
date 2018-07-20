@@ -87,9 +87,9 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Category Description</label>
+                        <label class="col-sm-2 control-label">Description</label>
                         <div class="col-sm-10">
-                            <textarea name="description" class="form-control summernote" placeholder="Description" required=""></textarea>
+                            <textarea name="description" class="form-control summernote" placeholder="Description"></textarea>
 
                             @if($errors->has('description'))
                                 <span class="help-block red">

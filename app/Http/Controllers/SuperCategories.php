@@ -31,14 +31,14 @@ class SuperCategories extends Controller
     # Create super category
     public function create(Request $request)
     {
-    	$super_cat_name = $request->super_cat_name;
+    	$super_cat_name = $request->name;
     	$super_cat_image = $request->super_cat_image;
 
     	if($request->has('add_category'))
     	{
 	    	# Set validation for
 	        $this->validate($request, [
-	            'super_cat_name' => 'required',
+	            'name' => 'required|unique:super_categories',
 	        ]);
     	}
 

@@ -39,11 +39,11 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Name</label>
                         <div class="col-sm-8">
-                            <input type="text" name="super_cat_name" class="form-control">
+                            <input type="text" name="name" class="form-control" required="required">
                             
-                            @if($errors->has('super_cat_name'))
+                            @if($errors->has('name'))
                                 <span class="help-block red">
-                                    <strong>{{ $errors->first('super_cat_name') }}</strong>
+                                    <strong>{{ $errors->first('name') }}</strong>
                                 </span>
                             @endif
                         </div>

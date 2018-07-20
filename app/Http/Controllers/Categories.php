@@ -50,7 +50,7 @@ class Categories extends Controller
         # Set validation for
         $this->validate($request, [
             'super_category' => 'required',
-            'category' => 'required',
+            'category' => 'required|unique:category',
             'description' => 'required',
             'image' => 'mimes:jpg,jpeg,png,gif | max:512',
         ]);
@@ -204,6 +204,11 @@ class Categories extends Controller
         $category = $request->category;
         $subCategory = $request->subcategory;
         $description = $request->description;
+
+        # Set validation for
+        $this->validate($request, [
+            'subcategory' => 'required|unique:subcategory',
+        ]);
 
         $create_cat = DB::table('subcategory')->insert([
             'cat_id' => $category,

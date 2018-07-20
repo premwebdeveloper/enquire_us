@@ -50,6 +50,11 @@ class Areas extends Controller
         $area = $request->area;
         $pincode = $request->pincode;
 
+        # Set validation for
+        $this->validate($request, [
+            'area' => 'required|unique:areas',
+        ]);
+
         $add_area = DB::table('areas')->insert(
             array('country' => $country, 'state' => $state, 'city' => $city, 'area' => $area, 'pincode' => $pincode, 'created_at' => $date, 'updated_at' => $date)
         );

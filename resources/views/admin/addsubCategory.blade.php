@@ -64,6 +64,13 @@
                         <div class="col-sm-9">
                             <div class="form-group">
                                 <input type="text" name="subcategory" id="subCategory" class="form-control" placeholder="subCategory" required="required">
+
+                                @if($errors->has('subcategory'))
+                                    <span class="help-block red">
+                                        <strong>{{ $errors->first('subcategory') }}</strong>
+                                    </span>
+                                @endif
+                            
                             </div>
                         </div>
                     </div>

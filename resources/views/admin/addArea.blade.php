@@ -66,7 +66,14 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Area Name</label>
                         <div class="col-sm-8">
-                            <input type="text" name="area" id="area" class="form-control" placeholder="Area Name" required="required">
+                            <input type="text" name="area" id="area" class="form-control" placeholder="Area Name">
+
+                            @if($errors->has('area'))
+                                <span class="help-block red">
+                                    <strong>{{ $errors->first('area') }}</strong>
+                                </span>
+                            @endif
+
                         </div>
                     </div>                    
                     <div class="form-group">
