@@ -62,7 +62,6 @@ class WebsitePages extends Controller
         $title = $request->title;
         $keyword = $request->keyword;
         $description = $request->description;
-
         $date = date('Y-m-d H:i:s');
 
         $status = '';
@@ -75,8 +74,6 @@ class WebsitePages extends Controller
             // when category is selected and page name and business name is not seleted
             if(!empty($category))
             {
-                echo '1'; exit;
-
                 // define page url blank
                 $page_url = '';
 
@@ -100,10 +97,10 @@ class WebsitePages extends Controller
                     'subcategory' => $sub_category,
                     'city' => $city,
                     'business_page' => $business,
-                    'page_url' => $page_url,
-                    'title' => $title,
-                    'keyword' => $keyword,
-                    'description' => $description,
+                    'page_url' => strtolower($page_url),
+                    'title' => ucfirst(strtolower($title)),
+                    'keyword' => ucfirst(strtolower($keyword)),
+                    'description' => ucfirst(strtolower($description)),
                     'created_at' => $date,
                     'updated_at' => $date,
                     'status' => 1
@@ -134,10 +131,10 @@ class WebsitePages extends Controller
                             'city' => $city,
                             'area' => $row->id,
                             'business_page' => $business,
-                            'page_url' => $area_page_url,
-                            'title' => str_replace($cityName, $row->area, strtolower($title)),
-                            'keyword' => str_replace($cityName, $row->area, strtolower($keyword)),
-                            'description' => str_replace($cityName, $row->area, strtolower($description)),
+                            'page_url' => strtolower($area_page_url),
+                            'title' => str_replace($cityName, $row->area, ucfirst(strtolower($title))),
+                            'keyword' => str_replace($cityName, $row->area, ucfirst(strtolower($keyword))),
+                            'description' => str_replace($cityName, $row->area, ucfirst(strtolower($description))),
                             'created_at' => $date,
                             'updated_at' => $date,
                             'status' => 1
@@ -146,10 +143,9 @@ class WebsitePages extends Controller
                 }
             }
 
-            if(!empty($business) && $business != '')    // If business name is selected and category name and page not selected
+            // Create client page url and client page title, keyword and description // Nor working now that is why code is commented
+            /*if(!empty($business) && $business != '')    // If business name is selected and category name and page not selected
             {
-                echo '2'; exit;
-
                 // Create page url
                 $page_url = '';
 
@@ -178,12 +174,10 @@ class WebsitePages extends Controller
                     'updated_at' => $date,
                     'status' => 1
                 ));
-            }
+            }*/
 
             if(!empty($page) && $page != '')    // If page name is selected and category name and business name not selected
             {
-                echo '3'; exit;
-
                 // Insert page titles when category and business name not selected
                 $insert = DB::table('websites_page_head_titles')->insert(array(
                     'page_url' => $page_url,
@@ -197,7 +191,6 @@ class WebsitePages extends Controller
             }
 
             $status = "Page url and titles updated successfully.";
-
         }
 
         //  Get All Categories
@@ -224,18 +217,18 @@ class WebsitePages extends Controller
 
         $update = DB::table('websites_page_head_titles')->where('id', $id)->update([
             'title' => $title,
-            'keyword' => $keyword
-            'description' => $description
+            'keyword' => $keyword,
+            'description' => $description,
             'updated_at' => $date
         ]);
 
         if($update)
         {
-            $status = "successfully Update.";
+            $status = "Page Titles Updated Successfully.";
         }
         else
         {
-            $status = 'Something went wrong !';
+            $status = 'Something Went Wrong !';
         }
 
         return redirect('page_titles')->with('status', $status);
