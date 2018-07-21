@@ -37,10 +37,120 @@ class AdminUsers extends Controller
     }
 
     // add new User Basic Information view page
-    public function addUser_basic_information()
+    public function addUser_basic_information(Request $request)
     {
-        //Admin Add New user Basic information
-        return view('admin_users.addUser_basic_information');
+
+       $user_id = $request->user_id;
+
+        if(!empty($user_id))
+        {
+            // Get basic / location / company information
+            $query = DB::table('user_details as ud')
+                ->join('user_location as ul', 'ud.user_id', '=', 'ul.user_id')
+                ->join('user_company_information as uci', 'ud.user_id', '=', 'uci.user_id')
+                ->join('cities', 'cities.id', '=', 'ul.city')
+                ->join('areas', 'areas.id', '=', 'ul.area')
+                ->select('ud.*', 'ul.business_name', 'ul.building', 'ul.street', 'ul.landmark', 'ul.area', 'ul.city', 'ul.pincode', 'ul.state', 'ul.country', 'uci.payment_mode', 'uci.payment_mode', 'uci.year_establishment', 'uci.annual_turnover', 'uci.no_of_emps', 'uci.professional_associations', 'uci.certifications', 'cities.name as city_name', 'areas.area as area_name')
+                ->where('ud.user_id', '=', $user_id);
+
+            $user_details = $query->first();
+
+            return view('admin_users.addUser_basic_information', array('user_details' => $user_details));
+        }
+        else
+        {
+            //Admin Add New user Basic information
+            return view('admin_users.addUser_basic_information');
+        }
+    }
+
+    // add new User
+    public function update_admin_user(Request $request)
+    {
+        $date = date('Y-m-d H:i:s');
+
+        $user_id = $request->user_id;
+
+        /*Basic Detail*/
+        $company_name = $request->company_name;
+        $name = $request->name;
+        $phone = $request->phone;
+        $email = $request->email;
+        $password = $request->password;
+        $password_confirmation = $request->password_confirmation;
+
+        $building = $request->building;
+        $street = $request->street;
+        $landmark = $request->landmark;
+        $area = $request->area;
+        $city = $request->city;
+        $pin_code = $request->pin_code;
+        $state = $request->state;
+        $country = $request->country;
+
+        /*Contact Detail*/
+        $landline = $request->landline;
+        $fax = $request->fax;
+        $fax2 = $request->fax2;
+        $toll_free = $request->toll_free;
+        $toll_free2 = $request->toll_free2;
+        //$email = $request->email;
+        $website = $request->website;
+
+        // Create User
+        $user = DB::table('users')->where('id', $user_id)->update(
+            array(
+                'name' => $name,
+                'phone' => $phone,
+                'updated_at' => $date,
+                'status' => 1
+            )
+        );
+
+        // Create User Details
+        $user_details = DB::table('user_details')->where('user_id', $user_id)->update(
+            array(
+                'name' => $name,
+                'phone' => $phone,
+                'landline' => $landline,
+                'fax1' => $fax,
+                'fax2' => $fax2,
+                'toll_free1' => $toll_free,
+                'toll_free2' => $toll_free2,
+                'website' => $website,
+                'updated_at' => $date,
+                'status' => 1
+            )
+        );
+
+        // Create User Location
+        $user_details = DB::table('user_location')->where('user_id', $user_id)->update(
+            array(
+                'business_name' => $company_name,
+                'building' => $building,
+                'street' => $street,
+                'landmark' => $landmark,
+                'area' => $area,
+                'city' => $city,
+                'pincode' => $pin_code,
+                'state' => $state,
+                'country' => $country,
+                'updated_at' => $date,
+                'status' => 1
+            )
+        );
+
+        if($user_details)
+        {
+            $status = 'Update User Basic Informations Successfully.';
+        }
+        else
+        {
+            $status = 'Something went wrong !';
+        }
+        //dd($user_id);
+        //return redirect('addUser_payment_modes')->with('status', $status)->with('user_id', $user_id);
+        return redirect()->route('addUser_payment_modes', ['user_id' => $user_id]);
     }
 
     // add new User
@@ -73,7 +183,6 @@ class AdminUsers extends Controller
         $fax2 = $request->fax2;
         $toll_free = $request->toll_free;
         $toll_free2 = $request->toll_free2;
-        //$email = $request->email;
         $website = $request->website;
 
         $password = bcrypt($password);
@@ -177,7 +286,7 @@ class AdminUsers extends Controller
                 'status' => 1
             )
         );
-        
+
         // get area name by area id
         $area_info = DB::table('areas')->where('id', $area)->first();
         $area_name = $area_info->area;

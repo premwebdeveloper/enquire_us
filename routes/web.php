@@ -124,6 +124,7 @@
     Route::post('userDeteteImage', 'AdminUsers@userDeteteImage')->name('userDeteteImage');
 
     Route::post('add_user', 'AdminUsers@add_user')->name('add_user');
+    Route::post('update_admin_user', 'AdminUsers@update_admin_user')->name('update_admin_user');
 	Route::get('users', 'AdminUsers@index')->name('users');
     Route::post('active_inactive', 'AdminUsers@active_inactive')->name('active_inactive');
     Route::get('view', 'AdminUsers@view')->name('view');

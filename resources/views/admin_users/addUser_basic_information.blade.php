@@ -32,6 +32,7 @@
         });
     });
 </script>
+
 <style type="text/css">
 .form-horizontal .control-label
     {
@@ -94,6 +95,237 @@
                                 <!-- User Basic information -->
                                 <div id="tab-1" class="tab-pane active">
                                     <div class="panel-body">
+                                    @if(!empty($user_details->user_id))
+
+                                        <form method="post" class="form-horizontal" action="{{ route('update_admin_user') }}">
+                                            <div class="row">
+                                                <h5 style="color:blue;">Basic Detail</h5>
+                                                <hr>
+                                                {{ csrf_field() }}
+                                                <input type="hidden" name="user_id" value="{{ $user_details->user_id }}">
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="name" class="col-md-2 control-label">Company Name</label>
+
+                                                        <div class="col-md-10">
+                                                            <input id="company_name" type="text" class="form-control" name="company_name" value="{{ $user_details->business_name }}" required="required">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="name" class="col-md-2 control-label">Name</label>
+
+                                                        <div class="col-md-10">
+                                                            <input id="name" type="text" class="form-control" name="name" value="{{ $user_details->name }}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="email" class="col-md-2 control-label">E-Mail</label>
+
+                                                        <div class="col-md-10">
+                                                            <input id="email" type="text" class="form-control" name="email" value="{{ $user_details->email }}" required="required" readonly="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="phone" class="col-md-2 control-label">Phone</label>
+
+                                                        <div class="col-md-10">
+                                                            <input id="phone" type="text" class="form-control" name="phone" value="{{ $user_details->phone }}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            
+                                            
+                                                <h5 style="color:blue;">Location Detail</h5>
+                                                <hr>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="building" class="col-md-2 control-label">Building</label>
+
+                                                        <div class="col-md-10">
+                                                            <input id="building" type="text" class="form-control" name="building" value="{{ $user_details->building }}">
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="street" class="col-md-2 control-label">Street</label>
+
+                                                        <div class="col-md-10">
+                                                            <input id="street" type="text" class="form-control" name="street" value="{{ $user_details->street }}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="landmark" class="col-md-2 control-label">Landmark</label>
+
+                                                        <div class="col-md-10">
+                                                            <input id="landmark" type="text" class="form-control" name="landmark" value="{{ $user_details->landmark }}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="country" class="col-md-2 control-label">Country</label>
+
+                                                        <div class="col-md-10">
+                                                            <input id="country" type="text" class="form-control" name="country" value="{{$user_details->country}}" readonly="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="state" class="col-md-2 control-label">State/Region</label>
+
+                                                        <div class="col-md-10">
+                                                            <input id="state" type="text" class="form-control" name="state" value="{{$user_details->state}}" readonly="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <script>
+                                                    $(document).ready(function(){
+                                                        var area_id = "<?= $user_details->area; ?>";
+                                                        $('#area').val(area_id).attr('selected', 'selected');
+                                                        
+                                                        var city_id = "<?= $user_details->city; ?>";
+                                                        $('#city').val(city_id).attr('selected', 'selected');
+                                                    });
+                                                </script>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="city" class="col-md-2 control-label">City</label>
+
+                                                        <div class="col-md-10">
+                                                            <select class="form-control" name="city" id="city" required="required" value="{{ old('city') }}">
+
+                                                                <option value=""> Select City</option>
+                                                                <option value="3378"> Jaipur</option>
+
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <?php
+                                                    $city = '3378';
+
+                                                    $areas = DB::table('areas')->where('city', $city)->get();
+                                                ?>
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="password" class="col-md-2 control-label">Area</label>
+
+                                                        <div class="col-md-10">
+                                                            <select name="area" id="area" class="form-control" required="required">
+
+                                                                <option value="">Select Area</option>
+
+                                                                @foreach($areas as $area)
+                                                                    <option value="{{$area->id}}">{{$area->area}}</option>
+                                                                @endforeach
+
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>                                                
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="pin_code" class="col-md-2 control-label">Pin Code</label>
+
+                                                        <div class="col-md-10">
+                                                            <input type="text" name="pin_code" id="pin_code" class="validate[required] form-control" value="{{$user_details->pincode}}" readonly="">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            
+                                                <h5 style="color:blue;">Contact Detail</h5>
+                                                <hr>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="landline" class="col-md-2 control-label">Landline No</label>
+
+                                                        <div class="col-md-10">
+                                                            <input id="landline" type="text" class="form-control" name="landline" value="{{ $user_details->landline }}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="fax" class="col-md-2 control-label">Fax No</label>
+
+                                                        <div class="col-md-10">
+                                                            <input id="fax" type="text" class="form-control" name="fax" value="{{ $user_details->fax1 }}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="fax2" class="col-md-2 control-label">Fax No 2</label>
+
+                                                        <div class="col-md-10">
+                                                            <input id="fax2" type="text" class="form-control" name="fax2" value="{{ $user_details->fax2 }}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="toll_free" class="col-md-2 control-label">Toll Free No</label>
+
+                                                        <div class="col-md-10">
+                                                            <input id="toll_free" type="text" class="form-control" name="toll_free" value="{{ $user_details->toll_free1 }}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="toll_free2" class="col-md-2 control-label">Toll Free No 2</label>
+
+                                                        <div class="col-md-10">
+                                                            <input id="toll_free2" type="text" class="form-control" name="toll_free2" value="{{ $user_details->toll_free2 }}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="website" class="col-md-2 control-label">Website</label>
+
+                                                        <div class="col-md-10">
+                                                            <input id="website" type="text" class="form-control" name="website" value="{{ $user_details->website }}">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            
+
+                                            <div class="col-md-12 text-right">
+                                                <input type="submit" name="addUser" class="btn btn-success" value="Next" style="margin-bottom: 30px;">
+                                            </div>
+
+                                        </form>
+
+                                    @else
 
                                         <form method="post" class="form-horizontal" action="{{ route('add_user') }}">
                                             <div class="row">
@@ -443,7 +675,7 @@
                                             </div>
 
                                         </form>
-
+                                    @endif
                                     </div>
                                 </div>
 
