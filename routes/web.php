@@ -181,6 +181,9 @@
     # Website page head titles like Title, Meta title, Keyword, Description etc
     Route::any('page_titles', 'WebsitePages@page_titles')->name('page_titles');
 
+    # Update page head titles like Title, Meta title, Keyword, Description etc
+    Route::any('update_page_titles', 'WebsitePages@update_page_titles')->name('update_page_titles');
+
     # Update page titles data
     Route::post('editPageUrlTitle', 'WebsitePages@editPageUrlTitle')->name('editPageUrlTitle');
 

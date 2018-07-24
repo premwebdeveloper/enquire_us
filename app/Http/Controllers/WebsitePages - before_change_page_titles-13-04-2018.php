@@ -76,6 +76,9 @@ class WebsitePages extends Controller
 
         $exist = $rows->first();
 
+        // define blank array for ignore error when admin go to page directly
+        $sub_category_info = array();
+
         // If the entry is already not exist for selected data then process this to create page url and titles n all
         if(empty($exist)){
             
@@ -206,8 +209,12 @@ class WebsitePages extends Controller
                 $status = "Page url and titles updated successfully.";
             }
         }else{
+
+            // get sub category name if selected
+            $sub_category_info = DB::table('subcategory')->where('id', $sub_category)->first(); 
+
             // If enteries are already exist then hit error
-            $status = "Page url and titles are already created for the category / subcategory with this city !";
+            $status = "Page url and titles are already created for the category / subcategory with this city ! You can update this information.";
         }
 
         //  Get All Categories
@@ -219,7 +226,85 @@ class WebsitePages extends Controller
         //  Get All Page titles
         $titles = DB::table('websites_page_head_titles')->where('status', 1)->get();
 
-        return view('website_pages.page_titles', array('category' => $category, 'business' => $business, 'titles' => $titles, 'status' => $status, 'exist' => $exist));
+        return view('website_pages.page_titles', array('category' => $category, 'business' => $business, 'titles' => $titles, 'status' => $status, 'exist' => $exist, 'sub_category_info' => $sub_category_info));
+    }
+
+    // Update Website page head titles like Title, Meta title, Keyword, Description etc
+    public function update_page_titles(Request $request){
+
+        $category = $request->u_cat_id;
+        $sub_category = $request->u_subcat_id;
+        $city = $request->u_city_id;
+        $title = $request->u_title;
+        $keyword = $request->u_keyword;
+        $description = $request->u_description;
+        $date = date('Y-m-d H:i:s');
+
+        // if anyone directly come to this function then through back
+        if(empty($sub_category) &&  empty($sub_category) && empty($city)){
+            return redirect('page_titles');
+        }
+
+        // If subcategory is exist
+        if($sub_category){            
+            $where = array('category' => $category, 'subcategory' => $sub_category, 'city' => $city);
+        }else{            
+            $where = array('category' => $category, 'city' => $city);
+        }
+
+        // Update title, keyword and description
+        $update = DB::table('websites_page_head_titles')->where($where)->update([
+            'title' => ucfirst(strtolower($title)),
+            'keyword' => ucfirst(strtolower($keyword)),
+            'description' => ucfirst(strtolower($description)),
+            'updated_at' => $date
+        ]);
+
+        // first of all get all areas of selectes city
+        $allAreas = DB::table('areas')->where(['city' => $city, 'status' => 1])->get();
+
+        // Get city name by city id
+        $cityRow = DB::table('cities')->where('id', $city)->first();
+        $cityName = $cityRow->name;
+        $cityName = strtolower($cityName);
+
+        if(!empty($allAreas[0])){
+
+            foreach ($allAreas as $key => $row) {
+
+                // If subcategory is exist
+                if($sub_category){
+                    $where = array('category' => $category, 'subcategory' => $sub_category, 'city' => $city, 'area' => $row->id);
+                }else{
+                    $where = array('category' => $category, 'city' => $city, 'area' => $row->id);
+                }
+
+                $new_title = str_replace($cityName, $row->area, ucfirst(strtolower($title)));
+                $new_keyword = str_replace($cityName, $row->area, ucfirst(strtolower($keyword)));
+                $new_description = str_replace($cityName, $row->area, ucfirst(strtolower($description)));
+                
+                // Update title, keyword and description for area
+                $update_area = DB::table('websites_page_head_titles')->where($where)->update([
+                    'title' => $new_title,
+                    'keyword' => $new_keyword,
+                    'description' => $new_description,
+                    'updated_at' => $date
+                ]);
+            }
+        }
+
+        $status = "Page url and titles are description updated successfully.";
+        
+        //  Get All users with location
+        $business = DB::table('user_location')->where('status', 1)->get();
+
+        //  Get All Categories
+        $category = DB::table('category')->where('status', 1)->get();
+
+        //  Get All Page titles
+        $titles = DB::table('websites_page_head_titles')->where('status', 1)->get();
+
+        return view('website_pages.page_titles', array('category' => $category, 'business' => $business, 'titles' => $titles, 'status' => $status));
     }
 
     # Update page titles data

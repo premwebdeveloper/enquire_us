@@ -115,114 +115,219 @@
                             {{ $status }}
                         </div>
                     @endif
+                
+                    <!-- if the page url and titles are exist then update -->
+                    @if(!empty($exist))
+                        
+                        <div class="row">
+                            <form method="post" action="{{ route('update_page_titles') }}">
 
-                    <div class="row">
-                        <form method="post" action="{{ route('page_titles') }}">
+                                {{ csrf_field() }}
 
-                            {{ csrf_field() }}
+                                <input type="hidden" name="u_cat_id" value="{{ $exist->category }}" />
+                                <input type="hidden" name="u_subcat_id" value="{{ $exist->subcategory }}" />
+                                <input type="hidden" name="u_city_id" value="3378" />
 
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <div class="col-sm-12">
-                                        <label for="Category" class="control-label">Category</label>
-                                        <select class="form-control" name="category" id="category" required="required">
-                                            <option value="">Select Category</option>
-                                            @foreach($category as $cat)
-                                                <option value="{{ $cat->id }}">{{ $cat->category }}</option>
-                                            @endforeach
-                                        </select>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <label for="Category" class="control-label">Category</label>
+                                            <select class="form-control" name="u_category" id="u_category" required="required" disabled="disabled">
+                                                <option value="">Select Category</option>
+                                                @foreach($category as $cat)
+                                                    @php
+                                                    if($exist->category == $cat->id){
+                                                        $selected = 'selected';
+                                                    }else{
+                                                        $selected = '';
+                                                    }
+                                                    @endphp
+                                                    <option value="{{ $cat->id }}" {{ $selected }}>{{ $cat->category }}</option>
+                                                @endforeach
+                                            </select>
+
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <div class="col-sm-12">
-                                        <label for="Sub Category" class="control-label">Sub Category</label>
-                                        <select class="form-control" name="sub_category" id="sub_category">
-                                            <option value="">Select Sub Category</option>
-                                        </select>
+                                @if(!empty($exist->subcategory))
+                                    <div class="col-sm-4">
+                                        <div class="form-group">
+                                            <div class="col-sm-12">
+                                                <label for="Sub Category" class="control-label">Sub Category</label>
+                                                <select class="form-control" name="u_sub_category" id="u_sub_category" disabled="disabled">
+                                                    <option value="{{ $exist->subcategory }}">{{ $sub_category_info->subcategory }}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endif
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <label for="city" class="control-label">City</label>
+                                            <select class="form-control" name="u_city" id="u_city" required="required" disabled="disabled">
+                                                <option value="3378" selected>Jaipur</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <div class="col-sm-12">
-                                        <label for="city" class="control-label">City</label>
-                                        <select class="form-control" name="city" id="city" required="required">
-                                            <option value="">Select City</option>
-                                            <option value="3378">Jaipur</option>
-                                        </select>
+                                <div clear="both">&nbsp;</div>
+
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <label for="page" class="control-label">Title</label>
+                                            <input type="text" class="form-control" name="u_title" id="u_title" value="{{ $exist->title }}" required="required">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div clear="both">&nbsp;</div>
+                                <div clear="both">&nbsp;</div>
 
-                            <!-- <div class="col-sm-3">
-                                <div class="form-group">
-                                    <div class="col-sm-12">
-                                        <label for="page" class="control-label">Business Name</label>
-                                        <select class="form-control" name="business" id="business">
-                                            <option value="">Select Business</option>
-                                            @foreach($business as $busi)
-                                                <option value="{{ $busi->user_id }}">{{ $busi->business_name }}</option>
-                                            @endforeach
-                                        </select>
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <label for="page" class="control-label">Keyword</label>
+                                            <textarea name="u_keyword" id="u_keyword" rows="2" class="form-control" required="required">{{ $exist->keyword }}</textarea>
+                                        </div>
                                     </div>
                                 </div>
-                            </div> -->
 
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <div class="col-sm-12">
-                                        <label for="page" class="control-label">Page</label>
-                                        <input type="text" class="form-control" name="page" id="page" required="required">
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <label for="page" class="control-label">Description</label>
+                                            <textarea name="u_description" id="u_description" rows="2" class="form-control" required="required">{{ $exist->description }}</textarea>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="col-sm-8">
-                                <div class="form-group">
-                                    <div class="col-sm-12">
-                                        <label for="page" class="control-label">Title</label>
-                                        <input type="text" class="form-control" name="title" id="title" required="required">
+                                <div clear="both">&nbsp;</div>
+
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <input type="submit" class="btn btn-primary btn-block" name="updateTitles" id="updateTitles" value="Update">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </form>
+                        </div>
 
-                            <div clear="both">&nbsp;</div>
+                    @else
+                    <!-- New page url and titles create -->
+                        <div class="row">
+                            <form method="post" action="{{ route('page_titles') }}">
 
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <div class="col-sm-12">
-                                        <label for="page" class="control-label">Keyword</label>
-                                        <textarea name="keyword" id="keyword" rows="1" class="form-control" required="required"></textarea>
+                                {{ csrf_field() }}
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <label for="Category" class="control-label">Category</label>
+                                            <select class="form-control" name="category" id="category" required="required">
+                                                <option value="">Select Category</option>
+                                                @foreach($category as $cat)
+                                                    <option value="{{ $cat->id }}">{{ $cat->category }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="col-sm-6">
-                                <div class="form-group">
-                                    <div class="col-sm-12">
-                                        <label for="page" class="control-label">Description</label>
-                                        <textarea name="description" id="description" rows="1" class="form-control" required="required"></textarea>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <label for="Sub Category" class="control-label">Sub Category</label>
+                                            <select class="form-control" name="sub_category" id="sub_category">
+                                                <option value="">Select Sub Category</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div clear="both">&nbsp;</div>
-
-                            <div class="col-sm-12">
-                                <div class="form-group">
-                                    <div class="col-sm-12">
-                                        <input type="submit" class="btn btn-primary btn-block" name="addTitles" id="addTitles" value="Submit">
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <label for="city" class="control-label">City</label>
+                                            <select class="form-control" name="city" id="city" required="required">
+                                                <option value="">Select City</option>
+                                                <option value="3378">Jaipur</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        </form>
-                    </div>
+
+                                <div clear="both">&nbsp;</div>
+
+                                <!-- <div class="col-sm-3">
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <label for="page" class="control-label">Business Name</label>
+                                            <select class="form-control" name="business" id="business">
+                                                <option value="">Select Business</option>
+                                                @foreach($business as $busi)
+                                                    <option value="{{ $busi->user_id }}">{{ $busi->business_name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div> -->
+
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <label for="page" class="control-label">Page</label>
+                                            <input type="text" class="form-control" name="page" id="page" required="required">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-8">
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <label for="page" class="control-label">Title</label>
+                                            <input type="text" class="form-control" name="title" id="title" required="required">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div clear="both">&nbsp;</div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <label for="page" class="control-label">Keyword</label>
+                                            <textarea name="keyword" id="keyword" rows="2" class="form-control" required="required"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <label for="page" class="control-label">Description</label>
+                                            <textarea name="description" id="description" rows="2" class="form-control" required="required"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div clear="both">&nbsp;</div>
+
+                                <div class="col-sm-12">
+                                    <div class="form-group">
+                                        <div class="col-sm-12">
+                                            <input type="submit" class="btn btn-primary btn-block" name="addTitles" id="addTitles" value="Submit">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                    @endif
 
                 </div>
             </div>
