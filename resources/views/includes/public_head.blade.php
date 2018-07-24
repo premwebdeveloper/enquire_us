@@ -7,7 +7,18 @@
     <title><?php if(!empty($title)){ echo $title;} ?></title>
     <meta name="description" content="<?php if(!empty($meta_description)){ echo $meta_description; } ?>" />
     <meta name="keywords" content="<?php if(!empty($meta_keywords)){ echo $meta_keywords; } ?>" />
-
+    
+    <meta name="google-site-verification" content="yPFGWADyKYZnyvD_W8DLJL9W-q7dD-AzPTE5ekLte7Y" />
+    <meta name="Author" content=" enquireus.com " />
+    <meta name="copyright" content="Copyright 2016, Enquire us" />
+    <meta content="Global" name="Distribution">
+    <meta name="googlebot" content=" index, follow " />
+    <meta name="revisit-after" content="3 days" />  
+    <meta name="distribution" content="global" />
+    <meta name="Rating" content="General" />
+    <meta name="Expires" content="never" />
+    <meta name="robots" content="index,follow">
+    <meta name="geo.region" content="IN-RJ">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">

@@ -65,9 +65,9 @@ class HomeController extends Controller
         // get all super category
         $super_catgory = DB::table('super_categories')->get();
 
-        $title = 'Home';
-        $meta_description = 'Home keywords';
-        $meta_keywords = 'Home keywords';
+        $title = 'Enquire us |Best local search engine in Jaipur Rajasthan India';
+        $meta_description = 'Get a Best Quote on your Enquiry.We are Providing best solution on your any Needs';
+        $meta_keywords = 'Local Search engine, Lead generation, Search Solution';
 
         return view('welcome', array('super_catgory' => $super_catgory, 'category' => $category, 'sliders' => $sliders, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'home_page_clients' => $home_page_clients, 'latest_home_page_clients' => $latest_home_page_clients));
     }
