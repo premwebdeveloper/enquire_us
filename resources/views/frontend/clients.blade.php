@@ -39,6 +39,16 @@
                                     @endforeach
                                 </div>
                             </div>
+                            <div class="filter top30 cata-dis-none">
+                                <h1 class="brand-header"> Related Links </h1>
+                                <div class="list-group category_list">
+                                    @foreach($pageUrls as $url)
+                                        <a href="javascript:;" class="list-group-item">
+                                            {{ ucfirst(str_replace("-"," ",$url->page_url)) }}
+                                        </a>
+                                    @endforeach
+                                </div>
+                            </div>
                         </div>
                     </div>
 

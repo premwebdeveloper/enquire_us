@@ -82,6 +82,7 @@ class HomeController extends Controller
         // decode encoded parameter
         $encoded = base64_decode(urldecode($encoded));
 
+
         // get page title for this page
         $page_titles = DB::table('websites_page_head_titles')->where(array('status' => 1, 'page_url' => $page_url))->first();
 
@@ -115,6 +116,13 @@ class HomeController extends Controller
 
             // Here check the title status if title status is category then
             if($title_status == 1){
+
+                // Get all page urls for this keyword on this city's all areas
+                $pageUrls = DB::table('websites_page_head_titles')
+                            ->where(['category' => $title_id, 'city' => $city, 'status' => 1])
+                            ->whereNotNull('area')
+                            ->whereNull('subcategory')
+                            ->get();
 
                 // Get all subcategories
                 $subcategories = DB::table('subcategory')
@@ -150,11 +158,18 @@ class HomeController extends Controller
 
             }else{
 
+
                 // get sub category name only to show on page
                 $title_info = DB::table('subcategory')->where('id', $title_id)->select('subcategory')->first();
 
                 // First get category id of this sub category
                 $this_category = DB::table('subcategory')->where('id', $title_id)->first();
+
+                // Get all page urls for this keyword on this city's all areas
+                $pageUrls = DB::table('websites_page_head_titles')
+                            ->where(['category' => $this_category->cat_id, 'subcategory' => $title_id, 'city' => $city, 'status' => 1])
+                            ->whereNotNull('area')
+                            ->get();
 
                 // Get all subcategories
                 $subcategories = DB::table('subcategory')
@@ -187,7 +202,7 @@ class HomeController extends Controller
                      $clients = $query->get();
             }
                         
-            return view('frontend.clients', array('clients' => $clients, 'subcategories' => $subcategories, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'title_info' => $title_info));
+            return view('frontend.clients', array('clients' => $clients, 'subcategories' => $subcategories, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'title_info' => $title_info, 'pageUrls' => $pageUrls));
         }
         else{
 
@@ -198,6 +213,13 @@ class HomeController extends Controller
             $area = $encoded[4];
 
             if($title_status == 1) {        // If title is category
+
+                // Get all page urls for this keyword on this city's all areas
+                $pageUrls = DB::table('websites_page_head_titles')
+                            ->where(['category' => $title_id, 'city' => $city, 'status' => 1])
+                            ->whereNotNull('area')
+                            ->whereNull('subcategory')
+                            ->get();
 
                 // get this category content
                 $title_info = DB::table('category')->where('id', $title_id)->first();
@@ -284,9 +306,18 @@ class HomeController extends Controller
                     }
                 }        
 
-                return view('frontend.clients', array('clients' => $clients, 'subcategories' => $subcategories, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'title_info' => $title_info));
+                return view('frontend.clients', array('clients' => $clients, 'subcategories' => $subcategories, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'title_info' => $title_info, 'pageUrls' => $pageUrls));
             }
             elseif ($title_status == 2) {   // If title is sub category
+
+                // First get category id of this sub category
+                $this_category = DB::table('subcategory')->where('id', $title_id)->first();
+
+                // Get all page urls for this keyword on this city's all areas
+                $pageUrls = DB::table('websites_page_head_titles')
+                            ->where(['category' => $this_category->cat_id, 'subcategory' => $title_id, 'city' => $city, 'status' => 1])
+                            ->whereNotNull('area')
+                            ->get();
 
                 // get sub category name only to show on page
                 $title_info = DB::table('subcategory')->where('id', $title_id)->select('subcategory')->first();
@@ -372,7 +403,7 @@ class HomeController extends Controller
                     }
                 }                
 
-                return view('frontend.clients', array('clients' => $clients, 'subcategories' => $subcategories, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'title_info' => $title_info));
+                return view('frontend.clients', array('clients' => $clients, 'subcategories' => $subcategories, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'title_info' => $title_info, 'pageUrls' => $pageUrls));
             }
             else {                          // If title is company
 
