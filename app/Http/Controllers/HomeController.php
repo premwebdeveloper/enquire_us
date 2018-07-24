@@ -150,7 +150,8 @@ class HomeController extends Controller
 
             }else{
 
-                $title_info = null;
+                // get sub category name only to show on page
+                $title_info = DB::table('subcategory')->where('id', $title_id)->select('subcategory')->first();
 
                 // First get category id of this sub category
                 $this_category = DB::table('subcategory')->where('id', $title_id)->first();
@@ -287,7 +288,8 @@ class HomeController extends Controller
             }
             elseif ($title_status == 2) {   // If title is sub category
 
-                $title_info = null;
+                // get sub category name only to show on page
+                $title_info = DB::table('subcategory')->where('id', $title_id)->select('subcategory')->first();
 
                 // Get all subcategories
                 $subcategories = DB::table('subcategory')

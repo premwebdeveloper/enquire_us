@@ -16,7 +16,13 @@
                     <div class="col-sm-3">
                         <div class="col-sm-12">
                             <div class="catagory-name">
-                                <h3>Food &amp; Drinks</h3>
+                                <h3>
+                                    @if(isset($title_info->category))
+                                        {{ $title_info->category }}
+                                    @else
+                                        {{ $title_info->subcategory }}
+                                    @endif
+                                </h3>
                             </div>
                             <div class="filter top30 cata-dis-none">
                                 <h1 class="brand-header">SubCategories </h1>
@@ -129,7 +135,7 @@
                     <div class="col-sm-9 col-sm-offset-3">
                         <div class="col-sm-12">
                             <div class="filter top30 cata-dis-none">
-                                @if(!empty($title_info))
+                                @if(!empty($title_info->description))
                                     <?= $title_info->description; ?>
                                 @endif
                             </div>
