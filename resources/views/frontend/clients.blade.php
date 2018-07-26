@@ -43,7 +43,13 @@
                                 <h1 class="brand-header"> Related Links </h1>
                                 <div class="list-group category_list">
                                     @foreach($pageUrls as $url)
-                                        <a href="javascript:;" class="list-group-item">
+                                        <!-- If sub category is searched then subcategory link appeat -->
+                                        @if(!empty($url->subcategory))
+                                            <a href="javascript:;" class="list-group-item related_links" alt="{{ $url->page_url }}" id="Kpormeaml_<?= $url->subcategory; ?>_OFF_<?= $url->area; ?>">
+                                        @else
+                                            <!-- category link appear -->
+                                            <a href="javascript:;" class="list-group-item related_links" alt="{{ $url->page_url }}" id="Pkroemmal_<?= $url->category; ?>_ON_<?= $url->area; ?>">
+                                        @endif                                        
                                             {{ ucfirst(str_replace("-"," ",$url->page_url)) }}
                                         </a>
                                     @endforeach

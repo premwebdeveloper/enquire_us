@@ -10,11 +10,6 @@
     }
 </style>
 <div class="container">
-<?php
-/*    echo "<pre>";
-    print_r($client_keywords);
-    exit;*/
-?>
     @if(!empty($client))
 
         <script>
@@ -53,50 +48,31 @@
 
                         <div class="lSSlideOuter ">
                             <div class="lSSlideWrapper usingCss" style="transition-duration: 400ms; transition-timing-function: ease;">
-                            @if(!empty($images[0]))
+                                @if(!empty($images[0]))
 
-                                <ul id="lightSlider" class="lightSlider lsGrab lSSlide" style="width: 3234px; transform: translate3d(-539px, 0px, 0px); height: 298px; padding-bottom: 0%;">
+                                    <ul id="lightSlider" class="lightSlider lsGrab lSSlide" style="width: 3234px; transform: translate3d(-539px, 0px, 0px); height: 298px; padding-bottom: 0%;">
+                                        @foreach($images as $key => $image)
+                                            <li data-thumb="{{url('/')}}/storage/app/uploads/{{ $image->image}}" class="lslide" id="slide_<?= $key+1;?>" style="width: 539px; margin-right: 0px;">
+                                                <img alt="" src="{{url('/')}}/storage/app/uploads/{{ $image->image}}" style="width:100%;height: 270px;">
+                                            </li>
+                                        @endforeach
+                                    </ul>
 
-                                    <?php
-                                        $i=1;
-                                    ?>
-                                    @foreach($images as $image)
-
-                                        <li data-thumb="{{url('/')}}/storage/app/uploads/{{ $image->image}}" class="lslide" id="slide_<?= $i;?>" style="width: 539px; margin-right: 0px;">
-                                            <img alt="" src="{{url('/')}}/storage/app/uploads/{{ $image->image}}" style="width:100%;height: 270px;">
-                                        </li>
-
-                                    <?php
-                                        $i++;
-                                    ?>
-                                    @endforeach
-
-                                </ul>
-
-                            @elseif(!empty($client->logo))
-
-                                <ul id="lightSlider" class="lightSlider lsGrab lSSlide" style="width: 3234px; transform: translate3d(-539px, 0px, 0px); height: 298px; padding-bottom: 0%;">
-
+                                @elseif(!empty($client->logo))
+                                    <ul id="lightSlider" class="lightSlider lsGrab lSSlide" style="width: 3234px; transform: translate3d(-539px, 0px, 0px); height: 298px; padding-bottom: 0%;">
                                         <li data-thumb="{{url('/')}}/storage/app/uploads/{{ $client->logo}}" class="lslide active" style="width: 539px; margin-right: 0px;">
                                             <img alt="" src="{{url('/')}}/storage/app/uploads/{{ $client->logo}}" style="width:100%;height: 270px;">
                                         </li>
+                                    </ul>
+                                @else
+                                    <ul id="lightSlider" class="lightSlider lsGrab lSSlide" style="width: 3234px; transform: translate3d(-539px, 0px, 0px); height: 298px; padding-bottom: 0%;">
 
-                                </ul>
-
-                            @else
-
-                                <ul id="lightSlider" class="lightSlider lsGrab lSSlide" style="width: 3234px; transform: translate3d(-539px, 0px, 0px); height: 298px; padding-bottom: 0%;">
-
-                                    <li data-thumb="{{url('/')}}/resources/frontend_assets/images/logo.png" class="lslide active" style="width: 539px; margin-right: 0px;">
-                                        <img alt="" src="{{url('/')}}/resources/frontend_assets/images/logo.png" style="width:100%;height: 270px;">
-                                    </li>
-
-                                </ul>
-
-                            @endif
-                                <!-- <div class="lSAction"><a class="lSPrev"></a><a class="lSNext"></a></div> -->
+                                        <li data-thumb="{{url('/')}}/resources/frontend_assets/images/logo.png" class="lslide active" style="width: 539px; margin-right: 0px;">
+                                            <img alt="" src="{{url('/')}}/resources/frontend_assets/images/logo.png" style="width:100%;height: 270px;">
+                                        </li>
+                                    </ul>
+                                @endif
                             </div>
-
                         </div>
                     </div>
 
@@ -110,8 +86,8 @@
 
                                 <!-- <div class="buy-button-section top15">
                                     <button type="button" class="btn btn-cd btn-sms" data-toggle="modal" title="">GET SMS</button>
-                                </div>
- -->
+                                </div> -->
+
                                 <div class="offer-bought" style="border-top:1px solid #d7d7d7; margin-top:10px;">
                                     <div class="col-sm-4 unlimited-offer">
                                         <span class="glyphicon glyphicon-user"></span>
@@ -120,8 +96,7 @@
                                     <div class="col-sm-6 ">
                                         <span><i class="fa fa-graduation-cap"></i></span>
                                         <span class="time-counter"> {{ $client->designation }}</span>
-                                    </div>
-                                  
+                                    </div>                                  
                                 </div>
 
                                 <div class="address-phn">
@@ -255,23 +230,6 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3556.2231484551985!2d75.7762477150459!3d26.959831883107462!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396db3b47a84b429%3A0x92b38efd91251d5d!2sDexus+Media+Best+website+development+company!5e0!3m2!1sen!2sin!4v1530094876331" width="100%" height="200" frameborder="0" style="border:0" allowfullscreen></iframe>
-<!--                                     <div id="map"></div>
-                                <script>
-                                  function initMap() {
-                                    var uluru = {lat: 26.9501613, lng: 75.7792332};
-                                    var map = new google.maps.Map(document.getElementById('map'), {
-                                      zoom: 4,
-                                      center: uluru
-                                    });
-                                    var marker = new google.maps.Marker({
-                                      position: uluru,
-                                      map: map
-                                    });
-                                  }
-                                </script>
-                                <script async defer
-                                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIb6z-OH2-_nWIC-nK2_OI-r2ZO0BGr5c&callback=initMap">
-                                </script> -->
 
                             </div>
                         </div>
@@ -385,11 +343,18 @@
 
                 <div class="offer-small offer">
                     <ul class="ab_enquire">
+
                         @foreach($client_keywords as $client_keyword)
                             @if(!is_null($client_keyword->category))
-                                <li><i class="fa fa-check"></i> <a href="javascript:;">{{$client_keyword->category}}</a></li>
+                                <li>
+                                    <i class="fa fa-check"></i> 
+                                    <a href="javascript:;" class="cat_ies" id="cate_<?= $client_keyword->keyword_id; ?>">{{$client_keyword->category}}</a>
+                                </li>
                             @else
-                            <li><i class="fa fa-check"></i> <a href="javascript:;">{{$client_keyword->subcategory}}</a></li>
+                                <li>
+                                    <i class="fa fa-check"></i> 
+                                    <a href="javascript:;" class="sub_cat_ies" id="sub_cate_<?= $client_keyword->keyword_id; ?>">{{$client_keyword->subcategory}}</a>
+                                </li>
                             @endif
                         @endforeach
                     </ul>

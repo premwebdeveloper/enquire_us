@@ -195,6 +195,38 @@
 
             });
 
+            // Category related clients
+            $(document).on('click', '.related_links', function(){
+
+                // get category id
+                var id = $(this).attr('id');
+                var temp = id.split('_');
+                var related_id = temp[1];
+                var hint = temp[2];                                                         // check this is category or sub category
+                var area = temp[3];                                                         // Get the area
+
+                // page url
+                var response = $(this).attr('alt');
+
+                // get location name and location id
+                var location = $('#location').val();                                        // This is location id
+                var loc_name = $('#location option[value="'+location+'"]').text();          // It has location name
+                loc_name = loc_name.replace(/\s+/g, '-');                                   // space reolace by dash
+                
+                if(hint == 'ON'){
+                    var related_id_identity = related_id+'-1'; 
+                }else{
+                    var related_id_identity = related_id+'-2'; 
+                }
+
+                // If all is well
+                var encoded = makeid()+'-'+related_id_identity+'-'+location+'-'+area;                // Collect all parameters
+                encoded = encodeURIComponent(window.btoa(encoded));                         // encode parameter
+
+                window.location.href = "{{ url('/') }}"+"/"+loc_name+"/" +response+"/" +encoded;
+            });
+
+
             // Show all clients after click on sub category name
             $(document).on('click', '.sub_cat_ies', function(){
 

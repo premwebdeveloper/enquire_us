@@ -13,7 +13,7 @@ use Session;
 use Crypt;
 
 class HomeController extends Controller
-{
+{ 
     /**
      * Create a new controller instance.
      *
@@ -157,7 +157,6 @@ class HomeController extends Controller
                 $title_info = DB::table('category')->where('id', $title_id)->first();
 
             }else{
-
 
                 // get sub category name only to show on page
                 $title_info = DB::table('subcategory')->where('id', $title_id)->select('subcategory')->first();
