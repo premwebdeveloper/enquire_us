@@ -149,8 +149,17 @@
                             <div class="form-group col-sm-3 col-cus-3 input-width">
                                 <select name="sub_location" id="sub_location" class="form-control selectWidth form-cus input-border">
                                     <option value="">Select Area</option>
+                                    @php $selected = ''; @endphp
                                     @foreach($areas as $area)
-                                        <option value="{{ $area->id }}">{{ $area->area }}</option>
+
+                                        @if(isset($selected_area) && !empty($selected_area))
+                                            @if($selected_area == $area->id)
+                                                @php $selected = 'selected'; @endphp
+                                            @else
+                                                @php $selected = ''; @endphp
+                                            @endif                                            
+                                        @endif
+                                        <option value="{{ $area->id }}" {{ $selected }}>{{ $area->area }}</option>
                                     @endforeach
                                     <option value="">Select Area</option>
                                 </select>

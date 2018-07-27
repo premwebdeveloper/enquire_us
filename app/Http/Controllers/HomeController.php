@@ -113,6 +113,7 @@ class HomeController extends Controller
             $title_id = $encoded[1];
             $title_status = $encoded[2];
             $city = $encoded[3];
+            $area = '';
 
             // Here check the title status if title status is category then
             if($title_status == 1){
@@ -201,7 +202,7 @@ class HomeController extends Controller
                      $clients = $query->get();
             }
                         
-            return view('frontend.clients', array('clients' => $clients, 'subcategories' => $subcategories, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'title_info' => $title_info, 'pageUrls' => $pageUrls));
+            return view('frontend.clients', array('clients' => $clients, 'subcategories' => $subcategories, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'title_info' => $title_info, 'pageUrls' => $pageUrls, 'selected_area' => $area));
         }
         else{
 
@@ -305,7 +306,7 @@ class HomeController extends Controller
                     }
                 }        
 
-                return view('frontend.clients', array('clients' => $clients, 'subcategories' => $subcategories, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'title_info' => $title_info, 'pageUrls' => $pageUrls));
+                return view('frontend.clients', array('clients' => $clients, 'subcategories' => $subcategories, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'title_info' => $title_info, 'pageUrls' => $pageUrls, 'selected_area' => $area));
             }
             elseif ($title_status == 2) {   // If title is sub category
 
@@ -402,7 +403,7 @@ class HomeController extends Controller
                     }
                 }                
 
-                return view('frontend.clients', array('clients' => $clients, 'subcategories' => $subcategories, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'title_info' => $title_info, 'pageUrls' => $pageUrls));
+                return view('frontend.clients', array('clients' => $clients, 'subcategories' => $subcategories, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'title_info' => $title_info, 'pageUrls' => $pageUrls, 'selected_area' => $area));
             }
             else {                          // If title is company
 

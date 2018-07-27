@@ -311,3 +311,6 @@ ALTER TABLE `category` ADD `super_category` INT NOT NULL AFTER `id`;
 
 -- ---------------ALTER "category" on 09-07-2018----------------------
 ALTER TABLE `category` ADD `image` VARCHAR(191) NULL AFTER `description`;
+
+-- ---------------ALTER "websites_page_head_titles" on 27-07-2018----------------------
+ALTER TABLE `websites_page_head_titles` ADD `encoded_params` VARCHAR(191) NULL COMMENT 'encoded parameters with category, subcategory, city and area id' AFTER `page_url`;
