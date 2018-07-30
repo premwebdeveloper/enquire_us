@@ -80,9 +80,12 @@ class HomeController extends Controller
         $encoded = $request->encoded;
 
         // decode encoded parameter
-        $encoded = base64_decode(urldecode($encoded));
+        // echo $encoded = base64_decode(urldecode($encoded));
+        // echo $encoded     = utf8_decode(urldecode($encoded));
+        // echo '<br />';
 
-
+        $encoded = base64_decode($encoded);
+        
         // get page title for this page
         $page_titles = DB::table('websites_page_head_titles')->where(array('status' => 1, 'page_url' => $page_url))->first();
 
@@ -100,19 +103,19 @@ class HomeController extends Controller
         }
 
         $encoded = explode('-', $encoded);
-
+        
         # If there is something wrong with url and array is not proper then redirect to home
-        if(count($encoded) < 4){
+        if(count($encoded) < 3){
             
             // Something went wrong
             return redirect('/');
         }
-        elseif(count($encoded) == 4){ 
+        elseif(count($encoded) == 3){ 
 
             // If click on category name from category list
-            $title_id = $encoded[1];
-            $title_status = $encoded[2];
-            $city = $encoded[3];
+            $title_id = $encoded[0];
+            $title_status = $encoded[1];
+            $city = $encoded[2];
             $area = '';
 
             // Here check the title status if title status is category then
@@ -207,10 +210,10 @@ class HomeController extends Controller
         else{
 
             // If search from the top of the website
-            $title_id = $encoded[1];
-            $title_status = $encoded[2];
-            $city = $encoded[3];
-            $area = $encoded[4];
+            $title_id = $encoded[0];
+            $title_status = $encoded[1];
+            $city = $encoded[2];
+            $area = $encoded[3];
 
             if($title_status == 1) {        // If title is category
 

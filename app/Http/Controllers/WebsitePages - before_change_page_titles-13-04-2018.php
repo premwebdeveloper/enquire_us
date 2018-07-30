@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 use Storage;
 use Session;
+use Illuminate\Support\Facades\Crypt;
 
 class WebsitePages extends Controller
 {
@@ -49,6 +50,19 @@ class WebsitePages extends Controller
         }
 
         return redirect('website_pages')->with('status', $status);
+    }
+
+    // String Encryption function
+    public function pk_pad($d,$s)
+    {
+        $len = $s-strlen($d)%$s;
+        return $d.str_repeat(chr($len),$len);
+    }
+
+    // String Dencryption function
+    public function pk_unpad($d)
+    {
+        return substr($d,0,-ord($d[strlen($d)-1]));
     }
 
     // Website page head titles like Title, Meta title, Keyword, Description etc
@@ -96,16 +110,22 @@ class WebsitePages extends Controller
                     // If sub category selected then page url will create with sub category
                     if(!empty($sub_category))
                     {
+                        $params = $sub_category.'-2-'.$city;
+
                         // Get sub Category Name
                         $p_subcategory = DB::table('subcategory')->where(array('id' => $sub_category, 'status' => 1))->first();
                         $page_url .= preg_replace('/[^A-Za-z0-9\-]/', '-', $p_subcategory->subcategory);
                     }
                     else    // Page url will create with Category
                     {
+                        $params = $category.'-1-'.$city;
+
                         // Get Category Name
                         $p_category = DB::table('category')->where(array('id' => $category, 'status' => 1))->first();
                         $page_url .= preg_replace('/[^A-Za-z0-9\-]/', '-', $p_category->category);
                     }
+
+                    $encrypted = base64_encode($params);
 
                     // first insert selected city titles
                     $insert = DB::table('websites_page_head_titles')->insert(array(
@@ -114,6 +134,7 @@ class WebsitePages extends Controller
                         'city' => $city,
                         'business_page' => $business,
                         'page_url' => strtolower($page_url),
+                        'encoded_params' => $encrypted,
                         'title' => ucfirst(strtolower($title)),
                         'keyword' => ucfirst(strtolower($keyword)),
                         'description' => ucfirst(strtolower($description)),
@@ -140,6 +161,15 @@ class WebsitePages extends Controller
                             $main_page_url = $page_url;
                             $area_page_url = $main_page_url.'-in-'.$areaa;
 
+                            // If the subcategory is blank then
+                            if(!empty($sub_category)){
+                                $params = $sub_category.'-2-'.$city.'-'.$row->id;
+                            }else{ 
+                                $params = $category.'-1-'.$city.'-'.$row->id;
+                            }
+
+                            $encrypted = base64_encode($params);            
+                            
                             // Insert titles for all areas of selected
                             $insert = DB::table('websites_page_head_titles')->insert(array(
                                 'category' => $category,
@@ -148,6 +178,7 @@ class WebsitePages extends Controller
                                 'area' => $row->id,
                                 'business_page' => $business,
                                 'page_url' => strtolower($area_page_url),
+                                'encoded_params' => $encrypted,
                                 'title' => str_replace($cityName, $row->area, ucfirst(strtolower($title))),
                                 'keyword' => str_replace($cityName, $row->area, ucfirst(strtolower($keyword))),
                                 'description' => str_replace($cityName, $row->area, ucfirst(strtolower($description))),
@@ -155,42 +186,11 @@ class WebsitePages extends Controller
                                 'updated_at' => $date,
                                 'status' => 1
                             ));
+
+                            $params = '';
                         }
                     }
                 }
-
-                // Create client page url and client page title, keyword and description // Nor working now that is why code is commented
-                /*if(!empty($business) && $business != '')    // If business name is selected and category name and page not selected
-                {
-                    // Create page url
-                    $page_url = '';
-
-                    // Get business name
-                    $businessDetail = DB::table('user_location')->where(array('user_id' => $business, 'status' => 1))->first();
-                    $page_url .= preg_replace('/[^A-Za-z0-9\-]/', '-', $businessDetail->business_name);
-
-                    if(!empty($businessDetail->area))
-                    {
-                        $areaa = preg_replace('/[^A-Za-z0-9\-]/', '-', $businessDetail->area);
-                        $page_url .= '-in-'.$areaa;
-                    }
-                    else
-                    {
-                        $page_url .= '-in-jaipur';
-                    }
-
-                    // Insert page titles when category and page name not selected / only business name is selected
-                    $insert = DB::table('websites_page_head_titles')->insert(array(
-                        'business_page' => $business,
-                        'page_url' => $page_url,
-                        'title' => $title,
-                        'keyword' => $keyword,
-                        'description' => $description,
-                        'created_at' => $date,
-                        'updated_at' => $date,
-                        'status' => 1
-                    ));
-                }*/
 
                 if(!empty($page) && $page != '')    // If page name is selected and category name and business name not selected
                 {
@@ -206,7 +206,7 @@ class WebsitePages extends Controller
                     ));
                 }
 
-                $status = "Page url and titles updated successfully.";
+                $status = "Page url and titles created successfully.";
             }
         }else{
 

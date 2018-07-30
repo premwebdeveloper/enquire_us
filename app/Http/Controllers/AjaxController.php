@@ -60,11 +60,15 @@ class AjaxController extends Controller
 
             $page_url = $business_name.'-in-'.$area_name;
 
+            $params = $user_id.'-3-'.$city.'-'.$area;
+            $encrypted = base64_encode($params);
+
             $basic_info_update = DB::table('websites_page_head_titles')->insert([
                 'city' => $city,
                 'area' => $area,
                 'business_page' => $user_id,
                 'page_url' => $page_url,
+                'encoded_params' => $encrypted,
                 'title' => $title,
                 'keyword' => $keyword,
                 'description' => $description,
@@ -792,7 +796,7 @@ class AjaxController extends Controller
 			{
 				$category->where('city', $location);
 			}
-			$category->select('page_url');
+			$category->select('page_url', 'encoded_params');
 
 			//echo ($category->tosql()); exit;
 
@@ -814,7 +818,7 @@ class AjaxController extends Controller
 			{
 				$subcategory->where('city', $location);
 			}
-			$subcategory->select('page_url');
+			$subcategory->select('page_url', 'encoded_params');
 
 			//echo ($subcategory->tosql()); exit;
 
@@ -837,7 +841,7 @@ class AjaxController extends Controller
 				$business->where('city', $location);
 			}
 
-			$business->select('page_url');
+			$business->select('page_url', 'encoded_params');
 
 			//echo ($business->tosql()); exit;
 
@@ -846,7 +850,7 @@ class AjaxController extends Controller
 
 		if(!empty($row->page_url))
 		{
-			echo $row->page_url;
+			echo $row->page_url.'||'.$row->encoded_params;
 		}
 		else
 		{

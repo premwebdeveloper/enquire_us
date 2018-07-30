@@ -45,10 +45,10 @@
                                     @foreach($pageUrls as $url)
                                         <!-- If sub category is searched then subcategory link appeat -->
                                         @if(!empty($url->subcategory))
-                                            <a href="javascript:;" class="list-group-item related_links" alt="{{ $url->page_url }}" id="Kpormeaml_<?= $url->subcategory; ?>_OFF_<?= $url->area; ?>">
+                                            <a href="javascript:;" class="list-group-item related_links" alt="{{ $url->page_url }}" id="<?= $url->encoded_params; ?>">
                                         @else
                                             <!-- category link appear -->
-                                            <a href="javascript:;" class="list-group-item related_links" alt="{{ $url->page_url }}" id="Pkroemmal_<?= $url->category; ?>_ON_<?= $url->area; ?>">
+                                            <a href="javascript:;" class="list-group-item related_links" alt="{{ $url->page_url }}" id="<?= $url->encoded_params; ?>">
                                         @endif                                        
                                             {{ ucfirst(str_replace("-"," ",$url->page_url)) }}
                                         </a>
