@@ -81,7 +81,7 @@ class WebsitePages extends Controller
 
         // First of all check if page url and page titles are already created or not for selected category, subcategory and city
         $rows = DB::table('websites_page_head_titles')
-                ->where(['category' => $category, 'city' => $city, 'area' => null, 'status' => 1]);
+                ->where(['category' => $category, 'subcategory' => null, 'city' => $city, 'area' => null, 'status' => 1]);
                 
         // If the sub category is selected
         if(!empty($sub_category)){

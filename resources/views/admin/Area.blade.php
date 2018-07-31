@@ -121,7 +121,7 @@
                     <div class="form-group">
                         <label class="col-sm-2 control-label">City</label>
                         <div class="col-sm-8">
-                            <select name="city" class="form-control" required="required">
+                            <select name="city" class="form-control" required="required" disabled>
                                 <option value="" class="city_id" id="city"></option>
                                 @foreach($cities as $city)
                                     <option value="{{ $city->id }}" class="cat" name="category">{{ $city->name }}</option>

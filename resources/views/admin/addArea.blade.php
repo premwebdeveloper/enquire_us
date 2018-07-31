@@ -80,6 +80,11 @@
                         <label class="col-sm-2 control-label">Pincode</label>
                         <div class="col-sm-8">
                             <input type="text" name="pincode" id="pincode" class="form-control" placeholder="Pincode" required="required">
+                            @if($errors->has('pincode'))
+                                <span class="help-block red">
+                                    <strong>{{ $errors->first('pincode') }}</strong>
+                                </span>
+                            @endif
                         </div>
                     </div>
                     <div class="form-group">

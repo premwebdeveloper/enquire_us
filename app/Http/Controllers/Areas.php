@@ -52,15 +52,108 @@ class Areas extends Controller
 
         # Set validation for
         $this->validate($request, [
-            'area' => 'required|unique:areas',
+            'pincode' => 'required|unique:areas',
+            'area' => 'required|unique:areas,area,NULL,id,city,'.$city
         ]);
 
-        $add_area = DB::table('areas')->insert(
+        $last_area = DB::table('areas')->insertGetId(
             array('country' => $country, 'state' => $state, 'city' => $city, 'area' => $area, 'pincode' => $pincode, 'created_at' => $date, 'updated_at' => $date)
         );
 
+        // create page url for this area with all categories If the category have page urls with other areas
 
-        if($add_area)
+        // First of all get all categories
+        $categories = DB::table('category')->where('status', 1)->get();
+        
+        // Get all sub categories
+        $subcategories = DB::table('subcategory')->where('status', 1)->get();
+        
+        // Get city name by city id
+        $cityRow = DB::table('cities')->where('id', $city)->first();
+        $cityName = $cityRow->name;
+        $cityName = strtolower($cityName);
+        
+        // Now create page with categories
+        foreach ($categories as $key => $category) {
+        	
+        	// first check page url of this category are exist or not in db
+        	$cat_exist = DB::table('websites_page_head_titles')->where(['category' => $category->id, 'subcategory' => null, 'city' => $city, 'status' => 1])->first();
+
+        	if(!empty($cat_exist)){
+
+        		$new_category = preg_replace('/[^A-Za-z0-9\-]/', '-', $category->category);
+				$new_area = preg_replace('/[^A-Za-z0-9\-]/', '-', $area);
+
+     	 		$page_url = $new_category.'-in-'.$new_area;
+
+         		$title = str_replace($cityName, $area, ucfirst(strtolower($cat_exist->title)));
+        	    $keyword = str_replace($cityName, $area, ucfirst(strtolower($cat_exist->keyword)));
+            	$description = str_replace($cityName, $area, ucfirst(strtolower($cat_exist->description)));
+
+                $params = $category->id.'-1-'.$city.'-'.$last_area;
+                $encrypted = base64_encode($params);
+
+                // Insert titles for all areas of selected
+                $insert = DB::table('websites_page_head_titles')->insert(array(
+                    'category' => $category->id,
+                    'subcategory' => null,
+                    'city' => $city,
+                    'area' => $last_area,
+                    'business_page' => null,
+                    'page_url' => strtolower($page_url),
+                    'encoded_params' => $encrypted,
+                    'title' => $title,
+                    'keyword' => $keyword,
+                    'description' => $description,
+                    'created_at' => $date,
+                    'updated_at' => $date,
+                    'status' => 1
+                ));
+        	}
+        	$params = '';
+        }
+
+        // Now create page with sub categories
+        foreach ($subcategories as $key => $subcategory) {
+        	
+        	// first check page url of this category are exist or not in db
+        	$subcat_exist = DB::table('websites_page_head_titles')->where(['category' => $subcategory->cat_id, 'subcategory' => $subcategory->id, 'city' => $city, 'status' => 1])->first();
+
+        	if(!empty($subcat_exist)){
+
+        		$new_subcategory = preg_replace('/[^A-Za-z0-9\-]/', '-', $subcategory->subcategory);
+				$new_area = preg_replace('/[^A-Za-z0-9\-]/', '-', $area);
+
+     	 		$page_url = $new_subcategory.'-in-'.$new_area;
+
+         		$title = str_replace($cityName, $area, ucfirst(strtolower($subcat_exist->title)));
+        	    $keyword = str_replace($cityName, $area, ucfirst(strtolower($subcat_exist->keyword)));
+            	$description = str_replace($cityName, $area, ucfirst(strtolower($subcat_exist->description)));
+
+                $params = $subcategory->id.'-2-'.$city.'-'.$last_area;
+                $encrypted = base64_encode($params);
+
+                // Insert titles for all areas of selected
+                $insert = DB::table('websites_page_head_titles')->insert(array(
+                    'category' => $subcategory->cat_id,
+                    'subcategory' => $subcategory->id,
+                    'city' => $city,
+                    'area' => $last_area,
+                    'business_page' => null,
+                    'page_url' => strtolower($page_url),
+                    'encoded_params' => $encrypted,
+                    'title' => $title,
+                    'keyword' => $keyword,
+                    'description' => $description,
+                    'created_at' => $date,
+                    'updated_at' => $date,
+                    'status' => 1
+                ));
+        	}
+        	$params = '';
+        }
+
+        if($last_area)
         {
             $status = 'Area Added successfully.';
         }
@@ -80,15 +173,89 @@ class Areas extends Controller
         $id = $request->area_id;
         $country = $request->country;
         $state = $request->state;
-        $city = $request->city;
+        //$city = $request->city;
         $area = $request->area;
         $pincode = $request->pincode;
 
-        $add_area = DB::table('areas')->where('id', $id)->update(
-            array('country' => $country, 'state' => $state, 'city' => $city, 'area' => $area, 'pincode' => $pincode, 'created_at' => $date, 'updated_at' => $date)
+        // First get area details of this area id
+        $area_info = DB::table('areas')->where('id', $id)->first();
+
+        $area_city = $area_info->city;
+
+        // create page url for this area with all categories If the category have page urls with other areas
+
+        // First of all get all categories
+        $categories = DB::table('category')->where('status', 1)->get();
+        
+        // Get all sub categories
+        $subcategories = DB::table('subcategory')->where('status', 1)->get();
+        
+        // Get city name by city id
+        $cityRow = DB::table('cities')->where('id', $area_info->city)->first();
+        $cityName = $cityRow->name;
+        $cityName = strtolower($cityName);
+
+        // Now create page with categories
+        foreach ($categories as $key => $category) {
+        	
+        	// first check page url of this category are exist or not in db
+        	$cat_exist = DB::table('websites_page_head_titles')->where(['category' => $category->id, 'subcategory' => null, 'city' => $area_info->city, 'area' => $id, 'status' => 1])->first();
+
+        	if(!empty($cat_exist)){
+
+        		$new_category = preg_replace('/[^A-Za-z0-9\-]/', '-', $category->category);
+				$new_area = preg_replace('/[^A-Za-z0-9\-]/', '-', $area);
+
+     	 		$page_url = $new_category.'-in-'.$new_area;
+
+         		$title = str_replace($area_info->area, $area, ucfirst(strtolower($cat_exist->title)));
+        	    $keyword = str_replace($area_info->area, $area, ucfirst(strtolower($cat_exist->keyword)));
+            	$description = str_replace($area_info->area, $area, ucfirst(strtolower($cat_exist->description)));
+
+                // Insert titles for all areas of selected
+                $update = DB::table('websites_page_head_titles')->where(['category' => $category->id, 'city' => $area_info->city, 'area' => $id, 'status' => 1])->update(array(
+                    'page_url' => strtolower($page_url),
+                    'title' => $title,
+                    'keyword' => $keyword,
+                    'description' => $description,
+                    'updated_at' => $date
+                ));
+        	}
+        }
+
+        // Now create page with sub categories
+        foreach ($subcategories as $key => $subcategory) {
+        	
+        	// first check page url of this category are exist or not in db
+        	$subcat_exist = DB::table('websites_page_head_titles')->where(['category' => $subcategory->cat_id, 'subcategory' => $subcategory->id, 'city' => $area_info->city, 'area' => $id, 'status' => 1])->first();
+
+        	if(!empty($subcat_exist)){
+
+        		$new_subcategory = preg_replace('/[^A-Za-z0-9\-]/', '-', $subcategory->subcategory);
+				$new_area = preg_replace('/[^A-Za-z0-9\-]/', '-', $area);
+
+     	 		$page_url = $new_subcategory.'-in-'.$new_area;
+
+         		$title = str_replace($area_info->area, $area, ucfirst(strtolower($subcat_exist->title)));
+         	    $keyword = str_replace($area_info->area, $area, ucfirst(strtolower($subcat_exist->keyword)));
+             	$description = str_replace($area_info->area, $area, ucfirst(strtolower($subcat_exist->description)));
+    
+                // Insert titles for all areas of selected
+                $update = DB::table('websites_page_head_titles')->where(['category' => $subcat_exist->category, 'subcategory' => $subcat_exist->subcategory, 'city' => $subcat_exist->city, 'area' => $id, 'status' => 1])->update(array(
+                    'page_url' => strtolower($page_url),
+                    'title' => $title,
+                    'keyword' => $keyword,
+                    'description' => $description,
+                    'updated_at' => $date
+                ));
+        	}
+        }
+
+        $edit_area = DB::table('areas')->where('id', $id)->update(
+            array('area' => $area, 'pincode' => $pincode, 'created_at' => $date, 'updated_at' => $date)
         );
 
-        if($add_area)
+        if($edit_area)
         {
             $status = 'Area Update successfully.';
         }
