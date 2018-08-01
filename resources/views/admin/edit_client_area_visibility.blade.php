@@ -80,7 +80,9 @@
 							<table class="table table-striped table-bordered table-hover dataTables-example">
 								<thead>
 									<tr>
-										<th>#</th>
+										<th>
+											<input type="checkbox" name="all_areas" class="all_areas" id="all_areas">
+										</th>
 										<th>Area</th>
 									</tr>
 								</thead>
@@ -119,6 +121,26 @@
 <!-- Get all areas according to keyword and show check them -->
 <script type="text/javascript">
 	$(document).ready(function(){
+
+		var all_checkbox = $('.areas').length;
+		var checked_checkbox = $('input:checkbox:checked').length;
+
+		if(all_checkbox == checked_checkbox){
+			$('#all_areas').prop('checked', true);
+		}
+
+		$(document).on('change', '#all_areas', function(){
+
+			if($(this).prop("checked") == true){
+                
+                $('.areas').prop('checked', true);
+            }else{
+
+            	$('.areas').prop('checked', false);
+            }
+		});
+
+		// Old thing
 		$(document).on('change', '#keyword_name', function(){
 			var keyword = $('#keyword_name option:selected').val();
 			var this_user = $('#this_user').val();

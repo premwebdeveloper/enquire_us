@@ -3,7 +3,7 @@
     $(document).ready(function(){
 
         // data table script for dataTables-example class
-        $('.dataTables-example').DataTable({
+        var oTable = $('.dataTables-example').DataTable({
             pageLength: 10,
             responsive: true,
             dom: '<"html5buttons"B>lTfgitp',
@@ -25,6 +25,18 @@
                 }
             ]
         });
+
+        //var allPages = oTable.fnGetNodes();
+        // var allPages = oTable.cells( ).nodes( );
+
+        // // Check all areas on single click
+        // $(document).on('change', '#all_areas', function(){
+        //     if($(this).prop("checked") == true){
+        //         $(allPages).find('.areas').prop('checked', true);
+        //     }else{
+        //         $(allPages).find('.areas').prop('checked', false);
+        //     }
+        // });
 
         // data table script for dataTables class
         $('.dataTables').DataTable({

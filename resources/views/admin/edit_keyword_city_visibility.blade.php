@@ -64,7 +64,7 @@
 								<thead>
 									<tr>
 										<th>#</th>
-										<th>Area</th>
+										<th>Client</th>
 									</tr>
 								</thead>
 								<tbody>
