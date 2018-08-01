@@ -224,14 +224,23 @@
                 <div class="ibox-content">
                     <div class="feed-activity-list">
                         <div class="tabs-container">
-
-                            <ul class="nav nav-tabs">
-                                <li class=""><a href="javascript:;">Basic Information</a></li>
-                                <li class=""><a href="{{ route('addUser_payment_modes', ['user_id' => $user_details->user_id]) }}">Payment Modes</a></li>
-                                <li class=""><a href="{{ route('addUser_business_timing', ['user_id' => $user_details->user_id]) }}">Business Timing</a></li>
-                                <li class="active"><a href="javascript:;">Business Keywords</a></li>
-                                <li class=""><a href="javascript:;">Images</a></li>
-                            </ul>
+                            @if(!empty($user_details->user_id))
+                                <ul class="nav nav-tabs">
+                                    <li class=""><a href="{{ route('addUser_basic_information', ['user_id' => $user_details->user_id]) }}">Basic Information</a></li>
+                                    <li class=""><a href="{{ route('addUser_payment_modes', ['user_id' => $user_details->user_id]) }}">Payment Modes</a></li>
+                                    <li class=""><a href="{{ route('addUser_business_timing', ['user_id' => $user_details->user_id]) }}">Business Timing</a></li>
+                                    <li class="active"><a href="{{ route('addUser_business_keywords', ['user_id' => $user_details->user_id]) }}">Business Keywords</a></li>
+                                    <li class=""><a href="{{ route('addUser_logo_images', ['user_id' => $user_details->user_id]) }}">Images</a></li>
+                                </ul>
+                            @else
+                                <ul class="nav nav-tabs">
+                                    <li class=""><a href="javascript:;">Basic Information</a></li>
+                                    <li class=""><a href="{{ route('addUser_payment_modes', ['user_id' => $user_details->user_id]) }}">Payment Modes</a></li>
+                                    <li class=""><a href="{{ route('addUser_business_timing', ['user_id' => $user_details->user_id]) }}">Business Timing</a></li>
+                                    <li class="active"><a href="javascript:;">Business Keywords</a></li>
+                                    <li class=""><a href="javascript:;">Images</a></li>
+                                </ul>
+                            @endif
 
                             <div class="tab-content">
 
