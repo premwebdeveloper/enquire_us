@@ -275,7 +275,11 @@ class Areas extends Controller
                 ->join('user_location', 'user_location.user_id', '=', 'user_details.user_id')
                 ->join('areas', 'areas.id', '=', 'user_location.area')
                 ->join('cities', 'cities.id', '=', 'user_location.city')
+                ->join('user_keywords', 'user_keywords.user_id', '=', 'user_details.user_id')
+                ->where('user_keywords.status', 1)
+                ->where('user_keywords.update_status', 1)
                 ->where('user_details.status', '!=', 0)
+                ->groupBy('user_id')
                 ->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.state', 'user_location.country', 'user_location.pincode', 'areas.area as area_name', 'cities.name as city_name')
                 ->get();
 
