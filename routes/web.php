@@ -15,6 +15,8 @@
         return view('welcome');
     });
 
+    Route::get('/sitemap.xml', 'HomeController@sitemap')->name('sitemap.xml');
+
     Auth::routes();
 
     Route::get('verify/{email}/{verifyToken}', 'Auth\RegisterController@sendEmailDone')->name('sendEmailDone');

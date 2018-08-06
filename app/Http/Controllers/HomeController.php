@@ -583,4 +583,21 @@ class HomeController extends Controller
 
         return view('frontend.categories', array('categories' => $categories, 'super_catgories' => $super_catgories));
     }
+
+    // generate dynamic sitemap
+    public function sitemap(){
+
+        // get all page urls from database table
+        $urls = DB::table('websites_page_head_titles')->where(['status' => 1, 'update_status' => 1])->get();
+
+        $hostname =  $_SERVER['HTTP_HOST']; 
+
+        if (strpos($hostname, 'localhost') !== false) {
+            $base_url = $hostname."/enquire_us/trunk/";
+        }else{
+            $base_url = $hostname."/";
+        }
+
+        return view('sitemap.sitemap', array('urls' => $urls, 'base_url' => $base_url));
+    }
 }
