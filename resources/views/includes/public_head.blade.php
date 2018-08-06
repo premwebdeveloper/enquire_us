@@ -304,12 +304,9 @@
                         }
                         else
                         {
-                            // If all is well
-                            var encoded = makeid()+'-'+client_id_identity+'-'+location+'-'+sub_location;                 // Collect all parameters
-                            encoded = encodeURIComponent(window.btoa(encoded));                                         // encode parameter
-
-                            //window.location.href = "{{url('filter')}}"+"/"+loc_name+"/" +response+"/" +encoded;
-                            window.location.href = "{{ url('/') }}"+"/"+loc_name+"/" +response+"/" +encoded;
+                            var temp = response.split('||');
+                            var encoded = temp[1];
+                            window.location.href = "{{ url('/') }}"+"/"+loc_name+"/" +temp[0]+"/" +encoded;
                         }
                     },
                     error: function(data){
