@@ -14,7 +14,7 @@
     {{'<url>'}}
         <br />
         {{ '&nbsp;&nbsp;&nbsp;&nbsp;<loc>' }}
-            {{ $base_url .'/'. $url->page_url }}
+            {{ $base_url . $url->page_url }}
         {{'</loc>'}}
         <br />
      {{'</url>'}}
