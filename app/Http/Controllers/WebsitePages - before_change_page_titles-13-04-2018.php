@@ -52,19 +52,6 @@ class WebsitePages extends Controller
         return redirect('website_pages')->with('status', $status);
     }
 
-    // String Encryption function
-    public function pk_pad($d,$s)
-    {
-        $len = $s-strlen($d)%$s;
-        return $d.str_repeat(chr($len),$len);
-    }
-
-    // String Dencryption function
-    public function pk_unpad($d)
-    {
-        return substr($d,0,-ord($d[strlen($d)-1]));
-    }
-
     // Website page head titles like Title, Meta title, Keyword, Description etc
     public function page_titles(Request $request)
     {
@@ -82,6 +69,8 @@ class WebsitePages extends Controller
         // First of all check if page url and page titles are already created or not for selected category, subcategory and city
         $rows = DB::table('websites_page_head_titles')
                 ->where(['category' => $category, 'subcategory' => null, 'city' => $city, 'area' => null, 'status' => 1]);
+                
+                $rows->where('encoded_params', '!=', null);
                 
         // If the sub category is selected
         if(!empty($sub_category)){

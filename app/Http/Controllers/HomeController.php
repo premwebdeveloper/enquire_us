@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Storage;
 use Session;
 use Crypt;
+use Illuminate\Support\Facades\Route;
 
 class HomeController extends Controller
 { 
@@ -32,6 +33,24 @@ class HomeController extends Controller
 
     public function index()
     {
+        $routeName = Route::currentRouteName();
+        
+        // get page title for this page
+        $page_titles = DB::table('websites_page_head_titles')->where(array('status' => 1, 'page_url' => $routeName))->first();
+
+        if(!empty($page_titles))
+        {
+            $title = $page_titles->title;
+            $meta_keywords = $page_titles->keyword;
+            $meta_description = $page_titles->description;
+        }
+        else
+        {
+            $title = 'Enquire us |Best local search engine in Jaipur Rajasthan India';
+            $meta_keywords = 'Get a Best Quote on your Enquiry.We are Providing best solution on your any Needs';
+            $meta_description = 'Local Search engine, Lead generation, Search Solution';
+        }
+
         $category = DB::table('category')
                     ->join('websites_page_head_titles', 'websites_page_head_titles.category', '=', 'category.id')
                     ->where('category.status', 1)
@@ -65,10 +84,6 @@ class HomeController extends Controller
         // get all super category
         $super_catgory = DB::table('super_categories')->get();
 
-        $title = 'Enquire us |Best local search engine in Jaipur Rajasthan India';
-        $meta_description = 'Get a Best Quote on your Enquiry.We are Providing best solution on your any Needs';
-        $meta_keywords = 'Local Search engine, Lead generation, Search Solution';
-
         return view('welcome', array('super_catgory' => $super_catgory, 'category' => $category, 'sliders' => $sliders, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'home_page_clients' => $home_page_clients, 'latest_home_page_clients' => $latest_home_page_clients));
     }
 
@@ -78,11 +93,6 @@ class HomeController extends Controller
         $location = $request->location;
         $page_url = $request->page_url;
         $encoded = $request->encoded;
-
-        // decode encoded parameter
-        // echo $encoded = base64_decode(urldecode($encoded));
-        // echo $encoded     = utf8_decode(urldecode($encoded));
-        // echo '<br />';
 
         $encoded = base64_decode($encoded);
         
@@ -539,20 +549,33 @@ class HomeController extends Controller
     # Get dynamic Website Pages and their content
     public function webpage(Request $request)
     {
-        $title = 'Category View';
-        $meta_description = 'Category View description';
-        $meta_keywords = 'Category View keywords';
+        $lastParam = basename(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
 
+        // get page title, keyword and description
+        $page_titles = DB::table('websites_page_head_titles')->where(array('status' => 1, 'page_url' => $lastParam))->first();
+
+        if(!empty($page_titles))
+        {
+            $title = $page_titles->title;
+            $meta_keywords = $page_titles->keyword;
+            $meta_description = $page_titles->description;
+        }
+        else
+        {
+            $title = '';
+            $meta_keywords = '';
+            $meta_description = '';
+        }
+        
         $page = $request->webpage;
 
         $page = str_replace('-', ' ', $page);
 
-        // Get client all details
+        // Get page content
         $webpages = DB::table('website_pages')->where(array('page_title' => $page, 'status' => 1))->first();
 
         $website_pages = DB::table('website_pages')->where('status', 1)->get();
-        //dd($website_pages);
-
+        
         return view('frontend.webpage_view', array('webpages' => $webpages, 'website_pages' => $website_pages, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords));
 
     }
@@ -573,6 +596,25 @@ class HomeController extends Controller
     // show all categories on click super category
     public function categories(Request $request){
 
+        // get current route name to get page title , keyword and description
+        $routeName = Route::currentRouteName();
+
+        // get page title for this page
+        $page_titles = DB::table('websites_page_head_titles')->where(array('status' => 1, 'page_url' => $routeName))->first();
+
+        if(!empty($page_titles))
+        {
+            $title = $page_titles->title;
+            $meta_keywords = $page_titles->keyword;
+            $meta_description = $page_titles->description;
+        }
+        else
+        {
+            $title = '';
+            $meta_keywords = '';
+            $meta_description = '';
+        }
+
         $super_cat_id = $request->super_cat_id;
         
         // Get all categories according to this super category
@@ -581,7 +623,7 @@ class HomeController extends Controller
         // get all super categories
         $super_catgories = DB::table('super_categories')->get();
 
-        return view('frontend.categories', array('categories' => $categories, 'super_catgories' => $super_catgories));
+        return view('frontend.categories', array('categories' => $categories, 'super_catgories' => $super_catgories, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords));
     }
 
     // generate dynamic sitemap

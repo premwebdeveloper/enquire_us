@@ -34,11 +34,6 @@
         "as" => 'filter'
     ]);
 
-    /*Route::get('/filter/{location}/{page_url}/{encoded}', [
-        "uses" => 'HomeController@filter',
-        "as" => 'filter'
-    ]);*/
-
     // Show all categories on click super category
     Route::get('categories/{super_cat_id}', 'HomeController@categories')->name('categories');
 
