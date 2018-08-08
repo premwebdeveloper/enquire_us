@@ -82,23 +82,23 @@
                 <div class="ibox-content">
                     <div class="feed-activity-list">
                         <div class="tabs-container">
-                        @if(!empty($user_details->user_id))
-                            <ul class="nav nav-tabs">
-                                <li class="active"><a href="{{ route('addUser_basic_information', ['user_id' => $user_details->user_id]) }}">Basic Information</a></li>
-                                <li class=""><a href="{{ route('addUser_payment_modes', ['user_id' => $user_details->user_id]) }}">Payment Modes</a></li>
-                                <li class=""><a href="{{ route('addUser_business_timing', ['user_id' => $user_details->user_id]) }}">Business Timing</a></li>
-                                <li class=""><a href="{{ route('addUser_business_keywords', ['user_id' => $user_details->user_id]) }}">Business Keywords</a></li>
-                                <li class=""><a href="{{ route('addUser_logo_images', ['user_id' => $user_details->user_id]) }}">Images</a></li>
-                            </ul>
-                        @else
-                            <ul class="nav nav-tabs">
-                                <li class="active"><a href="javascript:;">Basic Information</a></li>
-                                <li class=""><a href="javascript:;">Payment Modes</a></li>
-                                <li class=""><a href="javascript:;">Business Timing</a></li>
-                                <li class=""><a href="javascript:;">Business Keywords</a></li>
-                                <li class=""><a href="javascript:;">Images</a></li>
-                            </ul>
-                        @endif
+                            @if(!empty($user_details->user_id))
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a href="{{ route('addUser_basic_information', ['user_id' => $user_details->user_id]) }}">Basic Information</a></li>
+                                    <li class=""><a href="{{ route('addUser_payment_modes', ['user_id' => $user_details->user_id]) }}">Payment Modes</a></li>
+                                    <li class=""><a href="{{ route('addUser_business_timing', ['user_id' => $user_details->user_id]) }}">Business Timing</a></li>
+                                    <li class=""><a href="{{ route('addUser_business_keywords', ['user_id' => $user_details->user_id]) }}">Business Keywords</a></li>
+                                    <li class=""><a href="{{ route('addUser_logo_images', ['user_id' => $user_details->user_id]) }}">Images</a></li>
+                                </ul>
+                            @else
+                                <ul class="nav nav-tabs">
+                                    <li class="active"><a href="javascript:;">Basic Information</a></li>
+                                    <li class=""><a href="javascript:;">Payment Modes</a></li>
+                                    <li class=""><a href="javascript:;">Business Timing</a></li>
+                                    <li class=""><a href="javascript:;">Business Keywords</a></li>
+                                    <li class=""><a href="javascript:;">Images</a></li>
+                                </ul>
+                            @endif
                             <div class="tab-content">
                                 <!-- User Basic information -->
                                 <div id="tab-1" class="tab-pane active">
@@ -325,7 +325,26 @@
                                                         </div>
                                                     </div>
                                                 </div>
+                                            </div>
                                             
+                                            <div class="row">
+                                                <h5 style="color:blue;">About Company</h5>
+                                                <hr>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        
+                                                        <div class="col-md-12">
+                                                            <textarea id="about_company" type="text" class="form-control summernote" name="about_company"><?= $user_details->about_company;?></textarea>
+
+                                                            @if ($errors->has('about_company'))
+                                                                <span class="help-block red">
+                                                                    <strong>{{ $errors->first('about_company') }}</strong>
+                                                                </span>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
 
                                             <div class="col-md-12 text-right">
                                                 <input type="submit" name="addUser" class="btn btn-success" value="Next" style="margin-bottom: 30px;">
@@ -677,10 +696,29 @@
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div class="row">
+                                                <h5 style="color:blue;">About Company</h5>
+                                                <hr>
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        
+                                                        <div class="col-md-12">
+                                                            <textarea id="about_company" type="text" class="form-control summernote" name="about_company"></textarea>
 
-                                            <div class="col-md-12 text-right">
-                                                <input type="submit" name="addUser" class="btn btn-success" value="Next" style="margin-bottom: 30px;">
+                                                            @if ($errors->has('about_company'))
+                                                                <span class="help-block red">
+                                                                    <strong>{{ $errors->first('about_company') }}</strong>
+                                                                </span>
+                                                            @endif
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
+                                        </div>
+
+                                        <div class="col-md-12 text-right">
+                                            <input type="submit" name="addUser" class="btn btn-success" value="Next" style="margin-bottom: 30px;">
+                                        </div>
 
                                         </form>
                                     @endif

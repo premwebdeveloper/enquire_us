@@ -18,7 +18,7 @@
  <!--    <script src="{{ asset('resources/assets/js/inspinia.js') }}"></script> -->
     <script src="{{ asset('resources/assets/js/plugins/pace/pace.min.js') }}"></script>
 
-    <script src="{{ asset('resources/assets/js/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+    <!-- <script src="{{ asset('resources/assets/js/plugins/jquery-ui/jquery-ui.min.js') }}"></script> -->
     <script src="{{ asset('resources/assets/js/plugins/gritter/jquery.gritter.min.js') }}"></script>
     <script src="{{ asset('resources/assets/js/plugins/sparkline/jquery.sparkline.min.js') }}"></script>
     <script src="{{ asset('resources/assets/js/demo/sparkline-demo.js') }}"></script>

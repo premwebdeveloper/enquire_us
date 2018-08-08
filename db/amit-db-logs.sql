@@ -21,3 +21,6 @@ ALTER TABLE `user_details`
 
   -- ---------------------------DB Start on 31-03-2018--------------------------
   ALTER TABLE `areas` ADD `pincode` INT(6) NOT NULL AFTER `area`;
+
+  -- ---------------------------DB Start on 02-08-2018--------------------------
+  ALTER TABLE `user_details` ADD `about_company` TEXT NOT NULL AFTER `logo`;

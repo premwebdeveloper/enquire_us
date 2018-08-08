@@ -96,6 +96,7 @@ class AdminUsers extends Controller
         $toll_free2 = $request->toll_free2;
         //$email = $request->email;
         $website = $request->website;
+        $about_company = $request->about_company;
 
         // Create User
         $user = DB::table('users')->where('id', $user_id)->update(
@@ -118,6 +119,7 @@ class AdminUsers extends Controller
                 'toll_free1' => $toll_free,
                 'toll_free2' => $toll_free2,
                 'website' => $website,
+                'about_company' => $about_company,
                 'updated_at' => $date,
                 'status' => 1
             )
@@ -184,6 +186,7 @@ class AdminUsers extends Controller
         $toll_free = $request->toll_free;
         $toll_free2 = $request->toll_free2;
         $website = $request->website;
+        $about_company = $request->about_company;
 
         $password = bcrypt($password);
 
@@ -225,6 +228,7 @@ class AdminUsers extends Controller
                 'toll_free1' => $toll_free,
                 'toll_free2' => $toll_free2,
                 'website' => $website,
+                'about_company' => $about_company,
                 'created_at' => $date,
                 'updated_at' => $date,
                 'status' => 1

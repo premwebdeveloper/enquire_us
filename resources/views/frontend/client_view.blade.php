@@ -209,19 +209,9 @@
                 <div class="col-lg-12  col-xs-12">
                     <div class="description">
                         <!--<h2 class="page-title">Description</h2>-->
-                        <div class="page-para" style="float:left; width:100%;">
-                            <h4>Deal Highlights</h4>
-                            <ul>
-                                <li>Kindly show your SMS before availing the offer.</li>
-                            </ul>
-                            <h4>Deal Terms</h4>
-                            <ul>
-                                <li>1 SMS per Customer.</li>
-                            </ul>
-                            <h4>How to Use</h4>
-                            <ul>
-                                <li>1st click the "GET SMS" button.</li>
-                            </ul>
+                        <div class="page-para" style="float:left; width:100%;text-align:justify;">
+                            <h3>About {{ $client->business_name }}</h3>
+                            <?= $client->about_company;?>
                         </div>
                         <div class="page-para" style="float:left; width:100%;"> </div>
                     </div>
@@ -229,7 +219,7 @@
                     <div class="location-body">
                         <div class="row">
                             <div class="col-sm-12">
-                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3556.2231484551985!2d75.7762477150459!3d26.959831883107462!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396db3b47a84b429%3A0x92b38efd91251d5d!2sDexus+Media+Best+website+development+company!5e0!3m2!1sen!2sin!4v1530094876331" width="100%" height="200" frameborder="0" style="border:0" allowfullscreen></iframe>
+                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3556.2231484551985!2d<?= $client->longitude;?>!3d<?= $client->latitude;?>!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396db3b47a84b429%3A0x92b38efd91251d5d!2s<?= $client->business_name;?>!5e0!3m2!1sen!2sin!4v1530094876331" width="100%" height="200" frameborder="0" style="border:0" allowfullscreen></iframe>
 
                             </div>
                         </div>

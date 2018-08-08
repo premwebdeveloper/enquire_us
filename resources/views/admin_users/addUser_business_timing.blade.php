@@ -32,12 +32,14 @@
               {
                 $(".closed1").prop('checked', true);
               }
+
               else
               {
                 $(".closed1").prop('checked', false);
               }
 
               $(".timing_one_from_time [value='"+from_time+"']").prop('selected', true);
+              
               $(".timing_one_to_time [value='"+to_time+"']").prop('selected', true);
 
             }
