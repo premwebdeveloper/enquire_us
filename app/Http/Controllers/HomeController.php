@@ -447,6 +447,42 @@ class HomeController extends Controller
                 // Get client images
                 $images = DB::table('user_images')->where('user_id', $title_id)->get();
 
+                // Get the address
+                $address = '';
+                $address .= $client->building.', ';
+                $address .= $client->street.', ';                
+                $address .= $client->area_name.', ';
+                $address .= $client->city_name.', ';
+                $address .= $client->state.', ';
+                $address .= $client->country.', ';
+                $address .= $client->pincode.', ';
+
+                // Hit on google api to get latitute and longitude
+                $url = "http://maps.google.com/maps/api/geocode/json?address=".urlencode($address);
+
+                $ch = curl_init();
+                curl_setopt($ch, CURLOPT_URL, $url);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);    
+                $responseJson = curl_exec($ch);
+                curl_close($ch);
+
+                $response = json_decode($responseJson);
+
+                if($response->status == 'OK') {
+                    $latitude = $response->results[0]->geometry->location->lat;
+                    $longitude = $response->results[0]->geometry->location->lng;
+
+                    echo 'Latitude: ' . $latitude;
+                    echo '<br />';
+                    echo 'Longitude: ' . $longitude;
+                } else {
+                    $latitude = '';
+                    $longitude = '';
+                }  
+
+                $client->latitude = $latitude;
+                $client->longitude = $longitude;
+
                 return view('frontend.client_view', array('client' => $client, 'other_info' => $other_info, 'images' => $images, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'client_keywords' => $client_keywords));
             }
         }
