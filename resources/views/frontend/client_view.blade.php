@@ -9,6 +9,13 @@
         padding-right: 15px;
     }
 </style>
+    <style>
+       /* Set the size of the div element that contains the map */
+      #map {
+        height: 400px;  /* The height is 400 pixels */
+        width: 100%;  /* The width is the width of the web page */
+       }
+    </style>
 <div class="container">
     @if(!empty($client))
 
@@ -219,7 +226,27 @@
                     <div class="location-body">
                         <div class="row">
                             <div class="col-sm-12">
-                                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3556.2231484551985!2d<?= $client->longitude;?>!3d<?= $client->latitude;?>!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x396db3b47a84b429%3A0x92b38efd91251d5d!2s<?= $client->business_name;?>!5e0!3m2!1sen!2sin!4v1530094876331" width="100%" height="200" frameborder="0" style="border:0" allowfullscreen></iframe>
+                                    <div id="map"></div>
+                                <script>
+                                    // Initialize and add the map
+                                    function initMap() {
+                                      // The location of Uluru
+                                      var uluru = {lat: '<?= $client->latitude;?>', lng: '<?= $client->longitude;?>'};
+                                      // The map, centered at Uluru
+                                      var map = new google.maps.Map(
+                                          document.getElementById('map'), {zoom: 4, center: uluru});
+                                      // The marker, positioned at Uluru
+                                      var marker = new google.maps.Marker({position: uluru, map: map});
+                                    }
+                                </script>
+                                <!--Load the API from the specified URL
+                                * The async attribute allows the browser to render the page while the API loads
+                                * The key parameter will contain your own API key (which is not needed for this tutorial)
+                                * The callback parameter executes the initMap() function
+                                -->
+                                <script async defer
+                                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIb6z-OH2-_nWIC-nK2_OI-r2ZO0BGr5c&callback=initMap">
+                                </script>
 
                             </div>
                         </div>
