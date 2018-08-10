@@ -448,7 +448,7 @@ class HomeController extends Controller
                 $images = DB::table('user_images')->where('user_id', $title_id)->get();
 
                 // Get the address
-                $address = '';
+                /*$address = '';
                 $address .= $client->building.', ';
                 $address .= $client->street.', ';                
                 $address .= $client->area_name.', ';
@@ -468,6 +468,8 @@ class HomeController extends Controller
 
                 $response = json_decode($responseJson);
 
+                //dd($response);
+
                 if($response->status == 'OK') {
                     $latitude = $response->results[0]->geometry->location->lat;
                     $longitude = $response->results[0]->geometry->location->lng;
@@ -477,7 +479,7 @@ class HomeController extends Controller
                 }  
 
                 $client->latitude = $latitude;
-                $client->longitude = $longitude;
+                $client->longitude = $longitude;*/
 
                 return view('frontend.client_view', array('client' => $client, 'other_info' => $other_info, 'images' => $images, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'client_keywords' => $client_keywords));
             }

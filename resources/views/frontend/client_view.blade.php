@@ -222,35 +222,6 @@
                         </div>
                         <div class="page-para" style="float:left; width:100%;"> </div>
                     </div>
-
-                    <div class="location-body">
-                        <div class="row">
-                            <div class="col-sm-12">
-                                    <div id="map"></div>
-                                <script>
-                                    // Initialize and add the map
-                                    function initMap() {
-                                      // The location of Uluru
-                                      var uluru = {lat: '<?= $client->latitude;?>', lng: '<?= $client->longitude;?>'};
-                                      // The map, centered at Uluru
-                                      var map = new google.maps.Map(
-                                          document.getElementById('map'), {zoom: 4, center: uluru});
-                                      // The marker, positioned at Uluru
-                                      var marker = new google.maps.Marker({position: uluru, map: map});
-                                    }
-                                </script>
-                                <!--Load the API from the specified URL
-                                * The async attribute allows the browser to render the page while the API loads
-                                * The key parameter will contain your own API key (which is not needed for this tutorial)
-                                * The callback parameter executes the initMap() function
-                                -->
-                                <script async defer
-                                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIb6z-OH2-_nWIC-nK2_OI-r2ZO0BGr5c&callback=initMap">
-                                </script>
-
-                            </div>
-                        </div>
-                    </div>
                 </div>
 
                 <div class="col-lg-12  col-xs-12">
@@ -274,27 +245,27 @@
                                 <div class="form-group required">
                                     <div class="col-sm-12">
                                         <label for="input-name" class="control-label">Your Name</label>
-                                        <input name="name" value="" id="input-name" class="form-control" type="text" required="">
-                                        <input name="customer_id" value="" id="input-customer_id" type="hidden">
-                                        <input name="merchant_id" value="172" id="input-merchant-id" type="hidden">
+                                        <input name="name" value="" class="form-control" type="text" required="">
+                                        <input name="customer_id" value="" type="hidden">
+                                        <input name="merchant_id" value="172" type="hidden">
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <label for="input-r_email" class="control-label">Your Email</label>
-                                        <input name="r_email" value="" id="input-email" class="form-control" type="text">
+                                        <input name="r_email" value="" class="form-control" type="text">
                                     </div>
                                 </div>                                
                                 <div class="form-group">
                                     <div class="col-sm-12">
                                         <label for="input-r_email" class="control-label">Your Phone</label>
-                                        <input name="r_phone" value="" id="input-email" class="form-control" type="text">
+                                        <input name="r_phone" value="" class="form-control" type="text">
                                     </div>
                                 </div>
                                 <div class="form-group required">
                                     <div class="col-sm-12">
                                         <label for="input-review" class="control-label">Your Review</label>
-                                        <textarea class="form-control" id="input-review" rows="5" name="text"></textarea>
+                                        <textarea class="form-control" rows="5" name="text"></textarea>
                                         <div class="help-block"><span class="text-danger">Note:</span> HTML is not translated!</div>
                                     </div>
                                 </div>
@@ -321,7 +292,7 @@
 
                                 <div class="buttons">
                                     <div class="pull-right">
-                                        <button class="btn btn-primary" id="button-review" type="submit">Submit</button>
+                                        <button class="btn btn-primary" type="submit">Submit</button>
                                     </div>
                                 </div>
                             </form>
