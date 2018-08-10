@@ -68,6 +68,11 @@ class HomeController extends Controller
             ->select('user_details.*', 'websites_page_head_titles.page_url', 'user_location.business_name')
             ->get();
 
+            // First convert object in array then suffle and then conver array into object
+            $home_page_clients = json_decode(json_encode($home_page_clients), True);
+            shuffle($home_page_clients);
+            $home_page_clients = (object)$home_page_clients;
+
         // Get latest listed home page client details
         $latest_home_page_clients = DB::table('user_details')
             ->join('websites_page_head_titles', 'websites_page_head_titles.business_page', '=', 'user_details.user_id')

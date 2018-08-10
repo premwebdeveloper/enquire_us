@@ -60,11 +60,11 @@
                         <div class="tabs-container">
                             @if(!empty($user_details->user_id))
                                 <ul class="nav nav-tabs">
-                                    <li><a href="{{ route('addUser_basic_information', ['user_id' => $user_details->user_id]) }}">Basic Information</a></li>
-                                    <li class=""><a href="{{ route('addUser_payment_modes', ['user_id' => $user_details->user_id]) }}">Payment Modes</a></li>
-                                    <li class=""><a href="{{ route('addUser_business_timing', ['user_id' => $user_details->user_id]) }}">Business Timing</a></li>
-                                    <li class=""><a href="{{ route('addUser_business_keywords', ['user_id' => $user_details->user_id]) }}">Business Keywords</a></li>
-                                    <li class="active"><a href="{{ route('addUser_logo_images', ['user_id' => $user_details->user_id]) }}">Images</a></li>
+                                    <li><a href="{{ route('addUser_basic_information', ['user_id' => $user_id]) }}">Basic Information</a></li>
+                                    <li class=""><a href="{{ route('addUser_payment_modes', ['user_id' => $user_id]) }}">Payment Modes</a></li>
+                                    <li class=""><a href="{{ route('addUser_business_timing', ['user_id' => $user_id]) }}">Business Timing</a></li>
+                                    <li class=""><a href="{{ route('addUser_business_keywords', ['user_id' => $user_id]) }}">Business Keywords</a></li>
+                                    <li class="active"><a href="{{ route('addUser_logo_images', ['user_id' => $user_id]) }}">Images</a></li>
                                 </ul>
                             @else
                                 <ul class="nav nav-tabs">
@@ -85,7 +85,7 @@
                                             <h4>Upload logo/Photos</h4>
                                             <hr />
 
-                                            <form action="{{ route('addUser_logo_images', ['user_id' => $user_details->user_id]) }}" method="post" class="form-horizontal" enctype="multipart/form-data">
+                                            <form action="{{ route('addUser_logo_images', ['user_id' => $user_id]) }}" method="post" class="form-horizontal" enctype="multipart/form-data">
                                                 <input type="hidden" class="form-control" name="check_validation" value="1">
                                                 <fieldset>
                                                     <div class="controls">

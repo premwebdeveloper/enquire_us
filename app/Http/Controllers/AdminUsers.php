@@ -508,7 +508,6 @@ class AdminUsers extends Controller
     // new User Update Logo and Images
     public function addUser_logo_images(Request $request)
     {
-
         $date = date('Y-m-d H:i:s');
 
         $user_id = $request->user_id;
@@ -525,18 +524,12 @@ class AdminUsers extends Controller
                 foreach ($request->photos as $file) {
 
                     $filename = $file->getClientOriginalName();
-
                     $ext = pathinfo($filename, PATHINFO_EXTENSION);
-
                     $filename = substr(md5(microtime()),rand(0,26),6);
-
                     $filename .= '.'.$ext;
-
                     $filesize = $file->getClientSize();
-
                     // First check file extension if file is not image then hit error
                     $extensions = ['jpg', 'jpeg', 'png', 'gig', 'bmp'];
-
                     if(! in_array($ext, $extensions))
                     {
                         $status = 'File type is not allowed you have uploaded. Please upload any image !';
@@ -550,18 +543,15 @@ class AdminUsers extends Controller
                     }
 
                     $destinationPath = config('app.fileDestinationPath').'/'.$filename;
-
                     $uploaded = Storage::put($destinationPath, file_get_contents($file->getRealPath()));
 
                     if($uploaded)
                     {
-                         $image_update = DB::table('user_images')->insert(
-                            array(
-                                'user_id' => $user_id,
-                                'image' => $filename,
-                                'status' => 1
-                            )
-                        );
+                        $image_update = DB::table('user_images')->insert(array(
+                            'user_id' => $user_id,
+                            'image' => $filename,
+                            'status' => 1
+                        ));
                     }
 
                     if($uploaded)
@@ -633,7 +623,7 @@ class AdminUsers extends Controller
             
             $user_logo = DB::table('user_details')->where('user_id', $user_id)->first();
 
-            return view('admin_users.addUser_logo_images', array("user_details" => $user_details, "user_images" => $user_images, "user_logo" => $user_logo))->with('status', $status);
+            return view('admin_users.addUser_logo_images', array("user_details" => $user_details, "user_images" => $user_images, "user_logo" => $user_logo, "user_id" => $user_id))->with('status', $status);
         }
         else
         {
@@ -644,7 +634,7 @@ class AdminUsers extends Controller
             
             $user_logo = DB::table('user_details')->where('user_id', $user_id)->first();
 
-            return view('admin_users.addUser_logo_images', array("user_details" => $user_details, "user_images" => $user_images, "user_logo" => $user_logo));
+            return view('admin_users.addUser_logo_images', array("user_details" => $user_details, "user_images" => $user_images, "user_logo" => $user_logo, "user_id" => $user_id));
         }
     }
 
