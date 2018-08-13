@@ -168,9 +168,9 @@ class WebsitePages extends Controller
                                 'business_page' => $business,
                                 'page_url' => strtolower($area_page_url),
                                 'encoded_params' => $encrypted,
-                                'title' => str_replace($cityName, $row->area, ucfirst(strtolower($title))),
-                                'keyword' => str_replace($cityName, $row->area, ucfirst(strtolower($keyword))),
-                                'description' => str_replace($cityName, $row->area, ucfirst(strtolower($description))),
+                                'title' => str_replace($cityName, $row->area.', '.$cityName, ucfirst(strtolower($title))),
+                                'keyword' => str_replace($cityName, $row->area.', '.$cityName, ucfirst(strtolower($keyword))),
+                                'description' => str_replace($cityName, $row->area.', '.$cityName, ucfirst(strtolower($description))),
                                 'created_at' => $date,
                                 'updated_at' => $date,
                                 'status' => 1
@@ -268,9 +268,9 @@ class WebsitePages extends Controller
                     $where = array('category' => $category, 'city' => $city, 'area' => $row->id);
                 }
 
-                $new_title = str_replace($cityName, $row->area, ucfirst(strtolower($title)));
-                $new_keyword = str_replace($cityName, $row->area, ucfirst(strtolower($keyword)));
-                $new_description = str_replace($cityName, $row->area, ucfirst(strtolower($description)));
+                $new_title = str_replace($cityName, $row->area.', '.$cityName, ucfirst(strtolower($title)));
+                $new_keyword = str_replace($cityName, $row->area.', '.$cityName, ucfirst(strtolower($keyword)));
+                $new_description = str_replace($cityName, $row->area.', '.$cityName, ucfirst(strtolower($description)));
                 
                 // Update title, keyword and description for area
                 $update_area = DB::table('websites_page_head_titles')->where($where)->update([
