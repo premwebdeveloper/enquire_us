@@ -314,3 +314,6 @@ ALTER TABLE `category` ADD `image` VARCHAR(191) NULL AFTER `description`;
 
 -- ---------------ALTER "websites_page_head_titles" on 27-07-2018----------------------
 ALTER TABLE `websites_page_head_titles` ADD `encoded_params` VARCHAR(191) NULL COMMENT 'encoded parameters with category, subcategory, city and area id' AFTER `page_url`;
+
+-- ---------------ALTER "user_details" on 13-08-2018----------------------
+ALTER TABLE `user_details` CHANGE `about_company` `about_company` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;

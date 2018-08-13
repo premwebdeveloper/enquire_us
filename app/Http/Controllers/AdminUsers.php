@@ -304,11 +304,16 @@ class AdminUsers extends Controller
 
         $page_url = $company_name.'-in-'.$area_name;
 
+        // Create parameters
+        $params = $user_id.'-3-'.$city.'-'.$area;
+        $encrypted = base64_encode($params);
+
         $basic_info_update = DB::table('websites_page_head_titles')->insert([
             'city' => $city,
             'area' => $area,
             'business_page' => $user_id,
             'page_url' => $page_url,
+            'encoded_params' => $encrypted,
             'title' => $title,
             'keyword' => $keyword,
             'description' => $description,
