@@ -207,6 +207,6 @@
 
     Route::any('updateSuperCategory', 'SuperCategories@update')->name('updateSuperCategory');
 
-
+    Route::get('enquiries', 'Enquiries@enquiries')->name('enquiries');
 
 // });

@@ -61,6 +61,8 @@
             <li><a href="{{route('website_pages')}}"><i class="fa fa-users"></i> <span class="nav-label">Website Pages</span></a></li>
 
             <li><a href="{{route('page_titles')}}"><i class="fa fa-users"></i> <span class="nav-label">Page Titles</span></a></li>
+
+            <li><a href="{{route('enquiries')}}"><i class="fa fa-users"></i> <span class="nav-label">User Enquiries</span></a></li>
 		</ul>
 	</div>
 </nav>
