@@ -317,3 +317,24 @@ ALTER TABLE `websites_page_head_titles` ADD `encoded_params` VARCHAR(191) NULL C
 
 -- ---------------ALTER "user_details" on 13-08-2018----------------------
 ALTER TABLE `user_details` CHANGE `about_company` `about_company` TEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL;
+
+-- ---------------CREATE TABLE `client_enquiries` on 16-08-2018----------------------
+CREATE TABLE `client_enquiries` (
+  `id` int(11) NOT NULL,
+  `client_uid` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `phone` int(11) NOT NULL,
+  `enquiry` text,
+  `status` tinyint(1) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `client_enquiries`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `client_enquiries`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `client_enquiries` CHANGE `phone` `phone` VARCHAR(10) NOT NULL;

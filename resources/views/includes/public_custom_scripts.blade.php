@@ -1,6 +1,15 @@
 <script type="text/javascript">
     $(document).ready(function(){
 
+        // User enquiry button click open pop up
+        $(document).on('click', '.userEnquiryClick', function(){
+
+            $('#enq_client').val($(this).attr('id'));
+
+            // Open pop up on click button
+            $('#userEnquiryModal').modal('show');
+        });
+
         // Back button
         $('.back').click(function(){
           $('.nav-tabs > .active').prev('li').find('a').trigger('click');

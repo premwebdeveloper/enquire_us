@@ -12,6 +12,7 @@ use Storage;
 use Session;
 use Crypt;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Redirect;
 
 class HomeController extends Controller
 { 
@@ -680,5 +681,53 @@ class HomeController extends Controller
         }
 
         return view('sitemap.sitemap', array('urls' => $urls, 'base_url' => $base_url));
+    }
+
+    // send enquiry to client
+    public function send_enquiry(Request $request){
+        
+        $name = $request->enq_name;
+        $email = $request->enq_email;
+        $phone = $request->enq_phone;
+        $enquiry = $request->enq_enquiry;
+        $enq_client = $request->enq_client;
+        $temp = explode('_', $enq_client);
+        $client_uid = decrypt($temp[1]);
+
+        $date = date('Y-m-d H:i:s');
+
+        // Check phone number is numeric or not
+        if (! is_numeric($phone)){
+            return Redirect::back()->withErrors(['Phone number is not valid !']);
+        }
+
+        // Check the email is valid or not
+        if (! filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return Redirect::back()->withErrors(['Email is not valid !']);
+        }
+
+        // If all ok then Insert enquiry in table
+        $enquiry = DB::table('client_enquiries')->insert([
+            'client_uid' => $client_uid,
+            'name' => $name,
+            'email' => $email,
+            'phone' => $phone,
+            'enquiry' => $enquiry,
+            'status' => 1,
+            'created_at' => $date,
+            'updated_at' => $date
+        ]);
+
+        if($enquiry){
+
+            // get client information from db
+            $client_info = DB::table('websites_page_head_titles')->where(['business_page' => $client_uid, 'status' => 1])->first();
+
+            return Redirect::back()->withErrors(['Enquiry generated successfully.']);
+
+        }else{
+            return Redirect::back()->withErrors(['Something went wrong !']);
+        }       
+
     }
 }

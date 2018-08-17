@@ -2,51 +2,45 @@
 
 @section('content')
 <style>
-    .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
-        padding: 3px;
-        border-top: none;
-        padding-left: 0;
-        padding-right: 15px;
-    }
+    .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th
+    { padding: 3px; border-top: none; padding-left: 0; padding-right: 15px; }
+    #map { height: 400px; width: 100%; }
+    #lightSlider { list-style: none outside none; padding-left: 0; margin-bottom:0; }
+    #lightSlider li { display: block; float: left; margin-right: 6px; cursor:pointer; }
+    #lightSlider li img { display: block; height: auto; max-width: 100%; }
+    .lSSlideOuter li{ padding:3px; border:#ccc solid 1px; }
+    .nav-tabs > li { float: left; }
+    .lSSlideOuter .lSPager.lSGallery img{height:50px;}
 </style>
-    <style>
-       /* Set the size of the div element that contains the map */
-      #map {
-        height: 400px;  /* The height is 400 pixels */
-        width: 100%;  /* The width is the width of the web page */
-       }
-    </style>
 <div class="container">
     @if(!empty($client))
 
         <script>
             $(document).ready(function() {
                 $('#lightSlider').lightSlider({
-                    gallery: true,
-                    item: 1,
-                    loop: true,
-                    slideMargin: 0,
-                    thumbItem: 5
+                    gallery: true, item: 1, loop: true, slideMargin: 0, thumbItem: 5
                 });
                 $("#slide_1").addClass('active');
             });
         </script>
 
-        <style type="text/css">
-            #lightSlider { list-style: none outside none; padding-left: 0; margin-bottom:0; }
-            #lightSlider li { display: block; float: left; margin-right: 6px; cursor:pointer; }
-            #lightSlider li img { display: block; height: auto; max-width: 100%; }
-            .lSSlideOuter li{ padding:3px; border:#ccc solid 1px; }
-            .nav-tabs > li { float: left; }
-            .lSSlideOuter .lSPager.lSGallery img{height:50px;}
-        </style>
-
         <div class="row">
+
+            @if($errors->any())
+            <div class="col-md-12">
+                <div class="alert alert-danger alert-dismissible">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {{$errors->first()}}
+                </div>
+            </div>
+            @endif
+
             <div class="col-lg-12  col-xs-12">
                 <div class="detail-box">
 
+                    <!-- User enquiry button -->
                     <div class="wishlist-corner">
-                        <a data-toggle="modal" data-target="#myLogin" data-original-title="Add to Wishlist" class="btn" style="padding:0;">
+                        <a class="btn userEnquiryClick p0" id="userEnquiryClick_<?= encrypt($client->user_id); ?>">
                             <i class="fa fa-envelope" title="send enquiry"></i>
                         </a>
                     </div>
@@ -134,33 +128,15 @@
                                 <div class="time-share">
                                     <div class="share-box">
                                         <ul class="addthis_default_style">
-                                            <li>
-                                                <span><i class="fa fa-map-marker"></i></span> 
-                                            </li>                                            
-                                            <li>
-                                                {{ $client->building }},
-                                            </li>
-                                            <li>
-                                                {{ $client->street }},
-                                            </li>
-                                            <li>
-                                                {{ $client->landmark }},
-                                            </li>                                            
-                                            <li>
-                                                {{ $client->area_name }},
-                                            </li>                                            
-                                            <li>
-                                                {{ $client->city_name }},
-                                            </li>                                           
-                                            <li>
-                                                {{ $client->state }},
-                                            </li>                                            
-                                            <li>
-                                                {{ $client->country }},
-                                            </li>                                            
-                                            <li>
-                                                {{ $client->pincode }}
-                                            </li>
+                                            <li> <span><i class="fa fa-map-marker"></i></span> </li>                                            
+                                            <li> {{ $client->building }}, </li>
+                                            <li> {{ $client->street }}, </li>
+                                            <li> {{ $client->landmark }}, </li>                                            
+                                            <li> {{ $client->area_name }}, </li>                                            
+                                            <li> {{ $client->city_name }}, </li>                                           
+                                            <li> {{ $client->state }}, </li>                                            
+                                            <li> {{ $client->country }}, </li>                                            
+                                            <li> {{ $client->pincode }} </li>
                                         </ul>
                                     </div>
                                 </div>

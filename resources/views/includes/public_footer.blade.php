@@ -116,7 +116,7 @@
     </footer>
 </div>
   <!-- Modal -->
-<div class="modal fade" id="myLogin" role="dialog">
+<div class="modal fade" id="userEnquiryModal" role="dialog">
     <div class="modal-dialog">
     
       <!-- Modal content-->
@@ -126,52 +126,53 @@
             <h4 class="modal-title">Send Enquiry</h4>
         </div>
         <div class="modal-body">
-            <form class="form-horizontal">
+            <form class="form-horizontal" method="post" action="{{ route('send_enquiry') }}">
+
+                {{ csrf_field() }}
+
+                <input type="hidden" name="enq_client" id="enq_client">
+
                 <div class="form-group required">
                     <div class="col-sm-12">
-                        <label for="input-name" class="control-label">Your Name</label>
-                        <input name="name" value="" id="input-name" class="form-control" type="text" required="">
-                        <input name="customer_id" value="" id="input-customer_id" type="hidden">
-                        <input name="merchant_id" value="172" id="input-merchant-id" type="hidden">
+                        <label for="enq_name" class="control-label">Your Name</label>
+                        <input name="enq_name" id="enq_name" class="form-control" type="text" required="">
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group required">
                     <div class="col-sm-12">
-                        <label for="input-r_email" class="control-label">Your Email</label>
-                        <input name="r_email" value="" id="input-email" class="form-control" type="text">
+                        <label for="enq_email" class="control-label">Your Email</label>
+                        <input name="enq_email" id="enq_email" class="form-control" type="email" required="" placeholder="example@gmail.com">
                     </div>
                 </div>                                
-                <div class="form-group">
+                <div class="form-group required">
                     <div class="col-sm-12">
-                        <label for="input-r_email" class="control-label">Your Phone</label>
-                        <input name="r_phone" value="" id="input-phone" class="form-control" type="text">
+                        <label for="enq_phone" class="control-label">Your Phone</label>
+                        <input name="enq_phone" id="enq_phone" class="form-control" type="tel" required="" pattern="[789][0-9]{9}" placeholder="9876543210">
                     </div>
                 </div>
                 <div class="form-group required">
                     <div class="col-sm-12">
-                        <label for="input-review" class="control-label">Your Review</label>
-                        <textarea class="form-control" id="input-review" rows="5" name="text"></textarea>
+                        <label for="enq_enquiry" class="control-label">Your Enquiry</label>
+                        <textarea class="form-control" id="enq_enquiry" rows="5" name="enq_enquiry" required="" placeholder="Type your enquiry here..."></textarea>
                         <div class="help-block"><span class="text-danger">Note:</span> HTML is not translated!</div>
                     </div>
                 </div>
 
                 <div class="buttons">
-                    <div class="pull-right">
+                    <div class="text-right">
                         <button class="btn btn-primary" id="button-review" type="submit">Submit</button>
                     </div>
                 </div>
             </form>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
       </div>
       
     </div>
 </div>
-  <!-- Scripts -->
-  @include('includes.public_scripts')
-  @include('includes.public_custom_scripts')
+
+<!-- Scripts -->
+@include('includes.public_scripts')
+@include('includes.public_custom_scripts')
 
 </body>
 </html>
