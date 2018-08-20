@@ -160,7 +160,7 @@
 
                 <div class="buttons">
                     <div class="text-right">
-                        <button class="btn btn-primary" id="button-review" type="submit">Submit</button>
+                        <button class="btn btn-primary" id="button-enquiry" type="submit">Submit</button>
                     </div>
                 </div>
             </form>

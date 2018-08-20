@@ -727,7 +727,52 @@ class HomeController extends Controller
 
         }else{
             return Redirect::back()->withErrors(['Something went wrong !']);
-        }       
+        }
+    }
 
+    // submit user review
+    public function review(Request $request){
+        
+        $name = $request->rev_name;
+        $email = $request->rev_email;
+        $phone = $request->rev_phone;
+        $review = $request->rev_review;
+        $rating = $request->rev_rating;
+        $client_uid = $request->rev_client;
+
+        $date = date('Y-m-d H:i:s');
+
+        // Check phone number is numeric or not
+        if (! is_numeric($phone)){
+            return Redirect::back()->withErrors(['Phone number is not valid !']);
+        }
+
+        // Check the email is valid or not
+        if (! filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return Redirect::back()->withErrors(['Email is not valid !']);
+        }
+
+        // If all ok then Insert enquiry in table
+        $review = DB::table('client_reviews')->insert([
+            'client_uid' => $client_uid,
+            'name' => $name,
+            'email' => $email,
+            'phone' => $phone,
+            'review' => $review,
+            'rating' => $rating,
+            'status' => 1,
+            'created_at' => $date,
+            'updated_at' => $date
+        ]);
+
+        if($review){
+
+            // If review submitted successfully then redirect with success message
+            return Redirect::back()->withErrors(['Review submitted successfully.']);
+        }else{
+
+            // Redirect with error message
+            return Redirect::back()->withErrors(['Something went wrong !']);
+        }
     }
 }

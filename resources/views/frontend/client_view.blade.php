@@ -212,66 +212,74 @@
                     </ul>
 
                     <div class="tab-content">
+                        <!-- This is reviews tab -->
                         <div id="tab-review-list" class="tab-pane active">
+                            <!-- Show all reviews here -->
                             <p>There are no reviews for this offer.</p>
                         </div>
+                        <!-- Review form section -->
                         <div id="tab-review" class="tab-pane">
-                            <div id="review_msg"></div>
-                            <form class="form-horizontal">
+                            
+                            <form class="form-horizontal" method="post" action="{{ route('review') }}">
+
+                                {{ csrf_field() }}
+
+                                <input type="hidden" name="rev_client" id="rev_client" value="{{ $client->user_id }}">
+
                                 <div class="form-group required">
                                     <div class="col-sm-12">
-                                        <label for="input-name" class="control-label">Your Name</label>
-                                        <input name="name" value="" class="form-control" type="text" required="">
-                                        <input name="customer_id" value="" type="hidden">
-                                        <input name="merchant_id" value="172" type="hidden">
+                                        <label for="rev_name" class="control-label">Your Name</label>
+                                        <input name="rev_name" id="rev_name" class="form-control" type="text" required="">
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group required">
                                     <div class="col-sm-12">
-                                        <label for="input-r_email" class="control-label">Your Email</label>
-                                        <input name="r_email" value="" class="form-control" type="text">
+                                        <label for="rev_email" class="control-label">Your Email</label>
+                                        <input name="rev_email" id="rev_email" class="form-control" type="email" required="" placeholder="example@gmail.com">
                                     </div>
                                 </div>                                
-                                <div class="form-group">
+                                <div class="form-group required">
                                     <div class="col-sm-12">
-                                        <label for="input-r_email" class="control-label">Your Phone</label>
-                                        <input name="r_phone" value="" class="form-control" type="text">
+                                        <label for="rev_phone" class="control-label">Your Phone</label>
+                                        <input name="rev_phone" id="rev_phone" class="form-control" type="tel" required="" pattern="[789][0-9]{9}" placeholder="9876543210">
                                     </div>
                                 </div>
                                 <div class="form-group required">
                                     <div class="col-sm-12">
-                                        <label for="input-review" class="control-label">Your Review</label>
-                                        <textarea class="form-control" rows="5" name="text"></textarea>
+                                        <label for="rev_review" class="control-label">Your Review</label>
+                                        <textarea class="form-control" id="rev_review" rows="5" name="rev_review" required="" placeholder="Type your review here..."></textarea>
                                         <div class="help-block"><span class="text-danger">Note:</span> HTML is not translated!</div>
                                     </div>
                                 </div>
+
                                 <div class="form-group required">
                                     <div class="col-sm-12">
-                                        <label class="control-label">Rating</label>
-                                        &nbsp;&nbsp;
-                                        <input id="r_1" title="Ordinary" value="1" name="rating" type="radio">
-                                        <label for="r_1" title="Ordinary">1</label>
-                                        &nbsp;&nbsp;
-                                        <input id="r_2" title="Average" value="2" name="rating" type="radio">
-                                        <label for="r_2" title="Average">2</label>
-                                        &nbsp;&nbsp;
-                                        <input id="r_3" title="Good" value="3" name="rating" type="radio">
-                                        <label for="r_3" title="Good">3</label>
-                                        &nbsp;&nbsp;
-                                        <input id="r_4" title="Very Good" value="4" name="rating" type="radio">
-                                        <label for="r_4" title="Very Good">4</label>
-                                        &nbsp;&nbsp;
-                                        <input id="r_5" title="Excellent" value="5" name="rating" type="radio">
+                                        <label class="control-label">Rating</label> &nbsp;&nbsp;
+
+                                        <input id="r_1" title="Ordinary" value="1" name="rev_rating" type="radio">
+                                        <label for="r_1" title="Ordinary">1</label> &nbsp;&nbsp;
+
+                                        <input id="r_2" title="Average" value="2" name="rev_rating" type="radio">
+                                        <label for="r_2" title="Average">2</label> &nbsp;&nbsp;
+
+                                        <input id="r_3" title="Good" value="3" name="rev_rating" type="radio">
+                                        <label for="r_3" title="Good">3</label> &nbsp;&nbsp;
+
+                                        <input id="r_4" title="Very Good" value="4" name="rev_rating" type="radio">
+                                        <label for="r_4" title="Very Good">4</label> &nbsp;&nbsp;
+
+                                        <input id="r_5" title="Excellent" value="5" name="rev_rating" type="radio">
                                         <label for="r_5" title="Excellent">5</label>
                                     </div>
                                 </div>
 
                                 <div class="buttons">
-                                    <div class="pull-right">
-                                        <button class="btn btn-primary" type="submit">Submit</button>
+                                    <div class="text-right">
+                                        <button class="btn btn-primary" id="button-review" type="submit">Submit</button>
                                     </div>
                                 </div>
                             </form>
+
                         </div>
                     </div>
                 </div>

@@ -338,3 +338,23 @@ ALTER TABLE `client_enquiries`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `client_enquiries` CHANGE `phone` `phone` VARCHAR(10) NOT NULL;
+
+-- ---------------CREATE TABLE `client_reviews` on 20-08-2018----------------------
+CREATE TABLE `client_reviews` (
+  `id` int(11) NOT NULL,
+  `client_uid` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `phone` varchar(10) NOT NULL,
+  `review` text,
+  `rating` int(11) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `client_reviews`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `client_reviews`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;

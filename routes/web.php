@@ -20,7 +20,9 @@
     Auth::routes();
 
     // send enquiry route
-    Route::any('send_enquiry', 'HomeController@send_enquiry')->name('send_enquiry');
+    Route::post('send_enquiry', 'HomeController@send_enquiry')->name('send_enquiry');
+
+    Route::post('review', 'HomeController@review')->name('review');
 
     Route::get('verify/{email}/{verifyToken}', 'Auth\RegisterController@sendEmailDone')->name('sendEmailDone');
     Route::get('verifyEmailFirst', 'Auth\RegisterController@verifyEmailFirst')->name('verifyEmailFirst');
