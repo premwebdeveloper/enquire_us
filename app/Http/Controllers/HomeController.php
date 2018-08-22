@@ -453,41 +453,10 @@ class HomeController extends Controller
                 // Get client images
                 $images = DB::table('user_images')->where('user_id', $title_id)->get();
 
-                // Get the address
-                /*$address = '';
-                $address .= $client->building.', ';
-                $address .= $client->street.', ';                
-                $address .= $client->area_name.', ';
-                $address .= $client->city_name.', ';
-                $address .= $client->state.', ';
-                $address .= $client->country.', ';
-                $address .= $client->pincode.', ';
+                // Get client reviews
+                $reviews = DB::table('client_reviews')->where(['client_uid' => $title_id, 'status' => 1])->get();                
 
-                // Hit on google api to get latitute and longitude
-                $url = "http://maps.google.com/maps/api/geocode/json?address=".urlencode($address);
-
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_URL, $url);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);    
-                $responseJson = curl_exec($ch);
-                curl_close($ch);
-
-                $response = json_decode($responseJson);
-
-                //dd($response);
-
-                if($response->status == 'OK') {
-                    $latitude = $response->results[0]->geometry->location->lat;
-                    $longitude = $response->results[0]->geometry->location->lng;
-                } else {
-                    $latitude = '';
-                    $longitude = '';
-                }  
-
-                $client->latitude = $latitude;
-                $client->longitude = $longitude;*/
-
-                return view('frontend.client_view', array('client' => $client, 'other_info' => $other_info, 'images' => $images, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'client_keywords' => $client_keywords));
+                return view('frontend.client_view', array('client' => $client, 'other_info' => $other_info, 'images' => $images, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'client_keywords' => $client_keywords, 'reviews' => $reviews));
             }
         }
 

@@ -11,6 +11,10 @@
     .lSSlideOuter li{ padding:3px; border:#ccc solid 1px; }
     .nav-tabs > li { float: left; }
     .lSSlideOuter .lSPager.lSGallery img{height:50px;}
+    .list-group-item {
+        position: relative; display: block; padding: 10px 15px; margin-bottom: -1px; background-color: #fff; border: 1px solid #ddd;
+    }
+    .checked{color: orange;}
 </style>
 <div class="container">
     @if(!empty($client))
@@ -204,7 +208,7 @@
 
                     <ul class="nav nav-tabs" id="review_tab">
                         <li class="active">
-                            <a style="text-transform:inherit;" data-toggle="tab" href="#tab-review-list">Reviews (0)</a>
+                            <a style="text-transform:inherit;" data-toggle="tab" href="#tab-review-list">Reviews ( {{ count($reviews) }} )</a>
                         </li>
                         <li class="">
                             <a style="text-transform:inherit;" data-toggle="tab" href="#tab-review">Write a Review</a>
@@ -215,7 +219,40 @@
                         <!-- This is reviews tab -->
                         <div id="tab-review-list" class="tab-pane active">
                             <!-- Show all reviews here -->
-                            <p>There are no reviews for this offer.</p>
+                            @if(!empty($reviews))
+                                <ul class="list-group">
+                                @foreach($reviews as $key => $review)
+                                    <li class="list-group-item">
+                                        <p>
+                                            <div class="col-md-8 p0">
+                                                <i> {{ $review->review }} </i>
+                                            </div>
+                                            <div class="col-md-4 text-right p0">
+                                                @if($review->rating == 1)
+                                                    <span class="fa fa-star checked"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span>
+                                                @endif
+                                                @if($review->rating == 2)
+                                                    <span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span>
+                                                @endif
+                                                @if($review->rating == 3)
+                                                    <span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star"></span><span class="fa fa-star"></span>
+                                                @endif
+                                                @if($review->rating == 4)
+                                                    <span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star"></span>
+                                                @endif
+                                                @if($review->rating == 5)
+                                                    <span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span>
+                                                @endif
+                                                
+                                            </div>
+                                        </p>
+                                        <p class="text-right"> <strong> -- {{ $review->name }} </strong></p>                                        
+                                    </li>
+                                @endforeach
+                                </ul>
+                            @else
+                                <p>There are no reviews found.</p>
+                            @endif
                         </div>
                         <!-- Review form section -->
                         <div id="tab-review" class="tab-pane">

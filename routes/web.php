@@ -211,4 +211,8 @@
 
     Route::get('enquiries', 'Enquiries@enquiries')->name('enquiries');
 
+    Route::get('reviews', 'Enquiries@reviews')->name('reviews');
+    
+    Route::get('review_remove/{id}', 'Enquiries@review_remove')->name('review_remove');
+
 // });
