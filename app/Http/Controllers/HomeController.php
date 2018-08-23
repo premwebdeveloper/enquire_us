@@ -699,6 +699,50 @@ class HomeController extends Controller
         }
     }
 
+    // send multiple enquiry for any category
+    public function send_multiple_enquiries(Request $request){
+        
+        $name = $request->enq_name;
+        $email = $request->enq_email;
+        $phone = $request->enq_phone;
+        $enquiry = $request->enq_enquiry;
+        $enq_client = $request->enq_client;
+        $temp = explode('_', $enq_client);
+        $category_id = decrypt($temp[1]);
+
+        $date = date('Y-m-d H:i:s');
+
+        // Check phone number is numeric or not
+        if (! is_numeric($phone)){
+            return Redirect::back()->withErrors(['Phone number is not valid !']);
+        }
+
+        // Check the email is valid or not
+        if (! filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return Redirect::back()->withErrors(['Email is not valid !']);
+        }
+
+        // If all ok then Insert enquiry in table
+        $enquiry = DB::table('category_enquiries')->insert([
+            'category_id' => $category_id,
+            'name' => $name,
+            'email' => $email,
+            'phone' => $phone,
+            'enquiry' => $enquiry,
+            'status' => 1,
+            'created_at' => $date,
+            'updated_at' => $date
+        ]);
+
+        // If enquiry submitted successfully
+        if($enquiry){
+            return Redirect::back()->withErrors(['Enquiry generated successfully.']);
+
+        }else{
+            return Redirect::back()->withErrors(['Something went wrong !']);
+        }
+    }
+
     // submit user review
     public function review(Request $request){
         

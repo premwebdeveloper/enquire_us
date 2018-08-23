@@ -22,6 +22,8 @@
     // send enquiry route
     Route::post('send_enquiry', 'HomeController@send_enquiry')->name('send_enquiry');
 
+    Route::post('send_multiple_enquiries', 'HomeController@send_multiple_enquiries')->name('send_multiple_enquiries');
+
     Route::post('review', 'HomeController@review')->name('review');
 
     Route::get('verify/{email}/{verifyToken}', 'Auth\RegisterController@sendEmailDone')->name('sendEmailDone');
@@ -210,6 +212,8 @@
     Route::any('updateSuperCategory', 'SuperCategories@update')->name('updateSuperCategory');
 
     Route::get('enquiries', 'Enquiries@enquiries')->name('enquiries');
+    
+    Route::get('category_enquiries', 'Enquiries@category_enquiries')->name('category_enquiries');
 
     Route::get('reviews', 'Enquiries@reviews')->name('reviews');
     

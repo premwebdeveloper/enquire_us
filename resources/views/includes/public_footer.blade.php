@@ -115,7 +115,8 @@
     </div>
     </footer>
 </div>
-  <!-- Modal -->
+
+<!-- Modal -->
 <div class="modal fade" id="userEnquiryModal" role="dialog">
     <div class="modal-dialog">
     

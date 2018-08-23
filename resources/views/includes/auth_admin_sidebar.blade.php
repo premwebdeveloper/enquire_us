@@ -64,6 +64,8 @@
 
             <li><a href="{{route('enquiries')}}"><i class="fa fa-users"></i> <span class="nav-label">User Enquiries</span></a></li>
 
+            <li><a href="{{route('category_enquiries')}}"><i class="fa fa-users"></i> <span class="nav-label">Category Enquiries</span></a></li>
+
             <li><a href="{{route('reviews')}}"><i class="fa fa-users"></i> <span class="nav-label">User Reviews</span></a></li>
 		</ul>
 	</div>

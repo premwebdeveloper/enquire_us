@@ -13,6 +13,7 @@
 			<div class="col-sm-12 offset-margin-2">
 				<div class="row">
 
+                    <!-- Left sidebar -->
                     <div class="col-sm-3">
                         <div class="col-sm-12">
                             <div class="catagory-name">
@@ -58,7 +59,8 @@
                         </div>
                     </div>
 
-					<div class="col-sm-6 top60">
+                    <!-- Middle main content bar -->
+					<div class="col-sm-6" style="margin-top: 35px;">
 
                         <div class="col-sm-12 top40 p0">
                             <h1 class="brand-header">Latest offers </h1>
@@ -138,16 +140,30 @@
 
 					</div>
 
-                    <div class="col-sm-3">
-                        <div class="col-sm-12">
-                            <div class="filter top30 cata-dis-none">
-                                <div class="list-group category_list">
+                    <!-- Right sidebar -->
+                    <div class="col-sm-3" style="margin-top: 35px;">
+                        <div class="col-sm-12 top40 p0">
+                            <h1 class="brand-header"> Enquiry </h1>
+                        </div>
 
+                        <div class="col-sm-12 p0">
+
+                            <!-- Show enquiry success / error message -->
+                            @if($errors->any())
+                            <div class="col-md-12 p0">
+                                <div class="alert alert-danger alert-dismissible">
+                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                    {{$errors->first()}}
                                 </div>
                             </div>
+                            @endif
+
+                            Click <a href="javascript:;" id="enquiry-for_<?= encrypt($title_info->id); ?>" class="btn btn-info btn-xs multiple_enquiries"> Here </a> to enquiry this keyword
                         </div>
+
                     </div>
 
+                    <!-- Category description -->
                     <div class="col-sm-9 col-sm-offset-3">
                         <div class="col-sm-12">
                             <div class="filter top30 cata-dis-none">

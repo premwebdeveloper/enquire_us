@@ -10,6 +10,18 @@
             $('#userEnquiryModal').modal('show');
         });
 
+        // Open enquiry form on click multiple enquiry button
+        $(document).on('click', '.multiple_enquiries', function(){
+
+            // Change form action to multiple enquiries
+            $('#userEnquiryModal form').attr('action', '{{ route("send_multiple_enquiries") }}');
+            
+            $('#enq_client').val($(this).attr('id'));
+
+            // Open pop up on click button
+            $('#userEnquiryModal').modal('show');
+        });
+
         // Back button
         $('.back').click(function(){
           $('.nav-tabs > .active').prev('li').find('a').trigger('click');

@@ -358,3 +358,22 @@ ALTER TABLE `client_reviews`
 
 ALTER TABLE `client_reviews`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+-- ---------------CREATE TABLE `category_enquiries` on 20-08-2018----------------------
+CREATE TABLE `category_enquiries` (
+  `id` int(11) NOT NULL,
+  `category_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `phone` varchar(10) NOT NULL,
+  `enquiry` text,
+  `status` tinyint(1) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `category_enquiries`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `category_enquiries`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
