@@ -649,7 +649,7 @@ class HomeController extends Controller
             $base_url = $hostname."/";
         }
 
-        return view('sitemap.sitemap', array('urls' => $urls, 'base_url' => $base_url));
+        return response()->view('sitemap.sitemap', array('urls' => $urls, 'base_url' => $base_url))->header('Content-type', 'text/xml');
     }
 
     // send enquiry to client
