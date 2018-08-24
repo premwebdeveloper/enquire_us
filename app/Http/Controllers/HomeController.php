@@ -179,7 +179,7 @@ class HomeController extends Controller
             }else{
 
                 // get sub category name only to show on page
-                $title_info = DB::table('subcategory')->where('id', $title_id)->select('subcategory')->first();
+                $title_info = DB::table('subcategory')->where('id', $title_id)->first();
 
                 // First get category id of this sub category
                 $this_category = DB::table('subcategory')->where('id', $title_id)->first();
@@ -339,7 +339,7 @@ class HomeController extends Controller
                             ->get();
 
                 // get sub category name only to show on page
-                $title_info = DB::table('subcategory')->where('id', $title_id)->select('subcategory')->first();
+                $title_info = DB::table('subcategory')->where('id', $title_id)->first();
 
                 // Get all subcategories
                 $subcategories = DB::table('subcategory')
