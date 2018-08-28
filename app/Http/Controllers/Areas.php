@@ -52,7 +52,7 @@ class Areas extends Controller
 
         # Set validation for
         $this->validate($request, [
-            'pincode' => 'required|unique:areas',
+            //'pincode' => 'required|unique:areas',
             'area' => 'required|unique:areas,area,NULL,id,city,'.$city
         ]);
 

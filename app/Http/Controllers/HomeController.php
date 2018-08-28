@@ -641,7 +641,7 @@ class HomeController extends Controller
         // get all page urls from database table
         $urls = DB::table('websites_page_head_titles')->where(['status' => 1, 'update_status' => 1])->get();
 
-        $hostname =  $_SERVER['HTTP_HOST']; 
+        $hostname =  'http://'.$_SERVER['HTTP_HOST']; 
 
         if (strpos($hostname, 'localhost') !== false) {
             $base_url = $hostname."/enquire_us/trunk/";
