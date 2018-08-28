@@ -44,47 +44,43 @@
           	<div class="row">
 
             	<div class="col-sm-4">
-              	<div class="footer-logo">
-                	<img alt="Footer-logo" src="{{url('/')}}/resources/frontend_assets/images/logo.png" />
-                </div>
+                  	<div class="footer-logo">
+                    	<img alt="Footer-logo" src="{{url('/')}}/resources/frontend_assets/images/logo.png" />
+                    </div>
 
-                <div class="footer-desc">
-                    <p>Enquire Us is India first local services marketing platform, helps you save money through.</p>
-                </div>
+                    <div class="footer-desc">
+                        <p>Enquire Us is India first local services marketing platform, helps you save money through.</p>
+                    </div>
 
-                <div class="social-media">
-                  <a target="_blank" rel="nofollow" href="https://www.facebook.com/" class="icon-link  facebook fill">
-                    <i class="fa fa-facebook"></i>
-                  </a>
-                  <a target="_blank" rel="nofollow" href="https://www.linkedin.com/" class="icon-link linkedin fill">
-                    <i class="fa fa-linkedin"></i>
-                  </a>
-                  <a href="https://twitter.com/" target="_blank"  class="icon-link  twitter fill">
-                    <i class="fa fa-twitter"></i>
-                  </a>
-                  <a target="_blank" rel="nofollow" href="https://plus.google.com/" class="icon-link google-plus fill">
-                    <i class="fa fa-google-plus"></i>
-                  </a>
-                  <a target="_blank" rel="nofollow" href="https://www.instagram.com/" class="icon-link instagram fill">
-                    <i class="fa fa-instagram"></i>
-                  </a>
-                  <a target="_blank" rel="nofollow" href="http://www.pinterest.com/" class="icon-link pinterest fill">
-                    <i class="fa fa-pinterest-p"></i>
-                  </a>
+                    <div class="social-media">
+                      <a target="_blank" rel="nofollow" href="https://www.facebook.com/" class="icon-link  facebook fill">
+                        <i class="fa fa-facebook"></i>
+                      </a>
+                      <a target="_blank" rel="nofollow" href="https://www.linkedin.com/" class="icon-link linkedin fill">
+                        <i class="fa fa-linkedin"></i>
+                      </a>
+                      <a href="https://twitter.com/" target="_blank"  class="icon-link  twitter fill">
+                        <i class="fa fa-twitter"></i>
+                      </a>
+                      <a target="_blank" rel="nofollow" href="https://plus.google.com/" class="icon-link google-plus fill">
+                        <i class="fa fa-google-plus"></i>
+                      </a>
+                      <a target="_blank" rel="nofollow" href="https://www.instagram.com/" class="icon-link instagram fill">
+                        <i class="fa fa-instagram"></i>
+                      </a>
+                      <a target="_blank" rel="nofollow" href="http://www.pinterest.com/" class="icon-link pinterest fill">
+                        <i class="fa fa-pinterest-p"></i>
+                      </a>
+                    </div>
                 </div>
-              </div>
 
             <div class="col-sm-2">
                 <div class="footer-menu">
                     <h3>Quick Links</h3>
                     <ul>
-                        <?php $website_pages = DB::table('website_pages')->where('status', 1)->get(); ?>
-                        @foreach($website_pages as $pages)
-                            <?php
-                                $page_name = preg_replace('/[^A-Za-z0-9\-]/', '-', $pages->page_title);
-                            ?>
-                            <li><a href="{{ URL::to('webpage',array('webpage'=>$page_name)) }}">{{$pages->page_title}}</a></li>
-                        @endforeach
+                        <li><a href="{{ route('about-us') }}">About Us</a></li>
+                        <li><a href="{{ route('contact-us') }}">Contact Us</a></li>
+                    
                     </ul>
                 </div>
             </div>

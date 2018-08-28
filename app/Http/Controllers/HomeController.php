@@ -555,8 +555,8 @@ class HomeController extends Controller
         exit;
     }
 
-    # Get dynamic Website Pages and their content
-    public function webpage(Request $request)
+    # Get content for about us page
+    public function aboutus(Request $request)
     {
         $lastParam = basename(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
 
@@ -581,7 +581,41 @@ class HomeController extends Controller
         $page = str_replace('-', ' ', $page);
 
         // Get page content
-        $webpages = DB::table('website_pages')->where(array('page_title' => $page, 'status' => 1))->first();
+        $webpages = DB::table('website_pages')->where(array('id' => 1, 'status' => 1))->first();
+
+        $website_pages = DB::table('website_pages')->where('status', 1)->get();
+        
+        return view('frontend.webpage_view', array('webpages' => $webpages, 'website_pages' => $website_pages, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords));
+
+    }
+
+    # Get content for contact us page
+    public function contactus(Request $request)
+    {
+        $lastParam = basename(parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH));
+
+        // get page title, keyword and description
+        $page_titles = DB::table('websites_page_head_titles')->where(array('status' => 1, 'page_url' => $lastParam))->first();
+
+        if(!empty($page_titles))
+        {
+            $title = $page_titles->title;
+            $meta_keywords = $page_titles->keyword;
+            $meta_description = $page_titles->description;
+        }
+        else
+        {
+            $title = '';
+            $meta_keywords = '';
+            $meta_description = '';
+        }
+        
+        $page = $request->webpage;
+
+        $page = str_replace('-', ' ', $page);
+
+        // Get page content
+        $webpages = DB::table('website_pages')->where(array('id' => 2, 'status' => 1))->first();
 
         $website_pages = DB::table('website_pages')->where('status', 1)->get();
         

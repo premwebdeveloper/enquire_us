@@ -33,7 +33,9 @@
     Route::any('category/{category}/{id}', 'HomeController@category');
     Route::any('view/{business_url}/{id}', 'HomeController@view')->name('view');
 
-    Route::any('webpage/{webpage}', 'HomeController@webpage');
+    Route::any('about-us', 'HomeController@aboutus')->name('about-us');
+
+    Route::any('contact-us', 'HomeController@contactus')->name('contact-us');
 
     # search function / search client by keywords
     Route::get('/{location}/{page_url}/{encoded}', [
