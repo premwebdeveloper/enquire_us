@@ -673,7 +673,11 @@ class HomeController extends Controller
     public function sitemap(){
 
         // get all page urls from database table
-        $urls = DB::table('websites_page_head_titles')->where(['status' => 1, 'update_status' => 1])->get();
+        $urls = DB::table('websites_page_head_titles')
+                ->leftjoin('cities', 'cities.id', '=', 'websites_page_head_titles.city')
+                ->where(['websites_page_head_titles.status' => 1, 'websites_page_head_titles.update_status' => 1])
+                ->select('websites_page_head_titles.*', 'cities.name')
+                ->get();
 
         $hostname =  'http://'.$_SERVER['HTTP_HOST']; 
 
@@ -682,6 +686,11 @@ class HomeController extends Controller
         }else{
             $base_url = $hostname."/";
         }
+
+        // echo '<pre>';
+        // echo $base_url;
+        // print_r($urls);
+        // exit;
 
         return response()->view('sitemap.sitemap', array('urls' => $urls, 'base_url' => $base_url))->header('Content-type', 'text/xml');
     }
