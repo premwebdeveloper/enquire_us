@@ -357,6 +357,12 @@ $(document).ready(function(){
                                 </a>
                             </li>
 
+                            <li id="change_password_menu">
+                                <a href="{{ route('enquiry') }}" class="list-group-item">
+                                    <i class="fa fa-lock fa-fw"></i> <span>Enquiries</span>
+                                </a>
+                            </li>
+
                         </ul>
         			</div>
         		</div>

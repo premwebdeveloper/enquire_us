@@ -752,6 +752,7 @@ class HomeController extends Controller
         $enq_client = $request->enq_client;
         $temp = explode('_', $enq_client);
         $category_id = decrypt($temp[1]);
+        $identity = $temp[2];
 
         $date = date('Y-m-d H:i:s');
 
@@ -768,6 +769,7 @@ class HomeController extends Controller
         // If all ok then Insert enquiry in table
         $enquiry = DB::table('category_enquiries')->insert([
             'category_id' => $category_id,
+            'identity' => $identity,
             'name' => $name,
             'email' => $email,
             'phone' => $phone,

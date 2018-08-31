@@ -185,4 +185,41 @@ class Profile extends Controller
         return redirect('profile')->with('status', $status);
 
     }
+
+    // Get enquiries related to this user / client
+    public function enquiry(){
+
+        // Get current user id
+        $currentuserid = Auth::user()->id;
+
+        // Get related keyword for this user
+        $keywords = DB::table('user_keywords')->where(['status' => 1, 'update_status' => 1, 'user_id' => $currentuserid])->get();
+
+        $enquiries = array();
+        $i = 0;
+        foreach ($keywords as $key => $keyword) {
+            
+            # Get all enquiries of this keyword and identity
+            $enquiry =  DB::table('category_enquiries')                        
+                        ->where(['category_enquiries.category_id' => $keyword->keyword_id, 'category_enquiries.identity' => $keyword->keyword_identity, 'category_enquiries.status' => 1])
+                        ->leftjoin("category", function($join) {
+                            $join->on("category.id", "=", "category_enquiries.category_id")
+                                 ->where("category_enquiries.identity", "1");
+                        })
+                        ->leftjoin("subcategory",function($sjoin) {
+                            $sjoin->on("subcategory.id", "=", "category_enquiries.category_id")
+                                  ->where("category_enquiries.identity", "2");
+                        })
+                        ->select('category_enquiries.*', 'category.category', 'subcategory.subcategory')
+                        ->get();
+
+            foreach ($enquiry as $e_key => $enq) {
+                
+                $enquiries[$i] = $enq;
+                $i++;
+            }
+        }
+        return view('profile.enquiry', array('enquiries' => $enquiries));
+    }
+
 }

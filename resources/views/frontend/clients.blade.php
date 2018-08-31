@@ -157,7 +157,16 @@
                                 </div>
                             </div>
                             @endif
-                            Click <a href="javascript:;" id="enquiry-for_<?= encrypt($title_info->id); ?>" class="btn btn-info btn-xs multiple_enquiries"> Here </a> to enquiry this keyword
+
+                                @php
+                                    if(isset($title_info->category)){
+                                        $identity = '1';
+                                    }else{
+                                        $identity = '2'; 
+                                    }
+                                @endphp
+
+                                Click <a href="javascript:;" id="enquiry-for_<?= encrypt($title_info->id); ?>_<?= $identity; ?>" class="btn btn-info btn-xs multiple_enquiries"> Here </a> to enquiry this keyword
                         </div>
 
                     </div>

@@ -377,3 +377,6 @@ ALTER TABLE `category_enquiries`
 
 ALTER TABLE `category_enquiries`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+-- ---------------ALTER TABLE `category_enquiries` on 30-08-2018----------------------
+ALTER TABLE `category_enquiries` ADD `identity` INT NOT NULL COMMENT 'If identity is 1 then keyword is category and identity is 2 then keyword is subcategory' AFTER `category_id`;
