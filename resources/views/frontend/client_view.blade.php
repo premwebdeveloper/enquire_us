@@ -110,22 +110,41 @@
                                         <li> <i class="fa fa-phone"></i>
                                             <a href="tel:{{ $client->phone }}">{{ $client->phone }}</a>
                                         </li>
-                                        <li> <i class="fa fa-mobile"></i>
-                                            <a href="tel:{{ $client->landline }}">{{ $client->landline }}</a>
-                                        </li>                                        
+                                        @if(!empty($client->landline))
+                                            <li> <i class="fa fa-mobile"></i>
+                                                <a href="tel:{{ $client->landline }}">{{ $client->landline }}</a>
+                                            </li>                                        
+                                        @endif
                                     </ul>
                                 </div>
                                 <div class="address-phn">
-                                    <ul>                                        
-                                        <li> <i class="fa fa-mobile"></i>
-                                            <a href="tel:{{ $client->toll_free1 }}">{{ $client->toll_free1 }}</a>
-                                        </li>                                        
-                                        <li> <i class="fa fa-mobile"></i>
-                                            <a href="tel:{{ $client->toll_free2 }}">{{ $client->toll_free2 }}</a>
-                                        </li>                                        
-                                        <li> <i class="fa fa-fax"></i>
-                                            <a href="tel:{{ $client->fax1 }}">{{ $client->fax1 }}</a>
-                                        </li>
+                                    <ul>
+                                        @if(!empty($client->toll_free1))
+                                            <li> 
+                                                <i class="fa fa-mobile"></i>
+                                                <a href="tel:{{ $client->toll_free1 }}">
+                                                    {{ $client->toll_free1 }}
+                                                </a>
+                                            </li>                                        
+                                        @endif                                 
+                                        @if(!empty($client->toll_free2))
+                                            <li>
+                                                <i class="fa fa-mobile"></i>
+                                                <a href="tel:{{ $client->toll_free2 }}">
+                                                    {{ $client->toll_free2 }}
+                                                </a>
+                                            </li>                                        
+                                        @endif                              
+                                        @if(!empty($client->fax1))
+                                            <li> 
+                                                <i class="fa fa-fax"></i>
+                                                <a href="tel:{{ $client->fax1 }}">
+                                                    {{ $client->fax1 }}
+                                                </a>
+                                            </li>                                     
+                                        @endif                                 
+                                                                                
+                                        
                                     </ul>
                                 </div>
 
@@ -174,7 +193,7 @@
                                     </div>
                                 </div>
 
-                                <div class="time-share">
+                                <!-- <div class="time-share">
                                     <div class="limited-time  review_tab_link">
                                          <i class="fa fa-wechat" style="font-size:16px; color:#A5A5A5;"></i> <a href="#review_tab">0 reviews</a> /
                                          <a href="#review_tab">Write a review</a><p></p>
@@ -182,7 +201,7 @@
                                     <div class="share-box mr30">
                                         <div class="rating_star"><span style="width:0%;"></span></div>
                                     </div>
-                                </div>
+                                </div> -->
 
                             </div>
                         </div>
