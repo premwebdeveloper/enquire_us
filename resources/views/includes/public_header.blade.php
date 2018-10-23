@@ -107,7 +107,7 @@
                     <div class="col-lg-3 col-sm-3 col-xs-4 res-logo">
                         <div class="logo">
                             <a href="{{url('/')}}">
-                                <img  alt="Dexus Media" src="{{url('/')}}/resources/frontend_assets/images/logo.png"/>
+                                <img alt="Enquire Us" src="{{url('/')}}/resources/frontend_assets/images/logo.png"/>
                             </a>
                         </div>
                     </div>
