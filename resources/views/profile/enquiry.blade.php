@@ -26,14 +26,46 @@
         		</div>
         	</div>
 
+            <!-- Myself enquiries -->
             <div class="col-sm-9">
 
-                <h1 style="margin-top: 0px;">Enquiries</h1>
+                <h1 style="margin-top: 0px;"> My Enquiries </h1>
 
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th>Keyword</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Enquiry</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($my_enquiries as $key => $enquiry)
+                            
+                            <tr>
+                                <td>{{ $enquiry->name }}</td>
+                                <td>{{ $enquiry->email }}</td>
+                                <td>{{ $enquiry->phone }}</td>
+                                <td>{{ $enquiry->enquiry }}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+                
+            </div>
+
+            <div class="clearfix">&nbsp;</div>
+            <div class="clearfix">&nbsp;</div>
+
+            <!-- Enquiries for my keywords -->
+            <div class="col-sm-9 col-sm-offset-3">
+
+                <h1 style="margin-top: 0px;"> Keyword Enquiries </h1>
+
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
                             <th>Name</th>
                             <th>Email</th>
                             <th>Phone</th>

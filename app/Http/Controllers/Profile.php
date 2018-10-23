@@ -219,7 +219,11 @@ class Profile extends Controller
                 $i++;
             }
         }
-        return view('profile.enquiry', array('enquiries' => $enquiries));
+
+        // Get self enquiries / enquiries which are submitted for this perticular client
+        $my_enquiries = DB::table('client_enquiries')->where('client_uid', $currentuserid)->get();
+
+        return view('profile.enquiry', array('enquiries' => $enquiries, 'my_enquiries' => $my_enquiries));
     }
 
 }
