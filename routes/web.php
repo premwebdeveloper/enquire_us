@@ -125,6 +125,20 @@
     Route::any('addUser_business_keywords/{user_id}', 'AdminUsers@addUser_business_keywords')->name('addUser_business_keywords');
     Route::any('addUser_logo_images/{user_id}', 'AdminUsers@addUser_logo_images')->name('addUser_logo_images');
     
+    # employees page route
+    Route::get('employees', 'Employees@index')->name('employees');
+    # add employees form view page
+    Route::get('empCreateView', 'Employees@empCreateView')->name('empCreateView');
+    # create employee 
+    Route::post('createEmployee', 'Employees@create')->name('createEmployee');    
+    # edit employee view page
+    Route::get('editEmployee/{user_id}', 'Employees@editView')->name('editEmployee');
+    # edit employee
+    Route::post('employeeEdit', 'Employees@edit')->name('employeeEdit');
+    # delete employee
+    Route::get('deleteEmployee/{user_id}', 'Employees@delete')->name('deleteEmployee');    
+
+
     # User Delete Logo
     Route::post('userDeteteLogo', 'AdminUsers@userDeteteLogo')->name('userDeteteLogo');    
 

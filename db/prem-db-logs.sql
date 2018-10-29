@@ -380,3 +380,22 @@ ALTER TABLE `category_enquiries`
 
 -- ---------------ALTER TABLE `category_enquiries` on 30-08-2018----------------------
 ALTER TABLE `category_enquiries` ADD `identity` INT NOT NULL COMMENT 'If identity is 1 then keyword is category and identity is 2 then keyword is subcategory' AFTER `category_id`;
+
+-- ---------------CREATE TABLE `employees` on 26-10-2018----------------------
+CREATE TABLE `employees` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `name` varchar(191) NOT NULL,
+  `email` varchar(191) NOT NULL,
+  `phone` varchar(15) NOT NULL,
+  `gender` int(11) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `employees`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `employees`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
