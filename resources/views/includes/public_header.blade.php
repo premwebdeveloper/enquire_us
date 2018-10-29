@@ -80,11 +80,34 @@
                                     </li>
 
                                     @else
-
-                                        @if(Auth::user()->id != 1)
+                                        <!-- Get user role by user id -->
+                                        @php
+                                            $currentuserid = Auth::user()->id;            
+                                            $user = DB::table('user_roles')->where('user_id', $currentuserid)->first();
+                                            $role_id = $user->role_id;
+                                        @endphp
+                                        
+                                        <!-- If user role is User/client -->
+                                        @if($role_id == 2)
                                             <li><a href="{{route('profile')}}""><span class="glyphicon glyphicon-user"></span> My Account</a></li>
                                         @else
-                                            <li><a href="{{route('dashboard')}}""><i class="fa fa-tachometer" aria-hidden="true"></i> Go to dashboard</a></li>
+                                            
+                                            <!-- If user role is not user / client -->
+                                            @php
+                                                <!-- If user role is Admin -->
+                                                $dashboard = 'dashboard';
+                                                
+                                                <!-- If user role is support -->
+                                                if($role_id == 3):
+                                                    $dashboard = 'support';
+                                                <!-- If user role is sales -->
+                                                elseif($role_id == 6):
+                                                    $dashboard = 'sales';
+                                                endif;
+
+                                            @endphp
+
+                                            <li><a href="{{route($dashboard)}}""><i class="fa fa-tachometer" aria-hidden="true"></i> Go to dashboard</a></li>
                                         @endif
                                         <li>
                                             <a href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">

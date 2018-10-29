@@ -43,14 +43,27 @@ class LoginController extends Controller
             # User Role id
             $role_id = $user->role_id;
 
-            if($role_id == 1)
-            {
+            // if user role is admin
+            if($role_id == 1):
+
                 return redirect(route('dashboard'));
-            }
-            else
-            {
+
+            // if user role is support
+            elseif($role_id == 3):
+
+                return redirect(route('support'));
+
+            // if user role is sales
+            elseif($role_id == 6):
+
+                return redirect(route('sales'));
+
+            // if user role is client / user
+            else:
+
                 return redirect(route('profile'));
-            }
+
+            endif;
 
             /*return $this->authenticated($request, $this->guard()->user())
                     ?: redirect()->intended($this->redirectPath());*/

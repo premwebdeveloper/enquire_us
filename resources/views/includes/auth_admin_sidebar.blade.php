@@ -34,41 +34,80 @@
                     </ul>
                 </div>
             </li>
-            <li class="active">
-                <a href="{{route('dashboard')}}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
-            </li>
+            
+            <?php
+            # Get user id
+            $currentuserid = Auth::user()->id;            
+            # Get User role
+            $user = DB::table('user_roles')->where('user_id', $currentuserid)->first();
+            # User Role id
+            $role_id = $user->role_id;
 
-            <li><a href="{{route('employees')}}"><i class="fa fa-users"></i> <span class="nav-label">Employees</span></a></li>
+            /* *********************************************** */
+            // If loggedIn user is Admin then show menu in leftbar
+            if($role_id == 1):
 
-            <li><a href="{{route('users')}}"><i class="fa fa-users"></i> <span class="nav-label">Users</span></a></li>
+                ?>
+                <li class="active">
+                    <a href="{{route('dashboard')}}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
+                </li>
+                <li><a href="{{route('employees')}}"><i class="fa fa-users"></i> <span class="nav-label">Employees</span></a></li>
 
-            <li><a href="{{route('superCategories')}}"><i class="fa fa-users"></i> <span class="nav-label">Super Categories</span></a></li>
+                <li><a href="{{route('users')}}"><i class="fa fa-users"></i> <span class="nav-label">Users</span></a></li>
 
-            <li><a href="{{route('Category')}}"><i class="fa fa-users"></i> <span class="nav-label">Category</span></a></li>
+                <li><a href="{{route('superCategories')}}"><i class="fa fa-users"></i> <span class="nav-label">Super Categories</span></a></li>
 
-            <li><a href="{{route('subCategory')}}"><i class="fa fa-users"></i> <span class="nav-label">subCategory</span></a></li>
+                <li><a href="{{route('Category')}}"><i class="fa fa-users"></i> <span class="nav-label">Category</span></a></li>
 
-            <li><a href="{{route('area')}}"><i class="fa fa-users"></i> <span class="nav-label">Areas</span></a></li>
-			
-            <li><a href="{{route('client_area_visibility')}}"><i class="fa fa-users">
-                </i> <span class="nav-label">Client Area Visibility</span></a>
-            </li>
+                <li><a href="{{route('subCategory')}}"><i class="fa fa-users"></i> <span class="nav-label">subCategory</span></a></li>
 
-            <li><a href="{{route('keyword_city_visibility')}}"><i class="fa fa-users">
-				</i> <span class="nav-label">Keyword City Visibility</span></a>
-			</li>
+                <li><a href="{{route('area')}}"><i class="fa fa-users"></i> <span class="nav-label">Areas</span></a></li>
+                
+                <li><a href="{{route('client_area_visibility')}}"><i class="fa fa-users">
+                    </i> <span class="nav-label">Client Area Visibility</span></a>
+                </li>
 
-            <li><a href="{{route('slider')}}"><i class="fa fa-users"></i> <span class="nav-label">Home Slider</span></a></li>
+                <li><a href="{{route('keyword_city_visibility')}}"><i class="fa fa-users">
+                    </i> <span class="nav-label">Keyword City Visibility</span></a>
+                </li>
 
-            <li><a href="{{route('website_pages')}}"><i class="fa fa-users"></i> <span class="nav-label">Website Pages</span></a></li>
+                <li><a href="{{route('slider')}}"><i class="fa fa-users"></i> <span class="nav-label">Home Slider</span></a></li>
 
-            <li><a href="{{route('page_titles')}}"><i class="fa fa-users"></i> <span class="nav-label">Page Titles</span></a></li>
+                <li><a href="{{route('website_pages')}}"><i class="fa fa-users"></i> <span class="nav-label">Website Pages</span></a></li>
 
-            <li><a href="{{route('enquiries')}}"><i class="fa fa-users"></i> <span class="nav-label">User Enquiries</span></a></li>
+                <li><a href="{{route('page_titles')}}"><i class="fa fa-users"></i> <span class="nav-label">Page Titles</span></a></li>
 
-            <li><a href="{{route('category_enquiries')}}"><i class="fa fa-users"></i> <span class="nav-label">Category Enquiries</span></a></li>
+                <li><a href="{{route('enquiries')}}"><i class="fa fa-users"></i> <span class="nav-label">User Enquiries</span></a></li>
 
-            <li><a href="{{route('reviews')}}"><i class="fa fa-users"></i> <span class="nav-label">User Reviews</span></a></li>
+                <li><a href="{{route('category_enquiries')}}"><i class="fa fa-users"></i> <span class="nav-label">Category Enquiries</span></a></li>
+
+                <li><a href="{{route('reviews')}}"><i class="fa fa-users"></i> <span class="nav-label">User Reviews</span></a></li>
+
+                <?php
+            /* *********************************************** */
+            // If loggedIn user is Support then show menu in leftbar
+            elseif($role_id == 3):
+                ?>
+
+                <li class="active">
+                    <a href="{{route('support')}}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
+                </li>
+
+                <?php
+            /* *********************************************** */
+            // If loggedIn user is Sales then show menu in leftbar
+            elseif($role_id == 6):
+                ?>
+                <li class="active">
+                    <a href="{{route('sales')}}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
+                </li>
+                <li>
+                    <a href="{{route('sales')}}"><i class="fa fa-th-large"></i> <span class="nav-label">Client Enquiry</span></a>
+                </li>
+                <?php
+            endif;
+            ?>
+            
 		</ul>
 	</div>
 </nav>

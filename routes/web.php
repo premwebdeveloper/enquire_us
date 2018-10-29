@@ -118,7 +118,14 @@
 
 // Route::group(['middleware' => 'App\Http\Middleware\Admin'], function()
 // {
+    // Admin dashboard
 	Route::get('dashboard', 'Dashboard@dashboard')->name('dashboard');
+    // Support dashboard
+    Route::get('support', 'Support@dashboard')->name('support');
+    // Sales dashboard
+    Route::get('sales', 'Sales@dashboard')->name('sales');
+
+
     Route::get('addUser_basic_information', 'AdminUsers@addUser_basic_information')->name('addUser_basic_information');
     Route::any('addUser_payment_modes/{user_id}', 'AdminUsers@addUser_payment_modes')->name('addUser_payment_modes');
     Route::any('addUser_business_timing/{user_id}', 'AdminUsers@addUser_business_timing')->name('addUser_business_timing');
