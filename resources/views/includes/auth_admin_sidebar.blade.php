@@ -102,7 +102,7 @@
                     <a href="{{route('sales')}}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
                 </li>
                 <li>
-                    <a href="{{route('sales')}}"><i class="fa fa-th-large"></i> <span class="nav-label">Client Enquiry</span></a>
+                    <a href="{{route('meetings')}}"><i class="fa fa-th-large"></i> <span class="nav-label">Client Meetings</span></a>
                 </li>
                 <?php
             endif;

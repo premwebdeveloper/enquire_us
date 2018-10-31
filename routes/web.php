@@ -125,6 +125,14 @@
     // Sales dashboard
     Route::get('sales', 'Sales@dashboard')->name('sales');
 
+    // Client meetings route
+    Route::get('meetings', 'Sales@meetings')->name('meetings');    
+    Route::get('createMeetingview', 'Sales@createMeetingview')->name('createMeetingview');    
+    Route::post('createMeeting', 'Sales@create')->name('createMeeting');    
+    Route::get('editMeetingView/{meetingID}', 'Sales@editMeetingView')->name('editMeetingView');    
+    Route::post('editMeeting', 'Sales@editMeeting')->name('editMeeting');    
+    Route::get('deleteMeeting/{meetingID}', 'Sales@deleteMeeting')->name('deleteMeeting');    
+
 
     Route::get('addUser_basic_information', 'AdminUsers@addUser_basic_information')->name('addUser_basic_information');
     Route::any('addUser_payment_modes/{user_id}', 'AdminUsers@addUser_payment_modes')->name('addUser_payment_modes');

@@ -399,3 +399,26 @@ ALTER TABLE `employees`
 
 ALTER TABLE `employees`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+-- ---------------CREATE TABLE `client_meetings` on 30-10-2018----------------------
+CREATE TABLE `client_meetings` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL COMMENT 'sales person user is',
+  `contact_person` varchar(191) DEFAULT NULL,
+  `company` varchar(191) DEFAULT NULL,
+  `email` varchar(191) DEFAULT NULL,
+  `phone` varchar(15) DEFAULT NULL,
+  `address` text,
+  `category` varchar(191) DEFAULT NULL COMMENT 'business category',
+  `custom_category` varchar(191) DEFAULT NULL,
+  `user_location` text COMMENT 'user location from where user submit entry',
+  `status` tinyint(1) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `client_meetings`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `client_meetings`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;

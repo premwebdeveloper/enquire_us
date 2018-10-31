@@ -94,13 +94,11 @@
                                             
                                             <!-- If user role is not user / client -->
                                             @php
-                                                <!-- If user role is Admin -->
                                                 $dashboard = 'dashboard';
                                                 
-                                                <!-- If user role is support -->
                                                 if($role_id == 3):
                                                     $dashboard = 'support';
-                                                <!-- If user role is sales -->
+                                                
                                                 elseif($role_id == 6):
                                                     $dashboard = 'sales';
                                                 endif;
