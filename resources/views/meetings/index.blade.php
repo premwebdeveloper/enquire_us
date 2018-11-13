@@ -16,7 +16,8 @@
     </div>
     <div class="col-lg-4 text-right pt10">
         <h2>
-            <a href="{{ route('createMeetingview') }}" class="btn btn-info">Create Meeting</a>
+            <!-- <a href="{{ route('createMeetingview') }}" class="btn btn-info">Create Meeting</a> -->
+            <a href="{{ route('addUser_basic_information') }}" class="btn btn-info">Create Meeting</a>
         </h2>
     </div>
 </div>
@@ -54,19 +55,15 @@
                             </tr>
                         </thead>
                         <tbody>                            
-                            @foreach($meetings as $meeting)
+                            @foreach($users as $user)
                                 <tr class="gradeX">
-                                    <td>{{ $meeting->company }}</td>
-                                    <td>{{ $meeting->contact_person }}</td>
-                                    <td>{{ $meeting->email }}</td>
-                                    <td>{{ $meeting->phone }}</td>
-                                    <td>{{ $meeting->created_at }}</td>
-                                    <td>
-                                        
-                                        <a href="{{ route('editMeetingView', ['meetingID' => $meeting->id]) }}" class="btn btn-primary" title="Edit">Edit</a>
-
-                                        <a href="{{ route('deleteMeeting', ['meetingID' => $meeting->id]) }}" class="btn btn-warning" title="Delete">Delete</a>
-
+                                    <td>{{ $user->business_name }}</td>
+                                    <td>{{ $user->name }}</td>
+                                    <td>{{ $user->email }}</td>
+                                    <td>{{ $user->phone }}</td>
+                                    <td>{{ $user->created_at }}</td>
+                                    <td>                                        
+                                        <a href="{{ route('addUser_basic_information', ['user_id' => $user->user_id]) }}" class="btn btn-primary" title="View"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                     </td>
                                 </tr>                            
                             @endforeach

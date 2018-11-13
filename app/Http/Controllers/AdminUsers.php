@@ -14,7 +14,7 @@ class AdminUsers extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('admin');
+        //$this->middleware('admin');
     }
 
     // View All User
@@ -39,8 +39,7 @@ class AdminUsers extends Controller
     // add new User Basic Information view page
     public function addUser_basic_information(Request $request)
     {
-
-       $user_id = $request->user_id;
+        $user_id = $request->user_id;
 
         if(!empty($user_id))
         {
@@ -229,6 +228,7 @@ class AdminUsers extends Controller
                 'toll_free2' => $toll_free2,
                 'website' => $website,
                 'about_company' => $about_company,
+                'created_by' => Auth::user()->id,
                 'created_at' => $date,
                 'updated_at' => $date,
                 'status' => 1

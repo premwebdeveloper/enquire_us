@@ -422,3 +422,7 @@ ALTER TABLE `client_meetings`
 
 ALTER TABLE `client_meetings`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+-- ---------------ALTER TABLE `user_details` on 12-11-2018----------------------
+ALTER TABLE `user_details` ADD `created_by` INT NOT NULL COMMENT 'user id who create this user' AFTER `about_company`;
+ALTER TABLE `user_details` CHANGE `created_by` `created_by` TINYINT(1) NOT NULL DEFAULT '1' COMMENT 'user id who create this user';
