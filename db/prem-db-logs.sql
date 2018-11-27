@@ -426,3 +426,56 @@ ALTER TABLE `client_meetings`
 -- ---------------ALTER TABLE `user_details` on 12-11-2018----------------------
 ALTER TABLE `user_details` ADD `created_by` INT NOT NULL COMMENT 'user id who create this user' AFTER `about_company`;
 ALTER TABLE `user_details` CHANGE `created_by` `created_by` TINYINT(1) NOT NULL DEFAULT '1' COMMENT 'user id who create this user';
+
+-- ---------------CREATE TABLE `created_by_user_location` on 13-11-2018----------------------
+CREATE TABLE `created_by_user_location` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `created_by_user` int(11) NOT NULL,
+  `location` text,
+  `created_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `created_by_user_location`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `created_by_user_location`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+-- ---------------CREATE TABLE `client_assigned_to_sales` on 20-11-2018----------------------
+CREATE TABLE `client_assigned_to_sales` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL COMMENT 'user_id is client uid',
+  `assigned_by` int(11) DEFAULT NULL COMMENT 'support person uid',
+  `assigned_to` int(11) DEFAULT NULL COMMENT 'sales person uid',
+  `assign_date_time` datetime DEFAULT NULL COMMENT 'meeting date and time',
+  `status` tinyint(1) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `upfated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `client_assigned_to_sales`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `client_assigned_to_sales`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `client_assigned_to_sales` CHANGE `upfated_at` `updated_at` DATETIME NOT NULL;
+
+-- ---------------CREATE TABLE `client_meeting_response` on 27-11-2018----------------------
+CREATE TABLE `client_meeting_response` (
+  `id` int(11) NOT NULL,
+  `cats_id` int(11) NOT NULL COMMENT 'client assign to sales  table row id',
+  `possibility` int(11) NOT NULL,
+  `follow_up_date` datetime DEFAULT NULL,
+  `remark` longtext,
+  `status` tinyint(1) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `client_meeting_response`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `client_meeting_response`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;

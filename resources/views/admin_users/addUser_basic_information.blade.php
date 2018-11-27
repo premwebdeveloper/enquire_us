@@ -360,6 +360,8 @@
                                                 <hr>
                                                 {{ csrf_field() }}
 
+                                                <input type="hidden" name="current_location" id="current_location">
+
                                                 <div class="col-md-6">
                                                     <div class="form-group">
                                                         <label for="name" class="col-md-2 control-label">Company Name</label>

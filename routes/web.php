@@ -118,17 +118,41 @@
 
 // Route::group(['middleware' => 'App\Http\Middleware\Admin'], function()
 // {
+
+    // ////////////////////////////////// Sales routed ////////////////////////////////////// //
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    // Client meetings route
+    Route::get('meetings', 'Sales@meetings')->name('meetings');    
+    Route::get('createMeetingview', 'Sales@createMeetingview')->name('createMeetingview');    
+    Route::post('createMeeting', 'Sales@create')->name('createMeeting');
+
+
+    // ////////////////////////////////// Sales routed ////////////////////////////////////// //
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    Route::get('clientMeetings', 'Support@clientMeetings')->name('clientMeetings');   
+
+    // Meeting schedules / meeting assigned to sales by support sales person will see there schedules
+    Route::get('meeting_schedules', 'Sales@meeting_schedules')->name('meeting_schedules'); 
+
+    // client response view
+    Route::get('client_response/{meeting_id}', 'Sales@client_response')->name('client_response'); 
+
+    // Client meeting response
+    Route::post('client_meeting_response', 'Sales@client_meeting_response')->name('client_meeting_response');
+    
+    // client assing to sales person by support user
+    Route::post('client_assign_to_sales', 'Support@client_assign_to_sales')->name('client_assign_to_sales');   
+
+    // Assigned meeting view
+    Route::get('assigned_meetings/{id}', 'Support@assigned_meetings')->name('assigned_meetings');
+    Route::get('client_meeting_response_view/{meeting_id}', 'Support@client_meeting_response_view')->name('client_meeting_response_view');
+
     // Admin dashboard
 	Route::get('dashboard', 'Dashboard@dashboard')->name('dashboard');
     // Support dashboard
     Route::get('support', 'Support@dashboard')->name('support');
     // Sales dashboard
     Route::get('sales', 'Sales@dashboard')->name('sales');
-
-    // Client meetings route
-    Route::get('meetings', 'Sales@meetings')->name('meetings');    
-    Route::get('createMeetingview', 'Sales@createMeetingview')->name('createMeetingview');    
-    Route::post('createMeeting', 'Sales@create')->name('createMeeting');
 
     Route::get('addUser_basic_information', 'AdminUsers@addUser_basic_information')->name('addUser_basic_information');
     Route::any('addUser_payment_modes/{user_id}', 'AdminUsers@addUser_payment_modes')->name('addUser_payment_modes');

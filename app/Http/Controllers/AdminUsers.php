@@ -14,7 +14,6 @@ class AdminUsers extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        //$this->middleware('admin');
     }
 
     // View All User
@@ -159,6 +158,8 @@ class AdminUsers extends Controller
     {
         $date = date('Y-m-d H:i:s');
 
+        $current_location = $request->current_location;
+
         /*Basic Detail*/
         $company_name = $request->company_name;
         $name = $request->name;
@@ -203,6 +204,16 @@ class AdminUsers extends Controller
         );
 
         $user_id = DB::getPdo()->lastInsertId();
+
+        // insert created by user location
+        $user_role = DB::table('created_by_user_location')->insert(
+            array(
+                'user_id' => $user_id,
+                'created_by_user' => Auth::user()->id,
+                'location' => $current_location,
+                'created_at' => $date
+            )
+        );
 
         // Create User role
         $user_role = DB::table('user_roles')->insert(

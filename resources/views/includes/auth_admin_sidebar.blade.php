@@ -11,10 +11,10 @@
             <li class="nav-header">
                 <div class="dropdown profile-element">
                     <span>
-                        <img alt="image" class="img-circle" src="resources/assets/images/sad.png" style="background: #fff;width: 100px;"/>
+                        <img alt="image" class="img-circle" src="{{ asset('resources/assets/images/sad.png') }}" style="background: #fff;width: 100px;"/>
                     </span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                        <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">Enquire Us</strong>
+                        <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">Hi {{ Auth::user()->name }}</strong>
                         <b class="caret"></b> </span>  </span>
                     </a>
                     <ul class="dropdown-menu animated fadeInRight m-t-xs">
@@ -92,7 +92,9 @@
                 <li class="active">
                     <a href="{{route('support')}}"><i class="fa fa-th-large"></i> <span class="nav-label">Dashboard</span></a>
                 </li>
-
+                <li>
+                    <a href="{{route('clientMeetings')}}"><i class="fa fa-th-large"></i> <span class="nav-label">Client Meetings</span></a>
+                </li>
                 <?php
             /* *********************************************** */
             // If loggedIn user is Sales then show menu in leftbar
@@ -103,6 +105,9 @@
                 </li>
                 <li>
                     <a href="{{route('meetings')}}"><i class="fa fa-th-large"></i> <span class="nav-label">Client Meetings</span></a>
+                </li>
+                <li>
+                    <a href="{{route('meeting_schedules')}}"><i class="fa fa-th-large"></i> <span class="nav-label">Meeting Schedules</span></a>
                 </li>
                 <?php
             endif;
