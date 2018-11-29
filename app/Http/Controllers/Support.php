@@ -37,14 +37,7 @@ class Support extends Controller
                 ->select('user_details.*', 'user_location.business_name', 'client_assigned_to_sales.assigned_by', 'client_assigned_to_sales.assigned_to', 'client_assigned_to_sales.assign_date_time', 'client_assigned_to_sales.id as cas_id')
                 ->get();
 
-        //  Get all sales person
-        $sales_users = DB::table('employees')
-                        ->join('user_roles', 'user_roles.user_id', '=', 'employees.user_id')
-                        ->where(['user_roles.role_id' => '6', 'employees.status' => 1])
-                        ->select('employees.*')
-                        ->get();
-
-        return view('meetings.clientMeetings', array('users' => $users, 'sales_users' => $sales_users));
+        return view('meetings.clientMeetings', array('users' => $users));
     }
 
     // Create meeting page view
@@ -69,17 +62,31 @@ class Support extends Controller
         $temp = explode('_', $meeting_client_uid);
         $client_uid = $temp[1];
 
-        // Assign client to sales person by support person
-        $assign = DB::table('client_assigned_to_sales')->insert([
+        // First check if this user assigned to any sales executive already or not
+        $already = DB::table('client_assigned_to_sales')->where(['user_id' => $client_uid, 'assigned_by' => $currentuserid, 'status' => 1])->first();
 
-            'user_id' => $client_uid,
-            'assigned_by' => $currentuserid,
-            'assigned_to' => $sales_person,
-            'assign_date_time' => $date_time.':00',
-            'status' => 1,
-            'created_at' => $date,
-            'updated_at' => $date,
-        ]);
+        if(!empty($already)){
+
+            // Assign client to sales person by support person
+            $assign = DB::table('client_assigned_to_sales')->where(['user_id' => $client_uid, 'assigned_by' => $currentuserid, 'status' => 1])->update([
+                'assigned_to' => $sales_person,
+                'assign_date_time' => $date_time.':00',
+                'updated_at' => $date,
+            ]);
+        }else{
+            
+            // Assign client to sales person by support person
+            $assign = DB::table('client_assigned_to_sales')->insert([
+
+                'user_id' => $client_uid,
+                'assigned_by' => $currentuserid,
+                'assigned_to' => $sales_person,
+                'assign_date_time' => $date_time.':00',
+                'status' => 1,
+                'created_at' => $date,
+                'updated_at' => $date,
+            ]);
+        }
 
         if($assign)
         {
@@ -125,7 +132,10 @@ class Support extends Controller
         $role_id = $user->role_id;
 
         // Get old meeting response
-        $responses = DB::table('client_meeting_response')->where('cats_id', $meeting_id)->get();
+        $responses = DB::table('client_meeting_response as cmr')
+                    ->join('employees as emp', 'emp.user_id', '=', 'cmr.sales_uid')
+                    ->select('emp.name','cmr.*')
+                    ->where('cmr.cats_id', $meeting_id)->get();
 
         return view('meetings.clientMeetingResponse', array('role_id' => $role_id, 'meeting_id' => $meeting_id, 'responses' => $responses));
     }

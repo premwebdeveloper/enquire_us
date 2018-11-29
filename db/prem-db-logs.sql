@@ -479,3 +479,11 @@ ALTER TABLE `client_meeting_response`
 
 ALTER TABLE `client_meeting_response`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+-- ---------------ALTER TABLE `client_meeting_response` on 28-11-2018----------------------
+ALTER TABLE `client_meeting_response` ADD `sales_uid` INT NOT NULL COMMENT 'sales_uid stans for who submitted this response for this meeting' AFTER `id`;
+
+ALTER TABLE `client_meeting_response` ADD `notification_status` BOOLEAN NOT NULL DEFAULT TRUE COMMENT '1 for unseen notification and 0 for seen notification' AFTER `remark`;
+
+-- ---------------ALTER TABLE `client_assigned_to_sales` on 28-11-2018----------------------
+ALTER TABLE `client_assigned_to_sales` ADD `notification_status` BOOLEAN NOT NULL DEFAULT TRUE COMMENT '1 for unseen notification and 0 for seen notification' AFTER `assign_date_time`;

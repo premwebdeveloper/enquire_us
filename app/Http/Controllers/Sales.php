@@ -64,6 +64,13 @@ class Sales extends Controller
                         ->select('cats.*', 'ul.business_name', 'emps.name as assigned_by_name', 'emps.phone as assigned_by_phone', 'emp.name as assigned_to_name', 'emp.phone as assigned_to_phone')
                         ->get();
 
+        // Update notification status is  0
+        $update = DB::table('client_assigned_to_sales')->where(['assigned_to' => $currentuserid, 'notification_status' => 1])->update([
+
+            'notification_status' => 0,
+            'updated_at' => date('Y-m-d H:i:s')
+        ]);
+
         return view('meetings.meetingSchedules', array('schedules' => $schedules));
     }
 
@@ -81,7 +88,10 @@ class Sales extends Controller
         $role_id = $user->role_id;
 
         // Get old meeting response
-        $responses = DB::table('client_meeting_response')->where('cats_id', $meeting_id)->get();
+        $responses = DB::table('client_meeting_response as cmr')
+                    ->join('employees as emp', 'emp.user_id', '=', 'cmr.sales_uid')
+                    ->select('emp.name','cmr.*')
+                    ->where('cmr.cats_id', $meeting_id)->get();
 
         return view('meetings.clientMeetingResponse', array('role_id' => $role_id, 'meeting_id' => $meeting_id, 'responses' => $responses));
     }
@@ -99,6 +109,7 @@ class Sales extends Controller
         // Submit client response for this meeting
         $submit = DB::table('client_meeting_response')->insert([
 
+            'sales_uid' => $currentuserid,
             'cats_id' => $meeting_id,
             'possibility' => $possibility,
             'follow_up_date' => $date_time,

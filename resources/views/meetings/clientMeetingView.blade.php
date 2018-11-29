@@ -64,12 +64,21 @@
                         <tbody>                      
                             <tr class="gradeX">
                                 <td>{{ $meeting_information->business_name }}</td>
+
                                 <td>{{ $meeting_information->assigned_by_name }} ( {{ $meeting_information->assigned_by_phone }} )</td>
+
                                 <td>{{ $meeting_information->assigned_to_name }} ( {{ $meeting_information->assigned_to_phone }} )</td>
+
                                 <td>{{ $meeting_information->assign_date_time }}</td>
+
                                 <td>
-                                    <a href="{{ route('client_meeting_response_view', ['meeting_id' => $meeting_information->id]) }}" class="btn btn-warning" title="Client Response">
-                                        <i class="fa fa-reply"></i>
+                                    <a href="{{ route('client_meeting_response_view', ['meeting_id' => $meeting_information->id]) }}" class="btn btn-primary" title="View Client Response">
+                                        <i class="fa fa-eye"></i>
+                                    </a>
+
+                                    <!-- Assign this client to sales person for attend meeting -->
+                                    <a href="javascript:;" class="btn btn-warning assignToSales" id="assign_{{ $meeting_information->user_id }}" title="Re-Assign To Meeting">
+                                        <i class="fa fa-mail-forward" aria-hidden="true"></i>
                                     </a>
                                 </td>
                             </tr>  

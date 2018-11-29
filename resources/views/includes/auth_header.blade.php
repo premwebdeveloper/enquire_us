@@ -8,7 +8,7 @@
 
             <ul class="nav navbar-top-links navbar-right">
 
-                <li class="dropdown">
+                <!-- <li class="dropdown">
                     <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
                         <i class="fa fa-envelope"></i>  <span class="label label-warning"></span>
                     </a>
@@ -34,32 +34,45 @@
                             </div>
                         </li>
                     </ul>
-                </li>
-
-                <li class="dropdown">
-                    <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-                        <i class="fa fa-bell"></i>  <span class="label label-primary"></span>
-                    </a>
-                    <ul class="dropdown-menu dropdown-alerts">
-                         <li>
-                            <a href="javascript:;">
-                                <div>
-                                    <i class="fa fa-envelope fa-fw"></i> You have 16 messages
-                                    <span class="pull-right text-muted small">4 minutes ago</span>
-                                </div>
-                            </a>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <div class="text-center link-block">
-                                <a href="javascript:;">
-                                    <strong>See All Alerts</strong>
-                                    <i class="fa fa-angle-right"></i>
+                </li> -->
+    
+                <!-- If there is any notification available -->
+                @if($sales_notifications > 0)
+                    <li class="dropdown">
+                        <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                            <i class="fa fa-bell"></i>  
+                            <span class="label label-primary">{{ $sales_notifications }}</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-alerts">
+                            
+                            <!-- If there is any meeting assigned to sales executice -->
+                            @if(count($assigned_meeting) > 0)
+                            <li>
+                                <a href="{{ route('meeting_schedules') }}">
+                                    <div>
+                                        <i class="fa fa-handshake-o text-info" style="font-size: 16px;"></i>
+                                        Assigned Meeting
+                                        <span class="pull-right text-muted small badge badge-primary text-white">
+                                            {{ count($assigned_meeting) }}
+                                        </span>
+                                    </div>
                                 </a>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
+                            </li>
+                            @endif
+
+                            <!-- <li class="divider"></li>
+                            <li>
+                                <div class="text-center link-block">
+                                    <a href="javascript:;">
+                                        <strong>See All Alerts</strong>
+                                        <i class="fa fa-angle-right"></i>
+                                    </a>
+                                </div>
+                            </li> -->
+                        </ul>
+                    </li>
+
+                @endif
 
                 <li>
                     <a href="{{ route('logout') }}" onclick="event.preventDefault();

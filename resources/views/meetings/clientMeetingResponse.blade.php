@@ -94,6 +94,7 @@
                     <table class="table table-striped table-bordered table-hover dataTables-example">
                         <thead>
                             <tr>
+                                <th>Sales Ex.</th>
                                 <th>Possibility</th>
                                 <th>Follow Up</th>
                                 <th>Remark</th>
@@ -103,6 +104,7 @@
                         <tbody>   
                             @foreach($responses as $key => $response)                   
                             <tr class="gradeX">
+                                <td>{{ $response->name }}</td>
                                 <td>
                                     @if($response->possibility == 1)
                                         Not Available

@@ -2,6 +2,15 @@
 
     $(document).ready(function(){
 
+        // Meeting assign to sales by support executive
+        $(document).on('click', '.assignToSales', function(){
+            
+            var id = $(this).attr('id');
+            $('#meeting_client_uid').val(id);
+            
+            $('#assignToSalesModal').modal('show');
+        });
+
         // data table script for dataTables-example class
         var oTable = $('.dataTables-example').DataTable({
             pageLength: 10,
