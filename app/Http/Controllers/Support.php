@@ -137,6 +137,12 @@ class Support extends Controller
                     ->select('emp.name','cmr.*')
                     ->where('cmr.cats_id', $meeting_id)->get();
 
+        // update notification status for this meeting
+        $update = DB::table('client_meeting_response')->where(['cats_id' => $meeting_id, 'notification_status' => 1])->update([
+
+            'notification_status' => 0, 
+        ]);
+
         return view('meetings.clientMeetingResponse', array('role_id' => $role_id, 'meeting_id' => $meeting_id, 'responses' => $responses));
     }
 }
