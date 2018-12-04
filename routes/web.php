@@ -159,6 +159,12 @@
     Route::any('addUser_business_timing/{user_id}', 'AdminUsers@addUser_business_timing')->name('addUser_business_timing');
     Route::any('addUser_business_keywords/{user_id}', 'AdminUsers@addUser_business_keywords')->name('addUser_business_keywords');
     Route::any('addUser_logo_images/{user_id}', 'AdminUsers@addUser_logo_images')->name('addUser_logo_images');
+
+    # Get unapproved users show in admin console
+    Route::get('un_approved_users', 'AdminUsers@un_approved_users')->name('un_approved_users');
+
+    # Update user status / approve and unapproce user with status
+    Route::get('updateUserStatus/{user_id}', 'AdminUsers@updateUserStatus')->name('updateUserStatus');
     
     # employees page route
     Route::get('employees', 'Employees@index')->name('employees');

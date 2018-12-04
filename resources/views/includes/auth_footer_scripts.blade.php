@@ -26,22 +26,34 @@
     <script src="{{ asset('resources/assets/js/plugins/toastr/toastr.min.js') }}"></script>
     <script src="{{ asset('resources/assets/js/plugins/summernote/summernote.min.js') }}"></script>
   
+    <!-- Google api for get current location -->
     <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCD12UaZxo_4B0ScJAkuwx7PgkUeV6DsFE&libraries=places&callback=initMap" async defer></script>
 
+    <!-- confirmation and popper js -->
+    <script src="{{ asset('resources/assets/js/bootstrap-confirmation.js') }}"></script>
+    <script src="{{ asset('resources/assets/js/popper.min.js') }}"></script>
+
+    <!-- Date time picker js -->
+    <script src="{{ asset('resources/assets/js/bootstrap-datetimepicker.min.js') }}"></script>
+
     @include('includes.auth_scripts')
-    <script>
-        $(document).ready(function(){
-
-            $('.summernote').summernote({
-                minHeight: 200
-            });
-        });
-    </script>
-
 
     <script type="text/javascript" charset="utf-8">
 
         $(document).ready(function() {
+
+            /* ******************************************************************* */
+            // Confirmation js
+            $('.element').confirmation();
+
+            /* ******************************************************************* */
+            // Editor js
+            $('.summernote').summernote({
+                minHeight: 200
+            });
+
+            /* ******************************************************************* */
+            // Get current location of user
             var currgeocoder;
 
             //Set geo location lat and long
@@ -59,7 +71,7 @@
                 html5TimeStamp = position.timestamp; //Get timestamp
                 html5Accuracy = position.coords.accuracy; //Get accuracy in meters
                 return (html5Lat).toFixed(8) + ", " + (html5Lon).toFixed(8);
-           }
+            }
 
             //Check value is present or not & call google api function
             function initializeCurrent(latcurr, longcurr) {
@@ -87,17 +99,12 @@
                     }
                 });
             }
-        });
-    </script>
 
-    <!-- Date time picker js -->
-    <script src="{{ asset('resources/assets/js/bootstrap-datetimepicker.min.js') }}"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
+            /* ******************************************************************* */
+            // Date and time picker
             $(".form_datetime1").datetimepicker({format: 'yyyy-mm-dd hh:ii', forceParse: true});
-        });
-    </script>
-      
-</body>
 
+        });
+    </script>  
+</body>
 </html>

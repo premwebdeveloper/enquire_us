@@ -35,6 +35,48 @@ class AdminUsers extends Controller
         return view('admin_users.index', array('users' => $users));
     }
 
+    // Show un approved users to admin console
+    public function un_approved_users(){
+
+        Auth::user()->id;
+
+        # Get All Users
+        $users = DB::table('user_details')
+                ->join('user_location', 'user_location.user_id', '=', 'user_details.user_id')
+                ->join('areas', 'areas.id', '=', 'user_location.area')
+                ->join('cities', 'cities.id', '=', 'user_location.city')
+                ->where('user_details.status', '=', 0)
+                ->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.state', 'user_location.country', 'user_location.pincode', 'areas.area as area_name', 'cities.name as city_name')
+                ->get();
+
+        return view('admin_users.un_approved_users', array('users' => $users));
+        
+    }
+
+    // Update user status / approve and unapprove user with status
+    public function updateUserStatus(Request $request){
+
+        $user_id = $request->user_id;
+
+        // Approve user in users table
+        $update = User::where(['id'=>$user_id])->update(['status' => '1']);
+
+        // Approve in user details table
+        $details = DB::table('user_details')->where(['user_id' => $user_id])->update(['update_status' => '1', 'status' => '1']);
+
+        // Approve in user_location table
+        $locations = DB::table('user_location')->where(['user_id' => $user_id])->update(['update_status' => '1', 'status' => '1']);
+
+        if($locations):
+
+            $status = 'User approved successfully.';
+        else:
+            $status = 'Something went wrong!';
+        endif;
+
+        return redirect('un_approved_users')->with(['status' => $status]);
+    }
+
     // add new User Basic Information view page
     public function addUser_basic_information(Request $request)
     {
@@ -156,36 +198,36 @@ class AdminUsers extends Controller
     // add new User
     public function add_user(AddUserValidation $request)
     {
-        $date = date('Y-m-d H:i:s');
-
-        $current_location = $request->current_location;
-
+        $date                  = date('Y-m-d H:i:s');
+        
+        $current_location      = $request->current_location;
+        
         /*Basic Detail*/
-        $company_name = $request->company_name;
-        $name = $request->name;
-        $phone = $request->phone;
-        $email = $request->email;
-        $password = $request->password;
+        $company_name          = $request->company_name;
+        $name                  = $request->name;
+        $phone                 = $request->phone;
+        $email                 = $request->email;
+        $password              = $request->password;
         $password_confirmation = $request->password_confirmation;
 
         /*Location Detail*/
         //$business_name = $request->business_name;
         $building = $request->building;
-        $street = $request->street;
+        $street   = $request->street;
         $landmark = $request->landmark;
-        $area = $request->area;
-        $city = $request->city;
+        $area     = $request->area;
+        $city     = $request->city;
         $pin_code = $request->pin_code;
-        $state = $request->state;
-        $country = $request->country;
+        $state    = $request->state;
+        $country  = $request->country;
 
         /*Contact Detail*/
-        $landline = $request->landline;
-        $fax = $request->fax;
-        $fax2 = $request->fax2;
-        $toll_free = $request->toll_free;
-        $toll_free2 = $request->toll_free2;
-        $website = $request->website;
+        $landline      = $request->landline;
+        $fax           = $request->fax;
+        $fax2          = $request->fax2;
+        $toll_free     = $request->toll_free;
+        $toll_free2    = $request->toll_free2;
+        $website       = $request->website;
         $about_company = $request->about_company;
 
         $password = bcrypt($password);
@@ -193,13 +235,13 @@ class AdminUsers extends Controller
         // Create User
         $user = DB::table('users')->insert(
             array(
-                'name' => $name,
-                'email' => $email,
-                'phone' => $phone,
-                'password' => $password,
+                'name'       => $name,
+                'email'      => $email,
+                'phone'      => $phone,
+                'password'   => $password,
                 'created_at' => $date,
                 'updated_at' => $date,
-                'status' => 1
+                'status'     => (Auth::user()->id == 1)? 1 : 0
             )
         );
 
@@ -208,18 +250,18 @@ class AdminUsers extends Controller
         // insert created by user location
         $user_role = DB::table('created_by_user_location')->insert(
             array(
-                'user_id' => $user_id,
+                'user_id'         => $user_id,
                 'created_by_user' => Auth::user()->id,
-                'location' => $current_location,
-                'created_at' => $date
+                'location'        => $current_location,
+                'created_at'      => $date
             )
         );
 
         // Create User role
         $user_role = DB::table('user_roles')->insert(
             array(
-                'role_id' => 2,
-                'user_id' => $user_id,
+                'role_id'    => 2,
+                'user_id'    => $user_id,
                 'created_at' => $date,
                 'updated_at' => $date
             )
@@ -228,40 +270,42 @@ class AdminUsers extends Controller
         // Create User Details
         $user_details = DB::table('user_details')->insert(
             array(
-                'user_id' => $user_id,
-                'name' => $name,
-                'email' => $email,
-                'phone' => $phone,
-                'landline' => $landline,
-                'fax1' => $fax,
-                'fax2' => $fax2,
-                'toll_free1' => $toll_free,
-                'toll_free2' => $toll_free2,
-                'website' => $website,
+                'user_id'       => $user_id,
+                'name'          => $name,
+                'email'         => $email,
+                'phone'         => $phone,
+                'landline'      => $landline,
+                'fax1'          => $fax,
+                'fax2'          => $fax2,
+                'toll_free1'    => $toll_free,
+                'toll_free2'    => $toll_free2,
+                'website'       => $website,
                 'about_company' => $about_company,
-                'created_by' => Auth::user()->id,
-                'created_at' => $date,
-                'updated_at' => $date,
-                'status' => 1
+                'created_by'    => Auth::user()->id,
+                'created_at'    => $date,
+                'updated_at'    => $date,
+                'status'        => (Auth::user()->id == 1)? 1 : 0,
+                'status'        => (Auth::user()->id == 1)? 1 : 0
             )
         );
 
         // Create User Location
         $user_details = DB::table('user_location')->insert(
             array(
-                'user_id' => $user_id,
+                'user_id'       => $user_id,
                 'business_name' => $company_name,
-                'building' => $building,
-                'street' => $street,
-                'landmark' => $landmark,
-                'area' => $area,
-                'city' => $city,
-                'pincode' => $pin_code,
-                'state' => $state,
-                'country' => $country,
-                'created_at' => $date,
-                'updated_at' => $date,
-                'status' => 1
+                'building'      => $building,
+                'street'        => $street,
+                'landmark'      => $landmark,
+                'area'          => $area,
+                'city'          => $city,
+                'pincode'       => $pin_code,
+                'state'         => $state,
+                'country'       => $country,
+                'created_at'    => $date,
+                'updated_at'    => $date,
+                'update_status' => (Auth::user()->id == 1)? 1 : 0,
+                'status'        => (Auth::user()->id == 1)? 1 : 2
             )
         );
 

@@ -487,3 +487,15 @@ ALTER TABLE `client_meeting_response` ADD `notification_status` BOOLEAN NOT NULL
 
 -- ---------------ALTER TABLE `client_assigned_to_sales` on 28-11-2018----------------------
 ALTER TABLE `client_assigned_to_sales` ADD `notification_status` BOOLEAN NOT NULL DEFAULT TRUE COMMENT '1 for unseen notification and 0 for seen notification' AFTER `assign_date_time`;
+
+-- ---------------ALTER TABLE `users` on 04-14-2018----------------------
+ALTER TABLE `users` CHANGE `status` `status` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '0 for un-approve user and 1 for active user and 2 for inactive user';
+
+-- ---------------ALTER TABLE `user_details` on 04-14-2018----------------------
+ALTER TABLE `user_details` CHANGE `status` `status` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '0 for un-approve user and 1 for active user and 2 for inactive user';
+
+-- ---------------ALTER TABLE `user_details` on 04-14-2018----------------------
+ALTER TABLE `user_details` CHANGE `created_by` `created_by` TINYINT(1) NULL DEFAULT NULL COMMENT 'user id who create this user / if null then register user himself and if 1 then created by admin else created by others';
+
+-- ---------------ALTER TABLE `user_location` on 04-14-2018----------------------
+ALTER TABLE `user_location` CHANGE `status` `status` TINYINT(1) NOT NULL DEFAULT '2' COMMENT '2 for un-approve user and 1 for approve user';

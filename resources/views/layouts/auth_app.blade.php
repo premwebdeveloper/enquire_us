@@ -1,6 +1,5 @@
 @include('includes.auth_head')
 
-
 <!-- Get notifications for sales user -->
 @php
 	$currentuserid = Auth::user()->id; 

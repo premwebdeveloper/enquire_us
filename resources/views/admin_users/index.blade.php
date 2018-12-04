@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-lg-10">
+    <div class="col-lg-9">
         <h2>All Users</h2>
         <ol class="breadcrumb">
             <li>
@@ -13,7 +13,12 @@
             </li>
         </ol>
     </div>
-<div class="col-lg-2 text-right">
+	<div class="col-lg-2 text-right">
+        <h2>
+            <a href="{{ route('un_approved_users') }}" class="btn btn-info">UnApproved User</a>
+        </h2>
+    </div>
+	<div class="col-lg-1 text-right">
         <h2>
             <a href="{{ route('addUser_basic_information') }}" class="btn btn-info">Add User</a>
         </h2>
