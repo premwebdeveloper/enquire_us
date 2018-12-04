@@ -131,7 +131,9 @@ class RegisterController extends Controller
                     'user_id' => $user_id,
                     'operation_timing' => $operation_timing,
                     'day' => $day,
-                    'working_status' => '0',
+                    'from_time' => '10:00:00',
+                    'to_time' => '19:00:00',
+                    'working_status' => '1',
                     'created_at' => $date,
                     'updated_at' => $date
                 )

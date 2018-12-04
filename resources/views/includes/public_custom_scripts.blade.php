@@ -28,7 +28,7 @@
         });
 
         // Working hours time disable by defaul
-        $(".time_0").attr("disabled", true);
+        //$(".time_0").attr("disabled", true);
 
         // Email field will not be change
         $("#userEmail").attr("readonly", true);

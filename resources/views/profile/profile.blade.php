@@ -625,9 +625,15 @@ $(document).ready(function(){
                                   <input type="hidden" name="user_id" class="user_id" id="current_user_id" value="{{ $location->user_id }}">
 
                                   <p>
-                                    <input type="radio" value="1" name="other" class="hour_operation"> Display hours of operation
-                                    <input type="radio" value="2" name="other" class="hour_operation" checked> Do not display hours of operation
+                                    <input type="radio" value="1" name="other" class="hour_operation" checked> Display hours of operation
+                                    <input type="radio" value="2" name="other" class="hour_operation"> Do not display hours of operation
                                   </p>
+
+                                    <p>
+                                        <a href="javascript:;" id="timing1" class="timing">
+                                            <b>Copy Timings from Monday to Saturday</b>
+                                        </a> 
+                                    </p>
 
                                   <div class="controls">
 
@@ -653,6 +659,11 @@ $(document).ready(function(){
                                             <h5 style="color: #de4b39;">Click Here For Dual Timings</h5>
                                           </a>
                                           <div id="dual_time_show">
+                                            <p>
+                                                <a href="javascript:;" id="timing2" class="timing">
+                                                    <b>Copy Timings from Monday to Saturday</b>
+                                                </a>
+                                            </p>
                                           <?php
                                       }
                                       if($time->working_status == 0)
@@ -712,19 +723,11 @@ $(document).ready(function(){
                                               </div>
                                           </div>
                                           <?php
-                                          if($key == 6)
-                                          {
-                                            ?>
-                                            <a href="javascript:;" id="timing1" class="timing">Copy Timings from Monday to Saturday</a>
-                                            <?php
-                                          }
-
                                         $i++;
                                     }
                                     ?>
-                                    <a href="javascript:;" id="timing2" class="timing">Copy Timings from Monday to Saturday</a>
+                                    
                                     </div>
-
                                     <script type="text/javascript">
                                       $(document).ready(function(){
                                         $(".closed[type='checkbox'][value='0']").prop('checked', true);
