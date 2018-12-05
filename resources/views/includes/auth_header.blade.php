@@ -59,16 +59,6 @@
                                 </a>
                             </li>
                             @endif
-
-                            <!-- <li class="divider"></li>
-                            <li>
-                                <div class="text-center link-block">
-                                    <a href="javascript:;">
-                                        <strong>See All Alerts</strong>
-                                        <i class="fa fa-angle-right"></i>
-                                    </a>
-                                </div>
-                            </li> -->
                         </ul>
                     </li>
 
@@ -99,6 +89,32 @@
                                     </a>
                                 </li>
                                 @endforeach
+                            @endif
+                        </ul>
+                    </li>
+
+                @endif
+    
+                <!-- If there is any notification available  for support user-->
+                @if($admin_notifications > 0)
+                    <li class="dropdown">
+                        <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                            <i class="fa fa-bell"></i>  
+                            <span class="label label-primary">{{ $admin_notifications }}</span>
+                        </a>
+                        <ul class="dropdown-menu dropdown-alerts">                            
+                            <!-- If there is any meeting assigned to sales executice -->
+                            @if(count($unapproved_users) > 0)
+                                <li>
+                                    <a href="{{ route('un_approved_users') }}">
+                                        <div>
+                                            <i class="fa fa-handshake-o text-info" style="font-size: 16px;"></i> UnApproved Users
+                                            <span class="pull-right text-muted small badge badge-primary text-white">
+                                                {{ count($unapproved_users) }}
+                                            </span>
+                                        </div>
+                                    </a>
+                                </li>
                             @endif
 
                             <!-- <li class="divider"></li>

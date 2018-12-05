@@ -3,14 +3,24 @@
 <!-- Get notifications for sales user -->
 @php
 	$currentuserid = Auth::user()->id; 
-
 	$user = DB::table('user_roles')->where('user_id', $currentuserid)->first();
-
 	$role_id = $user->role_id;
 
+	$admin_notifications = 0;
 	$sales_notifications = 0;
 	$support_notifications = 0;
-	
+
+	// If logged in user is admin
+	if($role_id == 1){
+		
+		// Get unapproved users
+		$unapproved_users = DB::table('user_details')->where(['status' => 0])->get();
+
+		if(!empty($unapproved_users[0])){
+			$admin_notifications++;
+		}
+	}
+
 	// If logged in user is sales executive
 	if($role_id == 6){
 
@@ -18,7 +28,6 @@
 		
 		// if there is any assigned meeting available
 		if(!empty($assigned_meeting[0])){
-
 			$sales_notifications ++;
 		}
 	}
