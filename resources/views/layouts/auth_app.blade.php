@@ -19,6 +19,13 @@
 		if(!empty($unapproved_users[0])){
 			$admin_notifications++;
 		}
+
+		// Get new suggested categories
+		$new_categories = DB::table('category_suggestions')->where(['status' => 1])->get();
+
+		if(!empty($new_categories[0])){
+			$admin_notifications++;
+		}
 	}
 
 	// If logged in user is sales executive

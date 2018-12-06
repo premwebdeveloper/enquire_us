@@ -108,7 +108,7 @@
                                 <li>
                                     <a href="{{ route('un_approved_users') }}">
                                         <div>
-                                            <i class="fa fa-handshake-o text-info" style="font-size: 16px;"></i> UnApproved Users
+                                            <i class="fa fa-ban text-info" style="font-size: 16px;"></i> UnApproved Users
                                             <span class="pull-right text-muted small badge badge-primary text-white">
                                                 {{ count($unapproved_users) }}
                                             </span>
@@ -116,16 +116,20 @@
                                     </a>
                                 </li>
                             @endif
-
-                            <!-- <li class="divider"></li>
+    
+                            @if(!empty($new_categories[0]))
+                            <li class="divider"></li>
                             <li>
-                                <div class="text-center link-block">
-                                    <a href="javascript:;">
-                                        <strong>See All Alerts</strong>
-                                        <i class="fa fa-angle-right"></i>
-                                    </a>
-                                </div>
-                            </li> -->
+                                <a href="{{ route('new_suggested_categories') }}">
+                                    <div>
+                                        <i class="fa fa-list-alt text-info" style="font-size: 16px;"></i> New Suggested Categories
+                                        <span class="pull-right text-muted small badge badge-primary text-white">
+                                            {{ count($new_categories) }}
+                                        </span>
+                                    </div>
+                                </a>
+                            </li>
+                            @endif
                         </ul>
                     </li>
 

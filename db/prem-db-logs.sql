@@ -499,3 +499,20 @@ ALTER TABLE `user_details` CHANGE `created_by` `created_by` TINYINT(1) NULL DEFA
 
 -- ---------------ALTER TABLE `user_location` on 04-14-2018----------------------
 ALTER TABLE `user_location` CHANGE `status` `status` TINYINT(1) NOT NULL DEFAULT '2' COMMENT '2 for un-approve user and 1 for approve user';
+
+-- ---------------CREATE TABLE `category_suggestions` on 05-14-2018----------------------
+CREATE TABLE `category_suggestions` (
+  `id` int(11) NOT NULL,
+  `category` varchar(191) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL COMMENT '1 for new category and 0 for seen category',
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `category_suggestions`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `category_suggestions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `category_suggestions` ADD `user_id` INT NOT NULL COMMENT 'suggested user id' AFTER `id`;

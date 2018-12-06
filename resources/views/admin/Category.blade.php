@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-lg-8">
+    <div class="col-lg-6">
         <h2>All Cateogry</h2>
         <ol class="breadcrumb">
             <li>
@@ -13,8 +13,9 @@
             </li>
         </ol>
     </div>
-    <div class="col-lg-4 text-right">
+    <div class="col-lg-6 text-right">
         <h2>
+            <a href="{{ route('new_suggested_categories') }}" class="btn btn-info">Category Suggstions</a>
             <a href="{{ route('categoryClubs') }}" class="btn btn-info">Category Clubs</a>
             <a href="{{ route('add_category') }}" class="btn btn-info">Add Category</a>
         </h2>

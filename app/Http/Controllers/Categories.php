@@ -8,6 +8,7 @@ use App\User;
 use Storage;
 use Session;
 use File;
+use Auth;
 
 class Categories extends Controller
 {
@@ -15,7 +16,7 @@ class Categories extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-        $this->middleware('admin');
+        //$this->middleware('admin');
     }
 
 	//add category page
@@ -435,5 +436,39 @@ class Categories extends Controller
         $status = 'Category club updated successfully';
 
         return redirect('categoryClubs')->with('success', $status);
+    }
+
+    // Suggest new category by sales / support / client user
+    public function suggest_new_category(Request $request){
+
+        $redirect_route = $request->redirect_route;
+        $redirect_param = $request->redirect_param;
+        $category = $request->suggest_category;
+        $date = date('Y-m-d H:i:s');
+        
+        // Save new suggested category
+        $save = DB::table('category_suggestions')->insert([
+
+            'user_id'    => Auth::user()->id,
+            'category'   => $category,
+            'status'     => 1,
+            'created_at' => $date,
+            'updated_at' => $date,
+        ]);
+
+        if($save):
+
+            $status = 'New category suggested successfully.';
+        else:
+            $status = 'Something went wrong !';
+        endif;
+
+        if($redirect_param == '' && $redirect_route == 'profile'){
+
+            return redirect(route($redirect_route) )->with('status', $status);
+        }else{
+
+            return redirect(route($redirect_route, ['user_id' => $redirect_param]) )->with('status', $status);
+        }
     }
 }

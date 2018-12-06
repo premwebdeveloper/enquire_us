@@ -278,4 +278,8 @@
     
     Route::get('review_remove/{id}', 'Enquiries@review_remove')->name('review_remove');
 
+    // Suggest new category
+    Route::post('suggest_new_category', 'Categories@suggest_new_category')->name('suggest_new_category');
+
+    Route::get('new_suggested_categories', 'AdminUsers@new_suggested_categories')->name('new_suggested_categories');
 // });

@@ -882,10 +882,17 @@ $(document).ready(function(){
                         <p>For business keywords that you no longer wish to be listed in simply click on cross next to the keyword and when you are done, Click "Save"</p>
 
                           <div class="col-sm-12" style="padding: 0px;border-bottom: 1px solid #ddd;">
-                            <a class="continue1" style="color:#3b5998;font-weight: bold;float:right">
-                                Add more keywords
-                            </a>
-                          </div>
+                            <div class="col-md-6 text-left" style="padding: 0px;">    
+                                <a data-toggle="modal" data-target="#categorySuggestionModal">
+                                    <b>Suggest for new category</b>
+                                </a>
+                            </div>
+                            <div class="col-md-6 text-right" style="padding: 0px;">
+                                <a class="continue1">
+                                    <b>Add more keywords</b>
+                                </a>
+                            </div>
+                          </div>                           
 
                           <hr />
 

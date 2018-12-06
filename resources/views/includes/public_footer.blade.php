@@ -183,6 +183,43 @@
     </div>
 </div>
 
+
+<!-- Category Suggestion Modal -->
+<div id="categorySuggestionModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Suggestion for new category</h4>
+            </div>
+            <div class="modal-body">
+                
+                <form action="{{ route('suggest_new_category') }}" method="POST">
+
+                    {{ csrf_field() }}
+
+                    <?php $route = Request::route()->getName(); ?>
+
+                    <input type="hidden" name="redirect_route" value="{{ $route }}">
+                    <input type="hidden" name="redirect_param" value="">
+
+                    <div class="row">
+                        <div class="col-md-10">
+                            <label for="category">Category</label>
+                            <input type="text" name="suggest_category" class="form-control" id="suggest_category" placeholder="Category" required="required">
+                        </div>
+                        <div class="col-md-2">
+                            <input type="submit" name="suggest" value="Suggest" class="btn btn-primary" id="suggestCategory" style="margin-top: 25px;">
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Scripts -->
 @include('includes.public_scripts')
 @include('includes.public_custom_scripts')

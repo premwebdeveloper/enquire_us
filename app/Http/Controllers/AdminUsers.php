@@ -893,4 +893,23 @@ class AdminUsers extends Controller
 
         return redirect('slider')->with('status', $status);
     }
+
+    // Get and show new suggested categories
+    public function new_suggested_categories(){
+
+        $categories = DB::table('category_suggestions')
+                    ->join('users', 'users.id', '=', 'category_suggestions.user_id')
+                    ->join('user_roles', 'user_roles.user_id', '=', 'users.id')
+                    ->join('roles', 'roles.id', '=', 'user_roles.role_id')
+                    ->select('category_suggestions.*', 'roles.role', 'users.name')
+                    ->get();
+
+        // update status for all new suggested categories
+        $update = DB::table('category_suggestions')->where(['status' => 1])->update([
+
+            'status' => 0
+        ]);
+
+        return view('admin.new_suggested_categories', array('categories' => $categories));
+    }
 }
