@@ -52,6 +52,7 @@
 	                    <table class="table table-striped table-bordered table-hover dataTables-example">
 	                        <thead>
 	                            <tr>
+                                    <th>Created By</th>
                                     <th>Company</th>
                                     <th>Contact Person</th>
                                     <th>Email</th>
@@ -63,6 +64,7 @@
 	                        <tbody>
 	                            @foreach($users as $user)
 	                                <tr class="gradeX">
+                                        <td>{{ $user->created_by_name }} ({{ $user->created_by_phone }})</td>
                                         <td>{{ $user->business_name }}</td>
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td>

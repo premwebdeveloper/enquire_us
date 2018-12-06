@@ -45,8 +45,9 @@ class AdminUsers extends Controller
                 ->join('user_location', 'user_location.user_id', '=', 'user_details.user_id')
                 ->join('areas', 'areas.id', '=', 'user_location.area')
                 ->join('cities', 'cities.id', '=', 'user_location.city')
+                ->join('employees', 'employees.user_id', '=', 'user_details.created_by')
                 ->where('user_details.status', '=', 0)
-                ->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.state', 'user_location.country', 'user_location.pincode', 'areas.area as area_name', 'cities.name as city_name')
+                ->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.state', 'user_location.country', 'user_location.pincode', 'areas.area as area_name', 'cities.name as city_name', 'employees.name as created_by_name', 'employees.phone as created_by_phone')
                 ->get();
 
         return view('admin_users.un_approved_users', array('users' => $users));

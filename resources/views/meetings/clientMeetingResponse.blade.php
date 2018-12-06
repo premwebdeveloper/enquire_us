@@ -91,7 +91,7 @@
                 @endif
                 <!-- show old meeting responses -->
                 <div class="table-responsive">
-                    <table class="table table-striped table-bordered table-hover dataTables-example">
+                    <table class="table table-bordered table-hover dataTables-example">
                         <thead>
                             <tr>
                                 <th>Sales Ex.</th>
@@ -103,18 +103,28 @@
                         </thead>
                         <tbody>   
                             @foreach($responses as $key => $response)                   
-                            <tr class="gradeX">
+
+                            @php                                
+                                $possibility = '';
+                                if($response->possibility == 1):
+                                    $possibility = 'Not Available';
+                                    $color = 'primary';
+                                elseif($response->possibility == 2):
+                                    $possibility = 'Not Visited';
+                                    $color = 'info';
+                                elseif($response->possibility == 3):
+                                    $possibility = 'Follow Up';
+                                    $color = 'danger';
+                                elseif($response->possibility == 4):
+                                    $possibility = 'Deal Closed';
+                                    $color = 'warning';
+                                endif;
+                            @endphp
+
+                            <tr class="gradeX alert alert-{{ $color }}">
                                 <td>{{ $response->name }}</td>
                                 <td>
-                                    @if($response->possibility == 1)
-                                        Not Available
-                                    @elseif($response->possibility == 2)
-                                        Not Visited
-                                    @elseif($response->possibility == 3)
-                                        Follow Up
-                                    @elseif($response->possibility == 4)
-                                        Deal Closed
-                                    @endif
+                                    {{ $possibility }}
                                 </td>
                                 <td>{{ $response->follow_up_date }}</td>
                                 <td>{{ $response->remark }}</td>
@@ -143,14 +153,10 @@
                 $('#followup_remark').show();
                 $('#remark_remark').hide();
             }
-            else if(possibility == 4){  // If deal closed
+            else{  // If deal closed
 
                 $('#followup_remark').hide();
                 $('#remark_remark').show();
-            }else{
-
-                $('#followup_remark').hide();
-                $('#remark_remark').hide();
             }
         });
     });
