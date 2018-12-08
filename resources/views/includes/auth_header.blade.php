@@ -8,34 +8,6 @@
 
             <ul class="nav navbar-top-links navbar-right">
 
-                <!-- <li class="dropdown">
-                    <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-                        <i class="fa fa-envelope"></i>  <span class="label label-warning"></span>
-                    </a>
-                    <ul class="dropdown-menu dropdown-messages">
-                        <li>
-                            <div class="dropdown-messages-box">
-                                <a href="javascript:;" class="pull-left">
-                                    <img alt="image" class="img-circle" src="resources/assets/images/sad.png">
-                                </a>
-                                <div class="media-body ">
-                                    <small class="pull-right">23h ago</small>
-                                    <strong>Monica Smith</strong> love <strong>Kim Smith</strong>. <br>
-                                    <small class="text-muted">2 days ago at 2:30 am - 11.06.2014</small>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="divider"></li>
-                        <li>
-                            <div class="text-center link-block">
-                                <a href="javascript:;">
-                                    <i class="fa fa-envelope"></i> <strong>Read All Messages</strong>
-                                </a>
-                            </div>
-                        </li>
-                    </ul>
-                </li> -->
-    
                 <!-- If there is any notification available sales user-->
                 @if($sales_notifications > 0)
                     <li class="dropdown">
@@ -89,6 +61,23 @@
                                     </a>
                                 </li>
                                 @endforeach
+                            @endif
+
+
+                            @if(!empty($todays_followup[0]))
+
+                                @foreach($todays_followup as $key => $followup)
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="{{ route('client_meeting_response_view', ['meeting_id' => $followup->cats_id]) }}">
+                                        <div>
+                                            <i class="fa fa-meetup text-info" style="font-size: 16px;"></i>
+                                            {{ $followup->business_name }} meeting fixed with {{ $followup->name }} today at {{ $followup->follow_up_date }}
+                                        </div>
+                                    </a>
+                                </li>
+                                @endforeach
+
                             @endif
                         </ul>
                     </li>

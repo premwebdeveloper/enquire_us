@@ -1,15 +1,18 @@
 @include('includes.auth_head')
 
-<!-- Get notifications for sales user -->
-@php
+<?php	
+	// Get current logged in user and user role
 	$currentuserid = Auth::user()->id; 
 	$user = DB::table('user_roles')->where('user_id', $currentuserid)->first();
 	$role_id = $user->role_id;
 
+	// Set notification count is 0 for all users
 	$admin_notifications = 0;
 	$sales_notifications = 0;
 	$support_notifications = 0;
 
+	/* ******************************************************************************** */
+	/* ******************************************************************************** */
 	// If logged in user is admin
 	if($role_id == 1){
 		
@@ -28,6 +31,8 @@
 		}
 	}
 
+	/* ******************************************************************************** */
+	/* ******************************************************************************** */
 	// If logged in user is sales executive
 	if($role_id == 6){
 
@@ -39,13 +44,16 @@
 		}
 	}
 
+	/* ******************************************************************************** */
+	/* ******************************************************************************** */
 	// If the logged in user support executive
 	if($role_id == 3){
 
+		/* **************************************************** */
 		// get my created client meetings
 		$my_meetings = DB::table('client_assigned_to_sales')
-							->where(['assigned_by' => $currentuserid, 'status' => 1])
-							->get();	
+		->where(['assigned_by' => $currentuserid, 'status' => 1])
+		->get();	
 		
 		$seprate_responses = array();
 		
@@ -53,12 +61,13 @@
 		foreach($my_meetings as $key => $my_meet){
 
 			$meeting_response = DB::table('client_meeting_response as cmr')
-								->join('client_assigned_to_sales as cats', 'cats.id', '=', 'cmr.cats_id')
-								->join('user_location as ul', 'ul.user_id', '=', 'cats.user_id')
-								->where(['cmr.cats_id' => $my_meet->id, 'cmr.notification_status' => 1])
-								->select('cmr.cats_id', 'ul.business_name')
-								->get();
+			->join('client_assigned_to_sales as cats', 'cats.id', '=', 'cmr.cats_id')
+			->join('user_location as ul', 'ul.user_id', '=', 'cats.user_id')
+			->where(['cmr.cats_id' => $my_meet->id, 'cmr.notification_status' => 1])
+			->select('cmr.cats_id', 'ul.business_name')
+			->get();
 
+			// If meeting response is not empty
 			if(!empty($meeting_response[0])){			
 				foreach($meeting_response as $r_key => $res){
 		
@@ -68,11 +77,26 @@
 				}
 				$support_notifications ++;
 			}	
-		}		
+		}
+
+
+		/* **************************************************** */
+		// Create notification for today's followups  / any support submitted fullowup date for my created clients
+		$todays_followup = DB::table('client_assigned_to_sales as cats')
+		->join('client_meeting_response as cmr', 'cmr.cats_id', '=', 'cats.id')
+		->join('employees as emp', 'emp.user_id', '=', 'cmr.sales_uid')
+		->join('user_location as ul', 'ul.user_id', '=', 'cats.user_id')
+		->where(['cats.assigned_by' => $currentuserid, 'cmr.possibility' => 3])
+		->whereDate('cmr.follow_up_date', '=', date('Y-m-d'))
+		->select('cmr.*', 'emp.name', 'ul.business_name')
+		->get();
+
+		if(!empty($todays_followup[0])){
+
+			$support_notifications += count($todays_followup);
+		}
 	}
-
-@endphp
-
+?>
 
 @include('includes.auth_admin_sidebar')
 

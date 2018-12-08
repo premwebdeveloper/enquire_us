@@ -13,8 +13,7 @@ CREATE TABLE `user_roles` (
   `role_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  `updated_at` timestamp NULL DEFAULT NULL) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 ALTER TABLE `user_roles`
   ADD PRIMARY KEY (`id`);
@@ -488,19 +487,19 @@ ALTER TABLE `client_meeting_response` ADD `notification_status` BOOLEAN NOT NULL
 -- ---------------ALTER TABLE `client_assigned_to_sales` on 28-11-2018----------------------
 ALTER TABLE `client_assigned_to_sales` ADD `notification_status` BOOLEAN NOT NULL DEFAULT TRUE COMMENT '1 for unseen notification and 0 for seen notification' AFTER `assign_date_time`;
 
--- ---------------ALTER TABLE `users` on 04-14-2018----------------------
+-- ---------------ALTER TABLE `users` on 04-12-2018----------------------
 ALTER TABLE `users` CHANGE `status` `status` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '0 for un-approve user and 1 for active user and 2 for inactive user';
 
--- ---------------ALTER TABLE `user_details` on 04-14-2018----------------------
+-- ---------------ALTER TABLE `user_details` on 04-12-2018----------------------
 ALTER TABLE `user_details` CHANGE `status` `status` TINYINT(1) NOT NULL DEFAULT '0' COMMENT '0 for un-approve user and 1 for active user and 2 for inactive user';
 
--- ---------------ALTER TABLE `user_details` on 04-14-2018----------------------
+-- ---------------ALTER TABLE `user_details` on 04-12-2018----------------------
 ALTER TABLE `user_details` CHANGE `created_by` `created_by` TINYINT(1) NULL DEFAULT NULL COMMENT 'user id who create this user / if null then register user himself and if 1 then created by admin else created by others';
 
--- ---------------ALTER TABLE `user_location` on 04-14-2018----------------------
+-- ---------------ALTER TABLE `user_location` on 04-12-2018----------------------
 ALTER TABLE `user_location` CHANGE `status` `status` TINYINT(1) NOT NULL DEFAULT '2' COMMENT '2 for un-approve user and 1 for approve user';
 
--- ---------------CREATE TABLE `category_suggestions` on 05-14-2018----------------------
+-- ---------------CREATE TABLE `category_suggestions` on 05-12-2018----------------------
 CREATE TABLE `category_suggestions` (
   `id` int(11) NOT NULL,
   `category` varchar(191) DEFAULT NULL,
@@ -516,3 +515,6 @@ ALTER TABLE `category_suggestions`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `category_suggestions` ADD `user_id` INT NOT NULL COMMENT 'suggested user id' AFTER `id`;
+
+-- ---------------CREATE TABLE `client_meeting_response` on 08-12-2018----------------------
+ALTER TABLE `client_meeting_response` CHANGE `possibility` `possibility` INT(11) NOT NULL COMMENT '1 for not available and 2 for not visited and 3 for follow up and 4 for deal closed';
