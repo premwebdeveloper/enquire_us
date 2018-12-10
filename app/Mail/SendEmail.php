@@ -6,6 +6,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use App\User;
 
 class SendEmail extends Mailable
 {
@@ -16,9 +17,11 @@ class SendEmail extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public $user;
+
+    public function __construct(User $user)
     {
-        //
+        $this->user = $user;
     }
 
     /**
@@ -28,6 +31,6 @@ class SendEmail extends Mailable
      */
     public function build()
     {
-        return $this->view('view.name');
+        return $this->view('email.sendEmail')->subject('Meeting Assigned');
     }
 }

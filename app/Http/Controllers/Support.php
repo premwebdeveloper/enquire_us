@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\User;
 use DB;
 use Auth;
+use Mail;
+use App\Mail\SendEMail;
 
 class Support extends Controller
 {
@@ -51,6 +53,7 @@ class Support extends Controller
         return view('meetings.addUser_basic_information', array('categories' => $categories));
     }
 
+    // Client assign to sales executive
     public function client_assign_to_sales(Request $request){
 
         $currentuserid = Auth::user()->id;
@@ -65,6 +68,7 @@ class Support extends Controller
         // First check if this user assigned to any sales executive already or not
         $already = DB::table('client_assigned_to_sales')->where(['user_id' => $client_uid, 'assigned_by' => $currentuserid, 'status' => 1])->first();
 
+        // If client not assigned already
         if(!empty($already)){
 
             // Assign client to sales person by support person
@@ -75,6 +79,7 @@ class Support extends Controller
             ]);
         }else{
             
+            // Client assigned to sales first time
             // Assign client to sales person by support person
             $assign = DB::table('client_assigned_to_sales')->insert([
 
@@ -90,6 +95,15 @@ class Support extends Controller
 
         if($assign)
         {
+            // Get sales person information who is assigned meeting by support
+            $sales_info = DB::table('users')->where('id', $sales_person)->first();
+
+            // Get support information who is assigning meeting to sales
+            //$sales_info = DB::table('users')->where('id', $sales_person)->first();
+
+            // Send email to sales executive thet meeting assigned to him with client
+            Mail::to($sales_info->email)->send(new SendEmail(Auth::user()));
+            
             $status = 'Client assigned to sales executive.';
         }
         else

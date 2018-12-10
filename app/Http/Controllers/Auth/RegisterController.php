@@ -149,23 +149,12 @@ class RegisterController extends Controller
             )
         );
 
-        // Create User Images
-        /*$user_details = DB::table('user_images')->insert(
-            array(
-                'user_id' => $user_id,
-                'image' => 'user.png',
-                'created_at' => $date,
-                'updated_at' => $date
-            )
-        );*/
-
         $thisUser = User::findOrFail($user->id);
         $this->sendEmail($thisUser);
 
         return $user;
         exit;
     }
-
 
     # Verify Email First
     public function verifyEmailFirst()
@@ -195,8 +184,6 @@ class RegisterController extends Controller
             $status = 'Verified email. Please update your profile now';
 
             return redirect('profile')->with('status', $status);
-
         }
-
     }
 }
