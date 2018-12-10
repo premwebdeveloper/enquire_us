@@ -516,5 +516,22 @@ ALTER TABLE `category_suggestions`
 
 ALTER TABLE `category_suggestions` ADD `user_id` INT NOT NULL COMMENT 'suggested user id' AFTER `id`;
 
--- ---------------CREATE TABLE `client_meeting_response` on 08-12-2018----------------------
+-- ---------------ALTER TABLE `client_meeting_response` on 08-12-2018----------------------
 ALTER TABLE `client_meeting_response` CHANGE `possibility` `possibility` INT(11) NOT NULL COMMENT '1 for not available and 2 for not visited and 3 for follow up and 4 for deal closed';
+
+-- ---------------CREATE TABLE `blogs` on 10-12-2018----------------------
+CREATE TABLE `blogs` (
+  `id` int(11) NOT NULL,
+  `title` text,
+  `content` longtext,
+  `image` varchar(191) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `blogs`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `blogs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
