@@ -15,7 +15,7 @@
     <script src="{{ asset('resources/assets/js/demo/peity-demo.js') }}"></script>
 
     <script src="{{ asset('resources/assets/js/plugins/dataTables/datatables.min.js') }}"></script>
-    <script src="{{ asset('resources/assets/js/inspinia.js') }}"></script>
+    <!-- <script src="{{ asset('resources/assets/js/inspinia.js') }}"></script> -->
     <script src="{{ asset('resources/assets/js/plugins/pace/pace.min.js') }}"></script>
 
     <!-- <script src="{{ asset('resources/assets/js/plugins/jquery-ui/jquery-ui.min.js') }}"></script> -->
