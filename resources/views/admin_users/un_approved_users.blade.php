@@ -71,7 +71,10 @@
                                         <td>{{ $user->phone }}</td>
                                         <td>{{ $user->area_name .', '.$user->city_name .' - '.$user->pincode }}</td>
 	                                    <td>
-   											<a href="{{ route('updateUserStatus', ['user_id' => $user->user_id]) }}" class="btn btn-primary element" data-toggle="confirmation" data-placement="top" data-btn-ok-label="Yes" data-btn-ok-class="btn-success" data-btn-cancel-label="No" data-btn-cancel-class="btn-danger" data-title="Approve?">
+   											<a href="{{ route('addUser_basic_information', ['user_id' => $user->user_id]) }}" class="btn btn-info">
+                                                    View
+                                            </a>
+                                            <a href="{{ route('updateUserStatus', ['user_id' => $user->user_id]) }}" class="btn btn-primary element" data-toggle="confirmation" data-placement="top" data-btn-ok-label="Yes" data-btn-ok-class="btn-success" data-btn-cancel-label="No" data-btn-cancel-class="btn-danger" data-title="Approve?">
 													Approve
 											</a>
 	                                    </td>

@@ -225,5 +225,4 @@ class Profile extends Controller
 
         return view('profile.enquiry', array('enquiries' => $enquiries, 'my_enquiries' => $my_enquiries));
     }
-
 }

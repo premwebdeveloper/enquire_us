@@ -23,15 +23,16 @@ class AdminUsers extends Controller
         $users = DB::table('user_details')
                 ->join('user_location', 'user_location.user_id', '=', 'user_details.user_id')
                 ->join('user_keywords', 'user_keywords.user_id', '=', 'user_details.user_id')
-                ->join('category', 'category.id', '=', 'user_keywords.keyword_id')
+                ->leftjoin('category', 'category.id', '=', 'user_keywords.keyword_id')
+                ->leftjoin('subcategory', 'subcategory.id', '=', 'user_keywords.keyword_id')
                 ->join('areas', 'areas.id', '=', 'user_location.area')
                 ->join('cities', 'cities.id', '=', 'user_location.city')
                 ->where('user_details.status', '!=', 0)
-                ->where('user_keywords.keyword_identity', '=', 1)
+                //->where('user_keywords.keyword_identity', '=', 1)
                 ->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.state', 'user_location.country', 'user_location.pincode', 'category.category', 'areas.area as area_name', 'cities.name as city_name')
                 ->groupBy('user_id')
                 ->get();
-
+        //dd($users);
         return view('admin_users.index', array('users' => $users));
     }
 

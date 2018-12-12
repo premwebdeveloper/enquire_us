@@ -1,58 +1,67 @@
 @extends('layouts.auth_app')
 
 @section('content')
-	<div class="wrapper wrapper-content">
+    <div class="wrapper wrapper-content">
 
         <div class="row">
-            <div class="col-lg-12">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-content">
-                        <div>
-                            <span class="pull-right text-right">
-                            <small>Average value of sales in the past month in: <strong>United states</strong></small>
-                                <br/>
-                                All sales: 162,862
-                            </span>
-                            <h3 class="font-bold no-margins">
-                                Support User
-                            </h3>
+            <div class="col-lg-3">
+                <div class="widget style1 yellow-bg">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <i class="fa fa-meetup fa-4x"></i>
                         </div>
-
-                        <div class="m-t-sm">
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <div>
-                                    	<img alt="image" src="resources/assets/images/step.jpg" style="width: 100%;">
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <ul class="stat-list m-t-lg">
-                                        <li>
-                                            <h2 class="no-margins">2,346</h2>
-                                            <small>Total orders in period</small>
-                                            <div class="progress progress-mini">
-                                                <div class="progress-bar" style="width: 48%;"></div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <h2 class="no-margins ">4,422</h2>
-                                            <small>Orders in last month</small>
-                                            <div class="progress progress-mini">
-                                                <div class="progress-bar" style="width: 60%;"></div>
-                                            </div>
-                                        </li>
-                                    </ul>
-                                </div>
+                        <div class="col-lg-9 text-right">
+                            <span> Total Meeting Create </span>
+                            <h2 class="font-bold"><?= $total_meeting;?></h2>
+                        </div>
+                    </div>
+                </div>
+            </div>  
+            <div class="col-lg-3">
+                <div class="widget style1 navy-bg">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <i class="fa fa-thumbs-up fa-4x"></i>
+                        </div>
+                        <div class="col-lg-9 text-right">
+                            <span> Total Meeting Done </span>
+                            <h2 class="font-bold">26'C</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>            
+            <div class="col-lg-3">
+                <div class="widget style1 lazur-bg">
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <i class="fa fa-mail-forward fa-4x"></i>
+                        </div>
+                        <div class="col-lg-9 text-right">
+                            <span> Total Meeting Follow Up </span>
+                            <h2 class="font-bold">26'C</h2>
+                        </div>
+                    </div>
+                </div>
+            </div>           
+            <a href="{{ route('addUser_basic_information') }}">          
+                <div class="col-lg-3">
+                    <div class="widget style1 red-bg">
+                        <div class="row">
+                            <div class="col-lg-3">
+                                <i class="fa fa-plus fa-4x"></i>
+                            </div>
+                            <div class="col-lg-9 text-right">
+                                <h2 class="font-bold">Create Meeting</h2>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </a>
         </div>
 
     </div>
 
-	<div class="row">
-	<div class="col-lg-12">
+    <div class="row">
+    <div class="col-lg-12">
 
 @endsection

@@ -7,7 +7,7 @@ use App\User;
 use DB;
 use Auth;
 use Mail;
-use App\Mail\SendEMail;
+use App\Mail\SendEmail;
 
 class Support extends Controller
 {
@@ -21,8 +21,13 @@ class Support extends Controller
     // Support dashdoard
     public function dashboard()
     {
-    	
-    	return view('dashboard.support_dashboard');
+        $currentuserid = Auth::user()->id;
+
+    	$total_meeting = DB::table('user_details')->where('created_by', $currentuserid)->get();
+
+        $meeting = count($total_meeting);
+
+    	return view('dashboard.support_dashboard', array('total_meeting' => $meeting));
     }
 
     // client meetings view page
