@@ -70,6 +70,10 @@
     Route::get('searchCategoriesAndCompanies', ['as'=>'searchCategoriesAndCompanies','uses'=>'AjaxController@searchCategoriesAndCompanies']);
     # Get sub categories according to cstegory
     Route::post('getSubcategoriesAccordingToCategory', 'AjaxController@getSubcategoriesAccordingToCategory')->name('getSubcategoriesAccordingToCategory');
+    
+    # Get categories according to super category
+    Route::post('getCatsAccordingToSuperCat', 'AjaxController@getCatsAccordingToSuperCat')->name('getCatsAccordingToSuperCat');
+
     # Get company area
     Route::post('getCompanyArea', 'AjaxController@getCompanyArea')->name('getCompanyArea');
     # Save keywords
@@ -284,5 +288,25 @@
     // Suggest new category
     Route::post('suggest_new_category', 'Categories@suggest_new_category')->name('suggest_new_category');
 
+    # Get new suggested categories
     Route::get('new_suggested_categories', 'AdminUsers@new_suggested_categories')->name('new_suggested_categories');
+    
+    # Edit suggested category
+    Route::post('editSuggestedCategory', 'Categories@editSuggestedCategory')->name('editSuggestedCategory');
+
+    # Approve suggested category
+    Route::post('approveSuggestedCategory', 'Categories@approveSuggestedCategory')->name('approveSuggestedCategory');
+
+
+    // Show all blogs
+    Route::get('blogs', 'Blogs@index')->name('blogs');
+
+    // Add blog page view
+    Route::get('addBlog', 'Blogs@addBlog')->name('addBlog');
+
+    // Add new blog
+    Route::post('createBlog', 'Blogs@create')->name('createBlog');
+
+    // Edit blog page view
+    Route::get('editBlog/{blog_id}', 'Blogs@editBlog')->name('editBlog');
 // });

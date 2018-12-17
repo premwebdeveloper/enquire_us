@@ -471,4 +471,59 @@ class Categories extends Controller
             return redirect(route($redirect_route, ['user_id' => $redirect_param]) )->with('status', $status);
         }
     }
+
+    // Edit suggested category
+    public function editSuggestedCategory(Request $request){
+
+        $suggested_cate_id = $request->suggested_cate_id;
+        $suggested_category = $request->suggested_category;
+        
+        $update = DB::table('category_suggestions')->where('id', $suggested_cate_id)->update([
+
+            'category' => $suggested_category,
+            'updated_at' => date('Y-m-d H:i:s'),
+        ]);
+
+        return redirect('new_suggested_categories')->with(['status' => 'Category updated successfully.']);
+    }
+
+    // Approce suggested category
+    public function approveSuggestedCategory(Request $request){
+
+        $approve_suggested_cate_id = $request->approve_suggested_cate_id;
+        $approve_suggested_cat_name = $request->approve_suggested_cat_name;
+        $super_category = $request->super_category;
+        $category = $request->category;
+
+        // If category selected then create it subcategory else create it category
+        if(!empty($category)){
+
+            $craete = DB::table('subcategory')->insert([
+
+                'cat_id'      => $category,
+                'subcategory' => $approve_suggested_cat_name,
+                'created_at'  => date('Y-m-d H:i:s'),
+                'updated_at'  => date('Y-m-d H:i:s'),
+                'status'      => 1,
+            ]);
+        }else{
+
+            $craete = DB::table('category')->insert([
+
+                'super_category' => $super_category,
+                'category'       => $approve_suggested_cat_name,
+                'image'          => 'category.png',
+                'created_at'     => date('Y-m-d H:i:s'),
+                'updated_at'     => date('Y-m-d H:i:s'),
+                'status'         => 1,
+            ]);
+        }
+
+        if($craete){
+
+            $delete = DB::table('category_suggestions')->where('id', $approve_suggested_cate_id)->delete();
+        }
+
+        return redirect('new_suggested_categories')->with(['status' => 'Category approved successfully.']);
+    }
 }

@@ -715,6 +715,24 @@ class AjaxController extends Controller
         echo $data;
         exit;
     }
+    
+    // Get Categories according to Super Category
+    public function getCatsAccordingToSuperCat(Request $request)
+    {
+        $super_cat_id = $request->super_cat;
+
+        // Get all categories according to super category
+        $categories = DB::table('category')->where('super_category', $super_cat_id)->get();
+
+        $data = '<option value="">Select Category</option>';
+
+        foreach ($categories as $key => $cat) {
+            $data .= '<option value="'.$cat->id.'">'.$cat->category.'</option>';
+        }
+
+        echo $data;
+        exit;
+    }
 
     // Check keyword is exist or not in db
     public function checkKeywordExistOrNot(Request $request)

@@ -948,6 +948,9 @@ class AdminUsers extends Controller
             'status' => 0
         ]);
 
-        return view('admin.new_suggested_categories', array('categories' => $categories));
+        // Get all super categories
+        $super_cats = DB::table('super_categories')->where('status', 1)->get();
+
+        return view('admin.new_suggested_categories', array('categories' => $categories, 'super_cats' => $super_cats));
     }
 }

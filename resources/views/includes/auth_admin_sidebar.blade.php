@@ -83,6 +83,8 @@
 
                 <li><a href="{{route('reviews')}}"><i class="fa fa-users"></i> <span class="nav-label">User Reviews</span></a></li>
 
+                <li><a href="{{route('blogs')}}"><i class="fa fa-users"></i> <span class="nav-label">Blogs</span></a></li>
+
                 <?php
             /* *********************************************** */
             // If loggedIn user is Support then show menu in leftbar
