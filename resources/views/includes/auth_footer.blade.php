@@ -12,6 +12,23 @@ $sales_users = DB::table('employees')
                 ->select('employees.*')
                 ->get();
 ?>
+<!-- if Assign Keyword than approve user -->
+<div id="approve_modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Category Assign</h4>
+            </div>
+            <div class="modal-body">
+                <p>You can not approve this user without assign any keyword !</p>
+            </div>
+        </div>
+
+    </div>
+</div>
 
 <!-- Meeting assign to sales by support Modal -->
 <div id="assignToSalesModal" class="modal fade" role="dialog">

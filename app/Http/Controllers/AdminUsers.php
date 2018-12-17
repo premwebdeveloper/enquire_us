@@ -47,16 +47,52 @@ class AdminUsers extends Controller
                 ->join('areas', 'areas.id', '=', 'user_location.area')
                 ->join('cities', 'cities.id', '=', 'user_location.city')
                 ->join('employees', 'employees.user_id', '=', 'user_details.created_by')
+                //->leftjoin('user_keywords', 'user_keywords.user_id', '=', 'user_details.user_id')
                 ->where('user_details.status', '=', 0)
                 ->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.state', 'user_location.country', 'user_location.pincode', 'areas.area as area_name', 'cities.name as city_name', 'employees.name as created_by_name', 'employees.phone as created_by_phone')
                 ->get();
-
+            foreach ($users as $key => $user) {
+                
+                $keywords = DB::table('user_keywords')->where(['user_id' => $user->user_id, "status" => 1])->first();
+                if(!empty($keywords))
+                {
+                    $users[$key]->keyword_exit = 1;
+                }
+                else{
+                    $users[$key]->keyword_exit = 0;   
+                }
+            }
+            //exit;
         return view('admin_users.un_approved_users', array('users' => $users));
         
     }
 
     // Update user status / approve and unapprove user with status
     public function updateUserStatus(Request $request){
+
+        $user_id = $request->user_id;
+
+        // Approve user in users table
+        $update = User::where(['id'=>$user_id])->update(['status' => '1']);
+
+        // Approve in user details table
+        $details = DB::table('user_details')->where(['user_id' => $user_id])->update(['update_status' => '1', 'status' => '1']);
+
+        // Approve in user_location table
+        $locations = DB::table('user_location')->where(['user_id' => $user_id])->update(['update_status' => '1', 'status' => '1']);
+
+        if($locations):
+
+            $status = 'User approved successfully.';
+        else:
+            $status = 'Something went wrong!';
+        endif;
+
+        return redirect('un_approved_users')->with(['status' => $status]);
+    }
+
+    // Delete User
+    public function deleteUser(Request $request){
 
         $user_id = $request->user_id;
 

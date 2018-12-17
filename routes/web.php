@@ -165,6 +165,9 @@
 
     # Update user status / approve and unapproce user with status
     Route::get('updateUserStatus/{user_id}', 'AdminUsers@updateUserStatus')->name('updateUserStatus');
+
+    # Delete User
+    Route::get('deleteUser/{user_id}', 'AdminUsers@deleteUser')->name('deleteUser');
     
     # employees page route
     Route::get('employees', 'Employees@index')->name('employees');

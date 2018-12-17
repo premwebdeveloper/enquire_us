@@ -4,7 +4,8 @@
 
 <style>
 	.btn-success{ padding: 4px; border-radius: 4px; }
-	.btn-danger{ padding: 4px; border-radius: 4px; }
+    .btn-danger{ padding: 4px; border-radius: 4px; }
+	.padding{ padding: 2px;}
 </style>
 
 <div class="row wrapper border-bottom white-bg page-heading">
@@ -71,11 +72,20 @@
                                         <td>{{ $user->phone }}</td>
                                         <td>{{ $user->area_name .', '.$user->city_name .' - '.$user->pincode }}</td>
 	                                    <td>
-   											<a href="{{ route('addUser_basic_information', ['user_id' => $user->user_id]) }}" class="btn btn-info">
-                                                    View
+   											<a href="{{ route('addUser_basic_information', ['user_id' => $user->user_id]) }}" class="btn btn-info btn-xs">
+                                                View
                                             </a>
-                                            <a href="{{ route('updateUserStatus', ['user_id' => $user->user_id]) }}" class="btn btn-primary element" data-toggle="confirmation" data-placement="top" data-btn-ok-label="Yes" data-btn-ok-class="btn-success" data-btn-cancel-label="No" data-btn-cancel-class="btn-danger" data-title="Approve?">
-													Approve
+                                            @if($user->keyword_exit == 1)
+                                            <a href="{{ route('updateUserStatus', ['user_id' => $user->user_id]) }}" class="btn btn-primary btn-xs element" data-toggle="confirmation" data-placement="top" data-btn-ok-label="Yes" data-btn-ok-class="btn-success" data-btn-cancel-label="No" data-btn-cancel-class="btn-danger" data-title="Approve?">
+                                                Approve
+                                            </a>
+                                            @else
+                                            <a href="#approve_modal" class="btn btn-primary btn-xs" data-toggle="modal">
+                                                Approve
+                                            </a>
+                                            @endif
+                                            <a href="{{ route('deleteUser', ['user_id' => $user->user_id]) }}" class="btn btn-danger padding btn-xs element" data-toggle="confirmation" data-placement="top" data-btn-ok-label="Yes" data-btn-ok-class="btn-success" data-btn-cancel-label="No" data-btn-cancel-class="btn-danger" data-title="Delete?">
+												Delete
 											</a>
 	                                    </td>
 	                                </tr>

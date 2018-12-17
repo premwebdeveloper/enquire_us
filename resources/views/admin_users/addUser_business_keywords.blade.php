@@ -230,14 +230,8 @@
                                                     <p>For business keywords that you no longer wish to be listed in simply click on cross next to the keyword and when you are done, Click "Save"</p>
 
                                                     <div class="col-sm-12" style="padding: 0px;border-bottom: 1px solid #ddd; ">
-                                                        <div class="col-md-6 text-left" style="padding: 0px;">
-                                                            @if(Auth::user()->id != 1)
-                                                                <a data-toggle="modal" data-target="#categorySuggestionModal">
-                                                                    <b>Suggest for new category</b>
-                                                                </a>
-                                                            @endif
-                                                        </div>
-                                                        <div class="col-md-6 text-right" style="padding: 0px;">
+                                                        
+                                                        <div class="col-md-12 text-right" style="padding: 0px;">
                                                             <a class="add_keyword">
                                                                 <b>Add more keywords</b>
                                                             </a>
@@ -270,6 +264,16 @@
 
                                                     <div class="col-md-3 text-right">
                                                         <button class="btn btn-info btn-block" id="save_keywords">Save</button>
+                                                    </div> 
+                                                    <div class="col-md-4 text-left">
+                                                        <h3>If you do not find the keyword then</h3> 
+                                                    </div>
+                                                    <div class="col-md-3 text-right">
+                                                        @if(Auth::user()->id != 1)
+                                                            <a class="btn btn-success btn-block" data-toggle="modal" data-target="#categorySuggestionModal">
+                                                                <b>Suggest for new category</b>
+                                                            </a>
+                                                        @endif
                                                     </div>                                             
                                                 </div>
 
