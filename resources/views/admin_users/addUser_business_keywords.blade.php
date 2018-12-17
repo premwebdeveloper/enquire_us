@@ -265,16 +265,18 @@
                                                     <div class="col-md-3 text-right">
                                                         <button class="btn btn-info btn-block" id="save_keywords">Save</button>
                                                     </div> 
-                                                    <div class="col-md-4 text-left">
-                                                        <h3>If you do not find the keyword then</h3> 
-                                                    </div>
-                                                    <div class="col-md-3 text-right">
-                                                        @if(Auth::user()->id != 1)
+                                                    @if(Auth::user()->id != 1)
+                                                        <div class="col-md-4 text-left">
+                                                            <h3>If you do not find the keyword then</h3> 
+                                                        </div>
+                                                        <div class="col-md-3 text-right">
+                                                            
                                                             <a class="btn btn-success btn-block" data-toggle="modal" data-target="#categorySuggestionModal">
                                                                 <b>Suggest for new category</b>
                                                             </a>
-                                                        @endif
-                                                    </div>                                             
+                                                            
+                                                        </div>   
+                                                    @endif                                          
                                                 </div>
 
                                                 <div class="col-md-12 text-right">
