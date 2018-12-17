@@ -64,7 +64,14 @@
 	                        </thead>
 	                        <tbody>
 	                            @foreach($users as $user)
-	                                <tr class="gradeX">
+                                @php
+                                if($user->keyword_exit == 1):
+                                    $assigned_keyword_user = "";
+                                else:
+                                    $assigned_keyword_user = "danger";
+                                endif;
+                                @endphp
+	                                <tr class="gradeX {{$assigned_keyword_user}}">
                                         <td>{{ $user->created_by_name }} ({{ $user->created_by_phone }})</td>
                                         <td>{{ $user->business_name }}</td>
                                         <td>{{ $user->name }}</td>
