@@ -45,7 +45,7 @@
                 <h5>Add User</h5>
             </div>
 
-            @if(isset($status))
+            @if(isset($status) && !empty($status))
                 <div class="col-md-12">
                     <div class="alert alert-success">
                         {{ $status }}
@@ -108,8 +108,34 @@
 
                                                     </div>
                                                     <div class="col-md-12 text-right">
-                                                          <!-- <a class="btn btn-primary continue" data-original-title="" title="">Save & Exit</a> -->
-                                                          <input type="submit" name="save_exit" class="btn btn-success" value="Save">
+                                                        <!-- If logged in user is admin then Button Save And Approve -->
+                                                        @if(Auth::user()->id == 1)
+
+                                                            <!-- If user is not approved then user will be approve also -->
+                                                            @if($user_logo->status == 0)
+
+                                                                <input type="hidden" name="approve_also" value="1">
+
+                                                                <!-- If keyword not assigned to user then admin can not approve user else can approve -->
+                                                                @if($keyword_exit == 1)
+                                                                    <input type="submit" name="save_exit" class="btn btn-success" value="Save And Approve">
+                                                                @else
+                                                                    <a href="#approve_modal" class="btn btn-success" data-toggle="modal">
+                                                                        Save And Approve
+                                                                    </a>
+                                                                @endif
+                                                            @else
+    
+                                                                <!-- If user already approved -->
+                                                                <input type="hidden" name="approve_also" value="0">
+
+                                                                <input type="submit" name="save_exit" class="btn btn-success" value="Save">
+                                                            @endif
+                                                        @else
+                                                            
+                                                            <!-- If logged in user is not admin then button Save And Submit -->
+                                                            <input type="submit" name="save_exit" class="btn btn-success"   value="Save And Submit">
+                                                        @endif
                                                     </div>
                                                 </fieldset>
                                             </form>

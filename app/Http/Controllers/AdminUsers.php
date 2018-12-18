@@ -228,18 +228,14 @@ class AdminUsers extends Controller
         {
             $status = 'Something went wrong !';
         }
-        //dd($user_id);
-        //return redirect('addUser_payment_modes')->with('status', $status)->with('user_id', $user_id);
         return redirect()->route('addUser_payment_modes', ['user_id' => $user_id]);
     }
 
     // add new User
     public function add_user(AddUserValidation $request)
     {
-        $date                  = date('Y-m-d H:i:s');
-        
-        $current_location      = $request->current_location;
-        
+        $date                  = date('Y-m-d H:i:s');        
+        $current_location      = $request->current_location;        
         /*Basic Detail*/
         $company_name          = $request->company_name;
         $name                  = $request->name;
@@ -267,7 +263,6 @@ class AdminUsers extends Controller
         $toll_free2    = $request->toll_free2;
         $website       = $request->website;
         $about_company = $request->about_company;
-
         $password = bcrypt($password);
 
         // Create User
@@ -436,7 +431,6 @@ class AdminUsers extends Controller
 
         $user_id = $request->user_id;
         $check_validation = $request->check_validation;
-
         $establishment_year = $request->establishment_year;
         $annual_turnover = $request->annual_turnover;
         $number_employees = $request->number_employees;
@@ -446,10 +440,8 @@ class AdminUsers extends Controller
         $to_time = $request->to_time;
         $payment_mode = $request->payment_mode;
 
-
         if(!empty($user_id) && !empty($check_validation))
         {
-
             if(!empty($payment_mode))
             {
                 $payment_mode = implode("|", $payment_mode);
@@ -488,22 +480,16 @@ class AdminUsers extends Controller
 
         else
         {
-
             $where = array('user_id' => $user_id);
-
             $user_details = DB::table('user_company_information')->where($where)->first();
-
             return view('admin_users.addUser_payment_modes', array("user_details" => $user_details)); 
         }
-
     }
 
     // new User Update Business Timining
     public function addUser_business_timing(Request $request)
-    {  
-        
+    {        
         $date = date('Y-m-d H:i:s');
-
         $user_id = $request->user_id;
         $check_validation = $request->check_validation;
         $from_time = $request->from_time;
@@ -611,8 +597,32 @@ class AdminUsers extends Controller
         $date = date('Y-m-d H:i:s');
 
         $user_id = $request->user_id;
-
+        $status = '';
         $check_validation = $request->check_validation;
+        $approve_also = $request->approve_also;
+
+        // Get user keyword if exist if not exist then admin can not approve this user else approve this user
+        $keywords = DB::table('user_keywords')->where(['user_id' => $user_id, "status" => 1])->first();
+        if(!empty($keywords))
+        {
+            $keyword_exit = 1;
+        }
+        else{
+            $keyword_exit = 0;   
+        }
+        
+        // If user is not approved then approce user also
+        if($approve_also == 1){
+
+            // Approve user in users table
+            $update = User::where(['id'=>$user_id])->update(['status' => '1']);
+
+            // Approve in user details table
+            $details = DB::table('user_details')->where(['user_id' => $user_id])->update(['update_status' => '1', 'status' => '1']);
+
+            // Approve in user_location table
+            $locations = DB::table('user_location')->where(['user_id' => $user_id])->update(['update_status' => '1', 'status' => '1']);
+        }
 
         if(!empty($user_id) && !empty($check_validation)){
 
@@ -715,27 +725,16 @@ class AdminUsers extends Controller
                 {
                     $status = 'No File Selected';
                 }
-            }
-            
-            $user_details = DB::table('user_other_information')->where('status', 1)->orderBy('user_id', 'desc')->first();
-
-            $user_images = DB::table('user_images')->where('user_id', $user_id)->get();
-            
-            $user_logo = DB::table('user_details')->where('user_id', $user_id)->first();
-
-            return view('admin_users.addUser_logo_images', array("user_details" => $user_details, "user_images" => $user_images, "user_logo" => $user_logo, "user_id" => $user_id))->with('status', $status);
+            }   
         }
-        else
-        {
 
-            $user_details = DB::table('user_other_information')->where('status', 1)->orderBy('user_id', 'desc')->first();
+        $user_details = DB::table('user_other_information')->where('status', 1)->orderBy('user_id', 'desc')->first();
 
-            $user_images = DB::table('user_images')->where('user_id', $user_id)->get();
-            
-            $user_logo = DB::table('user_details')->where('user_id', $user_id)->first();
+        $user_images = DB::table('user_images')->where('user_id', $user_id)->get();
+        
+        $user_logo = DB::table('user_details')->where('user_id', $user_id)->first();
 
-            return view('admin_users.addUser_logo_images', array("user_details" => $user_details, "user_images" => $user_images, "user_logo" => $user_logo, "user_id" => $user_id));
-        }
+        return view('admin_users.addUser_logo_images', array("user_details" => $user_details, "user_images" => $user_images, "user_logo" => $user_logo, "user_id" => $user_id, "keyword_exit" => $keyword_exit))->with('status', $status);
     }
 
     # User Delete Logo
