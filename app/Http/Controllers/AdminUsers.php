@@ -622,11 +622,15 @@ class AdminUsers extends Controller
 
             // Approve in user_location table
             $locations = DB::table('user_location')->where(['user_id' => $user_id])->update(['update_status' => '1', 'status' => '1']);
+
+            $status .= 'User approved successfully. ';
         }
 
         if(!empty($user_id) && !empty($check_validation)){
 
-            $status = 'Please Select Image';
+            if($status == ''){
+                $status = 'Please upload image ! ';
+            }
 
             // Upload multiple images
             if($request->hasFile('photos')) {
@@ -642,14 +646,14 @@ class AdminUsers extends Controller
                     $extensions = ['jpg', 'jpeg', 'png', 'gig', 'bmp'];
                     if(! in_array($ext, $extensions))
                     {
-                        $status = 'File type is not allowed you have uploaded. Please upload any image !';
-                        return redirect('profile')->with('status', $status);
+                        $status = 'File type is not allowed you have uploaded. Please upload any image ! ';
+                        return redirect('addUser_logo_images/'.$user_id)->with('status', $status);
                     }
 
                     // first check file size if greater than 1mb than hit error
                     if($filesize > 1052030){
-                        $status = 'File size is too large. Please upload file less than 1MB !';
-                        return redirect('profile')->with('status', $status);
+                        $status = 'File size is too large. Please upload file less than 1MB ! ';
+                        return redirect('addUser_logo_images/'.$user_id)->with('status', $status);
                     }
 
                     $destinationPath = config('app.fileDestinationPath').'/'.$filename;
@@ -666,11 +670,11 @@ class AdminUsers extends Controller
 
                     if($uploaded)
                     {
-                        $status = 'Profile image successfully.';
+                        $status = 'Profile image updated successfully. ';
                     }
                     else
                     {
-                        $status = 'No File Selected';
+                        $status = 'No File Selected ! ';
                     }
                 }
             }
@@ -693,16 +697,17 @@ class AdminUsers extends Controller
 
                 if(! in_array($ext, $extensions))
                 {
-                    $status = 'File type is not allowed you have uploaded. Please upload any image !';
-                    return redirect('profile')->with('status', $status);
+                    $status = 'File type is not allowed you have uploaded. Please upload any image ! ';
+                    return redirect()->back()->with('status', $status);
+                    // return redirect('addUser_logo_images/'.$user_id)->with('status', $status);
                 }
 
                 $filesize = $file->getClientSize();
 
                 // first check file size if greater than 1mb than hit error
                 if($filesize > 1052030){
-                    $status = 'File size is too large. Please upload file less than 1MB !';
-                    return redirect('profile')->with('status', $status);
+                    $status = 'File size is too large. Please upload file less than 1MB ! ';
+                    return redirect('addUser_logo_images/'.$user_id)->with('status', $status);
                 }
 
                 $destinationPath = config('app.fileDestinationPath').'/'.$filename;
@@ -719,11 +724,11 @@ class AdminUsers extends Controller
 
                 if($uploaded)
                 {
-                    $status = 'Profile logo successfully.';
+                    $status = 'Profile logo updated successfully. ';
                 }
                 else
                 {
-                    $status = 'No File Selected';
+                    $status = 'No File Selected ! ';
                 }
             }   
         }
@@ -757,22 +762,17 @@ class AdminUsers extends Controller
         {
             $status = 'Something went wrong !';
         }
-        return redirect()->route('addUser_logo_images', ['user_id' => $user_id]);
-        //return redirect('addUser_logo_images')->with('status', $status);
+        return redirect()->back()->with('status', $status);
     }
 
     # User Delete Logo
     public function userDeteteImage(Request $request)
     {
         $user_id = $request->user_id;
-        $id = $request->id;
+        $image_id = $request->image_id;
 
         // update user details
-        $update = DB::table('user_images')->where('user_id', $user_id)->delete(
-            array(
-                'id' => $id
-            )
-        );
+        $update = DB::table('user_images')->where('id', $image_id)->delete();
 
         if($update)
         {
@@ -782,8 +782,8 @@ class AdminUsers extends Controller
         {
             $status = 'Something went wrong !';
         }
-        return redirect()->route('addUser_logo_images', ['user_id' => $user_id]);
-        //return redirect('addUser_logo_images')->with('status', $status);
+
+        return redirect()->back()->with('status', $status);
     }
 
     // View User Detail

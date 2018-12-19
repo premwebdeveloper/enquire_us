@@ -188,7 +188,7 @@
                 $('#selectCategory').html('<option value="">Select Category</option>');
             }
 
-        });
+        }); 
 
     });
 </script>

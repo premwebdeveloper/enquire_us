@@ -3,17 +3,11 @@
 @section('content')
 
 <style type="text/css">
-.form-horizontal .control-label
-    {
-        padding-top: 0px;
-        padding: 0px;
-        text-align: left;
-        font-size: 11px;
-    }
-.form-horizontal .form-group
-    {
-        margin-left: 0px;
-    }
+.form-horizontal .control-label{ padding-top: 0px; padding: 0px; text-align: left; font-size: 11px; }
+.form-horizontal .form-group { margin-left: 0px; }
+.btn-success{ padding: 4px; border-radius: 4px; }
+.btn-danger{ padding: 4px; border-radius: 4px; }
+.padding{ padding: 2px;}
 </style>
 
 <div class="row wrapper border-bottom white-bg page-heading">
@@ -46,10 +40,14 @@
             </div>
 
             @if(isset($status) && !empty($status))
-                <div class="col-md-12">
-                    <div class="alert alert-success">
-                        {{ $status }}
-                    </div>
+                <div class="alert alert-success">
+                    {{ $status }}
+                </div>
+            @endif
+
+            @if (\Session::has('status'))
+                <div class="alert alert-success">
+                    {!! \Session::get('status') !!}
                 </div>
             @endif
                         
@@ -157,78 +155,33 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <!-- user logo image -->
                                 @if(!empty($user_logo->logo))
                                     <tr class="gradeX">
-                                        <td><img src="{{url('/')}}/storage/app/uploads/{{ $user_logo->logo }}" class="img-responsive" width="100px"></td>
                                         <td>
-
-                                            <a class="btn btn-danger" title="Delete" href="#logo_{{ $user_logo->user_id }}" data-toggle="modal">
-                                                Delete
+                                            <img src="{{url('/')}}/storage/app/uploads/{{ $user_logo->logo }}" class="img-responsive" style="width: 100px;height: 80px;">
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('userDeteteLogo', ['user_id' => $user_id]) }}" class="btn btn-warning element" data-toggle="confirmation" data-placement="top" data-btn-ok-label="Yes" data-btn-ok-class="btn-success" data-btn-cancel-label="No" data-btn-cancel-class="btn-danger" data-title="Delete?">
+                                                Delete Logo
                                             </a>
                                         </td>
                                     </tr>
                                 @endif
+
+                                <!-- User profile images -->
                                 @foreach($user_images as $images)
-
                                     <tr class="gradeX">
-                                        <td><img src="{{url('/')}}/storage/app/uploads/{{ $images->image}}" class="img-responsive" width="100px"></td>
                                         <td>
-
-                                            <a class="btn btn-danger" title="Delete" href="#{{$images->user_id}}" data-toggle="modal">
-                                                Delete
+                                            <img src="{{url('/')}}/storage/app/uploads/{{ $images->image}}" class="img-responsive" style="width: 100px;height: 80px;">
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('userDeteteImage', ['user_id' => $user_id, 'image_id' => $images->id]) }}" class="btn btn-danger element" data-toggle="confirmation" data-placement="top" data-btn-ok-label="Yes" data-btn-ok-class="btn-success" data-btn-cancel-label="No" data-btn-cancel-class="btn-danger" data-title="Delete?">
+                                                Delete Logo
                                             </a>
                                         </td>
                                     </tr>
-
-                                    <!-- delete user logo modal -->
-                                    <div id="logo_{{ $user_logo->user_id }}" class="modal fade" role="dialog">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                              <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                <h4 class="modal-title"><i class="fa fa-trash"></i> Delete Logo Image</h4>
-                                              </div>
-                                              <div class="modal-body">
-                                                <form method="post" action="{{route('userDeteteLogo')}}">
-                                                    {{ csrf_field() }}
-                                                    <input type="hidden" name="user_id" value="{{$user_logo->user_id}}">
-                                                    <p>
-                                                        Are you sure you want to Delete logo Image ?
-
-                                                        <button class="btn btn-danger pull-right" type="submit" name="approve" value="{{$user_logo->user_id}}">Yes</button>
-
-                                                    </p>
-                                                </form>
-                                              </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- delete user image modal -->
-                                    <div id="{{ $images->user_id }}" class="modal fade" role="dialog">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                              <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                <h4 class="modal-title"><i class="fa fa-trash"></i> Delete Image</h4>
-                                              </div>
-                                              <div class="modal-body">
-                                                <form method="post" action="{{ route('userDeteteImage') }}">
-                                                    {{ csrf_field() }}
-                                                    <input type="hidden" name="user_id" value="{{ $images->user_id }}">
-                                                    <input type="hidden" name="id" value="{{$images->id}}">
-                                                    <p>
-                                                        Are you sure you want to Delete this Image ?
-                                                        <button class="btn btn-danger pull-right" type="submit" name="approve" value="{{ $images->user_id }}">Yes</button>
-                                                    </p>
-                                                </form>
-                                              </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
                                 @endforeach
-
                             </tbody>
                         </table>
                     </div>

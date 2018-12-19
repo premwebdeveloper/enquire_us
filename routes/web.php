@@ -188,10 +188,10 @@
 
 
     # User Delete Logo
-    Route::post('userDeteteLogo', 'AdminUsers@userDeteteLogo')->name('userDeteteLogo');    
+    Route::get('userDeteteLogo/{user_id}', 'AdminUsers@userDeteteLogo')->name('userDeteteLogo');    
 
     # User Delete Image
-    Route::post('userDeteteImage', 'AdminUsers@userDeteteImage')->name('userDeteteImage');
+    Route::get('userDeteteImage/{user_id}/image/{image_id}', 'AdminUsers@userDeteteImage')->name('userDeteteImage');
 
     Route::post('add_user', 'AdminUsers@add_user')->name('add_user');
     Route::post('update_admin_user', 'AdminUsers@update_admin_user')->name('update_admin_user');
