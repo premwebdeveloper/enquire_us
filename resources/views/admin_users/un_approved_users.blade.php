@@ -59,6 +59,7 @@
                                     <th>Email</th>
                                     <th>Phone</th>
                                     <th>Address</th>
+                                    <th>Date</th>
                                     <th>Action</th>
 	                            </tr>
 	                        </thead>
@@ -78,6 +79,7 @@
                                         <td>{{ $user->email }}</td>
                                         <td>{{ $user->phone }}</td>
                                         <td>{{ $user->area_name .', '.$user->city_name .' - '.$user->pincode }}</td>
+                                        <td>{{ $user->created_at }}</td>
 	                                    <td>
    											<a href="{{ route('addUser_basic_information', ['user_id' => $user->user_id]) }}" class="btn btn-info btn-xs">
                                                 View
