@@ -24,3 +24,6 @@ ALTER TABLE `user_details`
 
   -- ---------------------------DB Start on 02-08-2018--------------------------
   ALTER TABLE `user_details` ADD `about_company` TEXT NOT NULL AFTER `logo`;
+
+  -- ---------------------------ALTER TABLE `user_details` CHANGE on 22-01-2019--------------------------
+  ALTER TABLE `user_details` CHANGE `created_by` `created_by` INT(1) NULL DEFAULT NULL COMMENT 'user id who create this user / if null then register user himself and if 1 then created by admin else created by others';

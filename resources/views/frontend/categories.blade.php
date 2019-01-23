@@ -18,7 +18,7 @@
                                 <div class="list-group category_list">
                                     @foreach($super_catgories as $supercat)                                        
                                         <a href="{{ route('categories', ['super_cat_id' => $supercat->id]) }}" class="list-group-item">
-                                            {{ $supercat->name }}
+                                            {{ ucwords($supercat->name) }}
                                         </a>
                                     @endforeach
                                 </div>
@@ -36,12 +36,11 @@
                             @if(!empty($categories[0]))
 
                                 @foreach($categories as $category)
-									<div class="col-lg-2 col-sm-2 col-xs-12 text-center">
+									<div class="col-lg-2 col-sm-2 col-xs-12 text-center-img height_145">
                                         <a href="javascript:;" class="cat_ies" id="cate_<?= $category->id; ?>">
                                             <img alt="" src="{{url('/')}}/storage/app/uploads/categories/<?= $category->image; ?>" class="img-responsive" style="height: 100px;">
-                                            <br />
                                             <span>
-                                                {{ $category->category }}
+                                                {{ ucwords($category->category) }}
                                             </span>
 										</a>
 									</div>

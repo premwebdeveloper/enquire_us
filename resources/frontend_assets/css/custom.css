@@ -8,6 +8,12 @@ option.option_padding
 {
 	padding-left:25px;
 }
+.text-center-img{
+    text-align: -webkit-center!important;
+}
+.height_145{
+    height: 145px!important;
+}
 #error{
 	display:none;
 	margin:0;
