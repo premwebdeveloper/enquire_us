@@ -2,11 +2,32 @@
     display: block;
 }
 .mt30{
-	margin-top: 30px;
+	padding-top: 30px;
 }
 .mt20{
 	margin-top: 20px;
 }
 .mt10{
 	margin-top: 10px;
+}
+.m30{
+	margin: 30px;
+}
+.m20{
+	margin: 20px;
+}
+.m10{
+	margin: 10px;
+}
+.p30{
+	padding: 30px;
+}
+.p20{
+	padding: 20px;
+}
+.p10{
+	padding: 10px;
+}
+.p0{
+	padding: 0px;
 }

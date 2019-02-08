@@ -111,6 +111,8 @@
     
     # Get assignes clients to this keyword
     Route::post('getAssignedClientsToThisKeyword', 'AjaxController@getAssignedClientsToThisKeyword')->name('getAssignedClientsToThisKeyword');
+    // Suggest for new keyword
+    Route::post('suggestForNewKeyword', 'AjaxController@suggestForNewKeyword')->name('suggestForNewKeyword');
 
     # Upload logo and photos
     Route::post('uploadLogoAndPhotos', 'Profile@uploadLogoAndPhotos')->name('uploadLogoAndPhotos');
@@ -158,11 +160,26 @@
     // Sales dashboard
     Route::get('sales', 'Sales@dashboard')->name('sales');
 
+    // Get similar companies during add new company / client
+    Route::get('getSimilarCompany', ['as'=>'getSimilarCompany','uses'=>'AjaxController@getSimilarCompany']);
+
     Route::get('addUser_basic_information', 'AdminUsers@addUser_basic_information')->name('addUser_basic_information');
     Route::any('addUser_payment_modes/{user_id}', 'AdminUsers@addUser_payment_modes')->name('addUser_payment_modes');
     Route::any('addUser_business_timing/{user_id}', 'AdminUsers@addUser_business_timing')->name('addUser_business_timing');
     Route::any('addUser_business_keywords/{user_id}', 'AdminUsers@addUser_business_keywords')->name('addUser_business_keywords');
     Route::any('addUser_logo_images/{user_id}', 'AdminUsers@addUser_logo_images')->name('addUser_logo_images');
+
+
+    /* ********************************************************************************************************* */
+    /* Edit User Routes */
+    Route::get('edit_user_basic_information/{user_id}', 'AdminUsers@edit_user_basic_information')->name('edit_user_basic_information');
+    // Edit user payment modes
+    Route::any('edit_user_payment_modes/{user_id}', 'AdminUsers@edit_user_payment_modes')->name('edit_user_payment_modes');
+    // Edit user business information
+    Route::any('edit_user_business_timing/{user_id}', 'AdminUsers@edit_user_business_timing')->name('edit_user_business_timing');
+    
+    // Edit user logo and profile imaged
+    Route::any('edit_user_logo_images/{user_id}', 'AdminUsers@edit_user_logo_images')->name('edit_user_logo_images');
 
     # Get unapproved users show in admin console
     Route::get('un_approved_users', 'AdminUsers@un_approved_users')->name('un_approved_users');
@@ -251,6 +268,8 @@
     # Website page head titles like Title, Meta title, Keyword, Description etc
     Route::any('page_titles', 'WebsitePages@page_titles')->name('page_titles');
 
+    Route::get('getPageTitles', 'WebsitePages@getPageTitles')->name('getPageTitles');
+
     # Update page head titles like Title, Meta title, Keyword, Description etc
     Route::any('update_page_titles', 'WebsitePages@update_page_titles')->name('update_page_titles');
 
@@ -265,6 +284,9 @@
     
     # Delete Keywords By Admin
     Route::post('delete_keywords_by_admin', 'AjaxController@delete_keywords_by_admin')->name('delete_keywords_by_admin');
+
+    # Compare client old and new updated data for approval by admin
+    Route::post('compareClientInformation', 'AjaxController@compareClientInformation')->name('compareClientInformation');
 
     # Show super categories
     Route::get('superCategories', 'SuperCategories@index')->name('superCategories');
@@ -309,4 +331,11 @@
 
     // Edit blog page view
     Route::get('editBlog/{blog_id}', 'Blogs@editBlog')->name('editBlog');
+
+
+    // Show User information update notification
+    Route::get('information_update_notifications/{type}', 'Notifications@information_update_notifications')->name('information_update_notifications');
+
+    // Admin approve client updates
+    Route::post('admin_approval_for_updates', 'Notifications@admin_approval_for_updates')->name('admin_approval_for_updates');    
 // });

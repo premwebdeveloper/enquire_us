@@ -82,3 +82,42 @@ option.option_padding
    /* padding: 0 5px;*/
     margin-bottom: 10px;
 }
+.breadCrumb ul {
+    display: block;
+    height: 21px;
+    margin: 0;
+    padding: 0;
+}
+.breadCrumb ul li {
+    background: url(../images/brdcrbarw.png) no-repeat 100% 50%;
+    display: block;
+    float: left;
+    font-size: 11px;
+    height: 21px;
+    line-height: 21px;
+    overflow: hidden;
+    padding: 0 5px 0 0;
+    position: relative;
+}
+.breadCrumb ul li.lstEmt {
+    background: none;
+}
+.breadCrumb ul li a {
+    cursor: pointer;
+    display: block;
+    float: left;
+    height: 21px;
+    line-height: 21px;
+    overflow: hidden;
+    position: relative;
+    font-size: 12px;
+    padding: 0 5px;
+    color: #1274c0;
+}
+.breadCrumb ul li span {
+    display: block;
+    overflow: hidden;
+}
+.breadCrumb ul li.lstEmt span {
+    color: #424242;
+}

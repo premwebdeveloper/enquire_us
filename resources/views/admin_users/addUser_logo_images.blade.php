@@ -58,18 +58,16 @@
                         <div class="tabs-container">
                             @if(!empty($user_details->user_id))
                                 <ul class="nav nav-tabs">
-                                    <li><a href="{{ route('addUser_basic_information', ['user_id' => $user_id]) }}">Basic Information</a></li>
-                                    <li class=""><a href="{{ route('addUser_payment_modes', ['user_id' => $user_id]) }}">Payment Modes</a></li>
-                                    <li class=""><a href="{{ route('addUser_business_timing', ['user_id' => $user_id]) }}">Business Timing</a></li>
-                                    <li class=""><a href="{{ route('addUser_business_keywords', ['user_id' => $user_id]) }}">Business Keywords</a></li>
-                                    <li class="active"><a href="{{ route('addUser_logo_images', ['user_id' => $user_id]) }}">Images</a></li>
+                                    <li><a href="{{ route($basic_information_link, ['user_id' => $user_id]) }}">Basic Information</a></li>
+                                    <li><a href="{{ route($payment_modes_link, ['user_id' => $user_id]) }}">Payment Modes</a></li>
+                                    <li><a href="{{ route($business_timing_link, ['user_id' => $user_id]) }}">Business Timing</a></li>
+                                    <li class="active"><a href="{{ route($logo_images_link, ['user_id' => $user_id]) }}">Images</a></li>
                                 </ul>
                             @else
                                 <ul class="nav nav-tabs">
-                                    <li class=""><a href="javascript:;">Basic Information</a></li>
-                                    <li class=""><a href="{{ route('addUser_payment_modes', ['user_id' => $user_details->user_id]) }}">Payment Modes</a></li>
-                                    <li class=""><a href="{{ route('addUser_business_timing', ['user_id' => $user_details->user_id]) }}">Business Timing</a></li>
-                                    <li class=""><a href="{{ route('addUser_business_keywords', ['user_id' => $user_details->user_id]) }}">Business Keywords</a></li>
+                                    <li><a href="javascript:;">Basic Information</a></li>
+                                    <li><a href="{{ route('addUser_payment_modes', ['user_id' => $user_details->user_id]) }}">Payment Modes</a></li>
+                                    <li><a href="{{ route('addUser_business_timing', ['user_id' => $user_details->user_id]) }}">Business Timing</a></li>
                                     <li class="active"><a href="javascript:;">Images</a></li>
                                 </ul>
                             @endif
@@ -83,7 +81,7 @@
                                             <h4>Upload logo/Photos</h4>
                                             <hr />
 
-                                            <form action="{{ route('addUser_logo_images', ['user_id' => $user_id]) }}" method="post" class="form-horizontal" enctype="multipart/form-data">
+                                            <form action="{{ route($user_logo_images, ['user_id' => $user_id]) }}" method="post" class="form-horizontal" enctype="multipart/form-data">
                                                 <input type="hidden" class="form-control" name="check_validation" value="1">
                                                 <fieldset>
                                                     <div class="controls">
@@ -177,7 +175,7 @@
                                         </td>
                                         <td>
                                             <a href="{{ route('userDeteteImage', ['user_id' => $user_id, 'image_id' => $images->id]) }}" class="btn btn-danger element" data-toggle="confirmation" data-placement="top" data-btn-ok-label="Yes" data-btn-ok-class="btn-success" data-btn-cancel-label="No" data-btn-cancel-class="btn-danger" data-title="Delete?">
-                                                Delete Logo
+                                                Delete
                                             </a>
                                         </td>
                                     </tr>

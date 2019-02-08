@@ -74,7 +74,7 @@
                                         <td>{{ $user->phone }}</td>
                                         <td>{{ $user->area_name .', '.$user->city_name .' - '.$user->pincode }}</td>
 	                                    <td>
-                                            <a class="btn btn-success" title="View" href="{{ route('addUser_basic_information', ['user_id' => $user->user_id]) }}">
+                                            <a class="btn btn-success" title="View" href="{{ route('edit_user_basic_information', ['user_id' => $user->user_id]) }}">
                                                 <i class="fa fa-eye" aria-hidden="true"></i>
                                             </a>
                                             @if($user->status == 2)

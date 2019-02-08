@@ -68,13 +68,15 @@ class WebsitePages extends Controller
 
         // First of all check if page url and page titles are already created or not for selected category, subcategory and city
         $rows = DB::table('websites_page_head_titles')
-                ->where(['category' => $category, 'subcategory' => null, 'city' => $city, 'area' => null, 'status' => 1]);
+                ->where(['category' => $category, 'city' => $city, 'area' => null, 'status' => 1]);
                 
                 $rows->where('encoded_params', '!=', null);
                 
         // If the sub category is selected
         if(!empty($sub_category)){
             $rows->where('subcategory', $sub_category);
+        }else{
+            $rows->where('subcategory', null);
         }
 
         $exist = $rows->first();
@@ -168,9 +170,9 @@ class WebsitePages extends Controller
                                 'business_page' => $business,
                                 'page_url' => strtolower($area_page_url),
                                 'encoded_params' => $encrypted,
-                                'title' => str_replace($cityName, $row->area.', '.$cityName, ucfirst(strtolower($title))),
-                                'keyword' => str_replace($cityName, $row->area.', '.$cityName, ucfirst(strtolower($keyword))),
-                                'description' => str_replace($cityName, $row->area.', '.$cityName, ucfirst(strtolower($description))),
+                                'title' => str_replace($cityName, $row->area, ucfirst(strtolower($title))),
+                                'keyword' => str_replace($cityName, $row->area, ucfirst(strtolower($keyword))),
+                                'description' => str_replace($cityName, $row->area, ucfirst(strtolower($description))),
                                 'created_at' => $date,
                                 'updated_at' => $date,
                                 'status' => 1
@@ -268,9 +270,9 @@ class WebsitePages extends Controller
                     $where = array('category' => $category, 'city' => $city, 'area' => $row->id);
                 }
 
-                $new_title = str_replace($cityName, $row->area.', '.$cityName, ucfirst(strtolower($title)));
-                $new_keyword = str_replace($cityName, $row->area.', '.$cityName, ucfirst(strtolower($keyword)));
-                $new_description = str_replace($cityName, $row->area.', '.$cityName, ucfirst(strtolower($description)));
+                $new_title = str_replace($cityName, $row->area, ucfirst(strtolower($title)));
+                $new_keyword = str_replace($cityName, $row->area, ucfirst(strtolower($keyword)));
+                $new_description = str_replace($cityName, $row->area, ucfirst(strtolower($description)));
                 
                 // Update title, keyword and description for area
                 $update_area = DB::table('websites_page_head_titles')->where($where)->update([

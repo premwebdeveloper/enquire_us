@@ -46,10 +46,11 @@ class AdminUsers extends Controller
                 ->join('user_location', 'user_location.user_id', '=', 'user_details.user_id')
                 ->join('areas', 'areas.id', '=', 'user_location.area')
                 ->join('cities', 'cities.id', '=', 'user_location.city')
-                ->join('employees', 'employees.user_id', '=', 'user_details.created_by')
+                ->join('users', 'users.id', '=', 'user_details.created_by')
                 //->leftjoin('user_keywords', 'user_keywords.user_id', '=', 'user_details.user_id')
                 ->where('user_details.status', '=', 0)
-                ->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.state', 'user_location.country', 'user_location.pincode', 'areas.area as area_name', 'cities.name as city_name', 'employees.name as created_by_name', 'employees.phone as created_by_phone')
+                ->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.state', 'user_location.country', 'user_location.pincode', 'areas.area as area_name', 'cities.name as city_name', 'users.name as created_by_name', 'users.phone as created_by_phone')
+                ->orderBy('user_details.id', 'desc')
                 ->get();
             foreach ($users as $key => $user) {
                 
@@ -118,120 +119,59 @@ class AdminUsers extends Controller
     // add new User Basic Information view page
     public function addUser_basic_information(Request $request)
     {
-        $user_id = $request->user_id;
+        // Create direct links
+        $basic_information_link = 'addUser_basic_information';
+        $payment_modes_link     = 'addUser_payment_modes';
+        $business_timing_link   = 'addUser_business_timing';
+        $logo_images_link       = 'addUser_logo_images';
 
-        if(!empty($user_id))
-        {
-            // Get basic / location / company information
-            $query = DB::table('user_details as ud')
-                ->join('user_location as ul', 'ud.user_id', '=', 'ul.user_id')
-                ->join('user_company_information as uci', 'ud.user_id', '=', 'uci.user_id')
-                ->join('cities', 'cities.id', '=', 'ul.city')
-                ->join('areas', 'areas.id', '=', 'ul.area')
-                ->select('ud.*', 'ul.business_name', 'ul.building', 'ul.street', 'ul.landmark', 'ul.area', 'ul.city', 'ul.pincode', 'ul.state', 'ul.country', 'uci.payment_mode', 'uci.payment_mode', 'uci.year_establishment', 'uci.annual_turnover', 'uci.no_of_emps', 'uci.professional_associations', 'uci.certifications', 'cities.name as city_name', 'areas.area as area_name')
-                ->where('ud.user_id', '=', $user_id);
-
-            $user_details = $query->first();
-
-            return view('admin_users.addUser_basic_information', array('user_details' => $user_details));
-        }
-        else
-        {
-            //Admin Add New user Basic information
-            return view('admin_users.addUser_basic_information');
-        }
+        return view('admin_users.addUser_basic_information', array('basic_information_link' => $basic_information_link, 'payment_modes_link' => $payment_modes_link, 'business_timing_link' => $business_timing_link, 'logo_images_link' => $logo_images_link));    
     }
 
-    // add new User
-    public function update_admin_user(Request $request)
+    // Edit User Basic Information view page
+    public function edit_user_basic_information(Request $request)
     {
-        $date = date('Y-m-d H:i:s');
-
         $user_id = $request->user_id;
 
-        /*Basic Detail*/
-        $company_name = $request->company_name;
-        $name = $request->name;
-        $phone = $request->phone;
-        $email = $request->email;
-        $password = $request->password;
-        $password_confirmation = $request->password_confirmation;
+        // Get basic / location / company information
+        $query = DB::table('user_details as ud')
+            ->join('user_location as ul', 'ud.user_id', '=', 'ul.user_id')
+            ->join('user_company_information as uci', 'ud.user_id', '=', 'uci.user_id')
+            ->join('cities', 'cities.id', '=', 'ul.city')
+            ->join('areas', 'areas.id', '=', 'ul.area')
+            ->select('ud.*', 'ul.business_name', 'ul.building', 'ul.street', 'ul.landmark', 'ul.area', 'ul.city', 'ul.pincode', 'ul.state', 'ul.country', 'uci.payment_mode', 'uci.payment_mode', 'uci.year_establishment', 'uci.annual_turnover', 'uci.no_of_emps', 'uci.professional_associations', 'uci.certifications', 'cities.name as city_name', 'areas.area as area_name')
+            ->where('ud.user_id', '=', $user_id);
 
-        $building = $request->building;
-        $street = $request->street;
-        $landmark = $request->landmark;
-        $area = $request->area;
-        $city = $request->city;
-        $pin_code = $request->pin_code;
-        $state = $request->state;
-        $country = $request->country;
+        $user_details = $query->first();
 
-        /*Contact Detail*/
-        $landline = $request->landline;
-        $fax = $request->fax;
-        $fax2 = $request->fax2;
-        $toll_free = $request->toll_free;
-        $toll_free2 = $request->toll_free2;
-        //$email = $request->email;
-        $website = $request->website;
-        $about_company = $request->about_company;
-
-        // Create User
-        $user = DB::table('users')->where('id', $user_id)->update(
-            array(
-                'name' => $name,
-                'phone' => $phone,
-                'updated_at' => $date,
-                'status' => 1
-            )
-        );
-
-        // Create User Details
-        $user_details = DB::table('user_details')->where('user_id', $user_id)->update(
-            array(
-                'name' => $name,
-                'phone' => $phone,
-                'landline' => $landline,
-                'fax1' => $fax,
-                'fax2' => $fax2,
-                'toll_free1' => $toll_free,
-                'toll_free2' => $toll_free2,
-                'website' => $website,
-                'about_company' => $about_company,
-                'updated_at' => $date,
-                'status' => 1
-            )
-        );
-
-        // Create User Location
-        $user_details = DB::table('user_location')->where('user_id', $user_id)->update(
-            array(
-                'business_name' => $company_name,
-                'building' => $building,
-                'street' => $street,
-                'landmark' => $landmark,
-                'area' => $area,
-                'city' => $city,
-                'pincode' => $pin_code,
-                'state' => $state,
-                'country' => $country,
-                'updated_at' => $date,
-                'status' => 1
-            )
-        );
-
-        if($user_details)
+        // Get user business keywords
+        $where = array('user_id' => $user_id, 'status' => 1);
+        $keywords = DB::table('user_keywords')->where($where)->get();
+        $saved_keywords = '';
+        foreach ($keywords as $key => $words)
         {
-            $status = 'Update User Basic Informations Successfully.';
+            if($words->keyword_identity == 1)
+            {
+                $category = DB::table('category')->where('id', $words->keyword_id)->first();
+                $saved_keywords .= '<div class="col-md-6 keywords p0" id="keyword_'.$category->id.'_1">'.$category->category.' &nbsp;&nbsp;<i class="fa fa-times deleteKeyword red text-right" id="delete_'.$category->id.'_1"></i></div>';
+            }
+            else
+            {
+                $subcategory = DB::table('subcategory')->where('id', $words->keyword_id)->first();
+                $saved_keywords .= '<div class="col-md-6 keywords p0" id="keyword_'.$subcategory->id.'_2">'.$subcategory->subcategory.' &nbsp;&nbsp;<i class="fa fa-times deleteKeyword red text-right" id="delete_'.$subcategory->id.'_2"></i></div>';
+            }
         }
-        else
-        {
-            $status = 'Something went wrong !';
-        }
-        return redirect()->route('addUser_payment_modes', ['user_id' => $user_id]);
+        
+        // Create direct links
+        $basic_information_link = 'edit_user_basic_information';
+        $payment_modes_link     = 'edit_user_payment_modes';
+        $business_timing_link   = 'edit_user_business_timing';
+        $logo_images_link       = 'edit_user_logo_images';
+
+        return view('admin_users.addUser_basic_information', array('user_details' => $user_details, 'basic_information_link' => $basic_information_link, 'payment_modes_link' => $payment_modes_link, 'business_timing_link' => $business_timing_link, 'logo_images_link' => $logo_images_link, 'saved_keywords' => $saved_keywords));
     }
 
-    // add new User
+    // Add new user basic information
     public function add_user(AddUserValidation $request)
     {
         $date                  = date('Y-m-d H:i:s');        
@@ -256,14 +196,25 @@ class AdminUsers extends Controller
         $country  = $request->country;
 
         /*Contact Detail*/
+        $mobile        = $request->mobile;
+        $whatsapp      = $request->whatsapp;
         $landline      = $request->landline;
-        $fax           = $request->fax;
-        $fax2          = $request->fax2;
         $toll_free     = $request->toll_free;
-        $toll_free2    = $request->toll_free2;
         $website       = $request->website;
         $about_company = $request->about_company;
-        $password = bcrypt($password);
+        $password      = bcrypt($password);
+
+        // Get selected keyword
+        $keyword = $request->keyword;
+
+        $suggest_keyword = $request->suggest_keyword;
+
+        // If keyword and suggested keyword both are blank then hit error and redirect to back
+        if(empty($keyword) && empty($suggest_keyword)){
+
+            $status = 'You have to select any keyword OR suggest any keyword for this client !';
+            return redirect()->route('addUser_basic_information')->with('status', $status);
+        }
 
         // Create User
         $user = DB::table('users')->insert(
@@ -307,11 +258,10 @@ class AdminUsers extends Controller
                 'name'          => $name,
                 'email'         => $email,
                 'phone'         => $phone,
+                'mobile'        => $mobile,
+                'whatsapp'      => $whatsapp,
                 'landline'      => $landline,
-                'fax1'          => $fax,
-                'fax2'          => $fax2,
                 'toll_free1'    => $toll_free,
-                'toll_free2'    => $toll_free2,
                 'website'       => $website,
                 'about_company' => $about_company,
                 'created_by'    => Auth::user()->id,
@@ -341,6 +291,44 @@ class AdminUsers extends Controller
                 'status'        => (Auth::user()->id == 1)? 1 : 2
             )
         );
+
+        // Create user keywords if user keyword is assigned
+        if(!empty($keyword)){
+            foreach ($keyword as $key => $word) {
+                $temp = explode("-", $word);
+                $keyword_id = $temp[0];
+                $key_identity = $temp[1];
+
+                $insert = DB::table('user_keywords')->insert([
+                    'user_id' => $user_id,
+                    'keyword_id' => $keyword_id,
+                    'keyword_identity' => $key_identity,
+                    'created_at' => $date,
+                    'updated_at' => $date,
+                    'update_status' => 1,
+                    'status' => 1
+                ]);
+            }
+        }
+
+        // If suggested keyword is not empty then insert suggested keyword with user is
+        if(!empty($suggest_keyword)){
+
+            // Loop all suggested keywords
+            foreach ($suggest_keyword as $key => $suggested) {
+                
+                // Save new suggested category
+                $save = DB::table('category_suggestions')->insert([
+
+                    'user_id'    => Auth::user()->id,
+                    'client_uid' => $user_id,
+                    'category'   => $suggested,
+                    'status'     => 1,
+                    'created_at' => $date,
+                    'updated_at' => $date,
+                ]);
+            }
+        }
 
         // Create User Other Information
         for($i = 0; $i <= 13; $i++)
@@ -419,17 +407,236 @@ class AdminUsers extends Controller
         {
             $status = 'Something went wrong !';
         }
-        //dd($user_id);
-        //return redirect('addUser_payment_modes')->with('status', $status)->with('user_id', $user_id);
-        return redirect()->route('addUser_payment_modes', ['user_id' => $user_id]);
+
+        return redirect()->route('addUser_payment_modes', ['user_id' => $user_id])->with('status', $status);
     }
 
-    // new User Update Payment Modes
+    // Edit user basic information
+    public function update_admin_user(Request $request)
+    {
+        $approval = array();
+        $date = date('Y-m-d H:i:s');
+
+        // If update client information by autocomplete search then get client uid
+        $client_uid = $request->client_uid;
+
+        // If client edit in proper way then get client uid as user uid
+        $user_id = $request->user_id;
+
+        // If user id is not  available then create client uid = user id
+        if(!$user_id){
+
+            $user_id = $client_uid;
+        }
+                
+        // Basic Detail
+        $email                     = $request->email;
+        $password                  = $request->password;
+        $password_confirmation     = $request->password_confirmation;
+
+        $approval['company_name']  = $company_name  = $request->company_name;
+        $approval['name']          = $name          = $request->name;
+        $approval['phone']         = $phone         = $request->phone;
+        
+        // location information
+        $approval['building']      = $building      = $request->building;
+        $approval['street']        = $street        = $request->street;
+        $approval['landmark']      = $landmark      = $request->landmark;
+        $approval['area']          = $area          = $request->area;
+        $approval['city']          = $city          = $request->city;
+        $approval['pin_code']      = $pin_code      = $request->pin_code;
+        $approval['state']         = $state         = $request->state;
+        $approval['country']       = $country       = $request->country;
+        
+        // Contact Detail
+        $approval['mobile']        = $mobile        = $request->mobile;
+        $approval['whatsapp']      = $whatsapp      = $request->whatsapp;
+        $approval['landline']      = $landline      = $request->landline;
+        $approval['toll_free']     = $toll_free     = $request->toll_free;        
+        $approval['website']       = $website       = $request->website;
+        $approval['about_company'] = $about_company = $request->about_company;
+
+        $keyword = $request->keyword;
+        $suggest_keyword = $request->suggest_keyword;
+
+        // If client information updated from add user page by using autocomplete AND logged in user is not admin
+        if(Auth::user()->id != 1){
+
+            // First check if the keyword is already assigned to client then hit error
+            if(!empty($keyword)){
+                foreach ($keyword as $key => $word) {
+                    $temp = explode("-", $word);
+                    $keyword_id = $temp[0];
+                    $key_identity = $temp[1];
+
+                    // Get old keywords to match current keywords
+                    $where = array('user_id' => $user_id, 'status' => 1, 'keyword_id' => $keyword_id, 'keyword_identity' => $key_identity);
+                    $exist = DB::table('user_keywords')->where($where)->first();
+                    
+                    if(!empty($exist))
+                    {
+                        // Keyword already found
+                        $status = 'Selected keywords are already assigned to client! Please select another.';
+                        return redirect()->route('edit_user_basic_information', ['user_id' => $user_id])->with('status', $status); 
+                    }
+                }
+            }
+
+            // First check if this keyword is already exist or not
+            if(!empty($keyword)){                
+                $approval['keyword'] = $keyword;
+            }
+
+            $approval = json_encode($approval);
+
+            // Insert all the information in json format for admin approval
+            $insert = DB::table('admin_approvals_for_updates')->insert([
+
+                'update_by'           => Auth::user()->id,
+                'client_uid'          => $user_id,
+                'fields'              => $approval,
+                'notification_status' => 1,
+                'status'              => 1,
+                'created_at'          => $date,
+                'updated_at'          => $date,
+            ]);
+
+            if($insert)
+            {
+                $status = 'Request for update information submitted successfully.All will be effective after admin approval';
+            }
+            else
+            {
+                $status = 'Something went wrong !';
+            }
+
+        }else{
+            // If logged user is admin then update client information direct
+            // Save updated information in admin approvals for update table
+
+            // Create User
+            $user = DB::table('users')->where('id', $user_id)->update(
+                array(
+                    'name' => $name,
+                    'phone' => $phone,
+                    'updated_at' => $date,
+                    'status' => 1
+                )
+            );
+
+            // Create User Details
+            $user_details = DB::table('user_details')->where('user_id', $user_id)->update(
+                array(
+                    'name' => $name,
+                    'phone' => $phone,
+                    'mobile' => $mobile,
+                    'whatsapp' => $whatsapp,
+                    'landline' => $landline,
+                    'toll_free1' => $toll_free,
+                    'website' => $website,
+                    'about_company' => $about_company,
+                    'updated_at' => $date,
+                    'status' => 1
+                )
+            );
+
+            // Create User Location
+            $user_details = DB::table('user_location')->where('user_id', $user_id)->update(
+                array(
+                    'business_name' => $company_name,
+                    'building' => $building,
+                    'street' => $street,
+                    'landmark' => $landmark,
+                    'area' => $area,
+                    'city' => $city,
+                    'pincode' => $pin_code,
+                    'state' => $state,
+                    'country' => $country,
+                    'updated_at' => $date,
+                    'status' => 1
+                )
+            );
+
+            // First check if this keyword is already exist or not
+            if(!empty($keyword)){
+                foreach ($keyword as $key => $word) {
+                    $temp = explode("-", $word);
+                    $keyword_id = $temp[0];
+                    $key_identity = $temp[1];
+
+                    // Get old keywords to match current keywords
+                    $where = array('user_id' => $user_id, 'status' => 1, 'keyword_id' => $keyword_id, 'keyword_identity' => $key_identity);
+                    $exist = DB::table('user_keywords')->where($where)->first();
+                    
+                    if(!empty($exist))
+                    {
+                        // Keyword already found
+                        $status = 'User information updated successfully. But selected keywords are already assigned !';
+                        return redirect()->route('edit_user_basic_information', ['user_id' => $user_id])->with('status', $status); 
+                    }
+                }
+            
+                // Insert keywords in database table If all is well
+                foreach ($keyword as $key => $word) {
+                    $temp = explode("-", $word);
+                    $keyword_id = $temp[0];
+                    $key_identity = $temp[1];
+
+                    $insert = DB::table('user_keywords')->insert([
+                        'user_id'          => $user_id,
+                        'keyword_id'       => $keyword_id,
+                        'keyword_identity' => $key_identity,
+                        'created_at'       => $date,
+                        'updated_at'       => $date,
+                        'update_status'    => 0,
+                        'status'           => 1
+                    ]);
+                }
+            }
+
+            if($user_details)
+            {
+                $status = 'Update User Basic Informations Successfully.';
+            }
+            else
+            {
+                $status = 'Something went wrong !';
+            }
+        }
+
+        /* *************************************************************************************************** */
+        // Get selected keyword        
+        // If suggested keyword is not empty then insert suggested keyword with user is
+        if(!empty($suggest_keyword[0]) && !is_null($suggest_keyword[0])){
+
+            // Loop all suggested keywords
+            foreach ($suggest_keyword as $key => $suggested) {
+                
+                // Save new suggested category
+                $save = DB::table('category_suggestions')->insert([
+
+                    'user_id'    => Auth::user()->id,
+                    'client_uid' => $user_id,
+                    'category'   => $suggested,
+                    'status'     => 1,
+                    'created_at' => $date,
+                    'updated_at' => $date,
+                ]);
+            }
+        }
+        // END suggested Keyword section
+        /* ********************************************************************************************************** */
+
+        return redirect()->route('edit_user_payment_modes', ['user_id' => $user_id])->with('status', $status);
+    }
+
+    // ADD new User Update Payment Modes
     public function addUser_payment_modes(Request $request)
     {
         $date = date('Y-m-d H:i:s');
 
-        $user_id = $request->user_id;
+        $second_param = $request->second_param;
+        $user_id = $request->user_id;        
         $check_validation = $request->check_validation;
         $establishment_year = $request->establishment_year;
         $annual_turnover = $request->annual_turnover;
@@ -469,7 +676,6 @@ class AdminUsers extends Controller
             {
                 $status = 'Add Payment Modes Information Successfully.';
             }
-
             else
             {
                 $status = 'Something went wrong !';
@@ -477,16 +683,120 @@ class AdminUsers extends Controller
 
             return redirect()->route('addUser_business_timing', ['user_id' => $user_id]);
         }
-
         else
         {
+            // addUser_payment_modes form action
+            $user_payment_modes = 'addUser_payment_modes';
+
+            // Skip page url
+            $skip_page_url = 'addUser_business_timing';
+            
             $where = array('user_id' => $user_id);
             $user_details = DB::table('user_company_information')->where($where)->first();
-            return view('admin_users.addUser_payment_modes', array("user_details" => $user_details)); 
+            
+            // Create direct links
+            $basic_information_link = 'addUser_payment_modes';
+            $payment_modes_link     = 'addUser_payment_modes';
+            $business_timing_link   = 'addUser_business_timing';
+            $logo_images_link       = 'addUser_logo_images';
+
+            return view('admin_users.addUser_payment_modes', array("user_details" => $user_details, "user_payment_modes" => $user_payment_modes, "skip_page_url" => $skip_page_url, 'basic_information_link' => $basic_information_link, 'payment_modes_link' => $payment_modes_link, 'business_timing_link' => $business_timing_link, 'logo_images_link' => $logo_images_link)); 
         }
     }
 
-    // new User Update Business Timining
+    // EDIT User Update Payment Modes
+    public function edit_user_payment_modes(Request $request)
+    {
+        $date = date('Y-m-d H:i:s');
+
+        $user_id = $request->user_id;        
+        $check_validation = $request->check_validation;
+        
+        if(!empty($user_id) && !empty($check_validation))
+        {
+            $approval                             = array();
+            
+            $approval['establishment_year']       = $establishment_year = $request->establishment_year;
+            $approval['annual_turnover']          = $annual_turnover = $request->annual_turnover;
+            $approval['number_employees']         = $number_employees = $request->number_employees;
+            $approval['professional_association'] = $professional_association = $request->professional_association;
+            $approval['certification']            = $certification = $request->certification;
+            $approval['from_time']                = $from_time = $request->from_time;
+            $approval['to_time']                  = $to_time = $request->to_time;
+            $payment_mode                         = $request->payment_mode;
+
+            // If payment mode is not null
+            if(!empty($payment_mode)){
+                $payment_mode = implode("|", $payment_mode);
+            }else{
+                $payment_mode = '';
+            }
+
+            $approval['payment_mode'] = $payment_mode;
+
+            // If the logged in user is admin then update direct else go for admn approval
+            if(Auth::user()->id != 1){
+                
+                $approval = json_encode($approval);
+
+                // Insert all the information in json format for admin approval
+                $insert = DB::table('admin_approvals_for_updates')->insert([
+
+                    'update_by'           => Auth::user()->id,
+                    'client_uid'          => $user_id,
+                    'fields'              => $approval,
+                    'notification_status' => 1,
+                    'status'              => 2,
+                    'created_at'          => $date,
+                    'updated_at'          => $date,
+                ]);
+
+                $status = 'Request for update information submitted successfully.All will be effective after admin approval';
+
+            }else{
+
+                $other_info_update = DB::table('user_company_information')->where('user_id', $user_id)->update(
+                    array(
+                        'payment_mode'              => $payment_mode,
+                        'year_establishment'        => $establishment_year,
+                        'annual_turnover'           => $annual_turnover,
+                        'no_of_emps'                => $number_employees,
+                        'professional_associations' => $professional_association,
+                        'certifications'            => $certification,
+                        'created_at'                => $date,
+                        'updated_at'                => $date,
+                        'status'                    => 1
+                    )
+                );
+                
+                $status = 'Add Payment Modes Information Successfully.';
+
+            }
+
+            return redirect()->route('edit_user_business_timing', ['user_id' => $user_id])->with('status', $status);
+        }
+        else
+        {
+            // addUser_payment_modes form action
+            $user_payment_modes = 'edit_user_payment_modes';
+
+            // Skip page url
+            $skip_page_url = 'edit_user_business_timing';
+
+            $where = array('user_id' => $user_id);
+            $user_details = DB::table('user_company_information')->where($where)->first();
+            
+            // Create direct links
+            $basic_information_link = 'edit_user_basic_information';
+            $payment_modes_link     = 'edit_user_payment_modes';
+            $business_timing_link   = 'edit_user_business_timing';
+            $logo_images_link       = 'edit_user_logo_images';
+
+            return view('admin_users.addUser_payment_modes', array("user_details" => $user_details, "user_payment_modes" => $user_payment_modes, "skip_page_url" => $skip_page_url, 'basic_information_link' => $basic_information_link, 'payment_modes_link' => $payment_modes_link, 'business_timing_link' => $business_timing_link, 'logo_images_link' => $logo_images_link)); 
+        }
+    }
+
+    // ADD User Update Business Timining
     public function addUser_business_timing(Request $request)
     {        
         $date = date('Y-m-d H:i:s');
@@ -546,52 +856,140 @@ class AdminUsers extends Controller
                     $p++;
                 }
             }
-            return redirect()->route('addUser_business_keywords', ['user_id' => $user_id]);
+            return redirect()->route('addUser_logo_images', ['user_id' => $user_id]);
         }
         else
         {
+            // form action
+            $user_business_timing = 'addUser_business_timing';
+
+            // Skip page url
+            $skip_page_url = 'addUser_logo_images';
+
             $user_details = DB::table('user_details')->where('user_id', $user_id)->first();
         
             $other = DB::table('user_other_information')->where('user_id', $user_id)->get();
 
-            return view('admin_users.addUser_business_timing', array("other" => $other, "user_details" => $user_details));
+            // Create direct links
+            $basic_information_link = 'addUser_business_timing';
+            $payment_modes_link     = 'addUser_payment_modes';
+            $business_timing_link   = 'addUser_business_timing';
+            $logo_images_link       = 'addUser_logo_images';
+
+            return view('admin_users.addUser_business_timing', array("other" => $other, "user_details" => $user_details, "user_business_timing" => $user_business_timing, "skip_page_url" => $skip_page_url, 'basic_information_link' => $basic_information_link, 'payment_modes_link' => $payment_modes_link, 'business_timing_link' => $business_timing_link, 'logo_images_link' => $logo_images_link));
         }
 
     }
 
-    // new User Update Business Keywords
-    public function addUser_business_keywords(Request $request)
-    {
+    // EDIT User Update Business Timining
+    public function edit_user_business_timing(Request $request)
+    {        
+        $date = date('Y-m-d H:i:s');
         $user_id = $request->user_id;
-        
-        $user_details = DB::table('user_details')->where('user_id', $user_id)->first();
-        
-        $where = array('user_id' => $user_id, 'status' => 1);
+        $check_validation = $request->check_validation;
+        $from_time = $request->from_time;
+        $to_time = $request->to_time;
 
-        $keywords = DB::table('user_keywords')->where($where)->get();
-
-        $saved_keywords = '';
-
-        foreach ($keywords as $key => $words)
+        if(!empty($user_id) && !empty($check_validation))
         {
-            if($words->keyword_identity == 1)
-            {
-                $category = DB::table('category')->where('id', $words->keyword_id)->first();
+            // If the logged in user is admin then update direct else go for admn approval
+            if(Auth::user()->id != 1){
+                
+                $approval              = array();            
+                $approval['from_time'] = $from_time;
+                $approval['to_time']   = $to_time;
 
-                $saved_keywords .= '<div class="col-md-4 keywords p0" id="keyword_'.$category->id.'_1">'.$category->category.' &nbsp;&nbsp;<i class="fa fa-times deleteKeyword red text-right" id="delete_'.$category->id.'_1"></i></div>';
-            }
-            else
-            {
-                $subcategory = DB::table('subcategory')->where('id', $words->keyword_id)->first();
+                $approval = json_encode($approval);
 
-                $saved_keywords .= '<div class="col-md-4 keywords p0" id="keyword_'.$subcategory->id.'_2">'.$subcategory->subcategory.' &nbsp;&nbsp;<i class="fa fa-times deleteKeyword red text-right" id="delete_'.$subcategory->id.'_2"></i></div>';
+                // Insert all the information in json format for admin approval
+                $insert = DB::table('admin_approvals_for_updates')->insert([
+
+                    'update_by'           => Auth::user()->id,
+                    'client_uid'          => $user_id,
+                    'fields'              => $approval,
+                    'notification_status' => 1,
+                    'status'              => 3,
+                    'created_at'          => $date,
+                    'updated_at'          => $date,
+                ]);
+
+                $status = 'Request for update information submitted successfully. All will be effective after admin approval';
+
+            }else{
+
+                if(!empty($from_time)){
+                    $i = 1;
+                    $p = 0;
+                    foreach ($from_time as $from)
+                    {
+                        $operation_timing = 1;
+                        if($i > 7){ $operation_timing = 2; }
+
+                        if($i == 1 || $i == 8){ $day = 'monday'; }
+                        if($i == 2 || $i == 9){ $day = 'tuesday'; }
+                        if($i == 3 || $i == 10){ $day = 'wednesday'; }
+                        if($i == 4 || $i == 11){ $day = 'thursday'; }
+                        if($i == 5 || $i == 12){ $day = 'friday'; }
+                        if($i == 6 || $i == 13){ $day = 'saturday'; }
+                        if($i == 7 || $i == 14){ $day = 'sunday'; }
+
+                        if($from == 'closed') {
+                            $from = '00:00';
+                            $working_status = 0;
+                        } else {
+                            $working_status = 1;
+                        }
+
+                        if($to_time[$p] == 'closed') {
+                            $time = '00:00';
+                        } else {
+                            $time = $to_time[$p];
+                        }
+
+                        $where = ['user_id' => $user_id, 'operation_timing' => $operation_timing, 'day' => $day];
+
+                        DB::table('user_other_information')->where($where)->update(
+                            array(
+                                'from_time' => $from,
+                                'to_time' => $time,
+                                'working_status' => $working_status,
+                                'updated_at' => $date
+                            )
+                        );
+                        $i++;
+                        $p++;
+                    }
+                }
+
+                $status = 'Business timing updated sucessfully.';
             }
+            
+            return redirect()->route('edit_user_logo_images', ['user_id' => $user_id])->with('status', $status);
         }
+        else
+        {
+            // form action
+            $user_business_timing = 'edit_user_business_timing';
+
+            // Skip page url
+            $skip_page_url = 'edit_user_logo_images';
+
+            $user_details = DB::table('user_details')->where('user_id', $user_id)->first();
         
-        return view('admin_users.addUser_business_keywords', array("user_details" => $user_details, "keywords" => $saved_keywords));
+            $other = DB::table('user_other_information')->where('user_id', $user_id)->get();
+
+            // Create direct links
+            $basic_information_link = 'edit_user_basic_information';
+            $payment_modes_link     = 'edit_user_payment_modes';
+            $business_timing_link   = 'edit_user_business_timing';
+            $logo_images_link       = 'edit_user_logo_images';
+
+            return view('admin_users.addUser_business_timing', array("other" => $other, "user_details" => $user_details, "user_business_timing" => $user_business_timing, "skip_page_url" => $skip_page_url, 'basic_information_link' => $basic_information_link, 'payment_modes_link' => $payment_modes_link, 'business_timing_link' => $business_timing_link, 'logo_images_link' => $logo_images_link));
+        }
+
     }
 
-    // new User Update Logo and Images
+    // ADD User Update Logo and Images
     public function addUser_logo_images(Request $request)
     {
         $date = date('Y-m-d H:i:s');
@@ -611,7 +1009,7 @@ class AdminUsers extends Controller
             $keyword_exit = 0;   
         }
         
-        // If user is not approved then approce user also
+        // If user is not approved then approve user also
         if($approve_also == 1){
 
             // Approve user in users table
@@ -733,13 +1131,224 @@ class AdminUsers extends Controller
             }   
         }
 
+        // form action
+        $user_logo_images = 'addUser_logo_images';
+
         $user_details = DB::table('user_other_information')->where('status', 1)->orderBy('user_id', 'desc')->first();
 
         $user_images = DB::table('user_images')->where('user_id', $user_id)->get();
         
         $user_logo = DB::table('user_details')->where('user_id', $user_id)->first();
 
-        return view('admin_users.addUser_logo_images', array("user_details" => $user_details, "user_images" => $user_images, "user_logo" => $user_logo, "user_id" => $user_id, "keyword_exit" => $keyword_exit))->with('status', $status);
+        // Create direct links
+        $basic_information_link = 'addUser_logo_images';
+        $payment_modes_link     = 'addUser_payment_modes';
+        $business_timing_link   = 'addUser_business_timing';
+        $logo_images_link       = 'addUser_logo_images';
+
+        return view('admin_users.addUser_logo_images', array("user_details" => $user_details, "user_images" => $user_images, "user_logo" => $user_logo, "user_id" => $user_id, "keyword_exit" => $keyword_exit, "user_logo_images" => $user_logo_images, 'basic_information_link' => $basic_information_link, 'payment_modes_link' => $payment_modes_link, 'business_timing_link' => $business_timing_link, 'logo_images_link' => $logo_images_link))->with('status', $status);
+    }
+
+    // EDIT User Update Logo and Images
+    public function edit_user_logo_images(Request $request)
+    {
+        $date = date('Y-m-d H:i:s');
+
+        $user_id = $request->user_id;
+        $status = '';
+        $check_validation = $request->check_validation;
+        $approve_also = $request->approve_also;
+
+        // Get user keyword if not exist then admin can not approve this user else approve this user
+        $keywords = DB::table('user_keywords')->where(['user_id' => $user_id, "status" => 1])->first();
+        if(!empty($keywords))
+        {
+            $keyword_exit = 1;
+        }
+        else{
+            $keyword_exit = 0;   
+        }
+        
+        // If user is not approved then approve user also
+        if($approve_also == 1){
+
+            // Approve user in users table
+            $update = User::where(['id'=>$user_id])->update(['status' => '1']);
+
+            // Approve in user details table
+            $details = DB::table('user_details')->where(['user_id' => $user_id])->update(['update_status' => '1', 'status' => '1']);
+
+            // Approve in user_location table
+            $locations = DB::table('user_location')->where(['user_id' => $user_id])->update(['update_status' => '1', 'status' => '1']);
+
+            $status .= 'User approved successfully. ';
+        }
+
+        if(!empty($user_id) && !empty($check_validation)){
+
+            if($status == ''){
+                $status = 'Please upload image ! ';
+            }
+
+            $approval = array(); 
+
+            // Upload multiple images
+            if($request->hasFile('photos')) {
+
+                foreach ($request->photos as $p_key => $file) {
+
+                    $filename = $file->getClientOriginalName();
+                    $ext = pathinfo($filename, PATHINFO_EXTENSION);
+                    $filename = substr(md5(microtime()),rand(0,26),6);
+                    $filename .= '.'.$ext;
+                    $filesize = $file->getClientSize();
+                    // First check file extension if file is not image then hit error
+                    $extensions = ['jpg', 'jpeg', 'png', 'gig', 'bmp'];
+                    if(! in_array($ext, $extensions))
+                    {
+                        $status = 'File type is not allowed you have uploaded. Please upload any image ! ';
+                        return redirect('addUser_logo_images/'.$user_id)->with('status', $status);
+                    }
+
+                    // first check file size if greater than 1mb than hit error
+                    if($filesize > 1052030){
+                        $status = 'File size is too large. Please upload file less than 1MB ! ';
+                        return redirect('addUser_logo_images/'.$user_id)->with('status', $status);
+                    }
+
+                    $destinationPath = config('app.fileDestinationPath').'/'.$filename;
+                    $uploaded = Storage::put($destinationPath, file_get_contents($file->getRealPath()));
+
+                    // If the logged in user is admin then update direct else go for admn approval
+                    if(Auth::user()->id != 1){
+
+                        // If user is not admin then set photo in approval array
+                        $approval[$p_key]['photos'] = $filename;
+                    }else{
+
+                        // If user is admin then update photos and logo direct
+                        if($uploaded)
+                        {
+                            $image_update = DB::table('user_images')->insert(array(
+                                'user_id' => $user_id,
+                                'image' => $filename,
+                                'status' => 1
+                            ));
+                        }
+
+                        if($uploaded)
+                        {
+                            $status = 'Profile image updated successfully. ';
+                        }
+                        else
+                        {
+                            $status = 'No File Selected ! ';
+                        }
+                    }
+                }
+            }
+
+            // Upload logo
+            if($request->hasFile('logo')) {
+
+                $file = $request->logo;
+
+                $filename = $file->getClientOriginalName();
+
+                $ext = pathinfo($filename, PATHINFO_EXTENSION);
+
+                $filename = substr(md5(microtime()),rand(0,26),6);
+
+                $filename .= '.'.$ext;
+
+                // First check file extension if file is not image then hit error
+                $extensions = ['jpg', 'jpeg', 'png', 'gig', 'bmp'];
+
+                if(! in_array($ext, $extensions))
+                {
+                    $status = 'File type is not allowed you have uploaded. Please upload any image ! ';
+                    return redirect()->back()->with('status', $status);
+                    // return redirect('addUser_logo_images/'.$user_id)->with('status', $status);
+                }
+
+                $filesize = $file->getClientSize();
+
+                // first check file size if greater than 1mb than hit error
+                if($filesize > 1052030){
+                    $status = 'File size is too large. Please upload file less than 1MB ! ';
+                    return redirect('addUser_logo_images/'.$user_id)->with('status', $status);
+                }
+
+                $destinationPath = config('app.fileDestinationPath').'/'.$filename;
+                $uploaded = Storage::put($destinationPath, file_get_contents($file->getRealPath()));
+
+                // If the logged in user is admin then update direct else go for admn approval
+                if(Auth::user()->id != 1){
+
+                    // If user is not admin then fill logo image in approval array
+                    $approval['logo'] = $filename;
+                }else{
+                    
+                    // If user is admin then update direct
+                    if($uploaded)
+                    {
+                         $image_update = DB::table('user_details')->where('user_id', $user_id)->update(
+                            array(
+                                'logo' => $filename
+                            )
+                        );
+                    }
+                    if($uploaded)
+                    {
+                        $status = 'Profile logo updated successfully. ';
+                    }
+                    else
+                    {
+                        $status = 'No File Selected ! ';
+                    }
+                }
+            }   
+            
+
+            // If user is not admin then photos and logo go for admin approval
+            // If the logged in user is admin then update direct else go for admn approval
+            if(Auth::user()->id != 1){
+
+                $approval = json_encode($approval);
+
+                // Insert all the information in json format for admin approval
+                $insert = DB::table('admin_approvals_for_updates')->insert([
+
+                    'update_by'           => Auth::user()->id,
+                    'client_uid'          => $user_id,
+                    'fields'              => $approval,
+                    'notification_status' => 1,
+                    'status'              => 4,
+                    'created_at'          => $date,
+                    'updated_at'          => $date,
+                ]);
+
+                $status = 'Request for update information submitted successfully. All will be effective after admin approval';
+            }
+
+        }
+
+        // form action
+        $user_logo_images = 'edit_user_logo_images';
+
+        $user_details = DB::table('user_other_information')->where('status', 1)->orderBy('user_id', 'desc')->first();
+
+        $user_images = DB::table('user_images')->where('user_id', $user_id)->get();
+        
+        $user_logo = DB::table('user_details')->where('user_id', $user_id)->first();
+
+        // Create direct links
+        $basic_information_link = 'edit_user_basic_information';
+        $payment_modes_link     = 'edit_user_payment_modes';
+        $business_timing_link   = 'edit_user_business_timing';
+        $logo_images_link       = 'edit_user_logo_images';
+
+        return view('admin_users.addUser_logo_images', array("user_details" => $user_details, "user_images" => $user_images, "user_logo" => $user_logo, "user_id" => $user_id, "keyword_exit" => $keyword_exit, "user_logo_images" => $user_logo_images, 'basic_information_link' => $basic_information_link, 'payment_modes_link' => $payment_modes_link, 'business_timing_link' => $business_timing_link, 'logo_images_link' => $logo_images_link))->with('status', $status);
     }
 
     # User Delete Logo

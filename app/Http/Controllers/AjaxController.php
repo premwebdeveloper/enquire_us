@@ -835,6 +835,7 @@ class AjaxController extends Controller
 			else
 			{
 				$subcategory->where('city', $location);
+                $subcategory->where('area', null);
 			}
 			$subcategory->select('page_url', 'encoded_params');
 
@@ -1049,5 +1050,491 @@ class AjaxController extends Controller
 
         echo json_encode($data);
         exit;
+    }
+
+    // Get similar companies during add new company / client
+    public function getSimilarCompany(Request $request)
+    {
+        $term = $request->term;
+        $data = array();
+       
+        // Get all Comopany names according to search keyword if company is approved by admin
+        $business = DB::table('user_location');
+        $business->join('user_details', 'user_details.user_id', '=', 'user_location.user_id');
+        $business->where('business_name','LIKE','%'.$term.'%');
+        $business->select('user_location.*', 'user_details.name', 'user_details.email', 'user_details.phone', 'user_details.mobile', 'user_details.whatsapp', 'user_details.toll_free1', 'user_details.website', 'user_details.phone', 'user_details.landline', 'user_details.about_company');
+        $business = $business->get();
+
+        foreach ($business as $busi) {
+
+            //$data[] = array('client_uid'=>$busi->user_id,'client_company'=>$busi->business_name);
+            $data[] = $busi;
+        }
+
+        if(count($data)){
+            return $data;            
+        }
+    }
+
+    // Suggest new category by sales / support / client user
+    public function suggestForNewKeyword(Request $request){
+
+        $category = $request->category;
+        $date = date('Y-m-d H:i:s');
+        
+        // Save new suggested category
+        $save = DB::table('category_suggestions')->insert([
+
+            'user_id'    => Auth::user()->id,
+            'category'   => $category,
+            'status'     => 1,
+            'created_at' => $date,
+            'updated_at' => $date,
+        ]);
+
+        if($save):
+
+            echo 1;
+        else:
+            echo 0;
+        endif;
+    }
+
+    // Compare client old and new updated data for approval by admin
+    public function compareClientInformation(Request $request){
+
+        $row_id = $request->id;
+        $temp = explode('_', $row_id);
+
+        // Get new updated data for this row
+        $new_data = DB::table('admin_approvals_for_updates')->where('id', $temp[1])->first();
+
+        $fields_for_updation = json_decode($new_data->fields);
+        
+        $table = '<input type="hidden" name="row_id" value="'.$new_data->id.'"><input type="hidden" name="client_uid" value="'.$new_data->client_uid.'"><input type="hidden" name="status" value="'.$new_data->status.'"><table class="table table-bordered"><thead><tr><th scope="col">Title</th><th scope="col">Old Information</th><th scope="col">New Information</th></tr></thead><tbody>';
+
+            // Get old data for this client to compare
+            // If status is 1 then get basic information
+            if($new_data->status == 1):
+
+                $user_details = DB::table('user_details')->where('user_id', $new_data->client_uid)->first();
+                $user_location = DB::table('user_location')->where('user_location.user_id', $new_data->client_uid)->join('areas', 'areas.id', '=', 'user_location.area')->join('cities', 'cities.id', '=', 'user_location.city')->select('user_location.*', 'areas.area as area_name', 'cities.name as city_name')->first();
+                $user_keywords = DB::table('user_keywords')->where('user_id', $new_data->client_uid)->get();
+                
+                // Get area name
+                $new_area = DB::table('areas')->where('id', $fields_for_updation->area)->first();
+                // Get city name
+                $new_city = DB::table('cities')->where('id', $fields_for_updation->city)->first();
+
+                if($user_location->business_name != $fields_for_updation->company_name){
+                    $table .= '<tr class="alert alert-danger"><th scope="row"> Company Name </th> <td>'.$user_location->business_name.'</td> <td>'.$fields_for_updation->company_name.'</td> </tr>';
+                }else{
+                    $table .= '<tr><th scope="row"> Company Name </th> <td>'.$user_location->business_name.'</td> <td>'.$fields_for_updation->company_name.'</td> </tr>';
+                }
+
+                if($user_details->name != $fields_for_updation->name){
+                    $table .= '<tr class="alert alert-danger"><th scope="row"> Name </th> <td>'.$user_details->name.'</td> <td>'.$fields_for_updation->name.'</td> </tr>';
+                }else{
+                    $table .= '<tr><th scope="row"> Name </th> <td>'.$user_details->name.'</td> <td>'.$fields_for_updation->name.'</td> </tr>';
+                }
+
+                if($user_details->phone != $fields_for_updation->phone){
+                    $table .= '<tr class="alert alert-danger"><th scope="row"> Phone </th> <td>'.$user_details->phone.'</td> <td>'.$fields_for_updation->phone.'</td> </tr>';
+                }else{
+                    $table .= '<tr><th scope="row"> Phone </th> <td>'.$user_details->phone.'</td> <td>'.$fields_for_updation->phone.'</td> </tr>';
+                }
+
+                if($user_location->building != $fields_for_updation->building){
+                    $table .= '<tr class="alert alert-danger"><th scope="row"> Building </th> <td>'.$user_location->building.'</td> <td>'.$fields_for_updation->building.'</td> </tr>';
+                }else{
+                    $table .= '<tr><th scope="row"> Building </th> <td>'.$user_location->building.'</td> <td>'.$fields_for_updation->building.'</td> </tr>';
+                }
+
+                if($user_location->street != $fields_for_updation->street){
+                    $table .= '<tr class="alert alert-danger"><th scope="row"> Street </th> <td>'.$user_location->street.'</td> <td>'.$fields_for_updation->street.'</td> </tr>';
+                }else{
+                    $table .= '<tr><th scope="row"> Street </th> <td>'.$user_location->street.'</td> <td>'.$fields_for_updation->street.'</td> </tr>';
+                }
+
+                if($user_location->landmark != $fields_for_updation->landmark){
+                    $table .= '<tr class="alert alert-danger"><th scope="row"> Landmark </th> <td>'.$user_location->landmark.'</td> <td>'.$fields_for_updation->landmark.'</td> </tr>';
+                }else{
+                    $table .= '<tr><th scope="row"> Landmark </th> <td>'.$user_location->landmark.'</td> <td>'.$fields_for_updation->landmark.'</td> </tr>';
+                }
+
+                if($user_location->country != $fields_for_updation->country){
+                    $table .= '<tr class="alert alert-danger"><th scope="row"> Country </th> <td>'.$user_location->country.'</td> <td>'.$fields_for_updation->country.'</td> </tr>';
+                }else{
+                    $table .= '<tr><th scope="row"> Country </th> <td>'.$user_location->country.'</td> <td>'.$fields_for_updation->country.'</td> </tr>';
+                }
+
+                if($user_location->state != $fields_for_updation->state){
+                    $table .= '<tr class="alert alert-danger"><th scope="row"> State </th> <td>'.$user_location->state.'</td> <td>'.$fields_for_updation->state.'</td> </tr>';
+                }else{
+                    $table .= '<tr><th scope="row"> State </th> <td>'.$user_location->state.'</td> <td>'.$fields_for_updation->state.'</td> </tr>';
+                }
+
+                if($user_location->city != $fields_for_updation->city){
+                    $table .= '<tr class="alert alert-danger"><th scope="row"> City </th> <td>'.$user_location->city.'</td> <td>'.$fields_for_updation->city.'</td> </tr>';
+                }else{
+                    $table .= '<tr><th scope="row"> City </th> <td>'.$user_location->city_name.'</td> <td>'.$new_city->name.'</td> </tr>';
+                }
+
+                if($user_location->area != $fields_for_updation->area){
+                    $table .= '<tr class="alert alert-danger"><th scope="row"> Area </th> <td>'.$user_location->area.'</td> <td>'.$fields_for_updation->area.'</td> </tr>';
+                }else{
+                    $table .= '<tr><th scope="row"> Area </th> <td>'.$user_location->area_name.'</td> <td>'.$new_area->area.'</td> </tr>';
+                }
+
+                if($user_location->pincode != $fields_for_updation->pin_code){
+                    $table .= '<tr class="alert alert-danger"><th scope="row"> Pincode </th> <td>'.$user_location->pincode.'</td> <td>'.$fields_for_updation->pin_code.'</td> </tr>';
+                }else{
+                    $table .= '<tr><th scope="row"> Pincode </th> <td>'.$user_location->pincode.'</td> <td>'.$fields_for_updation->pin_code.'</td> </tr>';
+                }
+
+                if($user_details->mobile != $fields_for_updation->mobile){
+                    $table .= '<tr class="alert alert-danger"><th scope="row"> Mobile Number </th> <td>'.$user_details->mobile.'</td> <td>'.$fields_for_updation->mobile.'</td> </tr>';
+                }else{
+                    $table .= '<tr><th scope="row"> Mobile Number </th> <td>'.$user_details->mobile.'</td> <td>'.$fields_for_updation->mobile.'</td> </tr>';
+                }
+
+                if($user_details->whatsapp != $fields_for_updation->whatsapp){
+                    $table .= '<tr class="alert alert-danger"><th scope="row"> Whatsapp Number </th> <td>'.$user_details->whatsapp.'</td> <td>'.$fields_for_updation->whatsapp.'</td> </tr>';
+                }else{
+                    $table .= '<tr><th scope="row"> Whatsapp Number </th> <td>'.$user_details->whatsapp.'</td> <td>'.$fields_for_updation->whatsapp.'</td> </tr>';
+                }
+
+                if($user_details->landline != $fields_for_updation->landline){
+                    $table .= '<tr class="alert alert-danger"><th scope="row"> Landline Number </th> <td>'.$user_details->landline.'</td> <td>'.$fields_for_updation->landline.'</td> </tr>';
+                }else{
+                    $table .= '<tr><th scope="row"> Landline Number </th> <td>'.$user_details->landline.'</td> <td>'.$fields_for_updation->landline.'</td> </tr>';
+                }
+
+                if($user_details->toll_free1 != $fields_for_updation->toll_free){
+                    $table .= '<tr class="alert alert-danger"><th scope="row"> Toll Free Number </th> <td>'.$user_details->toll_free1.'</td> <td>'.$fields_for_updation->toll_free.'</td> </tr>';
+                }else{
+                    $table .= '<tr><th scope="row"> Toll Free Number </th> <td>'.$user_details->toll_free1.'</td> <td>'.$fields_for_updation->toll_free.'</td> </tr>';
+                }
+
+                if($user_details->about_company != $fields_for_updation->about_company){
+                    $table .= '<tr class="alert alert-danger"><th scope="row"> About Company </th> <td>'.$user_details->about_company.'</td> <td>'.$fields_for_updation->about_company.'</td> </tr>';
+                }else{
+                    $table .= '<tr><th scope="row"> About Company </th> <td>'.$user_details->about_company.'</td> <td>'.$fields_for_updation->about_company.'</td> </tr>';
+                }
+
+                if($user_details->website != $fields_for_updation->website){
+                    $table .= '<tr class="alert alert-danger"><th scope="row"> Website </th> <td>'.$user_details->website.'</td> <td>'.$fields_for_updation->website.'</td> </tr>';
+                }else{
+                    $table .= '<tr><th scope="row"> Website </th> <td>'.$user_details->website.'</td> <td>'.$fields_for_updation->website.'</td> </tr>';
+                }
+
+                // If new keywords submitted for update then get keyword names
+                if(isset($fields_for_updation->keyword)):
+
+                    $new_key_words = '';
+
+                    foreach ($fields_for_updation->keyword as $key => $key_word) {
+                        
+                        $temp = explode('-', $key_word);
+
+                        // If keyword is category
+                        if($temp[1] == 1){
+
+                            $category = DB::table('category')->where('id', $temp[0])->first();
+                            $new_key_words .= $category->category;
+                        }else{
+
+                            // If keyword is subcategory
+                            $subcategory = DB::table('subcategory')->where('id', $temp[0])->first();
+                            $new_key_words .= $subcategory->subcategory;
+                        }
+                    }
+
+                    $user_old_keyword = '';
+                    // Gel old keywords name to companre
+                    foreach ($user_keywords as $key => $user_keyword) {
+                        
+                        // If keyword is category
+                        if($user_keyword->keyword_identity == 1){
+
+                            $category = DB::table('category')->where('id', $user_keyword->keyword_id)->first();
+                            $user_old_keyword .= $category->category;
+                        }else{
+
+                            // If keyword is subcategory
+                            $subcategory = DB::table('subcategory')->where('id', $user_keyword->keyword_id)->first();
+                            $user_old_keyword .= $subcategory->subcategory;
+                        }
+                    }
+                    
+                    $table .= '<tr class="alert alert-danger"><th scope="row"> Keywords </th> <td>'.$user_old_keyword.'</td> <td>'.$new_key_words.'</td> </tr>';
+                endif;
+
+            // If status is 2 then get Payment mode information
+            elseif($new_data->status == 2):
+
+                $user_company_information = DB::table('user_company_information')->where('user_id', $new_data->client_uid)->first();
+
+                if($fields_for_updation->establishment_year != $user_company_information->year_establishment){
+
+                    $table .= '<tr class="alert alert-danger"><th scope="row"> Establishment Year </th> <td>'.$user_company_information->year_establishment.'</td> <td>'.$fields_for_updation->establishment_year.'</td> </tr>';
+                }else{
+                    $table .= '<tr><th scope="row"> Establishment Year </th> <td>'.$user_company_information->year_establishment.'</td> <td>'.$fields_for_updation->establishment_year.'</td> </tr>';
+                }
+
+                if($fields_for_updation->annual_turnover != $user_company_information->annual_turnover){
+
+                    $table .= '<tr class="alert alert-danger"><th scope="row"> Annual Turnover </th> <td>'.$user_company_information->annual_turnover.'</td> <td>'.$fields_for_updation->annual_turnover.'</td> </tr>';
+                }else{
+                    $table .= '<tr><th scope="row"> Annual Turnover </th> <td>'.$user_company_information->annual_turnover.'</td> <td>'.$fields_for_updation->annual_turnover.'</td> </tr>';
+                }
+
+                if($fields_for_updation->number_employees != $user_company_information->no_of_emps){
+
+                    $table .= '<tr class="alert alert-danger"><th scope="row"> Number Of Employees </th> <td>'.$user_company_information->no_of_emps.'</td> <td>'.$fields_for_updation->number_employees.'</td> </tr>';
+                }else{
+                    $table .= '<tr><th scope="row"> Number Of Employees </th> <td>'.$user_company_information->no_of_emps.'</td> <td>'.$fields_for_updation->number_employees.'</td> </tr>';
+                }
+
+                if($fields_for_updation->professional_association != $user_company_information->professional_associations){
+
+                    $table .= '<tr class="alert alert-danger"><th scope="row"> Professional Associations </th> <td>'.$user_company_information->professional_associations.'</td> <td>'.$fields_for_updation->professional_association.'</td> </tr>';
+                }else{
+                    $table .= '<tr><th scope="row"> Professional Associations </th> <td>'.$user_company_information->professional_associations.'</td> <td>'.$fields_for_updation->professional_association.'</td> </tr>';
+                }
+
+                if($fields_for_updation->certification != $user_company_information->certifications){
+
+                    $table .= '<tr class="alert alert-danger"><th scope="row"> Certifications </th> <td>'.$user_company_information->certifications.'</td> <td>'.$fields_for_updation->certification.'</td> </tr>';
+                }else{
+                    $table .= '<tr><th scope="row"> Certifications </th> <td>'.$user_company_information->certifications.'</td> <td>'.$fields_for_updation->certification.'</td> </tr>';
+                }
+
+                // Get all old payment modes
+                $new_payment_mode = $fields_for_updation->payment_mode;
+                $new_payment_mode = explode("|", $new_payment_mode);
+
+                $new_payment_modes = '';
+
+                for($i=0; $i<count($new_payment_mode); $i++)
+                {
+                    if(isset($new_payment_mode[0])){ $new_payment_mode[0] = "Cash"; }
+                    if(isset($new_payment_mode[1])){ $new_payment_mode[1] = "Master"; }                            
+                    if(isset($new_payment_mode[2])){ $new_payment_mode[2] = "Visa"; }   
+                    if(isset($new_payment_mode[3])){ $new_payment_mode[3] = "Debit"; }  
+                    if(isset($new_payment_mode[4])){ $new_payment_mode[4] = "Money"; }  
+                    if(isset($new_payment_mode[5])){ $new_payment_mode[5] = "Cheques"; }
+                    if(isset($new_payment_mode[6])){ $new_payment_mode[6] = "Credit Card"; } 
+                    if(isset($new_payment_mode[7])){ $new_payment_mode[7] = "Travelers Cheque"; }                            
+                    if(isset($new_payment_mode[8])){ $new_payment_mode[8] = "Financing Available"; }  
+                    if(isset($new_payment_mode[9])){ $new_payment_mode[9] = "American Express Card"; }
+                    if(isset($new_payment_mode[10])){ $new_payment_mode[10] = "Diners Club Card"; }
+
+                    $new_payment_modes .= $new_payment_mode[$i] .', ';
+            
+                }
+
+                // Get all new payment modes
+                $payment_mode = $user_company_information->payment_mode;
+                $payment_mode = explode("|", $payment_mode);
+
+                $old_payment_modes = '';
+
+                for($i=0; $i<count($payment_mode); $i++)
+                {
+                    if(isset($payment_mode[0])){ $payment_mode[0] = "Cash"; }
+                    if(isset($payment_mode[1])){ $payment_mode[1] = "Master"; }                            
+                    if(isset($payment_mode[2])){ $payment_mode[2] = "Visa"; }   
+                    if(isset($payment_mode[3])){ $payment_mode[3] = "Debit"; }  
+                    if(isset($payment_mode[4])){ $payment_mode[4] = "Money"; }  
+                    if(isset($payment_mode[5])){ $payment_mode[5] = "Cheques"; }
+                    if(isset($payment_mode[6])){ $payment_mode[6] = "Credit Card"; } 
+                    if(isset($payment_mode[7])){ $payment_mode[7] = "Travelers Cheque"; }                            
+                    if(isset($payment_mode[8])){ $payment_mode[8] = "Financing Available"; }  
+                    if(isset($payment_mode[9])){ $payment_mode[9] = "American Express Card"; }
+                    if(isset($payment_mode[10])){ $payment_mode[10] = "Diners Club Card"; }
+
+                    $old_payment_modes .= $payment_mode[$i] .', ';
+            
+                }
+
+                $new_payment_modes = rtrim($new_payment_modes, ", ");
+                $old_payment_modes = rtrim($old_payment_modes, ", ");
+
+                if($fields_for_updation->payment_mode != $user_company_information->payment_mode){
+
+                    $table .= '<tr class="alert alert-danger"><th scope="row"> Payment Mode </th> <td>'.$old_payment_modes.'</td> <td>'.$new_payment_modes.'</td> </tr>';
+                }else{
+                    $table .= '<tr><th scope="row"> Payment Mode </th> <td>'.$old_payment_modes.'</td> <td>'.$new_payment_modes.'</td> </tr>';
+                }
+
+            // If status is 3 then get Business timing information
+            elseif($new_data->status == 3):
+
+                $user_other_information = DB::table('user_other_information')->where('user_id', $new_data->client_uid)->get();
+
+                $user_other_information = json_decode(json_encode($user_other_information), True);
+                //print_r($user_other_information);
+
+                $old_from_time = array_column($user_other_information, 'from_time');
+                $old_to_time = array_column($user_other_information, 'to_time');
+                
+                $changes_exist = 0;
+                $new_from_times = '';
+                // Match from time 
+                $days_shift = '';
+                for ($i=0; $i < count($fields_for_updation->from_time); $i++) { 
+                    
+                    $temp = explode(':', $old_from_time[$i]);
+                    if(count($temp) == 3){
+
+                        $old_from_time[$i] = $temp[0].':'.$temp[1];
+                    }
+
+                    if($fields_for_updation->from_time[$i] == 'closed'){
+                        $fields_for_updation->from_time[$i] = '00:00';
+                    }
+
+                    if($fields_for_updation->from_time[$i] != $old_from_time[$i]):
+
+                        $changes_exist = 1;
+                    endif;
+
+                    $new_from_times .= $fields_for_updation->from_time[$i].'<br />';
+
+                    if($i < 7):
+                        if($i == 0) : $days_shift .= 'Monday ( Shift 1 )<br />';endif;
+                        if($i == 1) : $days_shift .= 'Tuesday ( Shift 1 )<br />';endif;
+                        if($i == 2) : $days_shift .= 'Wednesda y( Shift 1 )<br />';endif;
+                        if($i == 3) : $days_shift .= 'Thursday ( Shift 1 )<br />';endif;
+                        if($i == 4) : $days_shift .= 'Friday ( Shift 1 )<br />';endif;
+                        if($i == 5) : $days_shift .= 'Saturday ( Shift 1 )<br />';endif;
+                        if($i == 6) : $days_shift .= 'Sunday ( Shift 1 )<br />';endif;
+                    else:
+
+                        if($i == 7) : $days_shift .= 'Monday ( Shift 2 )<br />';endif;
+                        if($i == 8) : $days_shift .= 'Tuesday ( Shift 2 )<br />';endif;
+                        if($i == 9) : $days_shift .= 'Wednesday ( Shift 2 )<br />';endif;
+                        if($i == 10) : $days_shift .= 'Thursday ( Shift 2 )<br />';endif;
+                        if($i == 11) : $days_shift .= 'Friday ( Shift 2 )<br />';endif;
+                        if($i == 12) : $days_shift .= 'Saturday ( Shift 2 )<br />';endif;
+                        if($i == 13) : $days_shift .= 'Sunday ( Shift 2 )<br />';endif;
+                    endif;
+                }
+
+                // Match to time 
+                $new_to_times = '';
+                for ($i=0; $i < count($fields_for_updation->to_time); $i++) { 
+                        
+                    $temp = explode(':', $old_to_time[$i]);
+                    if(count($temp) == 3){
+
+                        $old_to_time[$i] = $temp[0].':'.$temp[1];
+                    }
+
+                    if($fields_for_updation->to_time[$i] == 'closed'){
+                        $fields_for_updation->to_time[$i] = '00:00';
+                    }
+
+                    if($fields_for_updation->to_time[$i] != $old_to_time[$i]){
+
+                        $changes_exist = 1;
+                    }
+                    $new_to_times .= $fields_for_updation->to_time[$i].'<br />';
+                }
+
+                // Old from times get in a string
+                $old_from_times = '';
+                foreach ($old_from_time as $key => $o_f_t) {
+                    
+                    $old_from_times .= $o_f_t.'<br />';
+                }
+
+                // Old to times get in a string
+                $old_to_times = '';
+                foreach ($old_to_time as $key => $o_t_t) {
+
+                    $old_to_times .= $o_t_t.'<br />';
+                }
+
+                $changes_class = '';
+                if($changes_exist == 1):
+
+                    $changes_class = 'alert alert-danger';
+                endif;
+
+                $table .= '<tr class="'.$changes_class.'"><th scope="row"> From Time </th><td>'.$old_from_times.'</td> <td>'.$new_from_times.'</td> </tr>';
+                $table .= '<tr class="'.$changes_class.'"><th scope="row"> To Time </th>  <td>'.$old_to_times.'</td> <td>'.$new_to_times.'</td> </tr>';
+
+            // If status is 4 then get Logo and images information
+            elseif($new_data->status == 4):
+
+                $user_images = DB::table('user_images')->where('user_id', $new_data->client_uid)->get();
+                $user_details = DB::table('user_details')->where('user_id', $new_data->client_uid)->first();
+
+                // Get client old profile images
+                $old_p_images = '';
+                foreach ($user_images as $key => $old_image) {
+                    
+                    $old_p_images .= $old_image->image.',';
+                }
+
+                // Get client new profile images
+                $new_p_images = '';
+                foreach ($fields_for_updation as $f_key => $new_image) {
+                    
+                    if(isset($new_image->photos)){
+
+                        $new_p_images .= $new_image->photos.',';
+                    }
+                }
+
+                $new_p_images = rtrim($new_p_images, ",");
+                $old_p_images = rtrim($old_p_images, ",");
+                
+                // Create host name to show image link
+                $host = $_SERVER['HTTP_HOST'];
+                if($host == 'localhost'){
+
+                    $host = 'http://'.$host.'/enquire_us/trunk';
+                }else{
+                    $host = 'https://'.$host;
+                }
+
+                // Break profile images and show
+                $old_p_images = explode(',', $old_p_images);
+
+                $show_all_old_images = '';
+                foreach ($old_p_images as $key => $o_p_i) {
+                    $show_all_old_images .= '<img src="'.$host.'/storage/app/uploads/'.$o_p_i.'" style="width:100px;height: 100px;">';
+                }
+
+                $new_p_images = explode(',', $new_p_images);
+
+                $show_all_new_images = '';
+                foreach ($new_p_images as $key => $n_p_i) {
+                    $show_all_new_images .= '<img src="'.$host.'/storage/app/uploads/'.$n_p_i.'" style="width:100px;height: 100px;">';
+                }
+
+                if($new_p_images != $old_p_images){
+
+                    $table .= '<tr class="alert alert-danger"><th scope="row"> Profile Images </th> <td> '.$show_all_old_images.' </td> <td>'.$show_all_new_images.'</td> </tr>';
+                }else{
+                        $table .= '<tr><th scope="row"> Profile Images </th> <td>'.$show_all_old_images.'</td> <td>'.$show_all_new_images.'</td> </tr>';
+                }
+
+                if($fields_for_updation->logo != $user_details->logo){
+
+                    $table .= '<tr class="alert alert-danger"><th scope="row"> Logo </th> <td><img src="'.$host.'/storage/app/uploads/'.$user_details->logo.'" style="width:100px;height: 100px;"></td> <td><img src="'.$host.'/storage/app/uploads/'.$fields_for_updation->logo.'" style="width:100px;height: 100px;"></td> </tr>';
+                }else{
+                    $table .= '<tr><th scope="row"> Payment Mode </th> <td><img src="'.$host.'/storage/app/uploads/'.$user_details->logo.'" style="width:100px;height: 100px;"></td> <td><img src="'.$host.'/storage/app/uploads/'.$fields_for_updation->logo.'" style="width:100px;height: 100px;"></td> </tr>';
+                }
+
+            endif;
+
+        $table .= '</tbody></table>';
+
+        echo $table;
+
     }
 }

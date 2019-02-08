@@ -168,7 +168,19 @@
                                     <div class="limited-time">
                                         <i class="fa fa-globe"></i>
                                         <span class="time-counter">
-                                            <a href="{{ $client->website }}" target="_blank">{{ $client->website }}</a>
+                                            <?php 
+                                                $URL = $client->website;
+                                                $weblink =   $URL; 
+                                                if(strpos($weblink, "http://") !== false || strpos($weblink, "https://") !== false)
+                                                { 
+
+                                                }
+                                                else { 
+                                                    $weblink = "http://".$weblink; 
+                                                }
+                                            ?>
+                                            <a class="weblink" <?php if($weblink != 'http://' || $weblink != 'https://'){ ?> href="<?php echo $weblink; ?>"<?php } ?> target="_blank">{{ $weblink }}</a>
+
                                         </span>
                                     </div>
                                     <div class="share-box mr30">

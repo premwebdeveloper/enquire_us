@@ -535,3 +535,33 @@ ALTER TABLE `blogs`
 
 ALTER TABLE `blogs`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+-- ---------------ALTER TABLE `user_details` on 22-12-2018----------------------
+ALTER TABLE `user_details` ADD `mobile` VARCHAR(15) NULL AFTER `phone`, ADD `whatsapp` VARCHAR(15) NULL AFTER `mobile`;
+
+-- ---------------CREATE TABLE `admin_approvals_for_updates` on 24-12-2018----------------------
+CREATE TABLE `admin_approvals_for_updates` (
+  `id` int(11) NOT NULL,
+  `update_by` int(11) NOT NULL COMMENT 'user id who update informations',
+  `fields` text COMMENT 'fields to be update',
+  `notification_status` tinyint(1) NOT NULL COMMENT '1 for not approved and 0 for approved by admin',
+  `status` tinyint(1) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+ALTER TABLE `admin_approvals_for_updates`
+  ADD PRIMARY KEY (`id`);
+
+ALTER TABLE `admin_approvals_for_updates`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+-- ---------------ALTER TABLE `admin_approvals_for_updates` on 26-12-2018----------------------
+ALTER TABLE `admin_approvals_for_updates` ADD `client_uid` INT NULL COMMENT 'client / user uid who is updated' AFTER `update_by`;
+
+-- ---------------ALTER TABLE `category_suggestions` on 04-01-2019----------------------
+ALTER TABLE `category_suggestions` CHANGE `user_id` `user_id` INT(11) NOT NULL COMMENT 'suggested by user id';
+ALTER TABLE `category_suggestions` ADD `client_uid` INT NOT NULL COMMENT 'suggested for user id' AFTER `user_id`;
+
+-- ---------------ALTER TABLE `admin_approvals_for_updates` on 09-01-2019----------------------
+ALTER TABLE `admin_approvals_for_updates` CHANGE `status` `status` TINYINT(1) NOT NULL COMMENT '1 for update basic information and 2 for update payment modes and 3 for update business timing and 4 for update image information';

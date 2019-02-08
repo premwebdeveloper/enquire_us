@@ -18,17 +18,40 @@
 		
 		// Get unapproved users
 		$unapproved_users = DB::table('user_details')->where(['status' => 0])->get();
-
 		if(!empty($unapproved_users[0])){
 			$admin_notifications++;
 		}
 
 		// Get new suggested categories
 		$new_categories = DB::table('category_suggestions')->where(['status' => 1])->get();
-
 		if(!empty($new_categories[0])){
 			$admin_notifications++;
 		}
+
+		// Get approval notificatin / if there is any entry for update basic information of users by employees
+		$basic_information_notifications = DB::table('admin_approvals_for_updates')->where(['notification_status' => 1, 'status' => 1])->get();
+		if(!empty($basic_information_notifications[0])){
+			$admin_notifications++;
+		}
+
+		// Get approval notificatin / if there is any entry for update payment mode information of users by employees
+		$payment_mode_notifications = DB::table('admin_approvals_for_updates')->where(['notification_status' => 1, 'status' => 2])->get();
+		if(!empty($payment_mode_notifications[0])){
+			$admin_notifications++;
+		}
+
+		// Get approval notificatin / if there is any entry for update business timing information of users by employees
+		$business_timing_notifications = DB::table('admin_approvals_for_updates')->where(['notification_status' => 1, 'status' => 3])->get();
+		if(!empty($business_timing_notifications[0])){
+			$admin_notifications++;
+		}
+
+		// Get approval notificatin / if there is any entry for update Images and logos information of users by employees
+		$images_logo_notifications = DB::table('admin_approvals_for_updates')->where(['notification_status' => 1, 'status' => 4])->get();
+		if(!empty($images_logo_notifications[0])){
+			$admin_notifications++;
+		}
+
 	}
 
 	/* ******************************************************************************** */

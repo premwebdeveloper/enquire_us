@@ -70,7 +70,7 @@
                                     <td>{{ $user->created_at }}</td>
                                     <td>
                                         <!-- Client view -->
-                                        <a href="{{ route('addUser_basic_information', ['user_id' => $user->user_id]) }}" class="btn btn-primary" title="View">
+                                        <a href="{{ route('edit_user_basic_information', ['user_id' => $user->user_id]) }}" class="btn btn-primary" title="View">
                                             <i class="fa fa-eye" aria-hidden="true"></i>
                                         </a>
                                         

@@ -3,6 +3,10 @@
 		margin:0px;
 	}
 </style>
+    <!-- redirect url -->
+    @if(Request::url() == 'https://www.enquireus.com/Jaipur')
+        <script>window.location.href = "https://www.enquireus.com/";</script>
+    @endif
 <div id="main" class="site-main" style="background: url('http://localhost/enquire_us/trunk/storage/app/uploads/errors/bg.png');background-repeat: no-repeat;background-size: cover;height: 100%;">
     <div class="container">
         <div class="row top15 bottom40">

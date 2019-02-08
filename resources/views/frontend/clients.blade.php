@@ -1,7 +1,11 @@
 @extends('layouts.public_app')
 
 @section('content')
-
+<?php
+/*    echo "<pre>";
+    print_r($pageUrls);
+    exit;*/
+?>
 <!-- #header -->
 <div id="main" class="site-main">
     <div class="shop-banner"> 
@@ -178,6 +182,9 @@
                                 @if(!empty($title_info->description))
                                     <?= $title_info->description; ?>
                                 @endif
+                            </div>
+                            <div class="filter top30 cata-dis-none breadCrumb">
+                                <?= $list_seo_title;?>
                             </div>
                         </div>
                     </div>

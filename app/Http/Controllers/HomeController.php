@@ -78,7 +78,7 @@ class HomeController extends Controller
         $latest_home_page_clients = DB::table('user_details')
             ->join('websites_page_head_titles', 'websites_page_head_titles.business_page', '=', 'user_details.user_id')
             ->join('user_location', 'user_location.user_id', '=', 'user_details.user_id')
-            ->where(array('user_details.update_status' => 1))
+            ->where(array('user_details.update_status' => 1, 'user_details.status' => 1))
             ->orderBy('user_location.id', 'desc')
             ->take(5)
             ->select('user_details.*', 'websites_page_head_titles.page_url', 'user_location.business_name')
@@ -99,6 +99,9 @@ class HomeController extends Controller
         $location = $request->location;
         $page_url = $request->page_url;
         $encoded = $request->encoded;
+        
+        // seo href url items
+        $seo_item_herf_url = $encoded;
 
         $encoded = base64_decode($encoded);
         
@@ -159,6 +162,7 @@ class HomeController extends Controller
                     ->join('user_location', 'user_location.user_id', '=', 'user_details.user_id')
                     ->join('websites_page_head_titles', 'websites_page_head_titles.business_page', '=', 'user_details.user_id')
                     ->join('keyword_city_client_visibility', 'keyword_city_client_visibility.user_id', '=', 'user_details.user_id')
+                    ->join('cities', 'cities.id', '=', 'user_location.city')
                     ->where('user_keywords.keyword_identity', 1)
                     ->where('user_keywords.update_status', 1)
                     ->where('user_location.status', 1)
@@ -169,10 +173,9 @@ class HomeController extends Controller
 
                 $query->where('category.id', $title_id);
 
-                $query->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country', 'websites_page_head_titles.page_url');
+                $query->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country', 'websites_page_head_titles.page_url', 'websites_page_head_titles.encoded_params', 'cities.name as city_name');
 
                 $clients = $query->get();
-
                 // get this category content
                 $title_info = DB::table('category')->where('id', $title_id)->first();
 
@@ -199,6 +202,7 @@ class HomeController extends Controller
                     ->select('subcategory.*', 'websites_page_head_titles.page_url')
                     ->get();
 
+
                 // If the title status is sub category then
                 $query = DB::table('user_keywords')
                     ->join('subcategory', 'subcategory.id', '=', 'user_keywords.keyword_id')
@@ -206,6 +210,7 @@ class HomeController extends Controller
                     ->join('user_location', 'user_location.user_id', '=', 'user_details.user_id')
                     ->join('websites_page_head_titles', 'websites_page_head_titles.business_page', '=', 'user_details.user_id')
                     ->join('keyword_city_client_visibility', 'keyword_city_client_visibility.user_id', '=', 'user_details.user_id')
+                    ->join('cities', 'cities.id', '=', 'user_location.city')
                     ->where('user_keywords.keyword_identity', 2)
                     ->where('user_location.status', 1)
                     ->where('user_details.status', 1)
@@ -216,12 +221,91 @@ class HomeController extends Controller
 
                     $query->where('subcategory.id', $title_id);
 
-                    $query->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country', 'websites_page_head_titles.page_url');
+                    $query->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country', 'websites_page_head_titles.page_url', 'websites_page_head_titles.encoded_params', 'cities.name as city_name');
 
-                     $clients = $query->get();
+                $clients = $query->get();
+
             }
-                        
-            return view('frontend.clients', array('clients' => $clients, 'subcategories' => $subcategories, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'title_info' => $title_info, 'pageUrls' => $pageUrls, 'selected_area' => $area));
+            $company_list_elements = array();
+            foreach ($clients as $key => $client) {
+                
+                $company_list_elements[$key]['@type'] = 'ListItem';
+                $company_list_elements[$key]['position'] = $key+1;
+                $company_list_elements[$key]['url'] = "https://enquireus.com/".$client->city_name."/".$client->page_url."/".$client->encoded_params."";
+            }
+
+            $category_company_list_meta_content = array(
+
+                "@context" => "http://schema.org",
+                "@type" => "ItemList",
+                "itemListElement" => $company_list_elements
+            );
+
+            $category_company_list_meta_content = json_encode($category_company_list_meta_content);
+
+            // set breadcrumb on category list page code start here
+            if($page_url){
+                $seo_item_url = str_replace("-", " ", $page_url);
+                $seo_item_url = ucwords($seo_item_url.' '. 'in jaipur');
+            }
+            $list_seo_title = '<ul>
+                                <li class="first">
+                                    <a id="brd_cm_city" title="Enquire Us" href="https://enquireus.com/'.$location.'">
+                                        <span id="brd_cm_city_txt" class="lng_crcum">'.$location.'</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a data-title="'.$seo_item_url.'" id="brd_cm_srch" title="'.$seo_item_url.'" href="https://enquireus.com/'.$location.'/'.$page_url.'/'.$seo_item_herf_url.'">
+                                        <span id="brd_cm_srch_txt" class="lng_crcum">'.$seo_item_url.'</span>
+                                    </a>
+                                </li>
+                                <li class="lstEmt ">
+                                    <a><span class="lng_crcum">10+ Listings</span></a>
+                                </li>
+                            </ul>';
+            // set breadcrumb on category list page code ends here 
+
+            // Create all companies content for meta //
+            /* *************************************** */
+            $social_links = array("https://twitter.com/enquire_us", "https://www.facebook.com/enquireusindia/", "https://www.instagram.com/enquire_us/", "https://www.linkedin.com/company/enquireus/");
+
+            $all_companies_meta_data = array(
+                array(
+                    "@context" => "http://schema.org",
+                    "@type" => "Organization",
+                    "name" => "enquireus.com",
+                    "url" => "https://www.enquireus.com/",
+                    "logo" => "https://www.enquireus.com/resources/frontend_assets/images/logo.png",
+                    "sameAs" => $social_links,
+                )
+            );
+
+            foreach ($clients as $key => $client) {
+                
+                $company_data = array(
+
+                    "@context" => "http://schema.org",
+                    "@type" => "LocalBusiness",
+                    "name" => $client->business_name,
+                    "image" => "https://".$_SERVER['HTTP_HOST']."/storage/app/uploads/".$client->logo,
+                    "priceRange"=>"$$",
+                    "telephone"=>$client->phone,
+                    "address" => array(
+
+                            "@type" => "PostalAddress",
+                            "streetAddress" => $client->building.', '.$client->street.', '.$client->landmark,
+                            "addresslocality" =>$client->city_name,
+                            "postalCode" => $client->pincode,
+                            "addressCountry" => $client->country
+                    )           
+                );
+
+                $all_companies_meta_data[$key+1] = $company_data;
+            }
+
+            $all_companies_meta_data = json_encode($all_companies_meta_data);
+
+            return view('frontend.clients', array('clients' => $clients, 'subcategories' => $subcategories, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'title_info' => $title_info, 'pageUrls' => $pageUrls, 'selected_area' => $area, 'category_company_list_meta_content' => $category_company_list_meta_content, 'list_seo_title' => $list_seo_title, 'all_companies_meta_data' => $all_companies_meta_data));
         }
         else{
 
@@ -261,6 +345,7 @@ class HomeController extends Controller
                         ->join('user_location', 'user_location.user_id', '=', 'user_details.user_id')
                         ->join('websites_page_head_titles', 'websites_page_head_titles.business_page', '=', 'user_details.user_id')
                         ->join('keyword_city_client_visibility', 'keyword_city_client_visibility.user_id', '=', 'user_details.user_id')
+                        ->join('cities', 'cities.id', '=', 'user_location.city')
                         ->where('user_keywords.keyword_identity', 1)
                         ->where('user_keywords.update_status', 1)
                         ->where('user_location.status', 1)
@@ -271,9 +356,9 @@ class HomeController extends Controller
 
                         $query->where('category.id', $title_id);
 
-                        $query->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country', 'websites_page_head_titles.page_url');
+                        $query->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country', 'websites_page_head_titles.page_url', 'websites_page_head_titles.encoded_params', 'cities.name as city_name');
 
-                        $clients = $query->get();
+                    $clients = $query->get();
                 }
                 else
                 {
@@ -282,6 +367,7 @@ class HomeController extends Controller
                         ->join('user_details', 'user_keywords.user_id', '=', 'user_details.user_id')
                         ->join('user_location', 'user_location.user_id', '=', 'user_details.user_id')
                         ->join('websites_page_head_titles', 'websites_page_head_titles.business_page', '=', 'user_details.user_id')
+                        ->join('cities', 'cities.id', '=', 'user_location.city')
                         ->where('user_keywords.keyword_identity', 1)
                         ->where('user_location.status', 1)
                         ->where('user_location.area', $area)
@@ -290,7 +376,7 @@ class HomeController extends Controller
 
                     $query->where('category.id', $title_id);
 
-                    $query->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country', 'websites_page_head_titles.page_url');
+                    $query->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country', 'websites_page_head_titles.page_url', 'websites_page_head_titles.encoded_params', 'cities.name as city_name');
 
                     $clients = $query->get();
                    
@@ -301,6 +387,7 @@ class HomeController extends Controller
                         ->join('user_location', 'user_location.user_id', '=', 'user_details.user_id')
                         ->join('websites_page_head_titles', 'websites_page_head_titles.business_page', '=', 'user_details.user_id')
                         ->join('user_area_visibility', 'user_area_visibility.user_id', '=', 'user_details.user_id')
+                        ->join('cities', 'cities.id', '=', 'user_location.city')
                         ->where('user_keywords.keyword_identity', 1)
                         ->where('user_location.status', 1)
                         ->where('user_keywords.update_status', 1)
@@ -312,7 +399,7 @@ class HomeController extends Controller
 
                     $queryA->where('category.id', $title_id);
 
-                    $queryA->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country', 'websites_page_head_titles.page_url');
+                    $queryA->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country', 'websites_page_head_titles.page_url', 'websites_page_head_titles.encoded_params', 'cities.name as city_name');
 
                     $clientsA = $queryA->get();
 
@@ -325,7 +412,87 @@ class HomeController extends Controller
                     }
                 }        
 
-                return view('frontend.clients', array('clients' => $clients, 'subcategories' => $subcategories, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'title_info' => $title_info, 'pageUrls' => $pageUrls, 'selected_area' => $area));
+                // Show company list in meta content on category view
+                $company_list_elements = array();
+                foreach ($clients as $key => $client) {
+                    
+                    $company_list_elements[$key]['@type'] = 'ListItem';
+                    $company_list_elements[$key]['position'] = $key+1;
+                    $company_list_elements[$key]['url'] = "https://enquireus.com/".$client->city_name."/".$client->page_url."/".$client->encoded_params."";
+                }
+
+                $category_company_list_meta_content = array(
+
+                    "@context" => "http://schema.org",
+                    "@type" => "ItemList",
+                    "itemListElement" => $company_list_elements
+                );
+
+                $category_company_list_meta_content = json_encode($category_company_list_meta_content);
+
+                // set breadcrumb on category list page code start here
+                if($page_url){
+                    $seo_item_url = str_replace("-", " ", $page_url);
+                    $seo_item_url = ucwords($seo_item_url);
+                }
+                $list_seo_title = '<ul>
+                                    <li class="first">
+                                        <a id="brd_cm_city" title="Enquire Us" href="https://enquireus.com/'.$location.'">
+                                            <span id="brd_cm_city_txt" class="lng_crcum">'.$location.'</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a data-title="'.$seo_item_url.'" id="brd_cm_srch" title="'.$seo_item_url.'" href="https://enquireus.com/'.$location.'/'.$page_url.'/'.$seo_item_herf_url.'">
+                                            <span id="brd_cm_srch_txt" class="lng_crcum">'.$seo_item_url.'</span>
+                                        </a>
+                                    </li>
+                                    <li class="lstEmt ">
+                                        <a><span class="lng_crcum">10+ Listings</span></a>
+                                    </li>
+                                </ul>';
+                // set breadcrumb on category list page code ends here 
+
+                 // Create all companies content for meta //
+                /* *************************************** */
+                $social_links = array("https://twitter.com/enquire_us", "https://www.facebook.com/enquireusindia/", "https://www.instagram.com/enquire_us/", "https://www.linkedin.com/company/enquireus/");
+
+                $all_companies_meta_data = array(
+                    array(
+                        "@context" => "http://schema.org",
+                        "@type" => "Organization",
+                        "name" => "enquireus.com",
+                        "url" => "https://www.enquireus.com/",
+                        "logo" => "https://www.enquireus.com/resources/frontend_assets/images/logo.png",
+                        "sameAs" => $social_links,
+                    )
+                );
+
+                foreach ($clients as $key => $client) {
+                    
+                    $company_data = array(
+
+                        "@context" => "http://schema.org",
+                        "@type" => "LocalBusiness",
+                        "name" => $client->business_name,
+                        "image" => "https://".$_SERVER['HTTP_HOST']."/storage/app/uploads/".$client->logo,
+                        "priceRange"=>"$$",
+                        "telephone"=>$client->phone,
+                        "address" => array(
+
+                                "@type" => "PostalAddress",
+                                "streetAddress" => $client->building.', '.$client->street.', '.$client->landmark,
+                                "addresslocality" =>$client->city_name,
+                                "postalCode" => $client->pincode,
+                                "addressCountry" => $client->country
+                        )           
+                    );
+
+                    $all_companies_meta_data[$key+1] = $company_data;
+                }
+
+                $all_companies_meta_data = json_encode($all_companies_meta_data);
+
+                return view('frontend.clients', array('clients' => $clients, 'subcategories' => $subcategories, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'title_info' => $title_info, 'pageUrls' => $pageUrls, 'selected_area' => $area, 'category_company_list_meta_content' => $category_company_list_meta_content, 'list_seo_title' => $list_seo_title, 'all_companies_meta_data' => $all_companies_meta_data));
             }
             elseif ($title_status == 2) {   // If title is sub category
 
@@ -358,6 +525,7 @@ class HomeController extends Controller
                         ->join('user_location', 'user_location.user_id', '=', 'user_details.user_id')
                         ->join('websites_page_head_titles', 'websites_page_head_titles.business_page', '=', 'user_details.user_id')
                         ->join('keyword_city_client_visibility', 'keyword_city_client_visibility.user_id', '=', 'user_details.user_id')
+                        ->join('cities', 'cities.id', '=', 'user_location.city')
                         ->where('user_keywords.keyword_identity', 2)
                         ->where('user_location.status', 1)
                         ->where('user_details.status', 1)
@@ -368,7 +536,7 @@ class HomeController extends Controller
 
                     $query->where('subcategory.id', $title_id);
 
-                    $query->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country', 'websites_page_head_titles.page_url');
+                    $query->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country', 'websites_page_head_titles.page_url', 'websites_page_head_titles.encoded_params', 'cities.name as city_name');
 
                     $clients = $query->get();
 
@@ -379,6 +547,7 @@ class HomeController extends Controller
                         ->join('user_details', 'user_keywords.user_id', '=', 'user_details.user_id')
                         ->join('user_location', 'user_location.user_id', '=', 'user_details.user_id')
                         ->join('websites_page_head_titles', 'websites_page_head_titles.business_page', '=', 'user_details.user_id')
+                        ->join('cities', 'cities.id', '=', 'user_location.city')
                         ->where('user_keywords.keyword_identity', 2)
                         ->where('user_location.status', 1)
                         ->where('user_location.area', $area)
@@ -387,7 +556,7 @@ class HomeController extends Controller
 
                     $query->where('subcategory.id', $title_id);
 
-                    $query->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country', 'websites_page_head_titles.page_url');
+                    $query->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country', 'websites_page_head_titles.page_url', 'websites_page_head_titles.encoded_params', 'cities.name as city_name');
 
                     $clients = $query->get();
                            
@@ -398,6 +567,7 @@ class HomeController extends Controller
                         ->join('user_location', 'user_location.user_id', '=', 'user_details.user_id')
                         ->join('websites_page_head_titles', 'websites_page_head_titles.business_page', '=', 'user_details.user_id')
                         ->join('user_area_visibility', 'user_area_visibility.user_id', '=', 'user_details.user_id')
+                        ->join('cities', 'cities.id', '=', 'user_location.city')
                         ->where('user_keywords.keyword_identity', 2)
                         ->where('user_location.status', 1)
                         ->where('user_keywords.update_status', 1)
@@ -409,7 +579,7 @@ class HomeController extends Controller
 
                     $queryA->where('subcategory.id', $title_id);
 
-                    $queryA->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country', 'websites_page_head_titles.page_url');
+                    $queryA->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country', 'websites_page_head_titles.page_url', 'websites_page_head_titles.encoded_params', 'cities.name as city_name');
 
                     $clientsA = $queryA->get();
 
@@ -422,7 +592,87 @@ class HomeController extends Controller
                     }
                 }                
 
-                return view('frontend.clients', array('clients' => $clients, 'subcategories' => $subcategories, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'title_info' => $title_info, 'pageUrls' => $pageUrls, 'selected_area' => $area));
+                // Show company list in meta content on category view
+                $company_list_elements = array();
+                foreach ($clients as $key => $client) {
+                    
+                    $company_list_elements[$key]['@type'] = 'ListItem';
+                    $company_list_elements[$key]['position'] = $key+1;
+                    $company_list_elements[$key]['url'] = "https://enquireus.com/".$client->city_name."/".$client->page_url."/".$client->encoded_params."";
+                }
+
+                $category_company_list_meta_content = array(
+
+                    "@context" => "http://schema.org",
+                    "@type" => "ItemList",
+                    "itemListElement" => $company_list_elements
+                );
+
+                $category_company_list_meta_content = json_encode($category_company_list_meta_content);
+
+                // set breadcrumb on category list page code start here
+                if($page_url){
+                    $seo_item_url = str_replace("-", " ", $page_url);
+                    $seo_item_url = ucwords($seo_item_url);
+                }
+                $list_seo_title = '<ul>
+                                    <li class="first">
+                                        <a id="brd_cm_city" title="Enquire Us" href="https://enquireus.com/'.$location.'">
+                                            <span id="brd_cm_city_txt" class="lng_crcum">'.$location.'</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a data-title="'.$seo_item_url.'" id="brd_cm_srch" title="'.$seo_item_url.'" href="https://enquireus.com/'.$location.'/'.$page_url.'/'.$seo_item_herf_url.'">
+                                            <span id="brd_cm_srch_txt" class="lng_crcum">'.$seo_item_url.'</span>
+                                        </a>
+                                    </li>
+                                    <li class="lstEmt ">
+                                        <a><span class="lng_crcum">10+ Listings</span></a>
+                                    </li>
+                                </ul>';
+                // set breadcrumb on category list page code ends here 
+
+                // Create all companies content for meta //
+                /* *************************************** */
+                $social_links = array("https://twitter.com/enquire_us", "https://www.facebook.com/enquireusindia/", "https://www.instagram.com/enquire_us/", "https://www.linkedin.com/company/enquireus/");
+
+                $all_companies_meta_data = array(
+                    array(
+                        "@context" => "http://schema.org",
+                        "@type" => "Organization",
+                        "name" => "enquireus.com",
+                        "url" => "https://www.enquireus.com/",
+                        "logo" => "https://www.enquireus.com/resources/frontend_assets/images/logo.png",
+                        "sameAs" => $social_links,
+                    )
+                );
+
+                foreach ($clients as $key => $client) {
+                    
+                    $company_data = array(
+
+                        "@context" => "http://schema.org",
+                        "@type" => "LocalBusiness",
+                        "name" => $client->business_name,
+                        "image" => "https://".$_SERVER['HTTP_HOST']."/storage/app/uploads/".$client->logo,
+                        "priceRange"=>"$$",
+                        "telephone"=>$client->phone,
+                        "address" => array(
+
+                                "@type" => "PostalAddress",
+                                "streetAddress" => $client->building.', '.$client->street.', '.$client->landmark,
+                                "addresslocality" =>$client->city_name,
+                                "postalCode" => $client->pincode,
+                                "addressCountry" => $client->country
+                        )           
+                    );
+
+                    $all_companies_meta_data[$key+1] = $company_data;
+                }
+
+                $all_companies_meta_data = json_encode($all_companies_meta_data);
+
+                return view('frontend.clients', array('clients' => $clients, 'subcategories' => $subcategories, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'title_info' => $title_info, 'pageUrls' => $pageUrls, 'selected_area' => $area, 'category_company_list_meta_content' => $category_company_list_meta_content, 'list_seo_title' => $list_seo_title, 'all_companies_meta_data' => $all_companies_meta_data));
             }
             else {                          // If title is company
 
@@ -455,9 +705,166 @@ class HomeController extends Controller
                 $images = DB::table('user_images')->where('user_id', $title_id)->get();
 
                 // Get client reviews
-                $reviews = DB::table('client_reviews')->where(['client_uid' => $title_id, 'status' => 1])->get();                
+                $reviews = DB::table('client_reviews')->where(['client_uid' => $title_id, 'status' => 1])->get();
 
-                return view('frontend.client_view', array('client' => $client, 'other_info' => $other_info, 'images' => $images, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'client_keywords' => $client_keywords, 'reviews' => $reviews));
+                // /////////////////////////////////////////////////////////////////////////////////////////////// //
+                // Company content show in meta tags start code here //
+                // Create client reviews for meta content
+                $company_meta_reviews = array();
+                foreach ($reviews as $key => $review) {
+                    $company_meta_reviews[$key]['@type']="Review";
+                    $company_meta_reviews[$key]['datePublished']=$review->created_at;
+                    $company_meta_reviews[$key]['reviewBody']=$review->review;
+                    $company_meta_reviews[$key]['author']=array(
+                                                                    "@type"=>"Person",
+                                                                    "name"=>$review->name
+                                                                );
+                }
+
+                // create meta client keyword
+                $company_meta_keywords = [];
+                foreach ($client_keywords as $key => $keyword) {
+                    if(!empty($keyword->category)){
+
+                        $company_meta_keywords[$key] = $keyword->category;
+                    }else{
+                        $company_meta_keywords[$key] = $keyword->subcategory;
+                    }                    
+                }
+
+                // Get company modes
+                $payment_mode = $client->payment_mode;
+                $payment_mode = explode("|", $payment_mode);
+                $company_meta_payment_modes = array();
+
+                if(in_array('1', $payment_mode)){ $company_meta_payment_modes[0] = "Cash"; }
+                if(in_array('2', $payment_mode)){ $company_meta_payment_modes[1] = "Master"; }
+                if(in_array('3', $payment_mode)){ $company_meta_payment_modes[2] = "Visa"; }                        
+                if(in_array('4', $payment_mode)){ $company_meta_payment_modes[3] = "Debit"; }
+                if(in_array('5', $payment_mode)){ $company_meta_payment_modes[4] = "Money"; }
+                if(in_array('6', $payment_mode)){ $company_meta_payment_modes[5] = "Cheques"; }
+                if(in_array('7', $payment_mode)){ $company_meta_payment_modes[6] = "Credit Card"; }
+                if(in_array('8', $payment_mode)){ $company_meta_payment_modes[7] = "Travelers Cheque"; }
+                if(in_array('9', $payment_mode)){ $company_meta_payment_modes[8] = "Financing Available"; }
+                if(in_array('10', $payment_mode)){ $company_meta_payment_modes[9] = "American Express Card"; }
+                if(in_array('11', $payment_mode)){ $company_meta_payment_modes[10] = "Diners Club Card"; }
+
+                $meta_payment_modes = array();
+                $p= 0;
+                foreach ($company_meta_payment_modes as $key => $value) {
+                    
+                    if(!in_array($value, $meta_payment_modes)){
+                        $meta_payment_modes[$p] = $value;
+                        $p++;
+                    }
+                }
+                
+                $meta_from_time = '';
+                $meta_to_time = '';
+                $meta_working_days = array();
+                foreach ($other_info as $key => $timing) {
+                    
+                    if($key == 0){
+                        $meta_from_time = $timing->from_time;
+                        $meta_to_time = $timing->to_time;
+                    }
+
+                    if($key < 7){
+                        if($timing->working_status == 1){
+                            $meta_working_days[$key] = $timing->day;
+                        }                        
+                    }
+                }
+
+                $meta_company_images = array();
+                $meta_company_images[0] = "https://".$_SERVER['HTTP_HOST']."/storage/app/uploads/".$client->logo."";
+                foreach ($images as $key => $image) {
+                    $meta_company_images[$key+1] = "https://".$_SERVER['HTTP_HOST']."/storage/app/uploads/".$image->image."";
+                }
+
+                // create an array to show json in head meta part of this company
+                $company_meta_content = array(
+                    "@context"=>"http://schema.org",
+                    "@type"=>"LocalBusiness",
+                    "url"=>"https://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],
+                    "name"=>$title,
+                    "image"=>"https://".$_SERVER['HTTP_HOST']."/storage/app/uploads/".$client->logo,
+                    "priceRange"=>"$$",
+                    "address"=>array(
+                        "@type"=>"PostalAddress",
+                        "streetAddress"=>$client->building.', '.$client->street.', '.$client->landmark,
+                        "addressLocality"=>$client->city_name,
+                        "postalCode"=>$client->pincode,
+                        "addressRegion"=>$client->state,
+                        "addressCountry"=>$client->country
+                    ),
+                    "telephone"=>$client->phone,
+                    "aggregateRating"=>array(
+                        "@type"=>"AggregateRating",
+                        "ratingValue"=>"4.1",
+                        "ratingCount"=>"15"
+                    ),
+                    "review"=>$company_meta_reviews,
+                    "paymentAccepted"=>$meta_payment_modes,
+                    "openingHoursSpecification"=>array(
+                        "@type" => "OpeningHoursSpecification",
+                        "dayOfWeek" => $meta_working_days,
+                        "opens" => $meta_from_time,
+                        "closes" => $meta_to_time
+                    ),
+                    "photos"=>array(
+                        "@type" => "ImageObject",
+                        "url" => $meta_company_images
+                    )
+                );
+
+                $company_meta_content = json_encode($company_meta_content);
+
+                // Company content show in meta tags ENDS code here //
+                // /////////////////////////////////////////////////////////////////////////////////////////////// //
+
+
+                // /////////////////////////////////////////////////////////////////////////////////////////////// //
+                // Page url (ListItem) show in meta tags start code here //
+
+                $list_item_meta_content = array(
+                    "@context" => "https://schema.org",
+                    "@type" => "BreadcrumbList",
+                    "itemListElement" => array(
+                        array(
+                            "@type" => "ListItem",
+                            "position" => 1,
+                            "item" => array(
+                                "@id" => "https://enquireus.com/",
+                                "name" => "Home"
+                            )
+                        ),
+                        array(
+                            "@type" => "ListItem",
+                            "position" => 2,
+                            "item" => array(
+                                "@id" => "https://enquireus.com/".$client->city_name."/",
+                                "name" => $client->city_name
+                            )
+                        ),
+                        array(
+                            "@type" => "ListItem",
+                            "position" => 3,
+                            "item" => array(
+                                "@id" => "https://enquireus.com/".$client->city_name."/".$page_url."/".$page_titles->encoded_params."",
+                                "name" => $client->business_name
+                            )
+                        )                        
+                    )
+                );
+
+                $list_item_meta_content = json_encode($list_item_meta_content);
+
+
+                // Page url (ListItem) show in meta tags ENDS code here //
+                // /////////////////////////////////////////////////////////////////////////////////////////////// //
+               
+                return view('frontend.client_view', array('client' => $client, 'other_info' => $other_info, 'images' => $images, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'client_keywords' => $client_keywords, 'reviews' => $reviews, 'company_meta_content' => $company_meta_content, 'list_item_meta_content' => $list_item_meta_content));
             }
         }
 

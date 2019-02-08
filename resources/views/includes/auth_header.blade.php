@@ -84,18 +84,19 @@
 
                 @endif
     
-                <!-- If there is any notification available  for support user-->
-                @if($admin_notifications > 0)
-                    <li class="dropdown">
-                        <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-                            <i class="fa fa-bell"></i>  
-                            <span class="label label-primary">{{ $admin_notifications }}</span>
-                        </a>
-                        <ul class="dropdown-menu dropdown-alerts">                            
+                <!-- If there is any notification available  for support user-->            
+                <li class="dropdown">
+                    <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
+                        <i class="fa fa-bell"></i>  
+                        <span class="label label-primary">{{ $admin_notifications }}</span>
+                    </a>
+                    @if($admin_notifications > 0)
+                        <ul class="dropdown-menu dropdown-alerts">                      
+                            <!-- Show umapproved users notification -->
                             <!-- If there is any meeting assigned to sales executice -->
                             @if(count($unapproved_users) > 0)
                                 <li>
-                                    <a href="{{ route('un_approved_users') }}">
+                                    <a href="{{ route('un_approved_users') }}" style="padding: 0px;">
                                         <div>
                                             <i class="fa fa-ban text-info" style="font-size: 16px;"></i> UnApproved Users
                                             <span class="pull-right text-muted small badge badge-primary text-white">
@@ -105,11 +106,12 @@
                                     </a>
                                 </li>
                             @endif
-    
+        
+                            <!-- Show new suggested categories -->
                             @if(!empty($new_categories[0]))
                             <li class="divider"></li>
                             <li>
-                                <a href="{{ route('new_suggested_categories') }}">
+                                <a href="{{ route('new_suggested_categories') }}" style="padding: 0px;">
                                     <div>
                                         <i class="fa fa-list-alt text-info" style="font-size: 16px;"></i> New Suggested Categories
                                         <span class="pull-right text-muted small badge badge-primary text-white">
@@ -119,11 +121,75 @@
                                 </a>
                             </li>
                             @endif
+        
+                            <!-- Show notification of user basic information updates -->
+                            @if(!empty($basic_information_notifications[0]))
+
+                            <li class="divider"></li>
+                            <li>
+                                <a href="{{ route('information_update_notifications', ['type' => '1']) }}" style="padding: 0px;">
+                                    <div>
+                                        <i class="fa fa-list-alt text-info" style="font-size: 16px;"></i> Basic Information Updates
+                                        <span class="pull-right text-muted small badge badge-primary text-white">
+                                            {{ count($basic_information_notifications) }}
+                                        </span>
+                                    </div>
+                                </a>
+                            </li>
+                            @endif
+        
+                            <!-- Show notification of user payment mode information updates -->
+                            @if(!empty($payment_mode_notifications[0]))
+
+                            <li class="divider"></li>
+                            <li>
+                                <a href="{{ route('information_update_notifications', ['type' => '2']) }}" style="padding: 0px;">
+                                    <div>
+                                        <i class="fa fa-list-alt text-info" style="font-size: 16px;"></i> Payment Mode Information Updates
+                                        <span class="pull-right text-muted small badge badge-primary text-white">
+                                            {{ count($payment_mode_notifications) }}
+                                        </span>
+                                    </div>
+                                </a>
+                            </li>
+                            @endif
+        
+                            <!-- Show notification of user business timing information updates -->
+                            @if(!empty($business_timing_notifications[0]))
+
+                            <li class="divider"></li>
+                            <li>
+                                <a href="{{ route('information_update_notifications', ['type' => '3']) }}" style="padding: 0px;">
+                                    <div>
+                                        <i class="fa fa-list-alt text-info" style="font-size: 16px;"></i> Business Timing Information Updates
+                                        <span class="pull-right text-muted small badge badge-primary text-white">
+                                            {{ count($business_timing_notifications) }}
+                                        </span>
+                                    </div>
+                                </a>
+                            </li>
+                            @endif
+        
+                            <!-- Show notification of user business timing information updates -->
+                            @if(!empty($images_logo_notifications[0]))
+
+                            <li class="divider"></li>
+                            <li>
+                                <a href="{{ route('information_update_notifications', ['type' => '4']) }}" style="padding: 0px;">
+                                    <div>
+                                        <i class="fa fa-list-alt text-info" style="font-size: 16px;"></i> Images And Logo Information Updates
+                                        <span class="pull-right text-muted small badge badge-primary text-white">
+                                            {{ count($images_logo_notifications) }}
+                                        </span>
+                                    </div>
+                                </a>
+                            </li>
+                            @endif
+
                         </ul>
-                    </li>
-
-                @endif
-
+                    @endif
+                </li>
+               
                 <li>
                     <a href="{{ route('logout') }}" onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">

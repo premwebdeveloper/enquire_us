@@ -495,10 +495,15 @@ class Categories extends Controller
         $super_category = $request->super_category;
         $category = $request->category;
 
+        // First get the information of this suggested cat id
+        $cat_info = DB::table('category_suggestions')->where('id', $approve_suggested_cate_id)->first();
+
+
         // If category selected then create it subcategory else create it category
         if(!empty($category)){
 
-            $craete = DB::table('subcategory')->insert([
+            // create this sub category because category is not null
+            $last_id = DB::table('subcategory')->insertGetId([
 
                 'cat_id'      => $category,
                 'subcategory' => $approve_suggested_cat_name,
@@ -506,9 +511,23 @@ class Categories extends Controller
                 'updated_at'  => date('Y-m-d H:i:s'),
                 'status'      => 1,
             ]);
+
+            // Assign this keyword / sub category to client
+            $craete = DB::table('user_keywords')->insert([
+
+                'user_id'          => $cat_info->client_uid,
+                'keyword_id'       => $last_id,
+                'keyword_identity' => 2,
+                'created_at'       => date('Y-m-d H:i:s'),
+                'updated_at'       => date('Y-m-d H:i:s'),
+                'update_status'    => 1,
+                'status'           => 1,
+            ]);
+
         }else{
 
-            $craete = DB::table('category')->insert([
+            // create this category because category is null
+            $last_id = DB::table('category')->insertGetId([
 
                 'super_category' => $super_category,
                 'category'       => $approve_suggested_cat_name,
@@ -516,6 +535,18 @@ class Categories extends Controller
                 'created_at'     => date('Y-m-d H:i:s'),
                 'updated_at'     => date('Y-m-d H:i:s'),
                 'status'         => 1,
+            ]);
+
+            // Assign this keyword / sub category to client
+            $craete = DB::table('user_keywords')->insert([
+
+                'user_id'          => $cat_info->client_uid,
+                'keyword_id'       => $last_id,
+                'keyword_identity' => 1,
+                'created_at'       => date('Y-m-d H:i:s'),
+                'updated_at'       => date('Y-m-d H:i:s'),
+                'update_status'    => 1,
+                'status'           => 1,
             ]);
         }
 

@@ -143,19 +143,17 @@
 
                             @if(!empty($user_details->user_id))
                                 <ul class="nav nav-tabs">
-                                    <li class=""><a href="{{ route('addUser_basic_information', ['user_id' => $user_details->user_id]) }}">Basic Information</a></li>
-                                    <li class=""><a href="{{ route('addUser_payment_modes', ['user_id' => $user_details->user_id]) }}">Payment Modes</a></li>
-                                    <li class="active"><a href="{{ route('addUser_business_timing', ['user_id' => $user_details->user_id]) }}">Business Timing</a></li>
-                                    <li class=""><a href="{{ route('addUser_business_keywords', ['user_id' => $user_details->user_id]) }}">Business Keywords</a></li>
-                                    <li class=""><a href="{{ route('addUser_logo_images', ['user_id' => $user_details->user_id]) }}">Images</a></li>
+                                    <li><a href="{{ route($basic_information_link, ['user_id' => $user_details->user_id]) }}">Basic Information</a></li>
+                                    <li><a href="{{ route($payment_modes_link, ['user_id' => $user_details->user_id]) }}">Payment Modes</a></li>
+                                    <li class="active"><a href="{{ route($business_timing_link, ['user_id' => $user_details->user_id]) }}">Business Timing</a></li>
+                                    <li><a href="{{ route($logo_images_link, ['user_id' => $user_details->user_id]) }}">Images</a></li>
                                 </ul>
                             @else
                                 <ul class="nav nav-tabs">
-                                    <li class=""><a href="javascript:;">Basic Information</a></li>
-                                    <li class=""><a href="{{ route('addUser_payment_modes', ['user_id' => $user_details->user_id]) }}">Payment Modes</a></li>
+                                    <li><a href="javascript:;">Basic Information</a></li>
+                                    <li><a href="{{ route('addUser_payment_modes', ['user_id' => $user_details->user_id]) }}">Payment Modes</a></li>
                                     <li class="active"><a href="javascript:;">Business Timing</a></li>
-                                    <li class=""><a href="javascript:;">Business Keywords</a></li>
-                                    <li class=""><a href="javascript:;">Images</a></li>
+                                    <li><a href="javascript:;">Images</a></li>
                                 </ul>
                             @endif
 
@@ -163,7 +161,7 @@
                                 <div id="tab-3" class="tab-pane active">
                                 <div class="panel-body">
                                 <h4>Hours of Operation</h4>
-                                <form action="{{ route('addUser_business_timing', ['user_id' => $user_details->user_id]) }}" method="post" class="form-horizontal">
+                                <form action="{{ route($user_business_timing, ['user_id' => $user_details->user_id]) }}" method="post" class="form-horizontal">
                                     {{ csrf_field() }}
                                     <fieldset>
                                         <input type="hidden" name="check_validation" value="1">
@@ -284,7 +282,7 @@
 
                                     </div>
                                     <div class="col-md-12 text-right">
-                                        <a href="{{ route('addUser_business_keywords', ['user_id' => $user_details->user_id]) }}" class="btn btn-success" style="margin-bottom: 30px;">Skip</a>
+                                        <a href="{{ route($skip_page_url, ['user_id' => $user_details->user_id]) }}" class="btn btn-success" style="margin-bottom: 30px;">Skip</a>
                                         <input type="submit" name="addUser" class="btn btn-success" value="Next" style="margin-bottom: 30px;">
                                     </div>
                                     </fieldset>
