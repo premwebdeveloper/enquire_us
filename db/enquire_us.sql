@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 25, 2018 at 04:02 PM
--- Server version: 10.1.29-MariaDB
--- PHP Version: 7.1.12
+-- Generation Time: Feb 08, 2019 at 03:19 PM
+-- Server version: 10.1.36-MariaDB
+-- PHP Version: 7.2.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -21,6 +21,34 @@ SET time_zone = "+00:00";
 --
 -- Database: `enquire_us`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `admin_approvals_for_updates`
+--
+
+CREATE TABLE `admin_approvals_for_updates` (
+  `id` int(11) NOT NULL,
+  `update_by` int(11) NOT NULL COMMENT 'user id who update informations',
+  `client_uid` int(11) DEFAULT NULL COMMENT 'client / user uid who is updated',
+  `fields` longtext COMMENT 'fields to be update',
+  `notification_status` tinyint(1) NOT NULL COMMENT '1 for not approved and 0 for approved by admin',
+  `status` tinyint(1) NOT NULL COMMENT '1 for update basic information and 2 for update payment modes and 3 for update business timing and 4 for update image information',
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `admin_approvals_for_updates`
+--
+
+INSERT INTO `admin_approvals_for_updates` (`id`, `update_by`, `client_uid`, `fields`, `notification_status`, `status`, `created_at`, `updated_at`) VALUES
+(3, 23, 19, '{\"company_name\":\"Indian Crafts\",\"name\":\"alok Jasmatiya\",\"phone\":\"8005609866\",\"building\":\"dream heights\",\"street\":\"near saras dairy, second phase, basni, Jodhpur, Rajasthan, India\",\"landmark\":\"near second phase basni\",\"area\":\"1\",\"city\":\"3378\",\"pin_code\":\"302004\",\"state\":\"Rajasthan\",\"country\":\"India\",\"mobile\":\"7014957469\",\"whatsapp\":\"9549494175\",\"landline\":\"0141582585\",\"toll_free\":\"1800414141\",\"website\":\"http:\\/\\/indcrafts.co.in\\/about_us\",\"about_company\":\"<p>Indian Crafts Indian Crafts Indian Crafts<br><\\/p>\",\"keyword\":[\"13-2\"]}', 0, 1, '2019-02-08 12:08:03', '2019-02-08 12:08:18'),
+(4, 23, 26, '{\"company_name\":\"ambrlabs\",\"name\":\"Prem saini\",\"phone\":\"9602947878\",\"building\":\"unnati tower\",\"street\":\"central spine\",\"landmark\":\"oppo Dana Shivam Hospital\",\"area\":\"59\",\"city\":\"3378\",\"pin_code\":\"302023\",\"state\":\"Rajasthan\",\"country\":\"India\",\"mobile\":\"8005609866\",\"whatsapp\":\"9602947878\",\"landline\":\"0141 123456\",\"toll_free\":\"18002582528\",\"website\":\"http:\\/\\/ambrlabs.com\",\"about_company\":null}', 1, 1, '2019-02-08 12:09:06', '2019-02-08 12:09:06'),
+(5, 23, 26, '{\"company_name\":\"ambrlabs\",\"name\":\"Prem saini\",\"phone\":\"9602947878\",\"building\":\"unnati tower\",\"street\":\"central spine\",\"landmark\":\"oppo Dana Shivam Hospital\",\"area\":\"59\",\"city\":\"3378\",\"pin_code\":\"302023\",\"state\":\"Rajasthan\",\"country\":\"India\",\"mobile\":\"8005609866\",\"whatsapp\":\"9602947878\",\"landline\":\"0141 123456\",\"toll_free\":\"18002582528\",\"website\":\"http:\\/\\/ambrlabs.com\",\"about_company\":null}', 1, 1, '2019-02-08 12:12:31', '2019-02-08 12:12:31'),
+(6, 23, 19, '{\"company_name\":\"Indian Crafts\",\"name\":\"alok Jasmatiya\",\"phone\":\"8005609866\",\"building\":\"dream heights\",\"street\":\"near saras dairy, second phase, basni, Jodhpur, Rajasthan, India\",\"landmark\":\"near second phase basni\",\"area\":\"1\",\"city\":\"3378\",\"pin_code\":\"302004\",\"state\":\"Rajasthan\",\"country\":\"India\",\"mobile\":\"7014957469\",\"whatsapp\":\"9549494175\",\"landline\":\"0141582585\",\"toll_free\":\"1800414141\",\"website\":\"http:\\/\\/indcrafts.co.in\\/about_us\",\"about_company\":\"<p>Indian Crafts Indian Crafts Indian Crafts<br><\\/p>\"}', 1, 1, '2019-02-08 12:12:49', '2019-02-08 12:12:49'),
+(7, 23, 26, '{\"company_name\":\"ambrlabs\",\"name\":\"Prem saini\",\"phone\":\"9602947878\",\"building\":\"unnati tower\",\"street\":\"central spine\",\"landmark\":\"oppo Dana Shivam Hospital\",\"area\":\"59\",\"city\":\"3378\",\"pin_code\":\"302023\",\"state\":\"Rajasthan\",\"country\":\"India\",\"mobile\":\"8005609866\",\"whatsapp\":\"9602947878\",\"landline\":\"0141 123456\",\"toll_free\":\"18002582528\",\"website\":\"http:\\/\\/ambrlabs.com\",\"about_company\":\"about company123\"}', 0, 1, '2019-02-08 12:22:08', '2019-02-08 12:22:38');
 
 -- --------------------------------------------------------
 
@@ -179,6 +207,30 @@ INSERT INTO `areas` (`id`, `country`, `state`, `city`, `area`, `pincode`, `creat
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `blogs`
+--
+
+CREATE TABLE `blogs` (
+  `id` int(11) NOT NULL,
+  `title` text,
+  `content` longtext,
+  `image` varchar(191) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `blogs`
+--
+
+INSERT INTO `blogs` (`id`, `title`, `content`, `image`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'asd', 'asd', NULL, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00'),
+(2, 'prem', 'saini', NULL, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `category`
 --
 
@@ -204,7 +256,14 @@ INSERT INTO `category` (`id`, `super_category`, `category`, `description`, `imag
 (4, 19, 'CCTV Camera', '<p>If you’ve ever browsed through <b>CCTV surveillance camera</b> brochures with their dozens of options, product shots, specifications and varying prices, you may have been tempted to slap it shut and leave upgrading your security system for another day.<br></p><p>The vast array of CCTV surveillance cameras and recorders on the market can be daunting, making it difficult to decide which system would be best suited to your home or business environment.<br></p><p>We’ve unpacked some of the basics of <b>CCTV surveillance cameras</b> to shed light on ten factors to consider before investing in a security camera system.<br></p><p><br></p>', '3425e0.png', '2018-07-28 17:28:33', '2018-07-28 17:28:33', 1),
 (5, 21, 'Taxi', 'taxi services in Jaipur', '38eb6b.png', '2018-08-24 16:32:42', '2018-08-24 16:32:42', 1),
 (6, 6, 'Gynecologist', 'Gynecologist Jaipur', '0352c0.png', '2018-08-25 09:38:47', '2018-08-25 09:38:47', 1),
-(7, 6, 'Dentists', '<p>Find dentist in Jaipur</p>', 'c5ddad.png', '2018-08-25 17:35:10', '2018-08-25 17:35:10', 1);
+(7, 6, 'Dentists', '<p>Find dentist in Jaipur</p>', 'c5ddad.png', '2018-08-25 17:35:10', '2018-08-25 17:35:10', 1),
+(8, 1, 'gym', NULL, 'category.png', '2018-12-17 14:17:21', '2018-12-17 14:17:21', 1),
+(9, 6, 'Medical', NULL, 'category.png', '2019-01-04 14:05:34', '2019-01-04 14:05:34', 1),
+(10, 1, 'suggest keyword 1', NULL, 'category.png', '2019-01-05 13:53:15', '2019-01-05 13:53:15', 1),
+(11, 3, 'suggest keyword 3', NULL, 'category.png', '2019-01-05 13:56:01', '2019-01-05 13:56:01', 1),
+(12, 22, 'shadi', NULL, 'category.png', '2019-01-07 12:38:37', '2019-01-07 12:38:37', 1),
+(13, 1, '123', NULL, 'category.png', '2019-01-07 13:11:56', '2019-01-07 13:11:56', 1),
+(14, 2, 'software development company', NULL, 'category.png', '2019-01-11 12:29:02', '2019-01-11 12:29:02', 1);
 
 -- --------------------------------------------------------
 
@@ -241,14 +300,21 @@ CREATE TABLE `category_enquiries` (
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `category_enquiries`
+-- Table structure for table `category_suggestions`
 --
 
-INSERT INTO `category_enquiries` (`id`, `category_id`, `identity`, `name`, `email`, `phone`, `enquiry`, `status`, `created_at`, `updated_at`) VALUES
-(1, 5, 1, 'Amit Sharma', 'amit@gmail.com', '9638527410', 'test enquiry for taxi keyword....', 1, '2018-10-22 13:18:50', '2018-10-22 13:18:50'),
-(2, 5, 1, 'Akshay kumar', 'akshay@gmail.com', '9517538520', 'Akshay enquired for taxi category from akshay kumar....', 1, '2018-10-22 13:21:11', '2018-10-22 13:21:11'),
-(3, 2, 1, 'prem saini', 'prem@gmail.com', '9602947878', 'This is test enquiry for AC Repair and service center from prem saini..', 1, '2018-10-23 11:47:23', '2018-10-23 11:47:23');
+CREATE TABLE `category_suggestions` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL COMMENT 'suggested by user id',
+  `client_uid` int(11) NOT NULL COMMENT 'suggested for user id',
+  `category` varchar(191) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL COMMENT '1 for new category and 0 for seen category',
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -48608,6 +48674,36 @@ INSERT INTO `cities` (`id`, `name`, `state_id`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `client_assigned_to_sales`
+--
+
+CREATE TABLE `client_assigned_to_sales` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL COMMENT 'user_id is client uid',
+  `assigned_by` int(11) DEFAULT NULL COMMENT 'support person uid',
+  `assigned_to` int(11) DEFAULT NULL COMMENT 'sales person uid',
+  `assign_date_time` datetime DEFAULT NULL COMMENT 'meeting date and time',
+  `notification_status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1 for unseen notification and 0 for seen notification',
+  `status` tinyint(1) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `client_assigned_to_sales`
+--
+
+INSERT INTO `client_assigned_to_sales` (`id`, `user_id`, `assigned_by`, `assigned_to`, `assign_date_time`, `notification_status`, `status`, `created_at`, `updated_at`) VALUES
+(1, 36, 23, 25, '2018-11-25 15:30:00', 0, 1, '2018-11-20 14:01:12', '2018-12-10 13:49:44'),
+(2, 22, 24, 20, '2018-11-24 19:30:00', 0, 1, '2018-11-22 13:02:23', '2018-11-30 14:07:01'),
+(3, 37, 23, 20, '2018-11-28 18:30:00', 0, 1, '2018-11-28 11:57:43', '2018-11-30 14:07:01'),
+(4, 35, 23, 25, '2018-11-30 18:30:00', 0, 1, '2018-12-06 12:22:36', '2018-12-10 13:49:44'),
+(5, 19, 23, 20, '2018-12-01 18:00:00', 0, 1, '2018-12-06 12:22:42', '2018-12-06 12:22:48'),
+(14, 38, 23, 25, '2018-12-11 09:45:00', 0, 1, '2018-12-10 13:46:49', '2018-12-10 13:49:44');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `client_enquiries`
 --
 
@@ -48623,13 +48719,64 @@ CREATE TABLE `client_enquiries` (
   `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `client_enquiries`
+-- Table structure for table `client_meetings`
 --
 
-INSERT INTO `client_enquiries` (`id`, `client_uid`, `name`, `email`, `phone`, `enquiry`, `status`, `created_at`, `updated_at`) VALUES
-(1, 11, 'prem saini', 'prem@gmail.com', '9876543210', 'this is test enquiry for go pink city tours from prem saini...', 1, '2018-10-22 13:00:00', '2018-10-22 13:00:00'),
-(2, 11, 'Vijay rathi', 'vijay@gmail.com', '9876543210', 'this is test enquiry for Go pink city tours...', 1, '2018-10-23 11:50:39', '2018-10-23 11:50:39');
+CREATE TABLE `client_meetings` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL COMMENT 'sales person user is',
+  `contact_person` varchar(191) DEFAULT NULL,
+  `company` varchar(191) DEFAULT NULL,
+  `email` varchar(191) DEFAULT NULL,
+  `phone` varchar(15) DEFAULT NULL,
+  `address` text,
+  `category` varchar(191) DEFAULT NULL COMMENT 'business category',
+  `custom_category` varchar(191) DEFAULT NULL,
+  `user_location` text COMMENT 'user location from where user submit entry',
+  `status` tinyint(1) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `client_meeting_response`
+--
+
+CREATE TABLE `client_meeting_response` (
+  `id` int(11) NOT NULL,
+  `sales_uid` int(11) NOT NULL COMMENT 'sales_uid stans for who submitted this response  for this meeting',
+  `cats_id` int(11) NOT NULL COMMENT 'client assign to sales  table row id',
+  `possibility` int(11) NOT NULL COMMENT '1 for not available and 2 for not visited and 3 for follow up and 4 for deal closed',
+  `follow_up_date` datetime DEFAULT NULL,
+  `remark` longtext,
+  `notification_status` tinyint(1) NOT NULL DEFAULT '1' COMMENT '1 for unseen notification and 0 for seen notification',
+  `status` tinyint(1) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `client_meeting_response`
+--
+
+INSERT INTO `client_meeting_response` (`id`, `sales_uid`, `cats_id`, `possibility`, `follow_up_date`, `remark`, `notification_status`, `status`, `created_at`, `updated_at`) VALUES
+(2, 25, 1, 3, '2018-12-08 00:00:00', NULL, 0, 1, '2018-11-30 13:12:15', '2018-11-30 13:12:15'),
+(4, 20, 3, 3, '2018-12-08 07:20:20', NULL, 0, 1, '2018-11-30 13:23:10', '2018-11-30 13:23:10'),
+(5, 20, 5, 1, NULL, NULL, 0, 1, '2018-12-06 12:22:57', '2018-12-06 12:22:57'),
+(6, 20, 5, 2, NULL, NULL, 0, 1, '2018-12-06 12:27:21', '2018-12-06 12:27:21'),
+(7, 20, 5, 3, '2018-11-30 18:30:00', NULL, 0, 1, '2018-12-06 12:27:27', '2018-12-06 12:27:27'),
+(8, 20, 5, 4, NULL, 'as', 0, 1, '2018-12-06 12:27:32', '2018-12-06 12:27:32'),
+(9, 20, 5, 1, NULL, NULL, 0, 1, '2018-12-06 12:33:43', '2018-12-06 12:33:43'),
+(10, 20, 5, 1, NULL, 'dfgfdg', 0, 1, '2018-12-06 12:39:15', '2018-12-06 12:39:15'),
+(11, 20, 5, 2, NULL, 'dgfdgdfgdf', 0, 1, '2018-12-06 12:39:21', '2018-12-06 12:39:21'),
+(12, 20, 5, 4, NULL, 'dgdfgdfg', 0, 1, '2018-12-06 12:39:28', '2018-12-06 12:39:28'),
+(13, 20, 5, 3, '2018-12-04 10:00:00', NULL, 0, 1, '2018-12-06 12:39:35', '2018-12-06 12:39:35'),
+(14, 25, 4, 3, '2018-12-10 19:25:00', NULL, 0, 1, '2018-12-10 13:51:47', '2018-12-10 13:51:47');
 
 -- --------------------------------------------------------
 
@@ -48929,6 +49076,90 @@ INSERT INTO `countries` (`id`, `sortname`, `name`, `phonecode`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `created_by_user_location`
+--
+
+CREATE TABLE `created_by_user_location` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `created_by_user` int(11) NOT NULL,
+  `location` text,
+  `created_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `created_by_user_location`
+--
+
+INSERT INTO `created_by_user_location` (`id`, `user_id`, `created_by_user`, `location`, `created_at`) VALUES
+(1, 22, 20, NULL, '2018-11-14 12:13:16'),
+(2, 26, 23, '200, Sector 2, Sector 6, Vidhyadhar Nagar, Jaipur, Rajasthan 302039, India', '2018-11-19 12:56:49'),
+(3, 27, 25, 'M2/6, Sector 2, LIC flats, Sector 6, Vidhyadhar Nagar, Jaipur, Rajasthan 302023, India', '2018-11-22 14:05:35'),
+(4, 28, 23, '96, Basement, Neelkhanth Colony, Ajmer Road, Jaipur, Rajasthan 302019, India', '2018-11-28 11:56:04'),
+(5, 29, 25, '96, Basement, Neelkhanth Colony, Ajmer Road, Jaipur, Rajasthan 302019, India', '2018-11-28 12:02:27'),
+(6, 30, 1, 'B-111, Surya Nagar, Murlipura, Jaipur, Rajasthan 302039, India', '2018-12-03 13:44:39'),
+(7, 31, 1, 'B-111, Surya Nagar, Murlipura, Jaipur, Rajasthan 302039, India', '2018-12-03 13:56:07'),
+(8, 32, 1, 'B-111, Surya Nagar, Murlipura, Jaipur, Rajasthan 302039, India', '2018-12-03 14:15:09'),
+(9, 34, 23, 'Ganpati Tower, Central Spine Rd, Vidhyadhar Nagar, Jaipur, Rajasthan 302039, India', '2018-12-04 12:58:35'),
+(10, 35, 23, 'Ganpati Tower, Central Spine Rd, Vidhyadhar Nagar, Jaipur, Rajasthan 302039, India', '2018-12-04 13:04:22'),
+(11, 36, 1, 'Ganpati Tower, Central Spine Rd, Vidhyadhar Nagar, Jaipur, Rajasthan 302039, India', '2018-12-04 13:15:51'),
+(12, 37, 25, '76, SONI KA BAG, Murlipura, Jaipur, Rajasthan 302039, India', '2018-12-05 14:26:37'),
+(13, 38, 23, '6/213,214, Sector 2, Sector 6, Vidhyadhar Nagar, Jaipur, Rajasthan 302039, India', '2018-12-06 12:13:50'),
+(14, 39, 20, '6/213,214, Sector 2, Sector 6, Vidhyadhar Nagar, Jaipur, Rajasthan 302039, India', '2018-12-20 13:35:56'),
+(15, 40, 1, 'D-10/54 SAAZ TOWER Near Chirkoot Stadium Vashali Nagar, Jaipur, Rajasthan, India', '2018-12-24 13:27:28'),
+(16, 41, 1, '6/213,214, Sector 2, Sector 6, Vidhyadhar Nagar, Jaipur, Rajasthan 302039, India', '2018-12-26 12:25:08'),
+(17, 42, 23, '36A, Theme Colony, SONI KA BAG, Murlipura, Jaipur, Rajasthan 302039, India', '2018-12-27 13:23:57'),
+(18, 43, 23, '36A, Theme Colony, SONI KA BAG, Murlipura, Jaipur, Rajasthan 302039, India', '2018-12-27 13:28:10'),
+(19, 44, 23, '36A, Theme Colony, SONI KA BAG, Murlipura, Jaipur, Rajasthan 302039, India', '2018-12-27 13:30:48'),
+(20, 45, 23, '6/213,214, Sector 2, Sector 6, Vidhyadhar Nagar, Jaipur, Rajasthan 302039, India', '2018-12-28 11:36:44'),
+(21, 46, 25, '6/213,214, Sector 2, Sector 6, Vidhyadhar Nagar, Jaipur, Rajasthan 302039, India', '2018-12-28 12:25:44'),
+(22, 47, 25, '6/213,214, Sector 2, Sector 6, Vidhyadhar Nagar, Jaipur, Rajasthan 302039, India', '2018-12-28 14:03:46'),
+(23, 48, 25, '6/213,214, Sector 2, Sector 6, Vidhyadhar Nagar, Jaipur, Rajasthan 302039, India', '2018-12-28 14:08:07'),
+(24, 49, 25, '6/213,214, Sector 2, Sector 6, Vidhyadhar Nagar, Jaipur, Rajasthan 302039, India', '2018-12-28 14:08:43'),
+(25, 50, 25, '6/213,214, Sector 2, Sector 6, Vidhyadhar Nagar, Jaipur, Rajasthan 302039, India', '2018-12-28 14:12:25'),
+(26, 51, 23, '6/213,214, Sector 2, Sector 6, Vidhyadhar Nagar, Jaipur, Rajasthan 302039, India', '2018-12-29 13:31:43'),
+(27, 52, 25, '6/213,214, Sector 2, Sector 6, Vidhyadhar Nagar, Jaipur, Rajasthan 302039, India', '2019-01-02 12:04:30'),
+(28, 53, 25, '6/213,214, Sector 2, Sector 6, Vidhyadhar Nagar, Jaipur, Rajasthan 302039, India', '2019-01-02 12:09:33'),
+(29, 54, 23, '6/213,214, Sector 2, Sector 6, Vidhyadhar Nagar, Jaipur, Rajasthan 302039, India', '2019-01-02 13:53:43'),
+(30, 55, 23, 'C-1, Mall Rd, Sector-3, Naya Khera, Vidhyadhar Nagar, Jaipur, Rajasthan 302039, India', '2019-01-05 13:38:58'),
+(31, 56, 23, '4/238, 200 Feet Bypass Rd, Vaishali Nagar, Jaipur, Rajasthan 302021, India', '2019-01-07 12:37:19'),
+(32, 57, 23, '6/213,214, Sector 2, Sector 6, Vidhyadhar Nagar, Jaipur, Rajasthan 302039, India', '2019-01-11 12:19:09'),
+(33, 58, 25, '6/213,214, Sector 2, Sector 6, Vidhyadhar Nagar, Jaipur, Rajasthan 302039, India', '2019-01-11 12:26:20'),
+(34, 26, 1, 'Jaipur, Military Containment, Jhotwara, Jaipur, Rajasthan 302032, India', '2019-01-29 11:58:31'),
+(35, 27, 23, 'Jaipur, Military Containment, Jhotwara, Jaipur, Rajasthan 302032, India', '2019-01-29 12:08:50'),
+(36, 26, 1, '6/213,214, Sector 2, Sector 6, Vidhyadhar Nagar, Jaipur, Rajasthan 302039, India', '2019-02-06 14:05:37');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `employees`
+--
+
+CREATE TABLE `employees` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `name` varchar(191) NOT NULL,
+  `email` varchar(191) NOT NULL,
+  `phone` varchar(15) NOT NULL,
+  `gender` int(11) DEFAULT NULL,
+  `status` tinyint(1) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `employees`
+--
+
+INSERT INTO `employees` (`id`, `user_id`, `name`, `email`, `phone`, `gender`, `status`, `created_at`, `updated_at`) VALUES
+(1, 20, 'lokesh', 'lokesh@gmail.com', '9876543210', 1, 1, '2018-10-31 13:27:19', '2018-10-31 13:27:19'),
+(2, 23, 'Priya', 'priya@gmail.com', '1234567890', 2, 1, '2018-11-19 12:53:19', '2018-11-19 12:53:19'),
+(3, 24, 'sanjana', 'sanjana@gmail.com', '9632587410', 2, 1, '2018-11-19 12:54:10', '2018-11-19 12:54:10'),
+(4, 25, 'Vijay', 'vijay@gmail.com', '9512357852', 1, 1, '2018-11-19 12:54:46', '2018-11-19 12:54:46');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `keyword_city_client_visibility`
 --
 
@@ -48960,11 +49191,11 @@ INSERT INTO `keyword_city_client_visibility` (`id`, `keyword`, `keyword_identity
 (24, 1, 1, 3378, 8, 1, '2018-08-22 19:34:33', '2018-08-22 19:34:33'),
 (25, 1, 1, 3378, 9, 1, '2018-08-22 19:34:33', '2018-08-22 19:34:33'),
 (26, 1, 1, 3378, 10, 1, '2018-08-22 19:34:33', '2018-08-22 19:34:33'),
+(27, 5, 1, 3378, 11, 1, '2018-08-24 17:12:33', '2018-08-24 17:12:33'),
+(28, 5, 1, 3378, 12, 1, '2018-08-24 17:12:33', '2018-08-24 17:12:33'),
 (29, 4, 1, 3378, 13, 1, '2018-08-24 18:09:28', '2018-08-24 18:09:28'),
 (30, 6, 1, 3378, 14, 1, '2018-08-25 10:16:11', '2018-08-25 10:16:11'),
-(31, 7, 1, 3378, 16, 1, '2018-08-25 17:53:45', '2018-08-25 17:53:45'),
-(33, 5, 1, 3378, 11, 1, '2018-10-22 12:40:50', '2018-10-22 12:40:50'),
-(34, 5, 1, 3378, 12, 1, '2018-10-22 12:40:50', '2018-10-22 12:40:50');
+(31, 7, 1, 3378, 16, 1, '2018-08-25 17:53:45', '2018-08-25 17:53:45');
 
 -- --------------------------------------------------------
 
@@ -54270,7 +54501,12 @@ INSERT INTO `subcategory` (`id`, `cat_id`, `subcategory`, `description`, `create
 (13, 1, 'Corporate Party Caterers', NULL, '2018-07-28 17:09:35', '2018-07-28 17:09:35', 1),
 (14, 1, 'Theme Party Caterers', NULL, '2018-07-28 17:10:32', '2018-07-28 17:10:32', 1),
 (15, 1, 'Kitty Party Caterers', NULL, '2018-07-28 17:10:49', '2018-07-28 17:10:49', 1),
-(16, 1, 'Anniversary Party Caterers', NULL, '2018-07-28 17:11:04', '2018-07-28 17:11:04', 1);
+(16, 1, 'Anniversary Party Caterers', NULL, '2018-07-28 17:11:04', '2018-07-28 17:11:04', 1),
+(17, 6, 'gym', NULL, '2018-12-17 14:17:31', '2018-12-17 14:17:31', 1),
+(18, 6, 'gym', NULL, '2018-12-17 14:17:52', '2018-12-17 14:17:52', 1),
+(19, 10, 'suggest keyword 2', NULL, '2019-01-05 13:54:41', '2019-01-05 13:54:41', 1),
+(20, 14, 'IT company', NULL, '2019-01-11 12:29:16', '2019-01-11 12:29:16', 1),
+(21, 1, 'batchler party caterers', NULL, '2019-01-29 12:13:37', '2019-01-29 12:13:37', 1);
 
 -- --------------------------------------------------------
 
@@ -54288,7 +54524,1109 @@ CREATE TABLE `subscribers` (
 --
 
 INSERT INTO `subscribers` (`id`, `email`) VALUES
-(1, 'dexusmedia.sales@gmail.com');
+(1, 'dexusmedia.sales@gmail.com'),
+(2, 'lpweeks@gmail.com'),
+(3, 'shizane77@gmail.com'),
+(4, 'phamthivinh933@gmail.com'),
+(5, 'jtjt9999@gmail.com'),
+(6, 'knkrhino@comcast.net'),
+(7, 'kayhepburn@yahoo.co.uk'),
+(8, 'djjcanada57@gmail.com'),
+(9, 'kdandsheela@gmail.com'),
+(10, 'justanothernguyen@gmail.com'),
+(11, 'newbiegee@gmail.com'),
+(12, 'afdorinmdmba@aol.com'),
+(13, 'samsgranny@gmail.com'),
+(14, 'matthew.jackson80@yahoo.com'),
+(15, 'george.casto@yahoo.com'),
+(16, 'marisha29nov@gmail.com'),
+(17, 'lucereflame@aol.com'),
+(18, 'george.casto@yahoo.com'),
+(19, 'iboberski@embarqmail.com'),
+(20, 'deko129@aol.com'),
+(21, 'schusterandschreiber@gmail.com'),
+(22, 'afdorinmdmba@aol.com'),
+(23, 'clark.nikita85@gmail.com'),
+(24, 'cathy.casutt@gmail.com'),
+(25, 'shersack@gmail.com'),
+(26, 'matthew.jackson80@yahoo.com'),
+(27, 'cathy.casutt@gmail.com'),
+(28, 'matthew.jackson80@yahoo.com'),
+(29, 'lucas_hansen2@yahoo.com'),
+(30, 'matthew.jackson80@yahoo.com'),
+(31, 'bevlecl@me.com'),
+(32, 'amill032@gmail.com'),
+(33, 'griffinshedd9@gmail.com'),
+(34, 'griffinshedd9@gmail.com'),
+(35, 'poder46@yahoo.com'),
+(36, 'shondra.whatley@gmail.com'),
+(37, 'prutzen@gmail.com'),
+(38, 'javierjaime86@yahoo.com'),
+(39, 'karenfarinas@gmail.com'),
+(40, 'lainielark@yahoo.com'),
+(41, 'wfscinc@gmail.com'),
+(42, 'jim.bynum@gmail.com'),
+(43, 'rnorbust@gmail.com'),
+(44, 'lisagm1185@gmail.com'),
+(45, 'nestor.h.perez@gmail.com'),
+(46, 'shilpa_rosenberry@yahoo.com'),
+(47, 'gabrieledipietro@alice.it'),
+(48, 'jjtowers@aol.com'),
+(49, 'coopercleve@gmail.com'),
+(50, 'biysktorgi86@gmail.com'),
+(51, 'robynthornton0516@gmail.com'),
+(52, 'dhc226@aol.com'),
+(53, 'orion72101@aol.com'),
+(54, 'johnpo@gmail.com'),
+(55, 'nestor.h.perez@gmail.com'),
+(56, 'hellarel24@gmail.com'),
+(57, 'joe.vieira76@yahoo.com'),
+(58, 'megangary@gmail.com'),
+(59, 'dposada40@gmail.com'),
+(60, 'mhollingbury@westeve.com'),
+(61, 'dhc226@aol.com'),
+(62, 'graphicbs@yahoo.com'),
+(63, 'deattrichball@ymail.com'),
+(64, 'ldel05@yahoo.com'),
+(65, 'jjtowers@aol.com'),
+(66, 'ali4171@gmail.com'),
+(67, 'richard@secureretire.com'),
+(68, 'coopercleve@gmail.com'),
+(69, 'sprucefarm1@aol.com'),
+(70, 'benjaminbsmith70@yahoo.com'),
+(71, 'hudson2508@gmail.com'),
+(72, 'michi14455@aol.com'),
+(73, 'mhollingbury@westeve.com'),
+(74, 'kevkaris@yahoo.com'),
+(75, 'karmanjh@aol.com'),
+(76, 'rgholsto@yahoo.com'),
+(77, 'cc_shaggy@yahoo.com'),
+(78, 'rreynolds@frankcompanies.com'),
+(79, 'jebenabe@gmail.com'),
+(80, 'coopercleve@gmail.com'),
+(81, 'perrymathias006@gmail.com'),
+(82, 'kevinmcferren@aol.com'),
+(83, 'biysktorgi86@gmail.com'),
+(84, 'brig2797@gmail.com'),
+(85, '21951467@adp.com'),
+(86, 'ferrell0727@aol.com'),
+(87, 'vasfynestone@yahoo.com'),
+(88, 'qt10575@aol.com'),
+(89, 'mhollingbury@westeve.com'),
+(90, 'shatfield013012@gmail.com'),
+(91, 'lauraegiacchi@gmail.com'),
+(92, 'melissa_ebus@yahoo.com'),
+(93, 'rgholsto@yahoo.com'),
+(94, 'tsduggan@charter.net'),
+(95, 'leenks2me@gmail.com'),
+(96, 'chelsey_coke@yahoo.com'),
+(97, 'jessiebabe2512@yahoo.com'),
+(98, 'donnaervin23@yahoo.com'),
+(99, 'chelsey_coke@yahoo.com'),
+(100, 'bitsyzrazor85@gmail.com'),
+(101, 'europeanlightin@aol.com'),
+(102, 'laray.byrd@gmail.com'),
+(103, 'kdh0720@aol.com'),
+(104, 'lisa.polcaro@gmail.com'),
+(105, 'laray.byrd@gmail.com'),
+(106, 'chensinan@gmail.com'),
+(107, 'ingawilliams628@gmail.com'),
+(108, 'neospens@gmail.com'),
+(109, 'chris.dantos@yahoo.com'),
+(110, 'paycheck31481@yahoo.com'),
+(111, 'cbsimmons2@gmail.com'),
+(112, 'madisonmcrae1019@gmail.com'),
+(113, 'dyvergiant1992@gmail.com'),
+(114, 'deewayne2003@yahoo.com'),
+(115, 'rubencca@aol.com'),
+(116, 'contact@knjhair.fr'),
+(117, 'cjbienia@gmail.com'),
+(118, 'bobbettym@gmail.com'),
+(119, 'turnertoy@yahoo.com'),
+(120, 'fmiller7449@yahoo.com'),
+(121, 'mikeisonfire14@yahoo.com'),
+(122, 'tameikawill235@aol.com'),
+(123, 'teighlormarsalis@yahoo.com'),
+(124, 'crumley11@gmail.com'),
+(125, 'cjbienia@gmail.com'),
+(126, 'mikewoodburn117@gmail.com'),
+(127, 'englishranne@aol.com'),
+(128, 'englishranne@aol.com'),
+(129, 'goldo61@yahoo.com'),
+(130, 'chris.dantos@yahoo.com'),
+(131, 'melongtin@yahoo.com'),
+(132, 'mikewoodburn117@gmail.com'),
+(133, 'dstrate@cox.net'),
+(134, 'deewayne2003@yahoo.com'),
+(135, 'courtney.boyer1@gmail.com'),
+(136, 'nickdiamante2@yahoo.com'),
+(137, 'kdenise826@gmail.com'),
+(138, 'charles.veley@gmail.com'),
+(139, 'labd33@yahoo.com'),
+(140, 'teresa_valles92@yahoo.com'),
+(141, 'komal_gupta@yahoo.com'),
+(142, 'sandy@thunderbirdhills.com'),
+(143, 'cgezzyfbaby@yahoo.com'),
+(144, 'rneff@sylvaniachamber.org'),
+(145, '303worldllc@gmail.com'),
+(146, 'charlesmcl4591@aol.com'),
+(147, 'erfanshenghur@gmail.com'),
+(148, 'finchvibe@yahoo.com'),
+(149, 'faithchiaravallo@yahoo.com'),
+(150, 'chris@ddeginc.com'),
+(151, 'morrisonbr@aol.com'),
+(152, 'mayers44@gmail.com'),
+(153, 'lauraegiacchi@gmail.com'),
+(154, 'dancook_uk@yahoo.co.uk'),
+(155, 'qt10575@aol.com'),
+(156, 'hwaltlee@gmail.com'),
+(157, 'beachgirlobx1@gmail.com'),
+(158, 'ajeet0202@gmail.com'),
+(159, 'robertpeden@bellsouth.net'),
+(160, 'rida316@gmail.com'),
+(161, 'frank40592324@gmail.com'),
+(162, 'genie.middaugh@gmail.com'),
+(163, 'frank40592324@gmail.com'),
+(164, 'afdorinmdmba@aol.com'),
+(165, 'genie.middaugh@gmail.com'),
+(166, 'mladen899@yahoo.com'),
+(167, 'sdvsdv@gmail.com'),
+(168, 'emarashian@gmail.com'),
+(169, 'richard.turadek@gmail.com'),
+(170, 'gonzales8a4m@gmail.com'),
+(171, 'brian.corbin.ohio@gmail.com'),
+(172, 'philipaparrish@gmail.com'),
+(173, 'bengrisz@gmail.com'),
+(174, 'gary.gngw@gmail.com'),
+(175, 'andrew@marydunn.com'),
+(176, 'tonic1968@gmail.com'),
+(177, 'highlyblessed84@yahoo.com'),
+(178, 'brea.boydston@gmail.com'),
+(179, 'gmwaybright@aol.com'),
+(180, 'rfolger75@gmail.com'),
+(181, 'athens.luis2016@gmail.com'),
+(182, 'kenwanlass21@yahoo.com'),
+(183, 'cbaggett5225@gmail.com'),
+(184, 'martinaclowater@gmail.com'),
+(185, 'detmeng@yahoo.com'),
+(186, 'boppong@yahoo.com'),
+(187, 'unachunt@aol.com'),
+(188, 'tomenolan@yahoo.com'),
+(189, 'gelsasser4@gmail.com'),
+(190, 'gelsasser4@gmail.com'),
+(191, 'scottman8286@aol.com'),
+(192, 'mikinzijoi@gmail.com'),
+(193, 'bricedreamer@gmail.com'),
+(194, 'scottman8286@aol.com'),
+(195, 'janeledgerjackson@gmail.com'),
+(196, 'biysktorgi86@gmail.com'),
+(197, 'manager@medbp.com'),
+(198, 'giorivo57@gmail.com'),
+(199, 'mikinzijoi@gmail.com'),
+(200, 'mdunneback4063@gmail.com'),
+(201, 'andrea.tabor@gmail.com'),
+(202, 'miranda.pope.mp@gmail.com'),
+(203, 'denise.lockwood@gmail.com'),
+(204, 'kashmishra@yahoo.com'),
+(205, 'svinfeld@aol.com'),
+(206, 'acevedofranni@gmail.com'),
+(207, 'swilkinson33@frontier.com'),
+(208, 'jnbgamers@yahoo.com'),
+(209, 'howardforgey@aol.com'),
+(210, 'kris10mt2@yahoo.com'),
+(211, 'travisebyrd@gmail.com'),
+(212, 'ramseybrown@gmail.com'),
+(213, 'ramseybrown@gmail.com'),
+(214, 'djunenguyen@yahoo.com'),
+(215, 'kaybv@aol.com'),
+(216, 'ramseybrown@gmail.com'),
+(217, 'lashanda.kelly@gmail.com'),
+(218, 'delilia58@yahoo.com'),
+(219, 'laurengutierrez42@gmail.com'),
+(220, 'james@jamescohen.org'),
+(221, 'schultznetwk@aol.com'),
+(222, 'partnerspower@rogers.com'),
+(223, 'leannemccaffery@yahoo.co.uk'),
+(224, 'e.shepherd760@gmail.com'),
+(225, 'ramseybrown@gmail.com'),
+(226, 'ramseybrown@gmail.com'),
+(227, 'ramseybrown@gmail.com'),
+(228, 'ramseybrown@gmail.com'),
+(229, 'danlerockeur@yahoo.com'),
+(230, 'lisa5307@aol.com'),
+(231, 'em.emily.garcia@gmail.com'),
+(232, 'jwill2011@yahoo.com'),
+(233, 'skyjammer9804@yahoo.com'),
+(234, 'pghmadden5@usa.com'),
+(235, 'mrpaddon@gmail.com'),
+(236, 'bs4hire@bserata.com'),
+(237, 'kgraffite@yahoo.com'),
+(238, 'taylorsharpe51@yahoo.com'),
+(239, 'eelovett15@gmail.com'),
+(240, 'michaelshtern@aol.com'),
+(241, 'michaelshtern@aol.com'),
+(242, 'hgonza8438@aol.com'),
+(243, 'centsible@shaw.ca'),
+(244, 'bradenbiggs@gmail.com'),
+(245, 'annadewitt@bresnan.net'),
+(246, 'lcoins@yahoo.com'),
+(247, 'bradenbiggs@gmail.com'),
+(248, 'carlperry770@gmail.com'),
+(249, 'britescrodrigo@gmail.com'),
+(250, 'georgeanne@bellsouth.net'),
+(251, 'chef7591@aol.com'),
+(252, 'lynnn.tori@gmail.com'),
+(253, 'bradenbiggs@gmail.com'),
+(254, 'melbeachendo@gmail.com'),
+(255, 'lynnn.tori@gmail.com'),
+(256, 'bradenbiggs@gmail.com'),
+(257, 'lizzy1412@yahoo.com'),
+(258, 'foxie111111@yahoo.com'),
+(259, 'sallysav1@yahoo.co.uk'),
+(260, 'bradenbiggs@gmail.com'),
+(261, 'bradenbiggs@gmail.com'),
+(262, 'mike.dudas@gmail.com'),
+(263, 'paulinang2002@yahoo.com'),
+(264, 'info@studiosevenshop.com'),
+(265, 'franniebx3@yahoo.com'),
+(266, 'firecomcon@aol.com'),
+(267, 'info@brouwland.com'),
+(268, 'hovalan@gmail.com'),
+(269, 'tsimon@logivation.com'),
+(270, 'mcappuccio@nyc.rr.com'),
+(271, 'emecabe@gmail.com'),
+(272, 'jlparkave@yahoo.com'),
+(273, 'heavyd327@yahoo.com'),
+(274, 'heavyd327@yahoo.com'),
+(275, 'michael_devirgilio@yahoo.com'),
+(276, 'caroleedean@att.net'),
+(277, 'bbalis@brouwland.com'),
+(278, 'bbalis@brouwland.com'),
+(279, 'info@brouwland.com'),
+(280, 'info@brouwstore.nl'),
+(281, 'riki.saroza@yahoo.com'),
+(282, 'ahmed.malik@gmail.com'),
+(283, 'lizzy1412@yahoo.com'),
+(284, 'nazareth.castellanos@gmail.com'),
+(285, 'dinahvaught@yahoo.com'),
+(286, 'ben.brethauer@gmail.com'),
+(287, 'canj97@aol.com'),
+(288, 'zachdf1@gmail.com'),
+(289, 'geri.sanson@bell.net'),
+(290, 'cyntrawalker@gmail.com'),
+(291, 'info@goodtimegifts.nl'),
+(292, 'info@brouwstore.nl'),
+(293, 'info@brouwstore.nl'),
+(294, 'emecabe@gmail.com'),
+(295, 'alison_xyz@yahoo.com'),
+(296, 'kennyst41@gmail.com'),
+(297, 'lpic19@yahoo.com'),
+(298, 'danielleslaneyedwards@gmail.com'),
+(299, 'lynnb31516@yahoo.com'),
+(300, 'j.eannemcdonnell5558@gmail.com'),
+(301, 'lpic19@yahoo.com'),
+(302, 'lynnb31516@yahoo.com'),
+(303, 'mitchcullen1@gmail.com'),
+(304, 'alison_xyz@yahoo.com'),
+(305, 'cinnbilld@aol.com'),
+(306, 'jmclark995@gmail.com'),
+(307, 'mrf1993@gmail.com'),
+(308, 'cinnbilld@aol.com'),
+(309, 'sineadbrady@gmail.com'),
+(310, 'zachdf1@gmail.com'),
+(311, 'rachaelvida1@gmail.com'),
+(312, 'ludvik.czital@praha1.cz'),
+(313, 'nroubini@stern.nyu.edu'),
+(314, 'cooljazz.wilson@gmail.com'),
+(315, 'dimplesmagee21@yahoo.com'),
+(316, 'richardaders@yahoo.com'),
+(317, 'chrisbassil@yahoo.com'),
+(318, 'davied.cheri@gmail.com'),
+(319, 'thepo1@aol.com'),
+(320, 'swlls@aol.com'),
+(321, 'jrrarity5@gmail.com'),
+(322, 'kristyklewis74@yahoo.com'),
+(323, 'titus4433@yahoo.com'),
+(324, 'kilanjohnson@gmail.com'),
+(325, 'djharlacrawford@yahoo.com'),
+(326, 'rdgratacos@gmail.com'),
+(327, 'jessfinkle@gmail.com'),
+(328, 'michaelbacklund@comcast.net'),
+(329, 'rnj.vip@gmail.com'),
+(330, 'angeyee2003@yahoo.com'),
+(331, 'sarahmarietownsend@gmail.com'),
+(332, 'joanndelano1000@gmail.com'),
+(333, 'charos718@aol.com'),
+(334, 'generationsautobilling@gmail.com'),
+(335, 'o.katie_517@yahoo.com'),
+(336, 'jscnanny@bellsouth.net'),
+(337, 'markstorms47@yahoo.com'),
+(338, 'housecleanoc@gmail.com'),
+(339, 'thkh@aol.com'),
+(340, 'kichicago@aol.com'),
+(341, 'gabesmom60@yahoo.com'),
+(342, 'abarron@npsd.k12.ms.us'),
+(343, 'kathreenstone100@gmail.com'),
+(344, 'bbible95@gmail.com'),
+(345, 'kitcunsay@yahoo.com'),
+(346, 'rosacomella@yahoo.com'),
+(347, 'kimberlee.hubauer@yahoo.com'),
+(348, 'housecleanoc@gmail.com'),
+(349, 'sdgriffis@yahoo.com'),
+(350, 'scott090900@yahoo.com'),
+(351, 'zhamyr@aol.com'),
+(352, 'markstorms47@yahoo.com'),
+(353, 'snappleblonde@gmail.com'),
+(354, 'kitcunsay@yahoo.com'),
+(355, 'kmgmartialarts@aol.com'),
+(356, 'housecleanoc@gmail.com'),
+(357, 'zhamyr@aol.com'),
+(358, 'dswiff01@aol.com'),
+(359, 'zhamyr@aol.com'),
+(360, 'housecleanoc@gmail.com'),
+(361, 'karanieto@gmail.com'),
+(362, 'markstorms47@yahoo.com'),
+(363, 'ashbymilo@yahoo.com'),
+(364, 'utsavi18@gmail.com'),
+(365, 'shetye007@gmail.com'),
+(366, 'kilanjohnson@gmail.com'),
+(367, 'lilia972@gmail.com'),
+(368, 'icheer4k@aol.com'),
+(369, 'quyue7808@gmail.com'),
+(370, 'rimaluv5@yahoo.com'),
+(371, 'bentzyklein@gmail.com'),
+(372, 'fanfibergeron@cgocable.ca'),
+(373, 'pkakkat@gmail.com'),
+(374, 'anna29marias@gmail.com'),
+(375, 'enquiries@blueprintbond.com'),
+(376, 'david@alawyer4u.com'),
+(377, 'brian@brianramos.net'),
+(378, 'roggiekimking@yahoo.com'),
+(379, 'agismondi76@aol.com'),
+(380, 'andrewhayes455@gmail.com'),
+(381, 'charsdbpp@gmail.com'),
+(382, 'jlw7815@yahoo.com'),
+(383, 'candevela@lmsinternational.com'),
+(384, 'info@simple-investing.co.uk'),
+(385, 's2stacey@aol.com'),
+(386, 'mg46131@aol.com'),
+(387, 'generationsautobilling@gmail.com'),
+(388, 'pkakkat@gmail.com'),
+(389, 'jamal_lyle@yahoo.com'),
+(390, 'tessa.pauwels@brouwland.com'),
+(391, 'ronmoniz1943@gmail.com'),
+(392, 'eric.bonneu@brouwland.com'),
+(393, 'farohmo412@gmail.com'),
+(394, 'hitald@yahoo.com'),
+(395, 'afdorinmdmba@aol.com'),
+(396, 'andreat222002@yahoo.com'),
+(397, 'jlt30jlt30@yahoo.com'),
+(398, 'stephaniesmith06@yahoo.com'),
+(399, 'shadhiggins4sheriff@gmail.com'),
+(400, 'farohmo412@gmail.com'),
+(401, 'eric.bonneu@brouwland.com'),
+(402, 'info@brouwland.com'),
+(403, 'bbalis@brouwland.com'),
+(404, 'stacie.m.erfle@gmail.com'),
+(405, 'dresler@cox.net'),
+(406, 'kinwingcheung@yahoo.com'),
+(407, 'farohmo412@gmail.com'),
+(408, 'iiatlanta1@gmail.com'),
+(409, 'dorte89@aol.com'),
+(410, 'angierosado@yahoo.com'),
+(411, 'dimplesmagee21@yahoo.com'),
+(412, 'coachsegars@yahoo.com'),
+(413, 'info@goodtimegifts.nl'),
+(414, 'dresler@cox.net'),
+(415, 'recole@archiplex.net'),
+(416, 'abdulg@bellsouth.net'),
+(417, 'dimplesmagee21@yahoo.com'),
+(418, 'tina.dodson@yahoo.com'),
+(419, 'jamal_lyle@yahoo.com'),
+(420, 'max.schneider15@gmail.com'),
+(421, 'canigetit2008@yahoo.com'),
+(422, 'herb1940@aol.com'),
+(423, 'canigetit2008@yahoo.com'),
+(424, 'rbdonahue1981@yahoo.com'),
+(425, 'baubry2313@gmail.com'),
+(426, 'dimplesmagee21@yahoo.com'),
+(427, 'dionew30@gmail.com'),
+(428, 'josejeff97@gmail.com'),
+(429, 'j1207590@me.com'),
+(430, 'pdb19572002@yahoo.co.uk'),
+(431, 'c.riffey@yahoo.com'),
+(432, 'lbikathe@aol.com'),
+(433, 'josejeff97@gmail.com'),
+(434, 'info@brouwland.com'),
+(435, 'tessa.pauwels@brouwland.com'),
+(436, 'dimplesmagee21@yahoo.com'),
+(437, 'rubyfish312@gmail.com'),
+(438, 'acohen@linknowmedia.com'),
+(439, 'kmthomas73@aol.com'),
+(440, 'acohen@linknowmedia.com'),
+(441, 'gabesmom60@yahoo.com'),
+(442, 'tmichelles82@yahoo.com'),
+(443, 'gregorycburke@gmail.com'),
+(444, 'brianrbuffington@gmail.com'),
+(445, 'markduvall2004@yahoo.com'),
+(446, 'mykiddzatm@aol.com'),
+(447, 'deepaksn1214@gmail.com'),
+(448, 'dfloyd@coindesk.com'),
+(449, 'roseavila14@gmail.com'),
+(450, 'mjmtruckrepair@aol.com'),
+(451, 'gregorycburke@gmail.com'),
+(452, 'arampers4@gmail.com'),
+(453, 'j1207590@me.com'),
+(454, 'lori.yap-chiongco@trilogyresort.com'),
+(455, 'kyla.moore24@aol.com'),
+(456, 'jrmorrow2011@gmail.com'),
+(457, 'josejeff97@gmail.com'),
+(458, 'roycerunning@yahoo.com'),
+(459, 'donnell9799@yahoo.com'),
+(460, 'duanegermenis@yahoo.com'),
+(461, 'brouwlandcompany@gmail.com'),
+(462, 'dimplesmagee21@yahoo.com'),
+(463, 'ritesh.juit@gmail.com'),
+(464, 'seanw1688@yahoo.com'),
+(465, 'stephensj1986@yahoo.com'),
+(466, 'k.alert1@gmail.com'),
+(467, 'coryellinc@gmail.com'),
+(468, 'i.am.multiplied@gmail.com'),
+(469, 'barrycraig39@googlemail.com'),
+(470, 'barrycraig39@googlemail.com'),
+(471, 'manelle@orange.fr'),
+(472, 'jderrick7777@yahoo.com'),
+(473, 'i.am.multiplied@gmail.com'),
+(474, 'camdenprincing@gmail.com'),
+(475, 'jonelatoci@yahoo.com'),
+(476, 'wmendelovitch@linknowmedia.com'),
+(477, 'standorcell17@gmail.com'),
+(478, 'susykahara@yahoo.com'),
+(479, 'sunn_cho@yahoo.com'),
+(480, 'maprouse@aol.com'),
+(481, 'karizmapaige@gmail.com'),
+(482, 'brouwlandcompany@gmail.com'),
+(483, 'cassjenkins19@gmail.com'),
+(484, 'rubyfish312@gmail.com'),
+(485, 'brouwlandcompany@gmail.com'),
+(486, 'chrystopherrhodes@gmail.com'),
+(487, 'wrenn00@gmail.com'),
+(488, 'mg46131@aol.com'),
+(489, 'dewald.visser@gmail.com'),
+(490, 'brouwlandcompany@gmail.com'),
+(491, 'bmtdt1@gmail.com'),
+(492, 'wrenn00@gmail.com'),
+(493, 'simtechguy@gmail.com'),
+(494, 'jguypotvin@gmail.com'),
+(495, 'ilaurabgood@yahoo.com'),
+(496, 'ilaurabgood@yahoo.com'),
+(497, 'brouwlandcompany@gmail.com'),
+(498, 'brouwlandcompany@gmail.com'),
+(499, 'marycielo604@yahoo.com'),
+(500, 'austinsinbox@gmail.com'),
+(501, 'janaerichardson1990@yahoo.com'),
+(502, 'rway1975@gmail.com'),
+(503, 'beaquesieverding@aol.com'),
+(504, 'dimplesmagee21@yahoo.com'),
+(505, 'brouwlandcompany@gmail.com'),
+(506, 's.mccall00@gmail.com'),
+(507, 'lkoga33@yahoo.com'),
+(508, 'austinsinbox@gmail.com'),
+(509, 'austinsinbox@gmail.com'),
+(510, 'dimplesmagee21@yahoo.com'),
+(511, 'donovanamyk@gmail.com'),
+(512, 'lkoga33@yahoo.com'),
+(513, 'rubyfish312@gmail.com'),
+(514, 'austinsinbox@gmail.com'),
+(515, 'ahillyer@telus.net'),
+(516, 'austinsinbox@gmail.com'),
+(517, 'brouwlandcompany@gmail.com'),
+(518, 'nikowright43@yahoo.com'),
+(519, 'jenperaino19@gmail.com'),
+(520, 'charsdbpp@gmail.com'),
+(521, 'byk9001@yahoo.com'),
+(522, 'austinsinbox@gmail.com'),
+(523, 'beaquesieverding@aol.com'),
+(524, 'whitenancye@gmail.com'),
+(525, 'dimplesmagee21@yahoo.com'),
+(526, 'cahee50ross@yahoo.com'),
+(527, 'malekfrancis@aol.com'),
+(528, 'dimplesmagee21@yahoo.com'),
+(529, 'lynnebernard2014@gmail.com'),
+(530, 'austinsinbox@gmail.com'),
+(531, 'brouwlandcompany@gmail.com'),
+(532, 'johdmay@gmail.com'),
+(533, 'cher38s@yahoo.com'),
+(534, 'joanndelano1000@gmail.com'),
+(535, 'rowe58@sbcglobal.net'),
+(536, 'yleniaschlichter@gmx.de'),
+(537, 'mjrusso11@gmail.com'),
+(538, 'nikowright43@yahoo.com'),
+(539, 'djgalaspie@gmail.com'),
+(540, 'paultmln@aol.com'),
+(541, 'jgnage1@yahoo.com'),
+(542, 'paultmln@aol.com'),
+(543, 'afishel@aol.com'),
+(544, 'still10steps@aol.com'),
+(545, 'jgnage1@yahoo.com'),
+(546, 'mmamatov@gmail.com'),
+(547, 'gpashton@sbcglobal.net'),
+(548, 'lentass72@gmail.com'),
+(549, 'alyssazimmerman341@gmail.com'),
+(550, 'dashau1913@yahoo.com'),
+(551, 'terriabsher@gmail.com'),
+(552, 'austinsinbox@gmail.com'),
+(553, 'calderon.yesika@yahoo.com'),
+(554, 'robertleehadley@gmail.com'),
+(555, 'claudia.scualum@gmail.com'),
+(556, 'austinsinbox@gmail.com'),
+(557, 'universaltowingremovals@yahoo.com'),
+(558, 'mgminsky117@gmail.com'),
+(559, 'darkchildwonder2@aol.com'),
+(560, 'calderon.yesika@yahoo.com'),
+(561, 'abousamra75@aol.com'),
+(562, 'georgettepavlica@aol.com'),
+(563, 'mgminsky117@gmail.com'),
+(564, 'adrie81@yahoo.com'),
+(565, 'gillyounis@yahoo.com'),
+(566, 'calderon.yesika@yahoo.com'),
+(567, 'richardjamieson@sbcglobal.net'),
+(568, 'gmom1497@aol.com'),
+(569, 'saramcclernan@gmail.com'),
+(570, 'christierocio@aol.com'),
+(571, 'thebestmom87@aol.com'),
+(572, 'jimmytext@yahoo.com'),
+(573, 'juanc28092@gmail.com'),
+(574, 'troykarnowski@yahoo.com'),
+(575, 'austinsinbox@gmail.com'),
+(576, 'peter.simmons@valleyford.ns.ca'),
+(577, 'saramcclernan@gmail.com'),
+(578, 'john_p_sanzone@excite.com'),
+(579, 'parector@fastq.com'),
+(580, 'afishel@aol.com'),
+(581, 'dongo75@aol.com'),
+(582, 'lives.in.podol@gmail.com'),
+(583, 'rdefreece@yahoo.com'),
+(584, 'bradrampelberg@gmail.com'),
+(585, 'sutietoo@gmail.com'),
+(586, 'nikowright43@yahoo.com'),
+(587, 'jennifernegrette@gmail.com'),
+(588, '804computers@gmail.com'),
+(589, 'bsenj@hohtmail.com'),
+(590, 'akfahm@yahoo.ca'),
+(591, '804computers@gmail.com'),
+(592, 'sai1ing3@yahoo.com'),
+(593, 'kedgemusic@gmail.com'),
+(594, 'ssiddiqee@gmail.com'),
+(595, 'nmadrid@gmail.com'),
+(596, 'nikowright43@yahoo.com'),
+(597, 'danielbressler1@gmail.com'),
+(598, 'gsilerio@cunadousa.com'),
+(599, 'gsilerio@cunadousa.com'),
+(600, 'mar060156@aol.com'),
+(601, 'rbuckley@larealtypartners.com'),
+(602, 'arlorenz27@gmail.com'),
+(603, 'riverao2008@gmail.com'),
+(604, 'lusia.aditama@yahoo.com'),
+(605, 'biondog@sutterhealth.org'),
+(606, 'christine_eng86@yahoo.com'),
+(607, 'qw@qiwi.com'),
+(608, 'timciesielski@yahoo.com'),
+(609, 'nikowright43@yahoo.com'),
+(610, 'christine_eng86@yahoo.com'),
+(611, 'l1a1s1t1@yahoo.com'),
+(612, 'christine_eng86@yahoo.com'),
+(613, 'lucysheik@yahoo.com'),
+(614, 'sbailey@teksystems.com'),
+(615, 'srw520@yahoo.com'),
+(616, 'sa310j@yahoo.com'),
+(617, 'ashleybuffington@gmail.com'),
+(618, 'dick.russell@gmail.com'),
+(619, 'christine_eng86@yahoo.com'),
+(620, 'mmsciulli@yahoo.com'),
+(621, 'mzab701@yahoo.com'),
+(622, 'carolcarabba@gmail.com'),
+(623, 'lentass72@gmail.com'),
+(624, 'mcmanus.will@gmail.com'),
+(625, 'dimitar.kazakov@gmail.com'),
+(626, 'srw520@yahoo.com'),
+(627, 'chapasj@aol.com'),
+(628, 'gerigifts@aol.com'),
+(629, 'madmoparman2013@gmail.com'),
+(630, 'klevenda68@yahoo.com'),
+(631, 'nikowright43@yahoo.com'),
+(632, 'lvchapman@yahoo.com'),
+(633, 'sandi@performanceplumbingsupply.com'),
+(634, 'rjordan@bacenjordan.com'),
+(635, 'cstaubi11@gmail.com'),
+(636, 'cstaubi11@gmail.com'),
+(637, 'devfreak69@aol.com'),
+(638, 'brettoliverson@gmail.com'),
+(639, 'scott090900@yahoo.com'),
+(640, 'cheri21029@aol.com'),
+(641, 'michele@lpwindsusa.com'),
+(642, 'sabaek1@yahoo.com'),
+(643, 'christine_eng86@yahoo.com'),
+(644, 'cat1657@aol.com'),
+(645, 'paultmln@aol.com'),
+(646, 'cheri21029@aol.com'),
+(647, 'ft-biz@rogers.com'),
+(648, 'lysanad@gmail.com'),
+(649, 'chriscrary@gmail.com'),
+(650, 'christine_eng86@yahoo.com'),
+(651, 'cheri21029@aol.com'),
+(652, 'tsehlert@yahoo.com'),
+(653, 'zlee3232@gmail.com'),
+(654, 'lokesh.vkumar@gmail.com'),
+(655, 'oellston@gmail.com'),
+(656, 'tsehlert@yahoo.com'),
+(657, 'leonief04@gmail.com'),
+(658, 'bradleyt100@comcast.net'),
+(659, 'simonegigi26@gmail.com'),
+(660, 'melina.shahan@gmail.com'),
+(661, 'gcannon12@gmail.com'),
+(662, 'matthewdwalsh@yahoo.com'),
+(663, 'christierocio@aol.com'),
+(664, 'gcannon12@gmail.com'),
+(665, 'christine_eng86@yahoo.com'),
+(666, 'ssteward@gmail.com'),
+(667, 'merrileeh@aol.com'),
+(668, 'joselyn_brubaker@yahoo.com'),
+(669, 'alkucsd@gmail.com'),
+(670, 'nikowright43@yahoo.com'),
+(671, 'alkucsd@gmail.com'),
+(672, 'wassermanak@gmail.com'),
+(673, 'dfp1415@yahoo.com'),
+(674, 'kellys1337@gmail.com'),
+(675, 'dlndennis67@gmail.com'),
+(676, 'melina.shahan@gmail.com'),
+(677, 'mark5hs@gmail.com'),
+(678, 'gwilymcharles@tradingdepot.co.uk'),
+(679, 'mikalpham@gmail.com'),
+(680, 'sum_douglashawts@yahoo.com'),
+(681, 'aharville84@yahoo.com'),
+(682, 'leonief04@gmail.com'),
+(683, 'nikowright43@yahoo.com'),
+(684, 'lyh@chinasigns.cn'),
+(685, 'rugbyroy12@gmail.com'),
+(686, 'lcdeen2@aol.com'),
+(687, 'tomjolson@comcast.net'),
+(688, 'rugbyroy12@gmail.com'),
+(689, 'norbert.balazs96@gmail.com'),
+(690, 'sversteegt@yahoo.com'),
+(691, 'th.groebke@gmail.com'),
+(692, 'rosshorsey322@gmail.com'),
+(693, 'joshua_basulto@yahoo.com'),
+(694, 'nsgal1971@yahoo.com'),
+(695, 'cathybrise@gmail.com'),
+(696, 'erandaproko@yahoo.com'),
+(697, 'tracymmcvey@gmail.com'),
+(698, 'alexdwilliam@gmail.com'),
+(699, 'jwg63@nau.edu'),
+(700, 'tehseaotter@gmail.com'),
+(701, 'lutz.kammann@gmx.de'),
+(702, 'amkamper@gmail.com'),
+(703, 'mustang1997da@yahoo.com'),
+(704, 'x3melissax306@yahoo.com'),
+(705, 'x3melissax306@yahoo.com'),
+(706, 'robert.frederking@gmail.com'),
+(707, 'mustang1997da@yahoo.com'),
+(708, 'deejayruss0213@aol.com'),
+(709, 'fgdollar@yahoo.com'),
+(710, 'chris@fazzio.us'),
+(711, 'rl-meacham@bellsouth.net'),
+(712, 'hoefertandrealynn@gmail.com'),
+(713, 'suneel.budhathoki79@gmail.com'),
+(714, 'aynwat64@aol.com'),
+(715, 'ganmtrailer@shaw.ca'),
+(716, 'davidmiroglio@gmail.com'),
+(717, 'jimmymiggins@yahoo.com'),
+(718, 'dasisessel@gmail.com'),
+(719, 'haydenmarshburn@yahoo.com'),
+(720, 'don.kincheloe@yahoo.com'),
+(721, 'ginac1127@yahoo.com'),
+(722, 'haydenmarshburn@yahoo.com'),
+(723, 'haydenmarshburn@yahoo.com'),
+(724, 'jamesw1518@yahoo.com'),
+(725, 'fredynegro79@gmail.com'),
+(726, 'shawne79@gmail.com'),
+(727, 'samsherkawy@yahoo.com'),
+(728, 'haydenmarshburn@yahoo.com'),
+(729, 'jimmymiggins@yahoo.com'),
+(730, 'cindybrogan1968@gmail.com'),
+(731, 'alina_voroneanu@yahoo.com'),
+(732, 'patrick.mous@vanmossel.nl'),
+(733, 'squamface@yahoo.com'),
+(734, 'rblansette@gmail.com'),
+(735, 'kristie.long@yahoo.com'),
+(736, 'kimberlymedearis71@gmail.com'),
+(737, 'ccotting@yahoo.com'),
+(738, 'robert.frederking@gmail.com'),
+(739, 'dfloyd@coindesk.com'),
+(740, 'tammi2hayes@yahoo.com'),
+(741, 'ccotting@yahoo.com'),
+(742, 'ccotting@yahoo.com'),
+(743, 'xxshopexx@aol.com'),
+(744, 'kinzeysalvage@aol.com'),
+(745, 'ccotting@yahoo.com'),
+(746, 'rechenbergins@aol.com'),
+(747, 'karl.goodwin404@gmail.com'),
+(748, 'karl.goodwin404@gmail.com'),
+(749, 'sturso@comcast.net'),
+(750, 'nikowright43@yahoo.com'),
+(751, 'leesahunter.47@gmail.com'),
+(752, 'faybogle@yahoo.com'),
+(753, 'ddoherty1721@yahoo.com'),
+(754, 'li.sandy.c@gmail.com'),
+(755, 'mgreene323@aol.com'),
+(756, 'hottyeight@yahoo.com'),
+(757, 'jessieb526@yahoo.com'),
+(758, 'crystlemarin85@gmail.com'),
+(759, 'brettcooke843@gmail.com'),
+(760, 'nlsilva64@yahoo.com'),
+(761, 'drniska@yahoo.com'),
+(762, 'lpraul1@verizon.net'),
+(763, 'tlr2211@yahoo.com'),
+(764, 'carissa240@gmail.com'),
+(765, 'tyminter2003@gmail.com'),
+(766, 'majidawad@gmail.com'),
+(767, 'karl.goodwin404@gmail.com'),
+(768, 'brian_gagner@yahoo.com'),
+(769, 'jadehancox@gmail.com'),
+(770, 'pohlman.l916@gmail.com'),
+(771, 'shoffman4697@charter.net'),
+(772, 'qshahbaz669@gmail.com'),
+(773, 'johntgoodrow@charter.net'),
+(774, 'jolie3686@yahoo.com'),
+(775, 'theresadelbou@yahoo.com'),
+(776, 'minkanika@yahoo.com'),
+(777, 'moonbeamh@yahoo.com'),
+(778, 'minkanika@yahoo.com'),
+(779, 'islandpug@gmail.com'),
+(780, 'haagcompanies6025@gmail.com'),
+(781, 'gainerstuff@gmail.com'),
+(782, 'anthonyg937@gmail.com'),
+(783, 'nikowright43@yahoo.com'),
+(784, 'mortgr3@aol.com'),
+(785, 'jackierosefogle@gmail.com'),
+(786, 'karl.goodwin404@gmail.com'),
+(787, 'tyminter2003@gmail.com'),
+(788, 'garybrianwalker@gmail.com'),
+(789, 'tonigreen2176@gmail.com'),
+(790, 'kevinjohnsonaz@yahoo.com'),
+(791, 'kalloo2@yahoo.com'),
+(792, 'kevinjohnsonaz@yahoo.com'),
+(793, 'liz.beckner@gmail.com'),
+(794, 'corrine.bultman@yahoo.com'),
+(795, 'pazlara789@yahoo.com'),
+(796, 'savchenkotatiana@yahoo.com'),
+(797, 'bartgaston@yahoo.com'),
+(798, 'kenorth@cox.net'),
+(799, 'fareedwayoub@gmail.com'),
+(800, 'justine.samawicz@gmail.com'),
+(801, 'platnumrat@yahoo.com'),
+(802, 'bdtferg@frontiernet.net'),
+(803, 'cindy@pricecpas.com'),
+(804, 'cindykm50@gmail.com'),
+(805, 'kevinjohnsonaz@yahoo.com'),
+(806, 'tomadams2@yahoo.com'),
+(807, 'platnumrat@yahoo.com'),
+(808, 'rafael_rodriguezmx90@yahoo.com'),
+(809, 'deerod143@gmail.com'),
+(810, 'rachel.cools@sympatico.ca'),
+(811, 'michelamommy@gmail.com'),
+(812, 'murtaza@samiyatex.com'),
+(813, 'gedmwright@aol.com'),
+(814, 'gedmwright@aol.com'),
+(815, 'alanlew55@gmail.com'),
+(816, 'bherm11@aol.com'),
+(817, 'accounting@perronventures.com'),
+(818, 'alanlew55@gmail.com'),
+(819, 'thomastquinn@gmail.com'),
+(820, 'mollyskiles@yahoo.com'),
+(821, 'clevewashington@gmail.com'),
+(822, 'dramey127@yahoo.com'),
+(823, 'joel.trombly@gmail.com'),
+(824, 'kcardenas757@gmail.com'),
+(825, 'kcardenas757@gmail.com'),
+(826, 'rafael_rodriguezmx90@yahoo.com'),
+(827, 'platnumrat@yahoo.com'),
+(828, 'bsharfae@yahoo.com'),
+(829, 'platnumrat@yahoo.com'),
+(830, 'fmanuel1940@yahoo.com'),
+(831, 'mbhumanistsatheists@gmail.com'),
+(832, 'nikowright43@yahoo.com'),
+(833, 'complete_electric98@yahoo.com'),
+(834, 'errice83@yahoo.com'),
+(835, 'achut_peru@yahoo.com'),
+(836, 'nikowright43@yahoo.com'),
+(837, 'afdorinmdmba@aol.com'),
+(838, 'aynwat64@aol.com'),
+(839, 'aynwat64@aol.com'),
+(840, 'mandyscherer@yahoo.com'),
+(841, 'info@amyma.co.uk'),
+(842, 'asser.y.moussa@gmail.com'),
+(843, 'zarahuen@gmail.com'),
+(844, 'shopdroppers@gmail.com'),
+(845, 'cherylspring127@gmail.com'),
+(846, 'joyignasiak@yahoo.com'),
+(847, 'jdg5885@aol.com'),
+(848, 'chris.balaj@gmail.com'),
+(849, '1111kozmo@gmail.com'),
+(850, 'dramey125@yahoo.com'),
+(851, 'dmlally@yahoo.com'),
+(852, 'deboraegarcia58tu@gmail.com'),
+(853, 'tweidt@littleloon.ca'),
+(854, 'katyallison25@gmail.com'),
+(855, 'aj_hieb@yahoo.com'),
+(856, 'the_manor@gci.net'),
+(857, 'nickichurch628@cox.net'),
+(858, 'sas0512@yahoo.com'),
+(859, 'sas0512@yahoo.com'),
+(860, 'ssanders7696@gmail.com'),
+(861, 'lilmamacobb@yahoo.com'),
+(862, 'ralph.llamas@turelk.com'),
+(863, 'mccloss@aol.com'),
+(864, 'jonmcgar@aol.com'),
+(865, 'hole0502@icloud.com'),
+(866, 'msawh89@gmail.com'),
+(867, 'phd201617@gmail.com'),
+(868, 'raydelgado4729@gmail.com'),
+(869, 'deldridge@shaw.ca'),
+(870, 'jjszima@aol.com'),
+(871, 'yalwishah93@gmail.com'),
+(872, 'findonemindbodyspirit@yahoo.com'),
+(873, 'weinanico@gmail.com'),
+(874, 'info23@cantatic.com'),
+(875, 'amymtz13@yahoo.com'),
+(876, 'nikowright43@yahoo.com'),
+(877, 'yalwishah93@gmail.com'),
+(878, 'yalwishah93@gmail.com'),
+(879, 'mrskatiemoore@yahoo.com'),
+(880, 'jlsmp05@yahoo.com'),
+(881, 'jsakamoto@yahoo.com'),
+(882, 'darryl@alarmtel.ca'),
+(883, 'pgrubb@denizeninc.com'),
+(884, 'summitaxes@gmail.com'),
+(885, 'summitaxes@gmail.com'),
+(886, 'bibi96g@gmail.com'),
+(887, 'nashsurg@aol.com'),
+(888, 'nashsurg@aol.com'),
+(889, 'treemont@aol.com'),
+(890, 'lileo822@gmail.com'),
+(891, 'lisajnewsome8@aol.com'),
+(892, 'ofcfran3300@yahoo.com'),
+(893, 'angelorondon@yahoo.com'),
+(894, 'theshooter0809@gmail.com'),
+(895, 'liam.murphy@kinetechs.com'),
+(896, 'billgrove@gmail.com'),
+(897, 'bibi96g@gmail.com'),
+(898, 'countrysingerjp@aol.com'),
+(899, 'helmut.zweck@gmx.de'),
+(900, 'jp.valdivieso@wtrade.com'),
+(901, 'missgina04@yahoo.com'),
+(902, 'huntergrey2000@yahoo.com'),
+(903, 'gillcharles60@gmail.com'),
+(904, 'gillcharles60@gmail.com'),
+(905, 'info@trappistcaskets.com'),
+(906, 'gannonprudhomme@gmail.com'),
+(907, 'drake@dmoptical.com'),
+(908, 'soccer1414@comcast.net'),
+(909, 'kaylah.harvey1@gmail.com'),
+(910, 'sextoncalvin@yahoo.com'),
+(911, 'harrycosesheldon@gmail.com'),
+(912, 'tam468@yahoo.com'),
+(913, 'mary.shuckman@sbcglobal.net'),
+(914, 'urbanumi@gmail.com'),
+(915, 'tashamorwell@gmail.com'),
+(916, 'meedomosl2050@gmail.com'),
+(917, 'alicia_thomas521@yahoo.com'),
+(918, 'sillygirlinmaui@yahoo.com'),
+(919, 'tashamorwell@gmail.com'),
+(920, 'crowndanceshoes@gmail.com'),
+(921, 'lilifer5@aol.com'),
+(922, 'k23sebastian@gmail.com'),
+(923, 'riteshp2012@gmail.com'),
+(924, 'thejennib@yahoo.com'),
+(925, 'mmoreno@miamibreaker.com'),
+(926, 'alanmay0@yahoo.com'),
+(927, 'empirefitness@yahoo.com'),
+(928, 'schmit80@gmail.com'),
+(929, 'empirefitness@yahoo.com'),
+(930, 'dkkturn@yahoo.com'),
+(931, 'elliotstorch@gmail.com'),
+(932, 'jkwhite90@gmail.com'),
+(933, 'malarski1882@yahoo.com'),
+(934, 'malarski1882@yahoo.com'),
+(935, 'booshum1@aol.com'),
+(936, 'elizabethlauer1@comcast.net'),
+(937, 'kab5683@yahoo.com'),
+(938, 'kjhale59@yahoo.com'),
+(939, 'booshum1@aol.com'),
+(940, 'harriett629@aol.com'),
+(941, 'wood_expert38@yahoo.com'),
+(942, 'lynseycaillouet@gmail.com'),
+(943, 'booshum1@aol.com'),
+(944, 'wenshaun@aol.com'),
+(945, 'robbyrestrict@gmail.com'),
+(946, 'bradnsis@gmail.com'),
+(947, 'steve.swenson@st-francis.org'),
+(948, 'dfisher747@aol.com'),
+(949, 'ekmcda1989@gmail.com'),
+(950, 'christierocio@aol.com'),
+(951, 'heglin22@yahoo.com'),
+(952, 'r.kevin.gill@gmail.com'),
+(953, 'jkoza@aprinta.com'),
+(954, 'corie.morris@gmail.com'),
+(955, 'jslosben@gmail.com'),
+(956, 'momofkc2000@yahoo.com'),
+(957, 'ham090502@yahoo.com'),
+(958, 'jarigarcia@sbcglobal.net'),
+(959, 'abdelqaderw@yahoo.com'),
+(960, 'maraar2@yahoo.com'),
+(961, 'robert.l.williams@gmail.com'),
+(962, 'robert.l.williams@gmail.com'),
+(963, 'riteshp2012@gmail.com'),
+(964, 'andythetiler@aol.com'),
+(965, 'robert.l.williams@gmail.com'),
+(966, 'abdelqaderw@yahoo.com'),
+(967, 'lynseycaillouet@gmail.com'),
+(968, 'ham090502@yahoo.com'),
+(969, 'wi_bugler@yahoo.com'),
+(970, 'mattscottharris88@gmail.com'),
+(971, 'info@expansys.com.hk'),
+(972, 'maraar2@yahoo.com'),
+(973, 'lynseycaillouet@gmail.com'),
+(974, 'andy_sbjork62@yahoo.com'),
+(975, 'gbhuston@gmail.com'),
+(976, 'dwaynecox35@yahoo.com'),
+(977, 'dakotaburch@gmail.com'),
+(978, 'pritpal1juttla@yahoo.co.uk'),
+(979, 'gckwalsh@aol.com'),
+(980, 'sabrinamoore79@gmail.com'),
+(981, 'christy.smith@cbre-triad.com'),
+(982, 'dthaxton761@gmail.com'),
+(983, 'mark_roger_miller@comcast.net'),
+(984, 'dwaynecox35@yahoo.com'),
+(985, 'ytypo123@gmail.com'),
+(986, 'katherine.markovich@gmail.com'),
+(987, 'kevinemackey@gmail.com'),
+(988, 'dwaynecox35@yahoo.com'),
+(989, 'levtovinc@gmail.com'),
+(990, 'ih3588squ@gmx.com'),
+(991, 'cathyfragale11@gmail.com'),
+(992, 'kredden35@gmail.com'),
+(993, 'insurance@btjfinancial.com'),
+(994, 'abdelqaderw@yahoo.com'),
+(995, 'kevinemackey@gmail.com'),
+(996, 'ianstoney10@gmail.com'),
+(997, 'krasenberger1@gmail.com'),
+(998, 'riteshp2012@gmail.com'),
+(999, 'cjl1197@gmail.com'),
+(1000, 'dwaynecox35@yahoo.com'),
+(1001, 'ytypo123@gmail.com'),
+(1002, 'ryanhill79@gmail.com'),
+(1003, 'msg277@gmail.com'),
+(1004, 'brittany.mcdonald97@gmail.com'),
+(1005, 'njtrombley@gmail.com'),
+(1006, 'dakotaburch@gmail.com'),
+(1007, 'uschemical@aol.com'),
+(1008, 'jdpfeifer_2004@yahoo.com'),
+(1009, 'men.ponnaray24@gmail.com'),
+(1010, 'a.h.bustamante@prodigy.net'),
+(1011, 'courtneytjoline@gmail.com'),
+(1012, 'shellmanwesley@gmail.com'),
+(1013, 'kkordic@aol.com'),
+(1014, 'mira.aq8@gmail.com'),
+(1015, 'jackradell2005@yahoo.com'),
+(1016, 'eridug@gmail.com'),
+(1017, 'annerouleau22@yahoo.com'),
+(1018, 'trovescott@gmail.com'),
+(1019, 'kingsballdancecomp@aol.com'),
+(1020, 'angeladuarte10@gmail.com'),
+(1021, 'baird.r63@gmail.com'),
+(1022, 'guptashivam@gmail.com'),
+(1023, 'janeshaffer66@yahoo.com'),
+(1024, 'dakotaburch@gmail.com'),
+(1025, 'jmako54@yahoo.com'),
+(1026, 'kingsballdancecomp@aol.com'),
+(1027, 'roryconner@kickapoocreekwinery.com'),
+(1028, 'karsten@csdashcovers.com'),
+(1029, 'introspectivecounselingllc@gmail.com'),
+(1030, 'gardner.naiomi@gmail.com'),
+(1031, 'orangelbustamante@gmail.com'),
+(1032, 'dpalmer@sebritecorporation.com'),
+(1033, 'chris@toolsandhydraulics.com'),
+(1034, 'cwilliamstravel@yahoo.com'),
+(1035, 'trovescott@gmail.com'),
+(1036, 'jamie.mulero@gmail.com'),
+(1037, 'cbrownglass@gmail.com'),
+(1038, 'autumn_fallings@yahoo.com'),
+(1039, 'ambrattland@cox.net'),
+(1040, 'melvin_yatco@yahoo.com'),
+(1041, 'eridug@gmail.com'),
+(1042, 'daelve@gmail.com'),
+(1043, 'greathouse.matthew@gmail.com'),
+(1044, 'pagenguyen2206@yahoo.com'),
+(1045, 'arriaga.save@gmail.com'),
+(1046, 'stephenb3g@yahoo.com'),
+(1047, 'dpalmer@sebritecorporation.com'),
+(1048, 'pagenguyen2206@yahoo.com'),
+(1049, 'natnart@cox.net'),
+(1050, 'kylekingsley@gmail.com'),
+(1051, 'kiers5@comcast.net'),
+(1052, 'obia.clark@yahoo.com'),
+(1053, 'sblue@wolverinemail.com'),
+(1054, 'mindyharvey4@gmail.com'),
+(1055, 'brown.tiffany.a@gmail.com'),
+(1056, 'smccarthy12@gmail.com'),
+(1057, 'terry195@aol.com'),
+(1058, 'mindcraftcooper@gmail.com'),
+(1059, 'ireppart@yahoo.com'),
+(1060, 'ambrattland@cox.net'),
+(1061, 'jackkiefer12@gmail.com'),
+(1062, 'rralexander67@gmail.com'),
+(1063, 'johnpasc1@aol.com'),
+(1064, 'duckboy99@yopmail.com'),
+(1065, 'bevrartis@aol.com'),
+(1066, 'branbarker97@gmail.com'),
+(1067, 'judyleotta@aol.com'),
+(1068, 'bigballa39213@yahoo.com'),
+(1069, 'tomgano@yahoo.com'),
+(1070, 'rolltidedanny@gmail.com'),
+(1071, 'tlohr2@gmail.com'),
+(1072, 'tlohr2@gmail.com'),
+(1073, 'anass914@gmail.com'),
+(1074, 'compte.paypal@planunique.com'),
+(1075, 'cs1@hexachase.com'),
+(1076, 'rzimmerman@new.rr.com'),
+(1077, 'hammettgj@gmail.com'),
+(1078, 'leeroy8474@aol.com'),
+(1079, 'stolfo63@gmail.com'),
+(1080, 'consumersales@brouwland.com'),
+(1081, 'mattjmarak@gmail.com'),
+(1082, 'product@brouwland.com'),
+(1083, 'animehime20@gmail.com'),
+(1084, 'animehime20@gmail.com'),
+(1085, 'rb71@aol.com'),
+(1086, 'baaji228@yahoo.com'),
+(1087, 'gretchen@ia-nyc.com'),
+(1088, 'rachelandersen88@yahoo.com'),
+(1089, 'dublearock@yahoo.com'),
+(1090, 'pruebel@gmail.com'),
+(1091, 'pruebel@gmail.com'),
+(1092, 'nkuetehilaire@gmail.com'),
+(1093, 'support@natural8.com'),
+(1094, 'bjpfight50@gmail.com'),
+(1095, 'paslek1297@gmail.com'),
+(1096, 'lortereliz@aol.com'),
+(1097, 'vireshwar999@gmail.com'),
+(1098, 'dynasty_christy@yahoo.com'),
+(1099, 'mickmills8@gmail.com'),
+(1100, 'amybaird1@yahoo.co.uk'),
+(1101, 'mickmills8@gmail.com'),
+(1102, 'rscalia2@yahoo.com'),
+(1103, 'andyoncall@aol.com');
 
 -- --------------------------------------------------------
 
@@ -54349,7 +55687,7 @@ CREATE TABLE `users` (
   `verify_token` varchar(40) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `status` tinyint(1) NOT NULL DEFAULT '0'
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0 for un-approve user and 1 for active user and 2 for inactive user'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -54357,16 +55695,16 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `phone`, `password`, `remember_token`, `verify_token`, `created_at`, `updated_at`, `status`) VALUES
-(1, 'Administrator', 'admin@admin.com', '8003947560', '$2y$10$HjMrFSc/mNuJWcM23w5C4u73.EU3Lxcwi.5pLxLQB0SzBVqJsYL8W', 'sXwzml2BoMcFecwTiG0ydLAkKOb8yYiv1Df8aNVd32HSdeOupmpWf8ss0l3l', NULL, '2018-01-18 07:49:49', '2018-01-18 07:49:49', 1),
-(2, 'Sanjay Sharma', 'applecaterersjaipur@gmail.com', '9166252535', '$2y$10$HjMrFSc/mNuJWcM23w5C4u73.EU3Lxcwi.5pLxLQB0SzBVqJsYL8W', '1UrFKDDF0ZtJSRnoAbz0oTDVJLeifokyT2gjADCaFh85dxiHha3phU6BkB1z', NULL, '2018-07-17 09:02:59', '2018-08-08 14:02:29', 1),
+(1, 'Administrator', 'admin@admin.com', '8426833930', '$2y$10$aeikWNyl7LeaZr1c0QvanO/SRmfOn9QlOEoXt5khlIsUdxYOgHXeC', '4Slny6xsYczbrRHYEWcWfYTMMquX7ajNoUVQXGUQ7pxt4wurxsjNJ8KQPq5a', NULL, '2018-01-18 07:49:49', '2018-09-19 12:12:24', 1),
+(2, 'Sanjay Sharma', 'applecaterersjaipur@gmail.com', '9166252535', '$2y$10$HjMrFSc/mNuJWcM23w5C4u73.EU3Lxcwi.5pLxLQB0SzBVqJsYL8W', '1UrFKDDF0ZtJSRnoAbz0oTDVJLeifokyT2gjADCaFh85dxiHha3phU6BkB1z', NULL, '2018-07-17 09:02:59', '2019-01-17 07:45:30', 1),
 (3, 'Vijay Rathi', 'dexusmedia@gmail.com', '8426833930', '$2y$10$ea4U7DkfBs1Ijpws1CrYheYpPB1qfFQqhvRRG2F9vpoE7q1Vi597O', NULL, NULL, '2018-07-17 13:23:14', '2018-07-30 14:04:33', 1),
-(4, 'Rajeev Ranjan', 'electrofuturejpr@gmail.com', '8947065941', '$2y$10$tUJR5/l64Ockf19SvBusMOemVvWZdwRtxwaXyxDmSK0A9e7H45US.', 'DGNULfzooiGXLSKvoJ8SUriYLKFZRk5EflNTHK2CSjtOMxTRL4B7vZYs7Kmo', NULL, '2018-07-24 17:16:42', '2018-07-31 13:28:08', 1),
+(4, 'Rajeev Ranjan', 'electrofuturejpr@gmail.com', '8947065941', '$2y$10$tUJR5/l64Ockf19SvBusMOemVvWZdwRtxwaXyxDmSK0A9e7H45US.', NULL, NULL, '2018-07-24 17:16:42', '2019-02-06 06:31:33', 1),
 (5, 'Rajeev', 'info@electrofuturejaipur.com', '7220022220', '$2y$10$yJkVt66JoWAFXQVG9OZt/.ewx2bXMBMXdw5pUaXdapHVqVJWacQii', NULL, NULL, '2018-07-24 18:05:23', '2018-07-30 14:05:48', 1),
 (6, 'Deepak', 'info@systemindus.com', '9928855966', '$2y$10$9L.jzQYC1c/F4gbEvp2ReOKQwVTeLb5oTV0z7KGcmfSCdchTbtf6K', NULL, NULL, '2018-07-30 11:56:22', '2018-08-24 18:11:17', 1),
 (7, 'Kapil Agarwal', 'info@saraskripaeventpromoters.com', '9414073749', '$2y$10$4j9TuNBCJGG8s2xlnIH3buKdD70w7P4Co4AEU/6Er2kwDvH56Av7W', NULL, NULL, '2018-08-12 06:04:15', '2018-08-12 06:04:15', 1),
 (8, 'Mustak Bhai', 'info@nrcaterers.in', '9549009786', '$2y$10$BZfKvjfajGCRsB6.LO92fuYP7bS8HOGwJ/gaAbeerSvh6IN/3Qm9y', NULL, NULL, '2018-08-12 06:21:10', '2018-08-12 06:21:10', 1),
 (9, 'Anjani caterers', 'info@anjanicaterers.com', '8302755000', '$2y$10$H5CI37zsCtWF5H14BeXFTOtGTPrunKpmPq6GAXHSQBpAYqqa3w9QW', NULL, NULL, '2018-08-12 06:33:47', '2018-08-12 06:33:47', 1),
-(10, 'Shree Ganesh Caterers', 'info@shreeganeshcaterers.in', '9828546076', '$2y$10$RK3Ae0wgULbJTI7Q5uaJEOCdOak7.iFr/ZZVG90t/WRZWgTFCqio.', 'A59qlOduTyog42UGE1cA9lyNJZDiqsGh8M2Faicot1lIkBwkanGiRhD5WHIQ', NULL, '2018-08-22 19:30:36', '2018-08-22 19:30:36', 1),
+(10, 'Shree Ganesh Caterers', 'info@shreeganeshcaterers.in', '9828546076', '$2y$10$RK3Ae0wgULbJTI7Q5uaJEOCdOak7.iFr/ZZVG90t/WRZWgTFCqio.', NULL, NULL, '2018-08-22 19:30:36', '2018-08-22 19:30:36', 1),
 (11, 'Azad Hussain Mirza', 'pinkcitytours0300@gmail.com', '9166863109', '$2y$10$Yge1zlcGuXcuwwh19m6gOeMPE5wTBnC.kOcSr41Er3Bmk7VDALhN2', NULL, NULL, '2018-08-24 16:39:17', '2018-08-24 16:39:17', 1),
 (12, 'Taxi Rajasthan', 'dexusmediajaipur@gmail.com', '8426833930', '$2y$10$ErU9wLyHjrnAWCXbyhi4Qu8slHOeP.ozBwKYS8kudRVmGJ7QbPvtS', NULL, NULL, '2018-08-24 17:07:09', '2018-08-24 17:07:09', 1),
 (13, 'Mt sales corporation', 'info@mtscorp.in', '9602711777', '$2y$10$yG/ahH.twYkFGSZ2TkZBLOos4l6eFJ3u6QdA6.IROOg.Q1t.622j6', NULL, NULL, '2018-08-24 18:05:20', '2018-08-24 18:05:20', 1),
@@ -54374,8 +55712,14 @@ INSERT INTO `users` (`id`, `name`, `email`, `phone`, `password`, `remember_token
 (15, 'Bhupesh Yadav', 'info@toothsaviors.in', '9660437976', '$2y$10$vdu3l.kBBeDnEBuTWAjBYeAR1p7tDCJMybFYcZrNy/BR9iLsnLZ5.', NULL, NULL, '2018-08-25 17:45:06', '2018-08-25 17:45:06', 1),
 (16, 'Tooth saviours', 'info@toothsaviours.in', '9660437976', '$2y$10$RIzz6/ruZqF3hc8reA8eqeWZbDFOZ/.klCvgQBDTx2oy0qlRuSFli', NULL, NULL, '2018-08-25 17:50:27', '2018-08-25 17:50:27', 1),
 (17, 'Dr Chopra', 'cdcjhotwara@gmail.com', '9214455664', '$2y$10$HwdtjWch98ngKdJMDAA3FuAAd7ur2staW1rBMsNxcHNTMj/syqUw2', NULL, NULL, '2018-08-25 17:59:10', '2018-08-25 17:59:10', 1),
-(18, 'alok Jasmatiya', 'alokjasmatiya99@gmail.com', '9829223000', '$2y$10$Aoy5A0Y8UJUwqnAu.bJy3ev9OHQVhA4.jJihM4pnKmZs0LyNscsYG', 'wdAXbrz7O8Sfv0A4A6CWyQiZGJIyscnvRmdjdDUbvP3td94KSiHThc4sjMeo', NULL, '2018-08-29 09:30:42', '2018-08-29 09:31:04', 1),
-(19, 'alok Jasmatiya', 'motog2tom@gmail.com', '9829223000', '$2y$10$LelbgcU2Q5.DV9DaEfWRM.fwikLyT60abrYVsWf.BZLTLLKEV3kPi', 'XkZY0fxD9SGwmayEhwFGy4EnPMkXy2uspPxEPlJctfjcmHTO0qmUT9Z87G9r', NULL, '2018-08-29 09:34:20', '2018-08-29 09:35:10', 1);
+(18, 'alok Jasmatiya', 'alokjasmatiya99@gmail.com', '9829223000', '$2y$10$Aoy5A0Y8UJUwqnAu.bJy3ev9OHQVhA4.jJihM4pnKmZs0LyNscsYG', 'wdAXbrz7O8Sfv0A4A6CWyQiZGJIyscnvRmdjdDUbvP3td94KSiHThc4sjMeo', NULL, '2018-08-29 09:30:42', '2018-12-04 08:41:38', 1),
+(19, 'alok Jasmatiya', 'motog2tom@gmail.com', '9829223000', '$2y$10$LelbgcU2Q5.DV9DaEfWRM.fwikLyT60abrYVsWf.BZLTLLKEV3kPi', 'XkZY0fxD9SGwmayEhwFGy4EnPMkXy2uspPxEPlJctfjcmHTO0qmUT9Z87G9r', NULL, '2018-08-29 09:34:20', '2019-01-02 06:21:54', 1),
+(20, 'lokesh', 'lokesh@gmail.com', '9876543210', '$2y$10$aeikWNyl7LeaZr1c0QvanO/SRmfOn9QlOEoXt5khlIsUdxYOgHXeC', 'ZpWHfBxkrogteOVIKJ2t3YuYOYpdLIFADwiSwtCTfZxm6ldIOh6uTHissB2A', NULL, '2018-10-31 13:27:20', '2018-10-31 13:27:20', 1),
+(21, 'Rishi Sharma', 'rathorepriyank91@gmail.com', '9057584958', '$2y$10$ULcLpj4hzPBvjgXeMDBX5OU5x8mXcfutbbHPUMdr5WRHYiDTxnQPa', NULL, NULL, '2018-11-06 08:28:50', '2018-11-06 08:29:03', 1),
+(23, 'Priya', 'priya@gmail.com', '9876543210', '$2y$10$4EElrpBEVPwey3BUSqvSauXCZNjIwvXPkVNx17yRH/ODoWGebmp5m', '18tECXfUsagGd62VPEM7V7hZxpEJSDn4toOE95N5A909H4BaifXs15ZpoWTq', NULL, '2018-11-19 07:23:19', '2018-11-19 07:23:19', 1),
+(24, 'sanjana', 'sanjana@gmail.com', '9632587410', '$2y$10$RdPVOe4mle6DbYfnmgUFZek.nxBk8J9fV8J1w7LhSIFa//NW0V8uG', 'hNGhPQY7LdAPp0k2S0sm4E64vXRclmN5FbjbkJ3P6p5E83awk7gR78p5eYYa', NULL, '2018-11-19 07:24:10', '2018-11-19 07:24:10', 1),
+(25, 'Vijay', 'vijay@gmail.com', '9512357852', '$2y$10$gMV5wJIEoCgoTMiBi8VlKea3Os0nw.qkvXq3C2NJTpwgR7sDtmRBO', 'DZKjzDQegULqJ8M8wqvEDwjoseV8pNvODmmPE82Zm7UVVhkvQlTwAxkQD6zD', NULL, '2018-11-19 07:24:46', '2018-11-19 07:24:46', 1),
+(26, 'Prem saini', 'prem@ambrlabs.com', '9602947878', '$2y$10$FYgh6ZgwxGk4Zqbnz2RcLuQAhY09az.nFfQrXONH1Imwf75R8bFoe', NULL, NULL, '2019-02-06 08:35:37', '2019-02-08 06:35:57', 1);
 
 -- --------------------------------------------------------
 
@@ -54413,6 +55757,24 @@ INSERT INTO `user_area_visibility` (`id`, `user_id`, `keyword_id`, `keyword_iden
 (366, 3, 1, 2, 7, 1, '2018-07-24 17:42:04', '2018-07-24 17:42:04'),
 (367, 3, 1, 1, 8, 1, '2018-07-24 17:42:04', '2018-07-24 17:42:04'),
 (368, 3, 1, 2, 8, 1, '2018-07-24 17:42:04', '2018-07-24 17:42:04'),
+(393, 4, 2, 1, 1, 1, '2018-07-24 17:44:43', '2018-07-24 17:44:43'),
+(394, 4, 3, 1, 1, 1, '2018-07-24 17:44:43', '2018-07-24 17:44:43'),
+(395, 4, 2, 1, 2, 1, '2018-07-24 17:44:43', '2018-07-24 17:44:43'),
+(396, 4, 3, 1, 2, 1, '2018-07-24 17:44:43', '2018-07-24 17:44:43'),
+(397, 4, 2, 1, 3, 1, '2018-07-24 17:44:43', '2018-07-24 17:44:43'),
+(398, 4, 3, 1, 3, 1, '2018-07-24 17:44:43', '2018-07-24 17:44:43'),
+(399, 4, 2, 1, 4, 1, '2018-07-24 17:44:43', '2018-07-24 17:44:43'),
+(400, 4, 3, 1, 4, 1, '2018-07-24 17:44:43', '2018-07-24 17:44:43'),
+(401, 4, 2, 1, 5, 1, '2018-07-24 17:44:43', '2018-07-24 17:44:43'),
+(402, 4, 3, 1, 5, 1, '2018-07-24 17:44:43', '2018-07-24 17:44:43'),
+(403, 4, 2, 1, 6, 1, '2018-07-24 17:44:43', '2018-07-24 17:44:43'),
+(404, 4, 3, 1, 6, 1, '2018-07-24 17:44:43', '2018-07-24 17:44:43'),
+(405, 4, 2, 1, 7, 1, '2018-07-24 17:44:43', '2018-07-24 17:44:43'),
+(406, 4, 3, 1, 7, 1, '2018-07-24 17:44:43', '2018-07-24 17:44:43'),
+(407, 4, 2, 1, 8, 1, '2018-07-24 17:44:43', '2018-07-24 17:44:43'),
+(408, 4, 3, 1, 8, 1, '2018-07-24 17:44:43', '2018-07-24 17:44:43'),
+(409, 4, 2, 1, 9, 1, '2018-07-24 17:44:43', '2018-07-24 17:44:43'),
+(410, 4, 3, 1, 9, 1, '2018-07-24 17:44:43', '2018-07-24 17:44:43'),
 (421, 2, 1, 1, 2, 1, '2018-08-02 14:10:27', '2018-08-02 14:10:27'),
 (422, 2, 1, 1, 3, 1, '2018-08-02 14:10:27', '2018-08-02 14:10:27'),
 (423, 2, 1, 1, 4, 1, '2018-08-02 14:10:27', '2018-08-02 14:10:27'),
@@ -55102,7 +56464,8 @@ INSERT INTO `user_area_visibility` (`id`, `user_id`, `keyword_id`, `keyword_iden
 (2707, 12, 5, 1, 82, 1, '2018-08-24 17:11:55', '2018-08-24 17:11:55'),
 (2708, 12, 5, 1, 83, 1, '2018-08-24 17:11:55', '2018-08-24 17:11:55'),
 (2709, 12, 5, 1, 84, 1, '2018-08-24 17:11:55', '2018-08-24 17:11:55'),
-(2710, 12, 5, 1, 85, 1, '2018-08-24 17:11:55', '2018-08-24 17:11:55'),
+(2710, 12, 5, 1, 85, 1, '2018-08-24 17:11:55', '2018-08-24 17:11:55');
+INSERT INTO `user_area_visibility` (`id`, `user_id`, `keyword_id`, `keyword_identity`, `area`, `status`, `created_at`, `updated_at`) VALUES
 (2711, 12, 5, 1, 86, 1, '2018-08-24 17:11:55', '2018-08-24 17:11:55'),
 (2712, 12, 5, 1, 87, 1, '2018-08-24 17:11:55', '2018-08-24 17:11:55'),
 (2713, 12, 5, 1, 88, 1, '2018-08-24 17:11:55', '2018-08-24 17:11:55'),
@@ -55119,8 +56482,7 @@ INSERT INTO `user_area_visibility` (`id`, `user_id`, `keyword_id`, `keyword_iden
 (2724, 12, 5, 1, 99, 1, '2018-08-24 17:11:55', '2018-08-24 17:11:55'),
 (2725, 12, 5, 1, 100, 1, '2018-08-24 17:11:55', '2018-08-24 17:11:55'),
 (2726, 12, 5, 1, 101, 1, '2018-08-24 17:11:55', '2018-08-24 17:11:55'),
-(2727, 12, 5, 1, 102, 1, '2018-08-24 17:11:55', '2018-08-24 17:11:55');
-INSERT INTO `user_area_visibility` (`id`, `user_id`, `keyword_id`, `keyword_identity`, `area`, `status`, `created_at`, `updated_at`) VALUES
+(2727, 12, 5, 1, 102, 1, '2018-08-24 17:11:55', '2018-08-24 17:11:55'),
 (2728, 12, 5, 1, 103, 1, '2018-08-24 17:11:55', '2018-08-24 17:11:55'),
 (2729, 12, 5, 1, 104, 1, '2018-08-24 17:11:55', '2018-08-24 17:11:55'),
 (2730, 12, 5, 1, 105, 1, '2018-08-24 17:11:55', '2018-08-24 17:11:55'),
@@ -55664,266 +57026,7 @@ INSERT INTO `user_area_visibility` (`id`, `user_id`, `keyword_id`, `keyword_iden
 (3268, 16, 7, 1, 127, 1, '2018-08-25 17:53:21', '2018-08-25 17:53:21'),
 (3269, 16, 7, 1, 128, 1, '2018-08-25 17:53:21', '2018-08-25 17:53:21'),
 (3270, 16, 7, 1, 129, 1, '2018-08-25 17:53:21', '2018-08-25 17:53:21'),
-(3271, 16, 7, 1, 130, 1, '2018-08-25 17:53:21', '2018-08-25 17:53:21'),
-(3530, 4, 2, 1, 1, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3531, 4, 3, 1, 1, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3532, 4, 2, 1, 2, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3533, 4, 3, 1, 2, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3534, 4, 2, 1, 3, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3535, 4, 3, 1, 3, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3536, 4, 2, 1, 4, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3537, 4, 3, 1, 4, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3538, 4, 2, 1, 5, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3539, 4, 3, 1, 5, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3540, 4, 2, 1, 6, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3541, 4, 3, 1, 6, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3542, 4, 2, 1, 7, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3543, 4, 3, 1, 7, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3544, 4, 2, 1, 8, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3545, 4, 3, 1, 8, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3546, 4, 2, 1, 9, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3547, 4, 3, 1, 9, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3548, 4, 2, 1, 10, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3549, 4, 3, 1, 10, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3550, 4, 2, 1, 11, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3551, 4, 3, 1, 11, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3552, 4, 2, 1, 12, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3553, 4, 3, 1, 12, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3554, 4, 2, 1, 13, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3555, 4, 3, 1, 13, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3556, 4, 2, 1, 14, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3557, 4, 3, 1, 14, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3558, 4, 2, 1, 15, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3559, 4, 3, 1, 15, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3560, 4, 2, 1, 16, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3561, 4, 3, 1, 16, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3562, 4, 2, 1, 17, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3563, 4, 3, 1, 17, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3564, 4, 2, 1, 18, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3565, 4, 3, 1, 18, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3566, 4, 2, 1, 19, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3567, 4, 3, 1, 19, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3568, 4, 2, 1, 20, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3569, 4, 3, 1, 20, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3570, 4, 2, 1, 21, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3571, 4, 3, 1, 21, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3572, 4, 2, 1, 22, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3573, 4, 3, 1, 22, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3574, 4, 2, 1, 23, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3575, 4, 3, 1, 23, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3576, 4, 2, 1, 24, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3577, 4, 3, 1, 24, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3578, 4, 2, 1, 25, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3579, 4, 3, 1, 25, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3580, 4, 2, 1, 26, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3581, 4, 3, 1, 26, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3582, 4, 2, 1, 27, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3583, 4, 3, 1, 27, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3584, 4, 2, 1, 28, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3585, 4, 3, 1, 28, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3586, 4, 2, 1, 29, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3587, 4, 3, 1, 29, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3588, 4, 2, 1, 30, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3589, 4, 3, 1, 30, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3590, 4, 2, 1, 31, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3591, 4, 3, 1, 31, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3592, 4, 2, 1, 32, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3593, 4, 3, 1, 32, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3594, 4, 2, 1, 33, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3595, 4, 3, 1, 33, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3596, 4, 2, 1, 34, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3597, 4, 3, 1, 34, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3598, 4, 2, 1, 35, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3599, 4, 3, 1, 35, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3600, 4, 2, 1, 36, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3601, 4, 3, 1, 36, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3602, 4, 2, 1, 37, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3603, 4, 3, 1, 37, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3604, 4, 2, 1, 38, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3605, 4, 3, 1, 38, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3606, 4, 2, 1, 39, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3607, 4, 3, 1, 39, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3608, 4, 2, 1, 40, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3609, 4, 3, 1, 40, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3610, 4, 2, 1, 41, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3611, 4, 3, 1, 41, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3612, 4, 2, 1, 42, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3613, 4, 3, 1, 42, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3614, 4, 2, 1, 43, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3615, 4, 3, 1, 43, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3616, 4, 2, 1, 44, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3617, 4, 3, 1, 44, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3618, 4, 2, 1, 45, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3619, 4, 3, 1, 45, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3620, 4, 2, 1, 46, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3621, 4, 3, 1, 46, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3622, 4, 2, 1, 47, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3623, 4, 3, 1, 47, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3624, 4, 2, 1, 48, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3625, 4, 3, 1, 48, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3626, 4, 2, 1, 49, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3627, 4, 3, 1, 49, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3628, 4, 2, 1, 50, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3629, 4, 3, 1, 50, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3630, 4, 2, 1, 51, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3631, 4, 3, 1, 51, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3632, 4, 2, 1, 52, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3633, 4, 3, 1, 52, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3634, 4, 2, 1, 53, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3635, 4, 3, 1, 53, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3636, 4, 2, 1, 54, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3637, 4, 3, 1, 54, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3638, 4, 2, 1, 55, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3639, 4, 3, 1, 55, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3640, 4, 2, 1, 56, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3641, 4, 3, 1, 56, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3642, 4, 2, 1, 57, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3643, 4, 3, 1, 57, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3644, 4, 2, 1, 58, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3645, 4, 3, 1, 58, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3646, 4, 2, 1, 59, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3647, 4, 3, 1, 59, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3648, 4, 2, 1, 60, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3649, 4, 3, 1, 60, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3650, 4, 2, 1, 61, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3651, 4, 3, 1, 61, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3652, 4, 2, 1, 62, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3653, 4, 3, 1, 62, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3654, 4, 2, 1, 63, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3655, 4, 3, 1, 63, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3656, 4, 2, 1, 64, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3657, 4, 3, 1, 64, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3658, 4, 2, 1, 65, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3659, 4, 3, 1, 65, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3660, 4, 2, 1, 66, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3661, 4, 3, 1, 66, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3662, 4, 2, 1, 67, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3663, 4, 3, 1, 67, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3664, 4, 2, 1, 68, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3665, 4, 3, 1, 68, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3666, 4, 2, 1, 69, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3667, 4, 3, 1, 69, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3668, 4, 2, 1, 70, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3669, 4, 3, 1, 70, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3670, 4, 2, 1, 71, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3671, 4, 3, 1, 71, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3672, 4, 2, 1, 72, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3673, 4, 3, 1, 72, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3674, 4, 2, 1, 73, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3675, 4, 3, 1, 73, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3676, 4, 2, 1, 74, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3677, 4, 3, 1, 74, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3678, 4, 2, 1, 75, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3679, 4, 3, 1, 75, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3680, 4, 2, 1, 76, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3681, 4, 3, 1, 76, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3682, 4, 2, 1, 77, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3683, 4, 3, 1, 77, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3684, 4, 2, 1, 78, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3685, 4, 3, 1, 78, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3686, 4, 2, 1, 79, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3687, 4, 3, 1, 79, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3688, 4, 2, 1, 80, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3689, 4, 3, 1, 80, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3690, 4, 2, 1, 81, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3691, 4, 3, 1, 81, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3692, 4, 2, 1, 82, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3693, 4, 3, 1, 82, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3694, 4, 2, 1, 83, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3695, 4, 3, 1, 83, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3696, 4, 2, 1, 84, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3697, 4, 3, 1, 84, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3698, 4, 2, 1, 86, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3699, 4, 3, 1, 86, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3700, 4, 2, 1, 87, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3701, 4, 3, 1, 87, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3702, 4, 2, 1, 88, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3703, 4, 3, 1, 88, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3704, 4, 2, 1, 89, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3705, 4, 3, 1, 89, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3706, 4, 2, 1, 90, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3707, 4, 3, 1, 90, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3708, 4, 2, 1, 91, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3709, 4, 3, 1, 91, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3710, 4, 2, 1, 92, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47');
-INSERT INTO `user_area_visibility` (`id`, `user_id`, `keyword_id`, `keyword_identity`, `area`, `status`, `created_at`, `updated_at`) VALUES
-(3711, 4, 3, 1, 92, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3712, 4, 2, 1, 93, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3713, 4, 3, 1, 93, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3714, 4, 2, 1, 94, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3715, 4, 3, 1, 94, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3716, 4, 2, 1, 95, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3717, 4, 3, 1, 95, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3718, 4, 2, 1, 96, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3719, 4, 3, 1, 96, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3720, 4, 2, 1, 97, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3721, 4, 3, 1, 97, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3722, 4, 2, 1, 98, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3723, 4, 3, 1, 98, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3724, 4, 2, 1, 99, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3725, 4, 3, 1, 99, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3726, 4, 2, 1, 100, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3727, 4, 3, 1, 100, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3728, 4, 2, 1, 101, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3729, 4, 3, 1, 101, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3730, 4, 2, 1, 102, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3731, 4, 3, 1, 102, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3732, 4, 2, 1, 103, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3733, 4, 3, 1, 103, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3734, 4, 2, 1, 104, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3735, 4, 3, 1, 104, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3736, 4, 2, 1, 105, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3737, 4, 3, 1, 105, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3738, 4, 2, 1, 106, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3739, 4, 3, 1, 106, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3740, 4, 2, 1, 107, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3741, 4, 3, 1, 107, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3742, 4, 2, 1, 108, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3743, 4, 3, 1, 108, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3744, 4, 2, 1, 109, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3745, 4, 3, 1, 109, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3746, 4, 2, 1, 110, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3747, 4, 3, 1, 110, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3748, 4, 2, 1, 111, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3749, 4, 3, 1, 111, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3750, 4, 2, 1, 112, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3751, 4, 3, 1, 112, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3752, 4, 2, 1, 113, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3753, 4, 3, 1, 113, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3754, 4, 2, 1, 114, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3755, 4, 3, 1, 114, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3756, 4, 2, 1, 115, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3757, 4, 3, 1, 115, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3758, 4, 2, 1, 116, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3759, 4, 3, 1, 116, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3760, 4, 2, 1, 117, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3761, 4, 3, 1, 117, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3762, 4, 2, 1, 118, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3763, 4, 3, 1, 118, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3764, 4, 2, 1, 119, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3765, 4, 3, 1, 119, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3766, 4, 2, 1, 120, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3767, 4, 3, 1, 120, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3768, 4, 2, 1, 121, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3769, 4, 3, 1, 121, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3770, 4, 2, 1, 122, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3771, 4, 3, 1, 122, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3772, 4, 2, 1, 123, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3773, 4, 3, 1, 123, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3774, 4, 2, 1, 124, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3775, 4, 3, 1, 124, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3776, 4, 2, 1, 125, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3777, 4, 3, 1, 125, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3778, 4, 2, 1, 126, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3779, 4, 3, 1, 126, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3780, 4, 2, 1, 127, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3781, 4, 3, 1, 127, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3782, 4, 2, 1, 128, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3783, 4, 3, 1, 128, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3784, 4, 2, 1, 129, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3785, 4, 3, 1, 129, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3786, 4, 2, 1, 130, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47'),
-(3787, 4, 3, 1, 130, 1, '2018-10-22 12:44:47', '2018-10-22 12:44:47');
+(3271, 16, 7, 1, 130, 1, '2018-08-25 17:53:21', '2018-08-25 17:53:21');
 
 -- --------------------------------------------------------
 
@@ -55953,7 +57056,7 @@ CREATE TABLE `user_company_information` (
 INSERT INTO `user_company_information` (`id`, `user_id`, `payment_mode`, `year_establishment`, `annual_turnover`, `no_of_emps`, `professional_associations`, `certifications`, `created_at`, `updated_at`, `update_status`, `status`) VALUES
 (1, 2, '1|2|3|4|5|6|7|8|9|10|11', '2002', NULL, 'Less than 10', NULL, NULL, '2018-07-17 09:03:16', '2018-07-17 09:03:16', 1, 1),
 (2, 3, '1|2|3|4|5|6|7|8|9|10|11', '1995', 'Annual Tower', '500-1000', NULL, NULL, '2018-08-10 13:46:12', '2018-08-10 13:46:12', 1, 1),
-(3, 4, '1|4|6', NULL, NULL, NULL, NULL, NULL, '2018-07-24 17:43:08', '2018-07-24 17:43:08', 1, 1),
+(3, 4, '1|4|6', NULL, NULL, NULL, NULL, NULL, '2019-01-02 11:51:24', '2019-01-02 11:51:24', 1, 1),
 (4, 5, '1|2|3|4|5|6|7|8|9|10|11', NULL, NULL, NULL, NULL, NULL, '2018-07-30 12:37:17', '2018-07-30 12:37:17', 1, 1),
 (5, 6, '1|2|3|4|5|6|7|8|9|10|11', NULL, NULL, NULL, NULL, NULL, '2018-08-24 18:11:22', '2018-08-24 18:11:22', 1, 1),
 (6, 7, NULL, NULL, NULL, NULL, NULL, NULL, '2018-08-12 06:04:15', '2018-08-12 06:04:15', 1, 1),
@@ -55968,7 +57071,9 @@ INSERT INTO `user_company_information` (`id`, `user_id`, `payment_mode`, `year_e
 (15, 16, '1|2|3|4|6|7', NULL, NULL, NULL, NULL, NULL, '2018-08-25 17:50:45', '2018-08-25 17:50:45', 1, 1),
 (16, 17, '1|2|3|4|6|7', NULL, NULL, NULL, NULL, NULL, '2018-08-25 17:59:25', '2018-08-25 17:59:25', 1, 1),
 (17, 18, NULL, NULL, NULL, NULL, NULL, NULL, '2018-08-29 09:30:42', '2018-08-29 09:30:42', 1, 1),
-(18, 19, '', NULL, NULL, NULL, 'Dreamteam Technologies', 'ISO', '2018-08-29 09:36:02', '2018-08-29 09:36:02', 1, 1);
+(18, 19, '1|2|3|4|5|6|7|8|9|10|11', '2001', '1000000', '100-500', 'Dream team Technologies / It Company', 'ISO, PSO', '2019-01-02 11:51:56', '2019-01-02 11:51:56', 1, 1),
+(19, 21, '1|2|4', '2010', NULL, '10-100', NULL, NULL, '2018-11-06 08:33:15', '2018-11-06 08:33:15', 1, 1),
+(22, 26, '1', '2001', NULL, NULL, NULL, NULL, '2019-02-06 14:08:28', '2019-02-06 14:08:28', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -55989,37 +57094,42 @@ CREATE TABLE `user_details` (
   `toll_free2` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `website` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `phone` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mobile` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `whatsapp` varchar(15) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `logo` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `about_company` text COLLATE utf8mb4_unicode_ci,
+  `created_by` tinyint(1) DEFAULT NULL COMMENT 'user id who create this user / if null then register user himself and if 1 then created by admin else created by others',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `update_status` tinyint(1) NOT NULL DEFAULT '1',
-  `status` tinyint(1) NOT NULL DEFAULT '0'
+  `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '0 for un-approve user and 1 for active user and 2 for inactive user'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `user_details`
 --
 
-INSERT INTO `user_details` (`id`, `user_id`, `name`, `designation`, `email`, `landline`, `fax1`, `fax2`, `toll_free1`, `toll_free2`, `website`, `phone`, `logo`, `about_company`, `created_at`, `updated_at`, `update_status`, `status`) VALUES
-(1, 2, 'Sanjay Sharma', NULL, 'applecaterersjaipur@gmail.com', NULL, NULL, NULL, NULL, NULL, 'http://applecaterers.com/', '9166252535', 'cf63d5.png', '<p><span style=\"text-align: justify;\">Apple caterer is a trustworthy name in catering services in Jaipur. We provide services for Corporate events, Birthday parties, weddings etc. We offer an esteemed and wide range of catering services by which you experience your memories delicious for whole life. We are known for our adherence to serve a client on time by following local and global norms and standards. Our well qualified and professionals always strive forward to provide unmatchable catering services to our clients they have a long experience of this industry and depth knowledge in rendering the undertaken projects of catering services in Jaipur. We value the emotions of the clients which are totally related to their occasions and we rely on to make their dreams come true by providing an astonishing service for which they are looking for. We celebrate our success in this industry because of our dedicated and hard work of the team members. Our team members have a capability to carrying out operational planning conceptualization, visualization and executing these services successfully and in a proper manner. We owned the rich industry experience and expertise of our professionals. We serve the catering service to the demands of customers.</span><br></p>', '2018-07-17 09:02:59', '2018-08-08 14:02:29', 1, 1),
-(2, 3, 'Vijay Rathi', NULL, 'dexusmedia@gmail.com', '0141-223344', '0141-223355', '0141-223366', '0141-223377', '0141-223388', 'dexusmedia.com', '8426833930', '31fadb.png', '', '2018-07-17 13:23:14', '2018-07-30 14:04:33', 1, 1),
-(3, 4, 'Rajeev Ranjan', NULL, 'electrofuturejpr@gmail.com', NULL, NULL, NULL, NULL, NULL, 'http://electrofuturejaipur.com', '8947065941', '65cec3.png', '', '2018-07-24 17:16:42', '2018-07-31 13:28:08', 1, 1),
-(4, 5, 'Rajeev', NULL, 'info@electrofuturejaipur.com', NULL, NULL, NULL, NULL, NULL, 'http://www.allservicecentre.com/', '7220022220', '995fdb.jpg', '', '2018-07-24 18:05:23', '2018-07-30 14:05:48', 1, 1),
-(5, 6, 'Deepak', NULL, 'info@systemindus.com', NULL, NULL, NULL, NULL, NULL, 'http://systemindus.com', '9928855966', 'd4a330.png', '<p><font color=\"#666666\" face=\"Open Sans\">System is well known name if your are looking for video surveillance , fire alarm system , public address system or conference system,&nbsp;Solar panel system dealer in Jaipur,</font><b style=\"color: rgb(102, 102, 102); font-family: &quot;Open Sans&quot;;\">CCTV Camera in Jaipur</b><font color=\"#666666\" face=\"Open Sans\">,home automation, intrusion detection system , building management system, access control system and industrial safety&nbsp;equipments with expert technical approach in on existing system or in new system on cost effective pricing call to us. .</font><br></p>', '2018-07-30 11:56:22', '2018-08-24 18:11:17', 1, 1),
-(6, 7, 'Kapil Agarwal', NULL, 'info@saraskripaeventpromoters.com', NULL, NULL, NULL, NULL, NULL, 'http://saraskripaeventpromoters.com/index', '9414073749', NULL, '<p style=\"color: rgb(153, 153, 153); font-family: Signika; font-size: 17px; text-align: justify;\">Saras Kripa is one of the top <a href=\"http://saraskripaeventpromoters.com/\">caterers in Jaipur</a> to make your special moments even more special. Whether you are planning for a great Wedding or Kitty parties or any other functions like Engagement, Sangeet, Mehendi, Birthday Party, In-House parties, Farewell and others, We are here to serve you the best as per your needs and likes. Our special team will give all its very best for your occasions. Cause we know some occasions are very Precious and they do not come back. So we will be making your occasion even more special by treating you with all the tasty and mouthwatering food.</p><div><br></div>', '2018-08-12 06:04:15', '2018-08-12 06:04:15', 1, 1),
-(7, 8, 'Mustak Bhai', NULL, 'info@nrcaterers.in', NULL, NULL, NULL, NULL, NULL, 'http://nrcaterers.in/', '9549009786', 'd8f544.png', '<div>N.R. Caterers is one of the most reputed organization engaged as <b>Birthday Party Caterers, Corporate Event Caterers </b>and offer a wide range of<b> Catering Services </b>to our esteemed clients in Jaipur. All these catering services perfectly suit the individual needs of the customers due timely execution, prompt, effective and reliable.</div><div><br></div><div>Our organization has earned a respected name in the market by providing excellent quality services to the client. These services are rendered as per the rules and regulations of the industry as per the specifications of the client. We are involved in offering Catering Services to our customers for various occasions. Our services are timely completed and are in tandem with national as well as international norms &amp; standards.</div>', '2018-08-12 06:21:10', '2018-08-12 06:21:10', 1, 1),
-(8, 9, 'Anjani caterers', NULL, 'info@anjanicaterers.com', NULL, NULL, NULL, NULL, NULL, 'http://anjanicaterers.com/', '8302755000', '26cdb1.jpg', '<p>Anjani caterers is offering Quality catering services in jaipur since long. Looking for a perfect food affair to complement your special occasion?&nbsp;</p><p>Look no further! Anjani <a href=\"http://anjanicaterers.com/\" target=\"_blank\">Caterers in Jaipur</a> provide a sumptuous food itinerary to fulfill your each and every catering need. Be it a large, mid or small sized event, our full-range of outdoor and indoor catering services cover complete food preparation and presentation for formal and informal gatherings.</p><div><br></div>', '2018-08-12 06:33:47', '2018-08-12 06:33:47', 1, 1),
-(9, 10, 'Shree Ganesh Caterers', NULL, 'info@shreeganeshcaterers.in', NULL, NULL, NULL, NULL, NULL, 'http://shreeganeshcaterers.in/', '9828546076', '2f7dfc.png', NULL, '2018-08-22 19:30:36', '2018-08-22 19:30:36', 1, 1),
-(10, 11, 'Azad Hussain Mirza', NULL, 'pinkcitytours0300@gmail.com', NULL, NULL, NULL, NULL, NULL, 'http://gopinkcitytours.com/', '9166863109', 'c55ebf.png', '<p>Welcome to <b>Go pink city tours</b>, a refreshing new brand from the india State Tourism Development Company, india’s largest tour operator. Be it Heritage, Nature, Wildlife, Beaches or Culture, there is something for everyone in india. And this is where you can find it. All conveniently categorized and planned for you. Our facilities and services across india have been crafted to make your stay a most comfortable and joyous one.<br></p>', '2018-08-24 16:39:17', '2018-08-24 16:39:17', 1, 1),
-(11, 12, 'Taxi Rajasthan', NULL, 'dexusmediajaipur@gmail.com', NULL, NULL, NULL, NULL, NULL, 'http://taxirajasthan.in/', '8426833930', 'd9f22d.png', '<p style=\"margin-bottom: 20px; color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, &quot;Trebuchet MS&quot;, Helvetica, sans-serif; font-size: 15px;\"><b>Taxi Rajasthan&nbsp; Was Started in 2018, which offers best rates, cabs &amp; drivers in local Jaipur, and outstation trips from Jaipur. We offer cars like:</b></p><ol style=\"color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, &quot;Trebuchet MS&quot;, Helvetica, sans-serif; font-size: 15px;\"><li><b>Suzuki Dzire &amp; Toyota Etios</b>: 1 to 4 adults</li><li><b>Toyota Innova and Innova Crysta:</b>&nbsp;1 to 7 adults</li><li><b>Tempo Traveller</b>: 4 to 16 adults.</li></ol><p style=\"margin-bottom: 20px; color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, &quot;Trebuchet MS&quot;, Helvetica, sans-serif; font-size: 15px;\">Along with local Jaipur &amp; Rajasthan road trips, our cabs are continuously booking for long trips from Jaipur to Shimla, Manali, Katra, Amritsar, Ahmedabad &amp; even Goa. So, you can enjoy our packages with Superb Ride experience in Luxury cars.&nbsp;</p><p style=\"margin-bottom: 20px; color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, &quot;Trebuchet MS&quot;, Helvetica, sans-serif; font-size: 15px;\"><br></p><p style=\"margin-bottom: 20px; color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, &quot;Trebuchet MS&quot;, Helvetica, sans-serif; font-size: 15px;\">Taxi Rajasthan\'s&nbsp; all cabs have All India Tourist Permit, &amp; we offered tours from Jaipur to as far as Jammu Kashmir.</p><p style=\"margin-bottom: 20px; color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, &quot;Trebuchet MS&quot;, Helvetica, sans-serif; font-size: 15px;\"><br></p><p style=\"margin-bottom: 20px; color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, &quot;Trebuchet MS&quot;, Helvetica, sans-serif; font-size: 15px;\">Have a look at some of our popular tours from Jaipur below, and share your tour details.</p>', '2018-08-24 17:07:09', '2018-08-24 17:07:09', 1, 1),
-(12, 13, 'Mt sales corporation', NULL, 'info@mtscorp.in', NULL, NULL, NULL, NULL, NULL, 'http://mtscorp.in/', '9602711777', '80d429.png', '<p style=\"margin-bottom: 20px; color: rgb(102, 102, 102); font-family: &quot;Open Sans&quot;, sans-serif; font-size: 14px;\">MT Sales Corporation is&nbsp;one of the fast growing Low current solution provider in India.The Company’s range of activities includes information consulting, implementation of integrated enterprise information systems, implementation of process control systems, deployment of telecommunication systems, automated security systems, building management systems, Smart Home Solution, Access Control System and service support. Moreover, our functional and technical experience extends to interfacing with third-party conveyors and various unit sorters.</p><p style=\"margin-bottom: 0px; color: rgb(102, 102, 102); font-family: &quot;Open Sans&quot;, sans-serif; font-size: 14px;\">At&nbsp;<strong style=\"margin-bottom: 0px;\">MT Sales Corporation</strong>, we are continually expanding upon our knowledge and services to assist clients with successfully implementing Close circuit Monitoring Systems in multiple distribution centers throughout various locations. Our Company is distinguished by their functional and technical expertise combined with their hands-on experience, thereby ensuring that our clients receive the most effective and professional service.</p>', '2018-08-24 18:05:20', '2018-08-24 18:05:20', 1, 1),
-(13, 14, 'Dr Anupama Gangwal', NULL, 'vanityjaipur@gmail.com', NULL, NULL, NULL, NULL, NULL, 'http://vanitydranu.com/', '9829053899', 'e793f6.jpg', '<p>Dr Anupama gangwal is one of the top Gynecologist in Jaipur.</p>', '2018-08-25 10:14:22', '2018-08-25 10:14:22', 1, 1),
-(14, 15, 'Bhupesh Yadav', NULL, 'info@toothsaviors.in', NULL, NULL, NULL, NULL, NULL, 'http://toothsaviours.in', '9660437976', NULL, '<p>Tooth saviours has been established keeping very basic patient oriented needs in mind.We believe “every tooth needs to be saved\".We aim at providing highest standard of treatment under highest Sterilization Protocol.</p><p>We are Specialised in</p><ul><li>Root Canal Treatment</li><li>Smile Designing Treatment</li><li>Post and core</li><li>Teeth Whitening</li><li>Complete Denture</li><li>Crowns and Bridges</li><li>Implants</li></ul><p><br></p>', '2018-08-25 17:45:06', '2018-08-25 17:45:06', 1, 1),
-(15, 16, 'Tooth saviours', NULL, 'info@toothsaviours.in', NULL, NULL, NULL, NULL, NULL, 'http://toothsaviours.in', '9660437976', 'c403d4.png', NULL, '2018-08-25 17:50:27', '2018-08-25 17:50:27', 1, 1),
-(16, 17, 'Dr Chopra', NULL, 'cdcjhotwara@gmail.com', NULL, NULL, NULL, NULL, NULL, 'http://chopradental.in/', '9214455664', 'b7bfb6.jpg', NULL, '2018-08-25 17:59:10', '2018-08-25 17:59:10', 1, 1),
-(17, 18, 'alok Jasmatiya', NULL, 'alokjasmatiya99@gmail.com', NULL, NULL, NULL, NULL, NULL, 'http://www.dreamteam.co.in/college-management-software.php', '9829223000', NULL, NULL, '2018-08-29 09:30:42', '2018-08-29 09:31:26', 1, 1),
-(18, 19, 'alok Jasmatiya', NULL, 'motog2tom@gmail.com', NULL, NULL, NULL, NULL, NULL, 'http://indcrafts.co.in/about_us', '9829223000', NULL, NULL, '2018-08-29 09:34:20', '2018-08-29 09:35:49', 1, 1);
+INSERT INTO `user_details` (`id`, `user_id`, `name`, `designation`, `email`, `landline`, `fax1`, `fax2`, `toll_free1`, `toll_free2`, `website`, `phone`, `mobile`, `whatsapp`, `logo`, `about_company`, `created_by`, `created_at`, `updated_at`, `update_status`, `status`) VALUES
+(1, 2, 'Sanjay Sharma', NULL, 'applecaterersjaipur@gmail.com', NULL, NULL, NULL, NULL, NULL, 'http://applecaterers.com/', '9166252535', NULL, NULL, 'cf63d5.png', NULL, 0, '2018-07-17 09:02:59', '2019-01-17 07:45:30', 1, 1),
+(2, 3, 'Vijay Rathi', NULL, 'dexusmedia@gmail.com', '0141-223344', '0141-223355', '0141-223366', '0141-223377', '0141-223388', 'dexusmedia.com', '8426833930', NULL, NULL, '31fadb.png', '', 0, '2018-07-17 13:23:14', '2018-07-30 14:04:33', 1, 1),
+(3, 4, 'Rajeev Ranjan', NULL, 'electrofuturejpr@gmail.com', '0141 123456', NULL, NULL, '18002582528', NULL, 'http://electrofuturejaipur.com', '8947065941', '7014957469', '9602947878', '65cec3.png', '<p>Electro future pvt ltd..</p>', 0, '2018-07-24 17:16:42', '2019-02-06 06:31:33', 1, 1),
+(4, 5, 'Rajeev', NULL, 'info@electrofuturejaipur.com', NULL, NULL, NULL, NULL, NULL, 'http://www.allservicecentre.com/', '7220022220', NULL, NULL, '995fdb.jpg', '', 0, '2018-07-24 18:05:23', '2018-07-30 14:05:48', 1, 1),
+(5, 6, 'Deepak', NULL, 'info@systemindus.com', NULL, NULL, NULL, NULL, NULL, 'http://systemindus.com', '9928855966', NULL, NULL, 'd4a330.png', '<p><font color=\"#666666\" face=\"Open Sans\">System is well known name if your are looking for video surveillance , fire alarm system , public address system or conference system,&nbsp;Solar panel system dealer in Jaipur,</font><b style=\"color: rgb(102, 102, 102); font-family: &quot;Open Sans&quot;;\">CCTV Camera in Jaipur</b><font color=\"#666666\" face=\"Open Sans\">,home automation, intrusion detection system , building management system, access control system and industrial safety&nbsp;equipments with expert technical approach in on existing system or in new system on cost effective pricing call to us. .</font><br></p>', 0, '2018-07-30 11:56:22', '2018-08-24 18:11:17', 1, 1),
+(6, 7, 'Kapil Agarwal', NULL, 'info@saraskripaeventpromoters.com', NULL, NULL, NULL, NULL, NULL, 'http://saraskripaeventpromoters.com/index', '9414073749', NULL, NULL, NULL, '<p style=\"color: rgb(153, 153, 153); font-family: Signika; font-size: 17px; text-align: justify;\">Saras Kripa is one of the top <a href=\"http://saraskripaeventpromoters.com/\">caterers in Jaipur</a> to make your special moments even more special. Whether you are planning for a great Wedding or Kitty parties or any other functions like Engagement, Sangeet, Mehendi, Birthday Party, In-House parties, Farewell and others, We are here to serve you the best as per your needs and likes. Our special team will give all its very best for your occasions. Cause we know some occasions are very Precious and they do not come back. So we will be making your occasion even more special by treating you with all the tasty and mouthwatering food.</p><div><br></div>', 0, '2018-08-12 06:04:15', '2018-08-12 06:04:15', 1, 1),
+(7, 8, 'Mustak Bhai', NULL, 'info@nrcaterers.in', NULL, NULL, NULL, NULL, NULL, 'http://nrcaterers.in/', '9549009786', NULL, NULL, 'd8f544.png', '<div>N.R. Caterers is one of the most reputed organization engaged as <b>Birthday Party Caterers, Corporate Event Caterers </b>and offer a wide range of<b> Catering Services </b>to our esteemed clients in Jaipur. All these catering services perfectly suit the individual needs of the customers due timely execution, prompt, effective and reliable.</div><div><br></div><div>Our organization has earned a respected name in the market by providing excellent quality services to the client. These services are rendered as per the rules and regulations of the industry as per the specifications of the client. We are involved in offering Catering Services to our customers for various occasions. Our services are timely completed and are in tandem with national as well as international norms &amp; standards.</div>', 0, '2018-08-12 06:21:10', '2018-08-12 06:21:10', 1, 1),
+(8, 9, 'Anjani caterers', NULL, 'info@anjanicaterers.com', NULL, NULL, NULL, NULL, NULL, 'http://anjanicaterers.com/', '8302755000', NULL, NULL, '26cdb1.jpg', '<p>Anjani caterers is offering Quality catering services in jaipur since long. Looking for a perfect food affair to complement your special occasion?&nbsp;</p><p>Look no further! Anjani <a href=\"http://anjanicaterers.com/\" target=\"_blank\">Caterers in Jaipur</a> provide a sumptuous food itinerary to fulfill your each and every catering need. Be it a large, mid or small sized event, our full-range of outdoor and indoor catering services cover complete food preparation and presentation for formal and informal gatherings.</p><div><br></div>', 0, '2018-08-12 06:33:47', '2018-08-12 06:33:47', 1, 1),
+(9, 10, 'Shree Ganesh Caterers', NULL, 'info@shreeganeshcaterers.in', NULL, NULL, NULL, NULL, NULL, 'http://shreeganeshcaterers.in/', '9828546076', NULL, NULL, '2f7dfc.png', NULL, 0, '2018-08-22 19:30:36', '2018-08-22 19:30:36', 1, 1),
+(10, 11, 'Azad Hussain Mirza', NULL, 'pinkcitytours0300@gmail.com', NULL, NULL, NULL, NULL, NULL, 'http://gopinkcitytours.com/', '9166863109', NULL, NULL, 'c55ebf.png', '<p>Welcome to <b>Go pink city tours</b>, a refreshing new brand from the india State Tourism Development Company, india’s largest tour operator. Be it Heritage, Nature, Wildlife, Beaches or Culture, there is something for everyone in india. And this is where you can find it. All conveniently categorized and planned for you. Our facilities and services across india have been crafted to make your stay a most comfortable and joyous one.<br></p>', 0, '2018-08-24 16:39:17', '2018-08-24 16:39:17', 1, 1),
+(11, 12, 'Taxi Rajasthan', NULL, 'dexusmediajaipur@gmail.com', NULL, NULL, NULL, NULL, NULL, 'http://taxirajasthan.in/', '8426833930', NULL, NULL, 'd9f22d.png', '<p style=\"margin-bottom: 20px; color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, &quot;Trebuchet MS&quot;, Helvetica, sans-serif; font-size: 15px;\"><b>Taxi Rajasthan&nbsp; Was Started in 2018, which offers best rates, cabs &amp; drivers in local Jaipur, and outstation trips from Jaipur. We offer cars like:</b></p><ol style=\"color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, &quot;Trebuchet MS&quot;, Helvetica, sans-serif; font-size: 15px;\"><li><b>Suzuki Dzire &amp; Toyota Etios</b>: 1 to 4 adults</li><li><b>Toyota Innova and Innova Crysta:</b>&nbsp;1 to 7 adults</li><li><b>Tempo Traveller</b>: 4 to 16 adults.</li></ol><p style=\"margin-bottom: 20px; color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, &quot;Trebuchet MS&quot;, Helvetica, sans-serif; font-size: 15px;\">Along with local Jaipur &amp; Rajasthan road trips, our cabs are continuously booking for long trips from Jaipur to Shimla, Manali, Katra, Amritsar, Ahmedabad &amp; even Goa. So, you can enjoy our packages with Superb Ride experience in Luxury cars.&nbsp;</p><p style=\"margin-bottom: 20px; color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, &quot;Trebuchet MS&quot;, Helvetica, sans-serif; font-size: 15px;\"><br></p><p style=\"margin-bottom: 20px; color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, &quot;Trebuchet MS&quot;, Helvetica, sans-serif; font-size: 15px;\">Taxi Rajasthan\'s&nbsp; all cabs have All India Tourist Permit, &amp; we offered tours from Jaipur to as far as Jammu Kashmir.</p><p style=\"margin-bottom: 20px; color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, &quot;Trebuchet MS&quot;, Helvetica, sans-serif; font-size: 15px;\"><br></p><p style=\"margin-bottom: 20px; color: rgb(0, 0, 0); font-family: &quot;Open Sans&quot;, &quot;Trebuchet MS&quot;, Helvetica, sans-serif; font-size: 15px;\">Have a look at some of our popular tours from Jaipur below, and share your tour details.</p>', 0, '2018-08-24 17:07:09', '2018-08-24 17:07:09', 1, 1),
+(12, 13, 'Mt sales corporation', NULL, 'info@mtscorp.in', NULL, NULL, NULL, NULL, NULL, 'http://mtscorp.in/', '9602711777', NULL, NULL, '80d429.png', '<p style=\"margin-bottom: 20px; color: rgb(102, 102, 102); font-family: &quot;Open Sans&quot;, sans-serif; font-size: 14px;\">MT Sales Corporation is&nbsp;one of the fast growing Low current solution provider in India.The Company’s range of activities includes information consulting, implementation of integrated enterprise information systems, implementation of process control systems, deployment of telecommunication systems, automated security systems, building management systems, Smart Home Solution, Access Control System and service support. Moreover, our functional and technical experience extends to interfacing with third-party conveyors and various unit sorters.</p><p style=\"margin-bottom: 0px; color: rgb(102, 102, 102); font-family: &quot;Open Sans&quot;, sans-serif; font-size: 14px;\">At&nbsp;<strong style=\"margin-bottom: 0px;\">MT Sales Corporation</strong>, we are continually expanding upon our knowledge and services to assist clients with successfully implementing Close circuit Monitoring Systems in multiple distribution centers throughout various locations. Our Company is distinguished by their functional and technical expertise combined with their hands-on experience, thereby ensuring that our clients receive the most effective and professional service.</p>', 0, '2018-08-24 18:05:20', '2018-08-24 18:05:20', 1, 1),
+(13, 14, 'Dr Anupama Gangwal', NULL, 'vanityjaipur@gmail.com', NULL, NULL, NULL, NULL, NULL, 'http://vanitydranu.com/', '9829053899', NULL, NULL, 'e793f6.jpg', '<p>Dr Anupama gangwal is one of the top Gynecologist in Jaipur.</p>', 0, '2018-08-25 10:14:22', '2018-08-25 10:14:22', 1, 1),
+(14, 15, 'Bhupesh Yadav', NULL, 'info@toothsaviors.in', NULL, NULL, NULL, NULL, NULL, 'http://toothsaviours.in', '9660437976', NULL, NULL, NULL, '<p>Tooth saviours has been established keeping very basic patient oriented needs in mind.We believe “every tooth needs to be saved\".We aim at providing highest standard of treatment under highest Sterilization Protocol.</p><p>We are Specialised in</p><ul><li>Root Canal Treatment</li><li>Smile Designing Treatment</li><li>Post and core</li><li>Teeth Whitening</li><li>Complete Denture</li><li>Crowns and Bridges</li><li>Implants</li></ul><p><br></p>', 0, '2018-08-25 17:45:06', '2018-08-25 17:45:06', 1, 1),
+(15, 16, 'Tooth saviours', NULL, 'info@toothsaviours.in', NULL, NULL, NULL, NULL, NULL, 'http://toothsaviours.in', '9660437976', NULL, NULL, 'c403d4.png', NULL, 0, '2018-08-25 17:50:27', '2018-08-25 17:50:27', 1, 1),
+(16, 17, 'Dr Chopra', NULL, 'cdcjhotwara@gmail.com', NULL, NULL, NULL, NULL, NULL, 'http://chopradental.in/', '9214455664', NULL, NULL, 'b7bfb6.jpg', NULL, 0, '2018-08-25 17:59:10', '2018-08-25 17:59:10', 1, 1),
+(17, 18, 'alok Jasmatiya', NULL, 'alokjasmatiya99@gmail.com', NULL, NULL, NULL, NULL, NULL, 'http://www.dreamteam.co.in/college-management-software.php', '9829223000', NULL, NULL, NULL, NULL, 0, '2018-08-29 09:30:42', '2018-08-29 09:31:26', 1, 1),
+(18, 19, 'alok Jasmatiya', NULL, 'motog2tom@gmail.com', '0141582585', NULL, NULL, '1800414141', NULL, 'http://indcrafts.co.in/about_us', '8005609866', '7014957469', '9549494175', '63f421.jpg', '<p>Indian Crafts Indian Crafts Indian Crafts<br></p>', 23, '2018-08-29 09:34:20', '2019-02-06 07:47:08', 1, 1),
+(19, 21, 'Rishi Sharma', NULL, 'rathorepriyank91@gmail.com', NULL, NULL, NULL, NULL, NULL, 'https://www.candrol.com', '9828022669', NULL, NULL, '6ba88c.jpg', NULL, 24, '2018-11-06 08:28:50', '2018-11-06 08:30:47', 1, 1),
+(22, 26, 'Prem saini', NULL, 'prem@ambrlabs.com', '0141 123456', NULL, NULL, '18002582528', NULL, 'http://ambrlabs.com', '9602947878', '8005609866', '9602947878', '00be0a.jpg', 'about company123', 1, '2019-02-06 08:35:37', '2019-02-08 06:35:57', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -56041,7 +57151,6 @@ CREATE TABLE `user_images` (
 
 INSERT INTO `user_images` (`id`, `user_id`, `image`, `update_status`, `status`) VALUES
 (1, 3, 'ec4102.png', 1, 1),
-(2, 4, '317f1e.png', 1, 1),
 (3, 5, '35bdf6.png', 1, 1),
 (4, 8, '05189a.jpg', 1, 1),
 (5, 9, '8e8a1c.jpg', 1, 1),
@@ -56052,7 +57161,18 @@ INSERT INTO `user_images` (`id`, `user_id`, `image`, `update_status`, `status`) 
 (10, 6, '334bde.png', 1, 1),
 (11, 14, 'bfe74f.jpg', 1, 1),
 (12, 16, '157df5.jpg', 1, 1),
-(13, 17, '352ca4.jpg', 1, 1);
+(13, 17, '352ca4.jpg', 1, 1),
+(14, 21, '519db0.jpg', 1, 1),
+(16, 2, '6b2c6c.jpg', 1, 1),
+(17, 2, '8d33cf.jpg', 1, 1),
+(18, 2, 'c99f41.jpg', 1, 1),
+(25, 19, '6d253e.jpg', 1, 1),
+(26, 19, 'c32fb1.jpg', 1, 1),
+(27, 19, '13ace2.jpg', 1, 1),
+(31, 26, 'cea7ba.jpg', 1, 1),
+(32, 26, '0f364e.jpg', 1, 1),
+(33, 26, '5a58ef.jpg', 1, 1),
+(34, 26, 'ecac46.jpg', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -56079,8 +57199,8 @@ INSERT INTO `user_keywords` (`id`, `user_id`, `keyword_id`, `keyword_identity`, 
 (1, 2, 1, 1, '2018-07-17 09:04:46', '2018-07-17 09:04:46', 1, 1),
 (2, 3, 1, 1, '2018-07-17 13:23:44', '2018-07-17 13:23:44', 1, 1),
 (3, 3, 1, 2, '2018-07-22 07:34:31', '2018-07-22 07:34:31', 1, 1),
-(4, 4, 2, 1, '2018-07-24 17:19:36', '2018-07-24 17:19:36', 1, 1),
-(5, 4, 3, 1, '2018-07-24 17:19:44', '2018-07-24 17:19:44', 1, 1),
+(4, 4, 2, 1, '2018-07-24 17:19:36', '2019-01-03 11:49:44', 1, 0),
+(5, 4, 3, 1, '2018-07-24 17:19:44', '2019-01-03 11:49:42', 1, 0),
 (6, 5, 3, 1, '2018-07-24 18:05:47', '2018-07-24 18:05:47', 1, 1),
 (7, 5, 2, 1, '2018-07-24 18:06:02', '2018-07-24 18:06:02', 1, 1),
 (8, 6, 4, 1, '2018-07-30 11:57:54', '2018-07-30 11:57:54', 1, 1),
@@ -56111,7 +57231,23 @@ INSERT INTO `user_keywords` (`id`, `user_id`, `keyword_id`, `keyword_identity`, 
 (33, 13, 4, 1, '2018-08-24 18:07:02', '2018-08-24 18:07:02', 1, 1),
 (34, 14, 6, 1, '2018-08-25 10:15:06', '2018-08-25 10:15:06', 1, 1),
 (35, 16, 7, 1, '2018-08-25 17:52:06', '2018-08-25 17:52:06', 1, 1),
-(36, 17, 7, 1, '2018-08-25 18:00:41', '2018-08-25 18:00:41', 1, 1);
+(36, 17, 7, 1, '2018-08-25 18:00:41', '2018-08-25 18:00:41', 1, 1),
+(37, 19, 1, 2, '2018-12-05 12:31:29', '2019-01-02 14:25:14', 1, 0),
+(46, 19, 1, 1, '2019-02-05 14:17:12', '2019-02-05 14:17:12', 1, 1),
+(47, 19, 1, 2, '2019-02-05 14:17:12', '2019-02-05 14:17:12', 1, 1),
+(48, 19, 12, 2, '2019-02-05 14:17:12', '2019-02-05 14:17:12', 1, 1),
+(49, 4, 4, 1, '2019-02-06 12:01:33', '2019-02-06 12:01:33', 0, 1),
+(50, 19, 4, 1, '2019-02-06 12:03:23', '2019-02-06 12:03:23', 1, 1),
+(51, 26, 14, 1, '2019-02-06 14:05:37', '2019-02-08 12:05:30', 1, 0),
+(52, 26, 20, 2, '2019-02-06 14:05:37', '2019-02-08 12:05:38', 1, 0),
+(53, 26, 4, 1, '2019-02-06 14:08:14', '2019-02-08 12:05:31', 0, 0),
+(54, 26, 20, 2, '2019-02-06 14:12:20', '2019-02-08 12:05:38', 1, 0),
+(55, 26, 14, 1, '2019-02-06 14:12:20', '2019-02-08 12:05:30', 1, 0),
+(56, 26, 20, 2, '2019-02-08 11:58:42', '2019-02-08 12:05:38', 1, 0),
+(57, 26, 14, 1, '2019-02-08 11:58:42', '2019-02-08 12:05:30', 1, 0),
+(58, 26, 20, 2, '2019-02-08 12:05:48', '2019-02-08 12:05:48', 0, 1),
+(59, 26, 14, 1, '2019-02-08 12:05:48', '2019-02-08 12:05:48', 0, 1),
+(60, 19, 13, 2, '2019-02-08 12:08:18', '2019-02-08 12:08:18', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -56134,7 +57270,7 @@ CREATE TABLE `user_location` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `update_status` tinyint(1) NOT NULL DEFAULT '1',
-  `status` tinyint(1) NOT NULL DEFAULT '2'
+  `status` tinyint(1) NOT NULL DEFAULT '2' COMMENT '2 for un-approve user and 1 for approve user'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -56142,9 +57278,9 @@ CREATE TABLE `user_location` (
 --
 
 INSERT INTO `user_location` (`id`, `user_id`, `business_name`, `building`, `street`, `landmark`, `area`, `city`, `pincode`, `state`, `country`, `created_at`, `updated_at`, `update_status`, `status`) VALUES
-(1, 2, 'Apple caterers', 'Shop No. 6,', 'Near Pink Square Mall,', 'Govind Marg', 1, 3378, '302004', 'Rajasthan', 'India', '2018-07-17 09:02:59', '2018-08-08 14:02:29', 1, 1),
+(1, 2, 'Apple caterers', 'Shop No. 6,', 'Near Pink Square Mall,', 'Govind Marg', 1, 3378, NULL, 'Rajasthan', 'India', '2018-07-17 09:02:59', '2019-01-17 13:15:30', 1, 1),
 (2, 3, 'Dexus Media', 'Alankar Plaza', 'S-28', 'Near ICICI Bank', 1, 3378, '302004', 'Rajasthan', 'India', '2018-07-17 13:23:14', '2018-07-30 14:04:33', 1, 1),
-(3, 4, 'Electro Future', 'Plot No. 16', ', Bhagat Vatika-I, Civil Lines, Jaipur', 'behind kalra bus service', 85, 3378, '302006', 'Rajasthan', 'India', '2018-07-24 17:16:42', '2018-07-31 13:28:08', 1, 1),
+(3, 4, 'Electro Future', 'Plot No. 20', 'Bhagat Vatika-I, Civil Lines, Jaipur', 'behind kalra bus service', 121, 3378, '303103', 'Rajasthan', 'India', '2018-07-24 17:16:42', '2019-02-06 12:01:33', 1, 1),
 (4, 5, 'All Service centre', 'Chandpole', 'Chandpole bazar', NULL, 12, 3378, '302001', 'Rajasthan', 'India', '2018-07-24 18:05:23', '2018-07-30 14:05:48', 1, 1),
 (5, 6, 'System Indus CCTV camera dealer', '22, Mahadev Nagar,', 'andpuri', 'Sodala', 85, 3378, '302006', 'Rajasthan', 'India', '2018-07-30 11:56:22', '2018-08-24 18:11:17', 1, 1),
 (6, 7, 'Shree saras Kripa Caterers', 'C-3 Sitaram Vihar, 100Ft. Road,', 'Patrakar Colony,', 'Mansarovar, Jaipur, Rajasthan', 34, 3378, '302020', 'Rajasthan', 'India', '2018-08-12 06:04:15', '2018-08-12 06:04:15', 1, 1),
@@ -56159,7 +57295,9 @@ INSERT INTO `user_location` (`id`, `user_id`, `business_name`, `building`, `stre
 (15, 16, 'Tooth saviours', 'D99, Kewat Marg, D - Block, Hanuman Nagar, Vaishali Nagar, Nemi Sagar Colony,', 'D - Block, Hanuman Nagar, Jaipur, Rajasthan', NULL, 58, 3378, '302021', 'Rajasthan', 'India', '2018-08-25 17:50:27', '2018-08-25 17:50:27', 1, 1),
 (16, 17, 'Chopra Dental Clinic', '11-A, Kailaspuri, Kanta Chauraha,', 'Kalwar Road, jhotwara Jaipur, Rajasthan', NULL, 24, 3378, '302012', 'Rajasthan', 'India', '2018-08-25 17:59:10', '2018-08-25 17:59:10', 1, 1),
 (17, 18, 'Dreamteam Technologies', 'dream heights', 'heavy industrial area', 'near anand rathi tower', 9, 3378, '302015', 'Rajasthan', 'India', '2018-08-29 09:30:42', '2018-08-29 09:32:16', 1, 1),
-(18, 19, 'Indian Crafts', 'dream heights', 'near saras dairy, second phase, basni, Jodhpur, Rajasthan, India', 'near second phase basni', 1, 3378, '302004', 'Rajasthan', 'India', '2018-08-29 09:34:20', '2018-08-29 09:38:09', 1, 1);
+(18, 19, 'Indian Crafts', 'dream heights', 'near saras dairy, second phase, basni, Jodhpur, Rajasthan, India', 'near second phase basni', 1, 3378, '302004', 'Rajasthan', 'India', '2018-08-29 09:34:20', '2019-01-02 11:51:54', 1, 1),
+(19, 21, 'Candrol Cancer Treatment and Research Center', '7/319, Behind Fortis Hospital,', 'Near Jawahar Circle, Jawahar Lal Nehru Marg,', NULL, 32, 3378, '302017', 'Rajasthan', 'India', '2018-11-06 08:28:50', '2018-11-06 08:30:18', 1, 1),
+(22, 26, 'ambrlabs', 'unnati tower', 'central spine', 'oppo Dana Shivam Hospital', 59, 3378, '302023', 'Rajasthan', 'India', '2019-02-06 14:05:37', '2019-02-08 12:05:57', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -56214,20 +57352,20 @@ INSERT INTO `user_other_information` (`id`, `user_id`, `operation_timing`, `day`
 (26, 3, 2, 'friday', '00:00:00', '00:00:00', 0, '2018-07-17 13:23:14', '2018-08-10 13:46:35', 1, 1),
 (27, 3, 2, 'saturday', '00:00:00', '00:00:00', 0, '2018-07-17 13:23:14', '2018-08-10 13:46:35', 1, 1),
 (28, 3, 2, 'sunday', '00:00:00', '00:00:00', 0, '2018-07-17 13:23:14', '2018-08-10 13:46:35', 1, 1),
-(29, 4, 1, 'monday', '09:30:00', '18:00:00', 1, '2018-07-24 17:16:42', '2018-07-24 17:19:17', 1, 1),
-(30, 4, 1, 'tuesday', '09:30:00', '18:00:00', 1, '2018-07-24 17:16:42', '2018-07-24 17:19:17', 1, 1),
-(31, 4, 1, 'wednesday', '09:30:00', '18:00:00', 1, '2018-07-24 17:16:42', '2018-07-24 17:19:17', 1, 1),
-(32, 4, 1, 'thursday', '09:30:00', '18:00:00', 1, '2018-07-24 17:16:42', '2018-07-24 17:19:17', 1, 1),
-(33, 4, 1, 'friday', '09:30:00', '18:00:00', 1, '2018-07-24 17:16:42', '2018-07-24 17:19:17', 1, 1),
-(34, 4, 1, 'saturday', '09:30:00', '18:00:00', 1, '2018-07-24 17:16:42', '2018-07-24 17:19:17', 1, 1),
-(35, 4, 1, 'sunday', '00:00:00', '00:00:00', 0, '2018-07-24 17:16:42', '2018-07-24 17:19:17', 1, 1),
-(36, 4, 2, 'monday', '00:00:00', '00:00:00', 0, '2018-07-24 17:16:42', '2018-07-24 17:19:17', 1, 1),
-(37, 4, 2, 'tuesday', '00:00:00', '00:00:00', 0, '2018-07-24 17:16:42', '2018-07-24 17:19:17', 1, 1),
-(38, 4, 2, 'wednesday', '00:00:00', '00:00:00', 0, '2018-07-24 17:16:42', '2018-07-24 17:19:17', 1, 1),
-(39, 4, 2, 'thursday', '00:00:00', '00:00:00', 0, '2018-07-24 17:16:42', '2018-07-24 17:19:17', 1, 1),
-(40, 4, 2, 'friday', '00:00:00', '00:00:00', 0, '2018-07-24 17:16:42', '2018-07-24 17:19:17', 1, 1),
-(41, 4, 2, 'saturday', '00:00:00', '00:00:00', 0, '2018-07-24 17:16:42', '2018-07-24 17:19:17', 1, 1),
-(42, 4, 2, 'sunday', '00:00:00', '00:00:00', 0, '2018-07-24 17:16:42', '2018-07-24 17:19:17', 1, 1),
+(29, 4, 1, 'monday', '09:30:00', '18:00:00', 1, '2018-07-24 17:16:42', '2019-01-02 11:51:25', 1, 1),
+(30, 4, 1, 'tuesday', '09:30:00', '18:00:00', 1, '2018-07-24 17:16:42', '2019-01-02 11:51:25', 1, 1),
+(31, 4, 1, 'wednesday', '09:30:00', '18:00:00', 1, '2018-07-24 17:16:42', '2019-01-02 11:51:25', 1, 1),
+(32, 4, 1, 'thursday', '09:30:00', '18:00:00', 1, '2018-07-24 17:16:42', '2019-01-02 11:51:25', 1, 1),
+(33, 4, 1, 'friday', '09:30:00', '18:00:00', 1, '2018-07-24 17:16:42', '2019-01-02 11:51:25', 1, 1),
+(34, 4, 1, 'saturday', '09:30:00', '18:00:00', 1, '2018-07-24 17:16:42', '2019-01-02 11:51:25', 1, 1),
+(35, 4, 1, 'sunday', '00:00:00', '00:00:00', 0, '2018-07-24 17:16:42', '2019-01-02 11:51:25', 1, 1),
+(36, 4, 2, 'monday', '00:00:00', '00:00:00', 0, '2018-07-24 17:16:42', '2019-01-02 11:51:25', 1, 1),
+(37, 4, 2, 'tuesday', '00:00:00', '00:00:00', 0, '2018-07-24 17:16:42', '2019-01-02 11:51:25', 1, 1),
+(38, 4, 2, 'wednesday', '00:00:00', '00:00:00', 0, '2018-07-24 17:16:42', '2019-01-02 11:51:25', 1, 1),
+(39, 4, 2, 'thursday', '00:00:00', '00:00:00', 0, '2018-07-24 17:16:42', '2019-01-02 11:51:25', 1, 1),
+(40, 4, 2, 'friday', '00:00:00', '00:00:00', 0, '2018-07-24 17:16:42', '2019-01-02 11:51:25', 1, 1),
+(41, 4, 2, 'saturday', '00:00:00', '00:00:00', 0, '2018-07-24 17:16:42', '2019-01-02 11:51:25', 1, 1),
+(42, 4, 2, 'sunday', '00:00:00', '00:00:00', 0, '2018-07-24 17:16:42', '2019-01-02 11:51:25', 1, 1),
 (43, 5, 1, 'monday', NULL, NULL, 0, '2018-07-24 18:05:23', '2018-07-24 18:05:23', 1, 1),
 (44, 5, 1, 'tuesday', NULL, NULL, 0, '2018-07-24 18:05:23', '2018-07-24 18:05:23', 1, 1),
 (45, 5, 1, 'wednesday', NULL, NULL, 0, '2018-07-24 18:05:23', '2018-07-24 18:05:23', 1, 1),
@@ -56424,20 +57562,48 @@ INSERT INTO `user_other_information` (`id`, `user_id`, `operation_timing`, `day`
 (236, 18, 2, 'friday', NULL, NULL, 0, '2018-08-29 09:30:42', '2018-08-29 09:30:42', 1, 1),
 (237, 18, 2, 'saturday', NULL, NULL, 0, '2018-08-29 09:30:42', '2018-08-29 09:30:42', 1, 1),
 (238, 18, 2, 'sunday', NULL, NULL, 0, '2018-08-29 09:30:42', '2018-08-29 09:30:42', 1, 1),
-(239, 19, 1, 'monday', '00:00:00', '00:00:00', 0, '2018-08-29 09:34:20', '2018-08-29 09:36:02', 1, 1),
-(240, 19, 1, 'tuesday', '00:00:00', '00:00:00', 0, '2018-08-29 09:34:20', '2018-08-29 09:36:02', 1, 1),
-(241, 19, 1, 'wednesday', '00:00:00', '00:00:00', 0, '2018-08-29 09:34:20', '2018-08-29 09:36:02', 1, 1),
-(242, 19, 1, 'thursday', '00:00:00', '00:00:00', 0, '2018-08-29 09:34:20', '2018-08-29 09:36:02', 1, 1),
-(243, 19, 1, 'friday', '00:00:00', '00:00:00', 0, '2018-08-29 09:34:20', '2018-08-29 09:36:02', 1, 1),
-(244, 19, 1, 'saturday', '00:00:00', '00:00:00', 0, '2018-08-29 09:34:20', '2018-08-29 09:36:02', 1, 1),
-(245, 19, 1, 'sunday', '00:00:00', '00:00:00', 0, '2018-08-29 09:34:20', '2018-08-29 09:36:02', 1, 1),
-(246, 19, 2, 'monday', '00:00:00', '00:00:00', 0, '2018-08-29 09:34:20', '2018-08-29 09:36:02', 1, 1),
-(247, 19, 2, 'tuesday', '00:00:00', '00:00:00', 0, '2018-08-29 09:34:20', '2018-08-29 09:36:02', 1, 1),
-(248, 19, 2, 'wednesday', '00:00:00', '00:00:00', 0, '2018-08-29 09:34:20', '2018-08-29 09:36:02', 1, 1),
-(249, 19, 2, 'thursday', '00:00:00', '00:00:00', 0, '2018-08-29 09:34:20', '2018-08-29 09:36:02', 1, 1),
-(250, 19, 2, 'friday', '00:00:00', '00:00:00', 0, '2018-08-29 09:34:20', '2018-08-29 09:36:02', 1, 1),
-(251, 19, 2, 'saturday', '00:00:00', '00:00:00', 0, '2018-08-29 09:34:20', '2018-08-29 09:36:02', 1, 1),
-(252, 19, 2, 'sunday', '00:00:00', '00:00:00', 0, '2018-08-29 09:34:20', '2018-08-29 09:36:02', 1, 1);
+(239, 19, 1, 'monday', '01:30:00', '15:30:00', 1, '2018-08-29 09:34:20', '2019-02-06 12:05:04', 1, 1),
+(240, 19, 1, 'tuesday', '01:30:00', '15:30:00', 1, '2018-08-29 09:34:20', '2019-02-06 12:05:04', 1, 1),
+(241, 19, 1, 'wednesday', '01:30:00', '15:30:00', 1, '2018-08-29 09:34:20', '2019-02-06 12:05:04', 1, 1),
+(242, 19, 1, 'thursday', '01:30:00', '15:30:00', 1, '2018-08-29 09:34:20', '2019-02-06 12:05:04', 1, 1),
+(243, 19, 1, 'friday', '01:30:00', '15:30:00', 1, '2018-08-29 09:34:20', '2019-02-06 12:05:04', 1, 1),
+(244, 19, 1, 'saturday', '01:30:00', '15:30:00', 1, '2018-08-29 09:34:20', '2019-02-06 12:05:04', 1, 1),
+(245, 19, 1, 'sunday', '01:30:00', '15:30:00', 1, '2018-08-29 09:34:20', '2019-02-06 12:05:04', 1, 1),
+(246, 19, 2, 'monday', '00:00:00', '00:00:00', 0, '2018-08-29 09:34:20', '2019-02-06 12:05:04', 1, 1),
+(247, 19, 2, 'tuesday', '00:00:00', '00:00:00', 0, '2018-08-29 09:34:20', '2019-02-06 12:05:04', 1, 1),
+(248, 19, 2, 'wednesday', '00:00:00', '00:00:00', 0, '2018-08-29 09:34:20', '2019-02-06 12:05:04', 1, 1),
+(249, 19, 2, 'thursday', '00:00:00', '00:00:00', 0, '2018-08-29 09:34:20', '2019-02-06 12:05:04', 1, 1),
+(250, 19, 2, 'friday', '00:00:00', '00:00:00', 0, '2018-08-29 09:34:20', '2019-02-06 12:05:04', 1, 1),
+(251, 19, 2, 'saturday', '00:00:00', '00:00:00', 0, '2018-08-29 09:34:20', '2019-02-06 12:05:04', 1, 1),
+(252, 19, 2, 'sunday', '00:00:00', '00:00:00', 0, '2018-08-29 09:34:20', '2019-02-06 12:05:04', 1, 1),
+(253, 21, 1, 'monday', '11:00:00', '14:00:00', 1, '2018-11-06 08:28:50', '2018-11-06 08:33:15', 1, 1),
+(254, 21, 1, 'tuesday', '11:00:00', '14:00:00', 1, '2018-11-06 08:28:50', '2018-11-06 08:33:15', 1, 1),
+(255, 21, 1, 'wednesday', '11:00:00', '14:00:00', 1, '2018-11-06 08:28:50', '2018-11-06 08:33:15', 1, 1),
+(256, 21, 1, 'thursday', '11:00:00', '14:00:00', 1, '2018-11-06 08:28:50', '2018-11-06 08:33:15', 1, 1),
+(257, 21, 1, 'friday', '11:00:00', '14:00:00', 1, '2018-11-06 08:28:50', '2018-11-06 08:33:15', 1, 1),
+(258, 21, 1, 'saturday', '11:00:00', '14:00:00', 1, '2018-11-06 08:28:50', '2018-11-06 08:33:15', 1, 1),
+(259, 21, 1, 'sunday', '00:00:00', '00:00:00', 0, '2018-11-06 08:28:50', '2018-11-06 08:33:15', 1, 1),
+(260, 21, 2, 'monday', '00:00:00', '00:00:00', 0, '2018-11-06 08:28:50', '2018-11-06 08:33:15', 1, 1),
+(261, 21, 2, 'tuesday', '00:00:00', '00:00:00', 0, '2018-11-06 08:28:50', '2018-11-06 08:33:15', 1, 1),
+(262, 21, 2, 'wednesday', '00:00:00', '00:00:00', 0, '2018-11-06 08:28:50', '2018-11-06 08:33:15', 1, 1),
+(263, 21, 2, 'thursday', '00:00:00', '00:00:00', 0, '2018-11-06 08:28:50', '2018-11-06 08:33:15', 1, 1),
+(264, 21, 2, 'friday', '00:00:00', '00:00:00', 0, '2018-11-06 08:28:50', '2018-11-06 08:33:15', 1, 1),
+(265, 21, 2, 'saturday', '00:00:00', '00:00:00', 0, '2018-11-06 08:28:50', '2018-11-06 08:33:15', 1, 1),
+(266, 21, 2, 'sunday', '00:00:00', '00:00:00', 0, '2018-11-06 08:28:50', '2018-11-06 08:33:15', 1, 1),
+(295, 26, 1, 'monday', '08:00:00', '17:00:00', 1, '2019-02-06 14:05:37', '2019-02-06 14:09:06', 1, 1),
+(296, 26, 1, 'tuesday', '08:00:00', '17:00:00', 1, '2019-02-06 14:05:37', '2019-02-06 14:09:06', 1, 1),
+(297, 26, 1, 'wednesday', '08:00:00', '17:00:00', 1, '2019-02-06 14:05:37', '2019-02-06 14:09:06', 1, 1),
+(298, 26, 1, 'thursday', '08:00:00', '18:00:00', 1, '2019-02-06 14:05:37', '2019-02-06 14:09:06', 1, 1),
+(299, 26, 1, 'friday', '08:00:00', '17:00:00', 1, '2019-02-06 14:05:37', '2019-02-06 14:09:06', 1, 1),
+(300, 26, 1, 'saturday', '00:00:00', '00:00:00', 0, '2019-02-06 14:05:37', '2019-02-06 14:09:06', 1, 1),
+(301, 26, 1, 'sunday', '00:00:00', '00:00:00', 0, '2019-02-06 14:05:37', '2019-02-06 14:09:06', 1, 1),
+(302, 26, 2, 'monday', '19:00:00', '04:00:00', 1, '2019-02-06 14:05:37', '2019-02-06 14:09:06', 1, 1),
+(303, 26, 2, 'tuesday', '19:00:00', '04:00:00', 1, '2019-02-06 14:05:37', '2019-02-06 14:09:06', 1, 1),
+(304, 26, 2, 'wednesday', '19:00:00', '04:00:00', 1, '2019-02-06 14:05:37', '2019-02-06 14:09:06', 1, 1),
+(305, 26, 2, 'thursday', '19:00:00', '04:00:00', 1, '2019-02-06 14:05:37', '2019-02-06 14:09:06', 1, 1),
+(306, 26, 2, 'friday', '19:00:00', '04:00:00', 1, '2019-02-06 14:05:37', '2019-02-06 14:09:06', 1, 1),
+(307, 26, 2, 'saturday', '00:00:00', '00:00:00', 0, '2019-02-06 14:05:37', '2019-02-06 14:09:06', 1, 1),
+(308, 26, 2, 'sunday', '00:00:00', '00:00:00', 0, '2019-02-06 14:05:37', '2019-02-06 14:09:06', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -56476,7 +57642,15 @@ INSERT INTO `user_roles` (`id`, `role_id`, `user_id`, `created_at`, `updated_at`
 (16, 2, 16, '2018-08-25 17:50:27', '2018-08-25 17:50:27'),
 (17, 2, 17, '2018-08-25 17:59:10', '2018-08-25 17:59:10'),
 (18, 2, 18, '2018-08-29 09:30:42', '2018-08-29 09:30:42'),
-(19, 2, 19, '2018-08-29 09:34:20', '2018-08-29 09:34:20');
+(19, 2, 19, '2018-08-29 09:34:20', '2018-08-29 09:34:20'),
+(20, 6, 20, '2018-10-31 13:27:19', '2018-10-31 13:27:19'),
+(21, 2, 21, '2018-11-06 08:28:50', '2018-11-06 08:28:50'),
+(23, 3, 23, '2018-11-19 07:23:19', '2018-11-19 07:23:19'),
+(24, 3, 24, '2018-11-19 07:24:10', '2018-11-19 07:24:10'),
+(25, 6, 25, '2018-11-19 07:24:46', '2018-11-19 07:24:46'),
+(26, 2, 26, '2019-01-29 06:28:31', '2019-01-29 06:28:31'),
+(27, 2, 27, '2019-01-29 06:38:50', '2019-01-29 06:38:50'),
+(28, 2, 26, '2019-02-06 08:35:37', '2019-02-06 08:35:37');
 
 -- --------------------------------------------------------
 
@@ -57167,142 +58341,142 @@ INSERT INTO `websites_page_head_titles` (`id`, `category`, `subcategory`, `city`
 (653, 3, 2, 3378, 128, NULL, 'intex-led-lcd-tv-in-vanasthali-marg-station-road', 'Mi0yLTMzNzgtMTI4', 'Top 10 intex led tv repair & services in Vanasthali Marg Station Road', 'Best intex led tv repair & services, intex led tv repair', '29 intex led tv repair & services in Vanasthali Marg Station Road. find ?tv repair & services, ?lcd tv repair & services, ?led tv repair & services', '2018-07-31 13:09:33', '2018-07-31 13:09:33', 1, 1),
 (654, 3, 2, 3378, 129, NULL, 'intex-led-lcd-tv-in-watika', 'Mi0yLTMzNzgtMTI5', 'Top 10 intex led tv repair & services in Watika', 'Best intex led tv repair & services, intex led tv repair', '29 intex led tv repair & services in Watika. find ?tv repair & services, ?lcd tv repair & services, ?led tv repair & services', '2018-07-31 13:09:33', '2018-07-31 13:09:33', 1, 1),
 (655, 3, 2, 3378, 130, NULL, 'intex-led-lcd-tv-in-sodala', 'Mi0yLTMzNzgtMTMw', 'Top 10 intex led tv repair & services in Sodala', 'Best intex led tv repair & services, intex led tv repair', '29 intex led tv repair & services in Sodala. find ?tv repair & services, ?lcd tv repair & services, ?led tv repair & services', '2018-07-31 13:09:33', '2018-07-31 13:09:33', 1, 1),
-(656, 2, NULL, 3378, NULL, NULL, 'ac-repair-service-center', 'Mi0xLTMzNzg=', 'Top 10 ac repair and service centre in jaipur', 'Ac repair in jaipur, ac service centre in jaipur, ac service center in jaipur', 'Ac repair services in jaipur - experienced split, window air conditioner repairing in jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(657, 2, NULL, 3378, 1, NULL, 'ac-repair-service-center-in-adarsh-nagar', 'Mi0xLTMzNzgtMQ==', 'Top 10 ac repair and service centre in Adarsh Nagar', 'Ac repair in Adarsh Nagar, ac service centre in Adarsh Nagar, ac service center in Adarsh Nagar', 'Ac repair services in Adarsh Nagar - experienced split, window air conditioner repairing in Adarsh Nagar and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(658, 2, NULL, 3378, 2, NULL, 'ac-repair-service-center-in-ajmer-road', 'Mi0xLTMzNzgtMg==', 'Top 10 ac repair and service centre in Ajmer Road', 'Ac repair in Ajmer Road, ac service centre in Ajmer Road, ac service center in Ajmer Road', 'Ac repair services in Ajmer Road - experienced split, window air conditioner repairing in Ajmer Road and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(659, 2, NULL, 3378, 3, NULL, 'ac-repair-service-center-in-ambabari', 'Mi0xLTMzNzgtMw==', 'Top 10 ac repair and service centre in Ambabari', 'Ac repair in Ambabari, ac service centre in Ambabari, ac service center in Ambabari', 'Ac repair services in Ambabari - experienced split, window air conditioner repairing in Ambabari and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(660, 2, NULL, 3378, 4, NULL, 'ac-repair-service-center-in-amer', 'Mi0xLTMzNzgtNA==', 'Top 10 ac repair and service centre in Amer', 'Ac repair in Amer, ac service centre in Amer, ac service center in Amer', 'Ac repair services in Amer - experienced split, window air conditioner repairing in Amer and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(661, 2, NULL, 3378, 5, NULL, 'ac-repair-service-center-in-bani-park', 'Mi0xLTMzNzgtNQ==', 'Top 10 ac repair and service centre in Bani Park', 'Ac repair in Bani Park, ac service centre in Bani Park, ac service center in Bani Park', 'Ac repair services in Bani Park - experienced split, window air conditioner repairing in Bani Park and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(662, 2, NULL, 3378, 6, NULL, 'ac-repair-service-center-in-sanganer', 'Mi0xLTMzNzgtNg==', 'Top 10 ac repair and service centre in Sanganer', 'Ac repair in Sanganer, ac service centre in Sanganer, ac service center in Sanganer', 'Ac repair services in Sanganer - experienced split, window air conditioner repairing in Sanganer and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(663, 2, NULL, 3378, 7, NULL, 'ac-repair-service-center-in-bajaj-nagar', 'Mi0xLTMzNzgtNw==', 'Top 10 ac repair and service centre in Bajaj Nagar', 'Ac repair in Bajaj Nagar, ac service centre in Bajaj Nagar, ac service center in Bajaj Nagar', 'Ac repair services in Bajaj Nagar - experienced split, window air conditioner repairing in Bajaj Nagar and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(664, 2, NULL, 3378, 8, NULL, 'ac-repair-service-center-in-bapu-nagar', 'Mi0xLTMzNzgtOA==', 'Top 10 ac repair and service centre in Bapu Nagar', 'Ac repair in Bapu Nagar, ac service centre in Bapu Nagar, ac service center in Bapu Nagar', 'Ac repair services in Bapu Nagar - experienced split, window air conditioner repairing in Bapu Nagar and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(665, 2, NULL, 3378, 9, NULL, 'ac-repair-service-center-in-barkat-nagar', 'Mi0xLTMzNzgtOQ==', 'Top 10 ac repair and service centre in Barkat Nagar', 'Ac repair in Barkat Nagar, ac service centre in Barkat Nagar, ac service center in Barkat Nagar', 'Ac repair services in Barkat Nagar - experienced split, window air conditioner repairing in Barkat Nagar and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(666, 2, NULL, 3378, 10, NULL, 'ac-repair-service-center-in-bhankrota', 'Mi0xLTMzNzgtMTA=', 'Top 10 ac repair and service centre in Bhankrota', 'Ac repair in Bhankrota, ac service centre in Bhankrota, ac service center in Bhankrota', 'Ac repair services in Bhankrota - experienced split, window air conditioner repairing in Bhankrota and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(667, 2, NULL, 3378, 11, NULL, 'ac-repair-service-center-in-bindayaka', 'Mi0xLTMzNzgtMTE=', 'Top 10 ac repair and service centre in Bindayaka', 'Ac repair in Bindayaka, ac service centre in Bindayaka, ac service center in Bindayaka', 'Ac repair services in Bindayaka - experienced split, window air conditioner repairing in Bindayaka and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(668, 2, NULL, 3378, 12, NULL, 'ac-repair-service-center-in-chandpole-bazar', 'Mi0xLTMzNzgtMTI=', 'Top 10 ac repair and service centre in Chandpole Bazar', 'Ac repair in Chandpole Bazar, ac service centre in Chandpole Bazar, ac service center in Chandpole Bazar', 'Ac repair services in Chandpole Bazar - experienced split, window air conditioner repairing in Chandpole Bazar and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(669, 2, NULL, 3378, 13, NULL, 'ac-repair-service-center-in-chomu', 'Mi0xLTMzNzgtMTM=', 'Top 10 ac repair and service centre in Chomu', 'Ac repair in Chomu, ac service centre in Chomu, ac service center in Chomu', 'Ac repair services in Chomu - experienced split, window air conditioner repairing in Chomu and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(670, 2, NULL, 3378, 14, NULL, 'ac-repair-service-center-in-dehar-ke-balaji', 'Mi0xLTMzNzgtMTQ=', 'Top 10 ac repair and service centre in Dehar ke Balaji', 'Ac repair in Dehar ke Balaji, ac service centre in Dehar ke Balaji, ac service center in Dehar ke Balaji', 'Ac repair services in Dehar ke Balaji - experienced split, window air conditioner repairing in Dehar ke Balaji and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(671, 2, NULL, 3378, 15, NULL, 'ac-repair-service-center-in-heerapura', 'Mi0xLTMzNzgtMTU=', 'Top 10 ac repair and service centre in Heerapura', 'Ac repair in Heerapura, ac service centre in Heerapura, ac service center in Heerapura', 'Ac repair services in Heerapura - experienced split, window air conditioner repairing in Heerapura and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(672, 2, NULL, 3378, 16, NULL, 'ac-repair-service-center-in-indra-bazar', 'Mi0xLTMzNzgtMTY=', 'Top 10 ac repair and service centre in Indra bazar', 'Ac repair in Indra bazar, ac service centre in Indra bazar, ac service center in Indra bazar', 'Ac repair services in Indra bazar - experienced split, window air conditioner repairing in Indra bazar and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(673, 2, NULL, 3378, 17, NULL, 'ac-repair-service-center-in-jagatpura', 'Mi0xLTMzNzgtMTc=', 'Top 10 ac repair and service centre in Jagatpura', 'Ac repair in Jagatpura, ac service centre in Jagatpura, ac service center in Jagatpura', 'Ac repair services in Jagatpura - experienced split, window air conditioner repairing in Jagatpura and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(674, 2, NULL, 3378, 18, NULL, 'ac-repair-service-center-in-jaipur-city', 'Mi0xLTMzNzgtMTg=', 'Top 10 ac repair and service centre in Jaipur city', 'Ac repair in Jaipur city, ac service centre in Jaipur city, ac service center in Jaipur city', 'Ac repair services in Jaipur city - experienced split, window air conditioner repairing in Jaipur city and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(675, 2, NULL, 3378, 19, NULL, 'ac-repair-service-center-in-jaipur', 'Mi0xLTMzNzgtMTk=', 'Top 10 ac repair and service centre in Jaipur', 'Ac repair in Jaipur, ac service centre in Jaipur, ac service center in Jaipur', 'Ac repair services in Jaipur - experienced split, window air conditioner repairing in Jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(676, 2, NULL, 3378, 20, NULL, 'ac-repair-service-center-in-jaisingh-pura-khor', 'Mi0xLTMzNzgtMjA=', 'Top 10 ac repair and service centre in Jaisingh Pura Khor', 'Ac repair in Jaisingh Pura Khor, ac service centre in Jaisingh Pura Khor, ac service center in Jaisingh Pura Khor', 'Ac repair services in Jaisingh Pura Khor - experienced split, window air conditioner repairing in Jaisingh Pura Khor and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(677, 2, NULL, 3378, 21, NULL, 'ac-repair-service-center-in-janta-colony', 'Mi0xLTMzNzgtMjE=', 'Top 10 ac repair and service centre in Janta colony', 'Ac repair in Janta colony, ac service centre in Janta colony, ac service center in Janta colony', 'Ac repair services in Janta colony - experienced split, window air conditioner repairing in Janta colony and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(678, 2, NULL, 3378, 22, NULL, 'ac-repair-service-center-in-jawahar-nagar', 'Mi0xLTMzNzgtMjI=', 'Top 10 ac repair and service centre in Jawahar Nagar', 'Ac repair in Jawahar Nagar, ac service centre in Jawahar Nagar, ac service center in Jawahar Nagar', 'Ac repair services in Jawahar Nagar - experienced split, window air conditioner repairing in Jawahar Nagar and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(679, 2, NULL, 3378, 23, NULL, 'ac-repair-service-center-in-jhalana-doongri', 'Mi0xLTMzNzgtMjM=', 'Top 10 ac repair and service centre in Jhalana Doongri', 'Ac repair in Jhalana Doongri, ac service centre in Jhalana Doongri, ac service center in Jhalana Doongri', 'Ac repair services in Jhalana Doongri - experienced split, window air conditioner repairing in Jhalana Doongri and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(680, 2, NULL, 3378, 24, NULL, 'ac-repair-service-center-in-jhotwara', 'Mi0xLTMzNzgtMjQ=', 'Top 10 ac repair and service centre in Jhotwara', 'Ac repair in Jhotwara, ac service centre in Jhotwara, ac service center in Jhotwara', 'Ac repair services in Jhotwara - experienced split, window air conditioner repairing in Jhotwara and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(681, 2, NULL, 3378, 25, NULL, 'ac-repair-service-center-in-jhotwara-industrial-area', 'Mi0xLTMzNzgtMjU=', 'Top 10 ac repair and service centre in Jhotwara Industrial Area', 'Ac repair in Jhotwara Industrial Area, ac service centre in Jhotwara Industrial Area, ac service center in Jhotwara Industrial Area', 'Ac repair services in Jhotwara Industrial Area - experienced split, window air conditioner repairing in Jhotwara Industrial Area and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(682, 2, NULL, 3378, 26, NULL, 'ac-repair-service-center-in-khora-meena', 'Mi0xLTMzNzgtMjY=', 'Top 10 ac repair and service centre in Khora Meena', 'Ac repair in Khora Meena, ac service centre in Khora Meena, ac service center in Khora Meena', 'Ac repair services in Khora Meena - experienced split, window air conditioner repairing in Khora Meena and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(683, 2, NULL, 3378, 27, NULL, 'ac-repair-service-center-in-kishanpole-bazar', 'Mi0xLTMzNzgtMjc=', 'Top 10 ac repair and service centre in Kishanpole Bazar', 'Ac repair in Kishanpole Bazar, ac service centre in Kishanpole Bazar, ac service center in Kishanpole Bazar', 'Ac repair services in Kishanpole Bazar - experienced split, window air conditioner repairing in Kishanpole Bazar and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(684, 2, NULL, 3378, 28, NULL, 'ac-repair-service-center-in-kookas', 'Mi0xLTMzNzgtMjg=', 'Top 10 ac repair and service centre in kookas', 'Ac repair in kookas, ac service centre in kookas, ac service center in kookas', 'Ac repair services in kookas - experienced split, window air conditioner repairing in kookas and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(685, 2, NULL, 3378, 29, NULL, 'ac-repair-service-center-in-lal-kothi', 'Mi0xLTMzNzgtMjk=', 'Top 10 ac repair and service centre in Lal Kothi', 'Ac repair in Lal Kothi, ac service centre in Lal Kothi, ac service center in Lal Kothi', 'Ac repair services in Lal Kothi - experienced split, window air conditioner repairing in Lal Kothi and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(686, 2, NULL, 3378, 30, NULL, 'ac-repair-service-center-in-m-i--road', 'Mi0xLTMzNzgtMzA=', 'Top 10 ac repair and service centre in M.I. Road', 'Ac repair in M.I. Road, ac service centre in M.I. Road, ac service center in M.I. Road', 'Ac repair services in M.I. Road - experienced split, window air conditioner repairing in M.I. Road and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(687, 2, NULL, 3378, 31, NULL, 'ac-repair-service-center-in-mahapura', 'Mi0xLTMzNzgtMzE=', 'Top 10 ac repair and service centre in Mahapura', 'Ac repair in Mahapura, ac service centre in Mahapura, ac service center in Mahapura', 'Ac repair services in Mahapura - experienced split, window air conditioner repairing in Mahapura and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(688, 2, NULL, 3378, 32, NULL, 'ac-repair-service-center-in-malviya-nagar', 'Mi0xLTMzNzgtMzI=', 'Top 10 ac repair and service centre in malviya Nagar', 'Ac repair in malviya Nagar, ac service centre in malviya Nagar, ac service center in malviya Nagar', 'Ac repair services in malviya Nagar - experienced split, window air conditioner repairing in malviya Nagar and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(689, 2, NULL, 3378, 33, NULL, 'ac-repair-service-center-in-malviya-industrial-area', 'Mi0xLTMzNzgtMzM=', 'Top 10 ac repair and service centre in Malviya Industrial Area', 'Ac repair in Malviya Industrial Area, ac service centre in Malviya Industrial Area, ac service center in Malviya Industrial Area', 'Ac repair services in Malviya Industrial Area - experienced split, window air conditioner repairing in Malviya Industrial Area and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(690, 2, NULL, 3378, 34, NULL, 'ac-repair-service-center-in-mansarovar', 'Mi0xLTMzNzgtMzQ=', 'Top 10 ac repair and service centre in Mansarovar', 'Ac repair in Mansarovar, ac service centre in Mansarovar, ac service center in Mansarovar', 'Ac repair services in Mansarovar - experienced split, window air conditioner repairing in Mansarovar and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(691, 2, NULL, 3378, 35, NULL, 'ac-repair-service-center-in-meena-wala', 'Mi0xLTMzNzgtMzU=', 'Top 10 ac repair and service centre in Meena Wala', 'Ac repair in Meena Wala, ac service centre in Meena Wala, ac service center in Meena Wala', 'Ac repair services in Meena Wala - experienced split, window air conditioner repairing in Meena Wala and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(692, 2, NULL, 3378, 36, NULL, 'ac-repair-service-center-in-moti-doongari-road', 'Mi0xLTMzNzgtMzY=', 'Top 10 ac repair and service centre in Moti Doongari Road', 'Ac repair in Moti Doongari Road, ac service centre in Moti Doongari Road, ac service center in Moti Doongari Road', 'Ac repair services in Moti Doongari Road - experienced split, window air conditioner repairing in Moti Doongari Road and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(693, 2, NULL, 3378, 37, NULL, 'ac-repair-service-center-in-muhana', 'Mi0xLTMzNzgtMzc=', 'Top 10 ac repair and service centre in Muhana', 'Ac repair in Muhana, ac service centre in Muhana, ac service center in Muhana', 'Ac repair services in Muhana - experienced split, window air conditioner repairing in Muhana and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1);
+(656, 2, NULL, 3378, NULL, NULL, 'ac-repair-service-center', 'Mi0xLTMzNzg=', 'Top 10 ac repair and service centre in jaipur', 'Ac repair in jaipur, ac service centre in jaipur, ac service center in jaipur', 'Ac repair services in jaipur - experienced split, window air conditioner repairing in jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(657, 2, NULL, 3378, 1, NULL, 'ac-repair-service-center-in-adarsh-nagar', 'Mi0xLTMzNzgtMQ==', 'Top 10 ac repair and service centre in Adarsh Nagar, jaipur', 'Ac repair in Adarsh Nagar, jaipur, ac service centre in Adarsh Nagar, jaipur, ac service center in Adarsh Nagar, jaipur', 'Ac repair services in Adarsh Nagar, jaipur - experienced split, window air conditioner repairing in Adarsh Nagar, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(658, 2, NULL, 3378, 2, NULL, 'ac-repair-service-center-in-ajmer-road', 'Mi0xLTMzNzgtMg==', 'Top 10 ac repair and service centre in Ajmer Road, jaipur', 'Ac repair in Ajmer Road, jaipur, ac service centre in Ajmer Road, jaipur, ac service center in Ajmer Road, jaipur', 'Ac repair services in Ajmer Road, jaipur - experienced split, window air conditioner repairing in Ajmer Road, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(659, 2, NULL, 3378, 3, NULL, 'ac-repair-service-center-in-ambabari', 'Mi0xLTMzNzgtMw==', 'Top 10 ac repair and service centre in Ambabari, jaipur', 'Ac repair in Ambabari, jaipur, ac service centre in Ambabari, jaipur, ac service center in Ambabari, jaipur', 'Ac repair services in Ambabari, jaipur - experienced split, window air conditioner repairing in Ambabari, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(660, 2, NULL, 3378, 4, NULL, 'ac-repair-service-center-in-amer', 'Mi0xLTMzNzgtNA==', 'Top 10 ac repair and service centre in Amer, jaipur', 'Ac repair in Amer, jaipur, ac service centre in Amer, jaipur, ac service center in Amer, jaipur', 'Ac repair services in Amer, jaipur - experienced split, window air conditioner repairing in Amer, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(661, 2, NULL, 3378, 5, NULL, 'ac-repair-service-center-in-bani-park', 'Mi0xLTMzNzgtNQ==', 'Top 10 ac repair and service centre in Bani Park, jaipur', 'Ac repair in Bani Park, jaipur, ac service centre in Bani Park, jaipur, ac service center in Bani Park, jaipur', 'Ac repair services in Bani Park, jaipur - experienced split, window air conditioner repairing in Bani Park, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(662, 2, NULL, 3378, 6, NULL, 'ac-repair-service-center-in-sanganer', 'Mi0xLTMzNzgtNg==', 'Top 10 ac repair and service centre in Sanganer, jaipur', 'Ac repair in Sanganer, jaipur, ac service centre in Sanganer, jaipur, ac service center in Sanganer, jaipur', 'Ac repair services in Sanganer, jaipur - experienced split, window air conditioner repairing in Sanganer, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(663, 2, NULL, 3378, 7, NULL, 'ac-repair-service-center-in-bajaj-nagar', 'Mi0xLTMzNzgtNw==', 'Top 10 ac repair and service centre in Bajaj Nagar, jaipur', 'Ac repair in Bajaj Nagar, jaipur, ac service centre in Bajaj Nagar, jaipur, ac service center in Bajaj Nagar, jaipur', 'Ac repair services in Bajaj Nagar, jaipur - experienced split, window air conditioner repairing in Bajaj Nagar, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(664, 2, NULL, 3378, 8, NULL, 'ac-repair-service-center-in-bapu-nagar', 'Mi0xLTMzNzgtOA==', 'Top 10 ac repair and service centre in Bapu Nagar, jaipur', 'Ac repair in Bapu Nagar, jaipur, ac service centre in Bapu Nagar, jaipur, ac service center in Bapu Nagar, jaipur', 'Ac repair services in Bapu Nagar, jaipur - experienced split, window air conditioner repairing in Bapu Nagar, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(665, 2, NULL, 3378, 9, NULL, 'ac-repair-service-center-in-barkat-nagar', 'Mi0xLTMzNzgtOQ==', 'Top 10 ac repair and service centre in Barkat Nagar, jaipur', 'Ac repair in Barkat Nagar, jaipur, ac service centre in Barkat Nagar, jaipur, ac service center in Barkat Nagar, jaipur', 'Ac repair services in Barkat Nagar, jaipur - experienced split, window air conditioner repairing in Barkat Nagar, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(666, 2, NULL, 3378, 10, NULL, 'ac-repair-service-center-in-bhankrota', 'Mi0xLTMzNzgtMTA=', 'Top 10 ac repair and service centre in Bhankrota, jaipur', 'Ac repair in Bhankrota, jaipur, ac service centre in Bhankrota, jaipur, ac service center in Bhankrota, jaipur', 'Ac repair services in Bhankrota, jaipur - experienced split, window air conditioner repairing in Bhankrota, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(667, 2, NULL, 3378, 11, NULL, 'ac-repair-service-center-in-bindayaka', 'Mi0xLTMzNzgtMTE=', 'Top 10 ac repair and service centre in Bindayaka, jaipur', 'Ac repair in Bindayaka, jaipur, ac service centre in Bindayaka, jaipur, ac service center in Bindayaka, jaipur', 'Ac repair services in Bindayaka, jaipur - experienced split, window air conditioner repairing in Bindayaka, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(668, 2, NULL, 3378, 12, NULL, 'ac-repair-service-center-in-chandpole-bazar', 'Mi0xLTMzNzgtMTI=', 'Top 10 ac repair and service centre in Chandpole Bazar, jaipur', 'Ac repair in Chandpole Bazar, jaipur, ac service centre in Chandpole Bazar, jaipur, ac service center in Chandpole Bazar, jaipur', 'Ac repair services in Chandpole Bazar, jaipur - experienced split, window air conditioner repairing in Chandpole Bazar, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(669, 2, NULL, 3378, 13, NULL, 'ac-repair-service-center-in-chomu', 'Mi0xLTMzNzgtMTM=', 'Top 10 ac repair and service centre in Chomu, jaipur', 'Ac repair in Chomu, jaipur, ac service centre in Chomu, jaipur, ac service center in Chomu, jaipur', 'Ac repair services in Chomu, jaipur - experienced split, window air conditioner repairing in Chomu, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(670, 2, NULL, 3378, 14, NULL, 'ac-repair-service-center-in-dehar-ke-balaji', 'Mi0xLTMzNzgtMTQ=', 'Top 10 ac repair and service centre in Dehar ke Balaji, jaipur', 'Ac repair in Dehar ke Balaji, jaipur, ac service centre in Dehar ke Balaji, jaipur, ac service center in Dehar ke Balaji, jaipur', 'Ac repair services in Dehar ke Balaji, jaipur - experienced split, window air conditioner repairing in Dehar ke Balaji, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(671, 2, NULL, 3378, 15, NULL, 'ac-repair-service-center-in-heerapura', 'Mi0xLTMzNzgtMTU=', 'Top 10 ac repair and service centre in Heerapura, jaipur', 'Ac repair in Heerapura, jaipur, ac service centre in Heerapura, jaipur, ac service center in Heerapura, jaipur', 'Ac repair services in Heerapura, jaipur - experienced split, window air conditioner repairing in Heerapura, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(672, 2, NULL, 3378, 16, NULL, 'ac-repair-service-center-in-indra-bazar', 'Mi0xLTMzNzgtMTY=', 'Top 10 ac repair and service centre in Indra bazar, jaipur', 'Ac repair in Indra bazar, jaipur, ac service centre in Indra bazar, jaipur, ac service center in Indra bazar, jaipur', 'Ac repair services in Indra bazar, jaipur - experienced split, window air conditioner repairing in Indra bazar, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(673, 2, NULL, 3378, 17, NULL, 'ac-repair-service-center-in-jagatpura', 'Mi0xLTMzNzgtMTc=', 'Top 10 ac repair and service centre in Jagatpura, jaipur', 'Ac repair in Jagatpura, jaipur, ac service centre in Jagatpura, jaipur, ac service center in Jagatpura, jaipur', 'Ac repair services in Jagatpura, jaipur - experienced split, window air conditioner repairing in Jagatpura, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(674, 2, NULL, 3378, 18, NULL, 'ac-repair-service-center-in-jaipur-city', 'Mi0xLTMzNzgtMTg=', 'Top 10 ac repair and service centre in Jaipur city, jaipur', 'Ac repair in Jaipur city, jaipur, ac service centre in Jaipur city, jaipur, ac service center in Jaipur city, jaipur', 'Ac repair services in Jaipur city, jaipur - experienced split, window air conditioner repairing in Jaipur city, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(675, 2, NULL, 3378, 19, NULL, 'ac-repair-service-center-in-jaipur', 'Mi0xLTMzNzgtMTk=', 'Top 10 ac repair and service centre in Jaipur, jaipur', 'Ac repair in Jaipur, jaipur, ac service centre in Jaipur, jaipur, ac service center in Jaipur, jaipur', 'Ac repair services in Jaipur, jaipur - experienced split, window air conditioner repairing in Jaipur, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(676, 2, NULL, 3378, 20, NULL, 'ac-repair-service-center-in-jaisingh-pura-khor', 'Mi0xLTMzNzgtMjA=', 'Top 10 ac repair and service centre in Jaisingh Pura Khor, jaipur', 'Ac repair in Jaisingh Pura Khor, jaipur, ac service centre in Jaisingh Pura Khor, jaipur, ac service center in Jaisingh Pura Khor, jaipur', 'Ac repair services in Jaisingh Pura Khor, jaipur - experienced split, window air conditioner repairing in Jaisingh Pura Khor, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(677, 2, NULL, 3378, 21, NULL, 'ac-repair-service-center-in-janta-colony', 'Mi0xLTMzNzgtMjE=', 'Top 10 ac repair and service centre in Janta colony, jaipur', 'Ac repair in Janta colony, jaipur, ac service centre in Janta colony, jaipur, ac service center in Janta colony, jaipur', 'Ac repair services in Janta colony, jaipur - experienced split, window air conditioner repairing in Janta colony, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(678, 2, NULL, 3378, 22, NULL, 'ac-repair-service-center-in-jawahar-nagar', 'Mi0xLTMzNzgtMjI=', 'Top 10 ac repair and service centre in Jawahar Nagar, jaipur', 'Ac repair in Jawahar Nagar, jaipur, ac service centre in Jawahar Nagar, jaipur, ac service center in Jawahar Nagar, jaipur', 'Ac repair services in Jawahar Nagar, jaipur - experienced split, window air conditioner repairing in Jawahar Nagar, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(679, 2, NULL, 3378, 23, NULL, 'ac-repair-service-center-in-jhalana-doongri', 'Mi0xLTMzNzgtMjM=', 'Top 10 ac repair and service centre in Jhalana Doongri, jaipur', 'Ac repair in Jhalana Doongri, jaipur, ac service centre in Jhalana Doongri, jaipur, ac service center in Jhalana Doongri, jaipur', 'Ac repair services in Jhalana Doongri, jaipur - experienced split, window air conditioner repairing in Jhalana Doongri, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(680, 2, NULL, 3378, 24, NULL, 'ac-repair-service-center-in-jhotwara', 'Mi0xLTMzNzgtMjQ=', 'Top 10 ac repair and service centre in Jhotwara, jaipur', 'Ac repair in Jhotwara, jaipur, ac service centre in Jhotwara, jaipur, ac service center in Jhotwara, jaipur', 'Ac repair services in Jhotwara, jaipur - experienced split, window air conditioner repairing in Jhotwara, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(681, 2, NULL, 3378, 25, NULL, 'ac-repair-service-center-in-jhotwara-industrial-area', 'Mi0xLTMzNzgtMjU=', 'Top 10 ac repair and service centre in Jhotwara Industrial Area, jaipur', 'Ac repair in Jhotwara Industrial Area, jaipur, ac service centre in Jhotwara Industrial Area, jaipur, ac service center in Jhotwara Industrial Area, jaipur', 'Ac repair services in Jhotwara Industrial Area, jaipur - experienced split, window air conditioner repairing in Jhotwara Industrial Area, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(682, 2, NULL, 3378, 26, NULL, 'ac-repair-service-center-in-khora-meena', 'Mi0xLTMzNzgtMjY=', 'Top 10 ac repair and service centre in Khora Meena, jaipur', 'Ac repair in Khora Meena, jaipur, ac service centre in Khora Meena, jaipur, ac service center in Khora Meena, jaipur', 'Ac repair services in Khora Meena, jaipur - experienced split, window air conditioner repairing in Khora Meena, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(683, 2, NULL, 3378, 27, NULL, 'ac-repair-service-center-in-kishanpole-bazar', 'Mi0xLTMzNzgtMjc=', 'Top 10 ac repair and service centre in Kishanpole Bazar, jaipur', 'Ac repair in Kishanpole Bazar, jaipur, ac service centre in Kishanpole Bazar, jaipur, ac service center in Kishanpole Bazar, jaipur', 'Ac repair services in Kishanpole Bazar, jaipur - experienced split, window air conditioner repairing in Kishanpole Bazar, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(684, 2, NULL, 3378, 28, NULL, 'ac-repair-service-center-in-kookas', 'Mi0xLTMzNzgtMjg=', 'Top 10 ac repair and service centre in kookas, jaipur', 'Ac repair in kookas, jaipur, ac service centre in kookas, jaipur, ac service center in kookas, jaipur', 'Ac repair services in kookas, jaipur - experienced split, window air conditioner repairing in kookas, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(685, 2, NULL, 3378, 29, NULL, 'ac-repair-service-center-in-lal-kothi', 'Mi0xLTMzNzgtMjk=', 'Top 10 ac repair and service centre in Lal Kothi, jaipur', 'Ac repair in Lal Kothi, jaipur, ac service centre in Lal Kothi, jaipur, ac service center in Lal Kothi, jaipur', 'Ac repair services in Lal Kothi, jaipur - experienced split, window air conditioner repairing in Lal Kothi, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(686, 2, NULL, 3378, 30, NULL, 'ac-repair-service-center-in-m-i--road', 'Mi0xLTMzNzgtMzA=', 'Top 10 ac repair and service centre in M.I. Road, jaipur', 'Ac repair in M.I. Road, jaipur, ac service centre in M.I. Road, jaipur, ac service center in M.I. Road, jaipur', 'Ac repair services in M.I. Road, jaipur - experienced split, window air conditioner repairing in M.I. Road, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(687, 2, NULL, 3378, 31, NULL, 'ac-repair-service-center-in-mahapura', 'Mi0xLTMzNzgtMzE=', 'Top 10 ac repair and service centre in Mahapura, jaipur', 'Ac repair in Mahapura, jaipur, ac service centre in Mahapura, jaipur, ac service center in Mahapura, jaipur', 'Ac repair services in Mahapura, jaipur - experienced split, window air conditioner repairing in Mahapura, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(688, 2, NULL, 3378, 32, NULL, 'ac-repair-service-center-in-malviya-nagar', 'Mi0xLTMzNzgtMzI=', 'Top 10 ac repair and service centre in malviya Nagar, jaipur', 'Ac repair in malviya Nagar, jaipur, ac service centre in malviya Nagar, jaipur, ac service center in malviya Nagar, jaipur', 'Ac repair services in malviya Nagar, jaipur - experienced split, window air conditioner repairing in malviya Nagar, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(689, 2, NULL, 3378, 33, NULL, 'ac-repair-service-center-in-malviya-industrial-area', 'Mi0xLTMzNzgtMzM=', 'Top 10 ac repair and service centre in Malviya Industrial Area, jaipur', 'Ac repair in Malviya Industrial Area, jaipur, ac service centre in Malviya Industrial Area, jaipur, ac service center in Malviya Industrial Area, jaipur', 'Ac repair services in Malviya Industrial Area, jaipur - experienced split, window air conditioner repairing in Malviya Industrial Area, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(690, 2, NULL, 3378, 34, NULL, 'ac-repair-service-center-in-mansarovar', 'Mi0xLTMzNzgtMzQ=', 'Top 10 ac repair and service centre in Mansarovar, jaipur', 'Ac repair in Mansarovar, jaipur, ac service centre in Mansarovar, jaipur, ac service center in Mansarovar, jaipur', 'Ac repair services in Mansarovar, jaipur - experienced split, window air conditioner repairing in Mansarovar, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1);
 INSERT INTO `websites_page_head_titles` (`id`, `category`, `subcategory`, `city`, `area`, `business_page`, `page_url`, `encoded_params`, `title`, `keyword`, `description`, `created_at`, `updated_at`, `update_status`, `status`) VALUES
-(694, 2, NULL, 3378, 38, NULL, 'ac-repair-service-center-in-mukandpura', 'Mi0xLTMzNzgtMzg=', 'Top 10 ac repair and service centre in Mukandpura', 'Ac repair in Mukandpura, ac service centre in Mukandpura, ac service center in Mukandpura', 'Ac repair services in Mukandpura - experienced split, window air conditioner repairing in Mukandpura and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(695, 2, NULL, 3378, 39, NULL, 'ac-repair-service-center-in-mundia-rampura', 'Mi0xLTMzNzgtMzk=', 'Top 10 ac repair and service centre in Mundia Rampura', 'Ac repair in Mundia Rampura, ac service centre in Mundia Rampura, ac service center in Mundia Rampura', 'Ac repair services in Mundia Rampura - experienced split, window air conditioner repairing in Mundia Rampura and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(696, 2, NULL, 3378, 40, NULL, 'ac-repair-service-center-in-murlipura', 'Mi0xLTMzNzgtNDA=', 'Top 10 ac repair and service centre in Murlipura', 'Ac repair in Murlipura, ac service centre in Murlipura, ac service center in Murlipura', 'Ac repair services in Murlipura - experienced split, window air conditioner repairing in Murlipura and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(697, 2, NULL, 3378, 41, NULL, 'ac-repair-service-center-in-nangal-jaisa-bohra', 'Mi0xLTMzNzgtNDE=', 'Top 10 ac repair and service centre in Nangal Jaisa Bohra', 'Ac repair in Nangal Jaisa Bohra, ac service centre in Nangal Jaisa Bohra, ac service center in Nangal Jaisa Bohra', 'Ac repair services in Nangal Jaisa Bohra - experienced split, window air conditioner repairing in Nangal Jaisa Bohra and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(698, 2, NULL, 3378, 42, NULL, 'ac-repair-service-center-in-neendar', 'Mi0xLTMzNzgtNDI=', 'Top 10 ac repair and service centre in Neendar', 'Ac repair in Neendar, ac service centre in Neendar, ac service center in Neendar', 'Ac repair services in Neendar - experienced split, window air conditioner repairing in Neendar and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(699, 2, NULL, 3378, 43, NULL, 'ac-repair-service-center-in-neendar-benar', 'Mi0xLTMzNzgtNDM=', 'Top 10 ac repair and service centre in neendar benar', 'Ac repair in neendar benar, ac service centre in neendar benar, ac service center in neendar benar', 'Ac repair services in neendar benar - experienced split, window air conditioner repairing in neendar benar and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(700, 2, NULL, 3378, 44, NULL, 'ac-repair-service-center-in-niwaroo', 'Mi0xLTMzNzgtNDQ=', 'Top 10 ac repair and service centre in Niwaroo', 'Ac repair in Niwaroo, ac service centre in Niwaroo, ac service center in Niwaroo', 'Ac repair services in Niwaroo - experienced split, window air conditioner repairing in Niwaroo and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(701, 2, NULL, 3378, 45, NULL, 'ac-repair-service-center-in-pratap-nagar', 'Mi0xLTMzNzgtNDU=', 'Top 10 ac repair and service centre in Pratap Nagar', 'Ac repair in Pratap Nagar, ac service centre in Pratap Nagar, ac service center in Pratap Nagar', 'Ac repair services in Pratap Nagar - experienced split, window air conditioner repairing in Pratap Nagar and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(702, 2, NULL, 3378, 46, NULL, 'ac-repair-service-center-in-raja-park', 'Mi0xLTMzNzgtNDY=', 'Top 10 ac repair and service centre in Raja Park', 'Ac repair in Raja Park, ac service centre in Raja Park, ac service center in Raja Park', 'Ac repair services in Raja Park - experienced split, window air conditioner repairing in Raja Park and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(703, 2, NULL, 3378, 47, NULL, 'ac-repair-service-center-in-ramganj-bazar', 'Mi0xLTMzNzgtNDc=', 'Top 10 ac repair and service centre in Ramganj Bazar', 'Ac repair in Ramganj Bazar, ac service centre in Ramganj Bazar, ac service center in Ramganj Bazar', 'Ac repair services in Ramganj Bazar - experienced split, window air conditioner repairing in Ramganj Bazar and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(704, 2, NULL, 3378, 48, NULL, 'ac-repair-service-center-in-sfs-mansarovar', 'Mi0xLTMzNzgtNDg=', 'Top 10 ac repair and service centre in SFS Mansarovar', 'Ac repair in SFS Mansarovar, ac service centre in SFS Mansarovar, ac service center in SFS Mansarovar', 'Ac repair services in SFS Mansarovar - experienced split, window air conditioner repairing in SFS Mansarovar and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(705, 2, NULL, 3378, 49, NULL, 'ac-repair-service-center-in-shastri-nagar', 'Mi0xLTMzNzgtNDk=', 'Top 10 ac repair and service centre in Shastri Nagar', 'Ac repair in Shastri Nagar, ac service centre in Shastri Nagar, ac service center in Shastri Nagar', 'Ac repair services in Shastri Nagar - experienced split, window air conditioner repairing in Shastri Nagar and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(706, 2, NULL, 3378, 50, NULL, 'ac-repair-service-center-in-shyam-nagar', 'Mi0xLTMzNzgtNTA=', 'Top 10 ac repair and service centre in Shyam Nagar', 'Ac repair in Shyam Nagar, ac service centre in Shyam Nagar, ac service center in Shyam Nagar', 'Ac repair services in Shyam Nagar - experienced split, window air conditioner repairing in Shyam Nagar and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(707, 2, NULL, 3378, 51, NULL, 'ac-repair-service-center-in-sindhi-colony', 'Mi0xLTMzNzgtNTE=', 'Top 10 ac repair and service centre in Sindhi Colony', 'Ac repair in Sindhi Colony, ac service centre in Sindhi Colony, ac service center in Sindhi Colony', 'Ac repair services in Sindhi Colony - experienced split, window air conditioner repairing in Sindhi Colony and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(708, 2, NULL, 3378, 52, NULL, 'ac-repair-service-center-in-sirsi', 'Mi0xLTMzNzgtNTI=', 'Top 10 ac repair and service centre in Sirsi', 'Ac repair in Sirsi, ac service centre in Sirsi, ac service center in Sirsi', 'Ac repair services in Sirsi - experienced split, window air conditioner repairing in Sirsi and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(709, 2, NULL, 3378, 53, NULL, 'ac-repair-service-center-in-sitapura-industrial-area', 'Mi0xLTMzNzgtNTM=', 'Top 10 ac repair and service centre in Sitapura Industrial Area', 'Ac repair in Sitapura Industrial Area, ac service centre in Sitapura Industrial Area, ac service center in Sitapura Industrial Area', 'Ac repair services in Sitapura Industrial Area - experienced split, window air conditioner repairing in Sitapura Industrial Area and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(710, 2, NULL, 3378, 54, NULL, 'ac-repair-service-center-in-station-road', 'Mi0xLTMzNzgtNTQ=', 'Top 10 ac repair and service centre in Station Road', 'Ac repair in Station Road, ac service centre in Station Road, ac service center in Station Road', 'Ac repair services in Station Road - experienced split, window air conditioner repairing in Station Road and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(711, 2, NULL, 3378, 55, NULL, 'ac-repair-service-center-in-tilak-nagar', 'Mi0xLTMzNzgtNTU=', 'Top 10 ac repair and service centre in Tilak Nagar', 'Ac repair in Tilak Nagar, ac service centre in Tilak Nagar, ac service center in Tilak Nagar', 'Ac repair services in Tilak Nagar - experienced split, window air conditioner repairing in Tilak Nagar and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(712, 2, NULL, 3378, 56, NULL, 'ac-repair-service-center-in-toda-meena', 'Mi0xLTMzNzgtNTY=', 'Top 10 ac repair and service centre in Toda Meena', 'Ac repair in Toda Meena, ac service centre in Toda Meena, ac service center in Toda Meena', 'Ac repair services in Toda Meena - experienced split, window air conditioner repairing in Toda Meena and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(713, 2, NULL, 3378, 57, NULL, 'ac-repair-service-center-in-tripolia-bazar', 'Mi0xLTMzNzgtNTc=', 'Top 10 ac repair and service centre in Tripolia Bazar', 'Ac repair in Tripolia Bazar, ac service centre in Tripolia Bazar, ac service center in Tripolia Bazar', 'Ac repair services in Tripolia Bazar - experienced split, window air conditioner repairing in Tripolia Bazar and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(714, 2, NULL, 3378, 58, NULL, 'ac-repair-service-center-in-vaishali-nagar', 'Mi0xLTMzNzgtNTg=', 'Top 10 ac repair and service centre in Vaishali Nagar', 'Ac repair in Vaishali Nagar, ac service centre in Vaishali Nagar, ac service center in Vaishali Nagar', 'Ac repair services in Vaishali Nagar - experienced split, window air conditioner repairing in Vaishali Nagar and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(715, 2, NULL, 3378, 59, NULL, 'ac-repair-service-center-in-vidhyadhar-nagar', 'Mi0xLTMzNzgtNTk=', 'Top 10 ac repair and service centre in Vidhyadhar Nagar', 'Ac repair in Vidhyadhar Nagar, ac service centre in Vidhyadhar Nagar, ac service center in Vidhyadhar Nagar', 'Ac repair services in Vidhyadhar Nagar - experienced split, window air conditioner repairing in Vidhyadhar Nagar and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(716, 2, NULL, 3378, 60, NULL, 'ac-repair-service-center-in-gopalpura-byepass', 'Mi0xLTMzNzgtNjA=', 'Top 10 ac repair and service centre in Gopalpura Byepass', 'Ac repair in Gopalpura Byepass, ac service centre in Gopalpura Byepass, ac service center in Gopalpura Byepass', 'Ac repair services in Gopalpura Byepass - experienced split, window air conditioner repairing in Gopalpura Byepass and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(717, 2, NULL, 3378, 61, NULL, 'ac-repair-service-center-in-tonk-road', 'Mi0xLTMzNzgtNjE=', 'Top 10 ac repair and service centre in Tonk Road', 'Ac repair in Tonk Road, ac service centre in Tonk Road, ac service center in Tonk Road', 'Ac repair services in Tonk Road - experienced split, window air conditioner repairing in Tonk Road and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(718, 2, NULL, 3378, 62, NULL, 'ac-repair-service-center-in-achrol', 'Mi0xLTMzNzgtNjI=', 'Top 10 ac repair and service centre in Achrol', 'Ac repair in Achrol, ac service centre in Achrol, ac service center in Achrol', 'Ac repair services in Achrol - experienced split, window air conditioner repairing in Achrol and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(719, 2, NULL, 3378, 63, NULL, 'ac-repair-service-center-in-gandhi-nagar', 'Mi0xLTMzNzgtNjM=', 'Top 10 ac repair and service centre in Gandhi Nagar', 'Ac repair in Gandhi Nagar, ac service centre in Gandhi Nagar, ac service center in Gandhi Nagar', 'Ac repair services in Gandhi Nagar - experienced split, window air conditioner repairing in Gandhi Nagar and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(720, 2, NULL, 3378, 64, NULL, 'ac-repair-service-center-in-bapu-bazar', 'Mi0xLTMzNzgtNjQ=', 'Top 10 ac repair and service centre in bapu bazar', 'Ac repair in bapu bazar, ac service centre in bapu bazar, ac service center in bapu bazar', 'Ac repair services in bapu bazar - experienced split, window air conditioner repairing in bapu bazar and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(721, 2, NULL, 3378, 65, NULL, 'ac-repair-service-center-in-bais-godam', 'Mi0xLTMzNzgtNjU=', 'Top 10 ac repair and service centre in Bais Godam', 'Ac repair in Bais Godam, ac service centre in Bais Godam, ac service center in Bais Godam', 'Ac repair services in Bais Godam - experienced split, window air conditioner repairing in Bais Godam and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(722, 2, NULL, 3378, 66, NULL, 'ac-repair-service-center-in-bagru', 'Mi0xLTMzNzgtNjY=', 'Top 10 ac repair and service centre in Bagru', 'Ac repair in Bagru, ac service centre in Bagru, ac service center in Bagru', 'Ac repair services in Bagru - experienced split, window air conditioner repairing in Bagru and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(723, 2, NULL, 3378, 67, NULL, 'ac-repair-service-center-in-badi-chaupar', 'Mi0xLTMzNzgtNjc=', 'Top 10 ac repair and service centre in Badi Chaupar', 'Ac repair in Badi Chaupar, ac service centre in Badi Chaupar, ac service center in Badi Chaupar', 'Ac repair services in Badi Chaupar - experienced split, window air conditioner repairing in Badi Chaupar and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(724, 2, NULL, 3378, 68, NULL, 'ac-repair-service-center-in-bas-badanpura', 'Mi0xLTMzNzgtNjg=', 'Top 10 ac repair and service centre in Bas Badanpura', 'Ac repair in Bas Badanpura, ac service centre in Bas Badanpura, ac service center in Bas Badanpura', 'Ac repair services in Bas Badanpura - experienced split, window air conditioner repairing in Bas Badanpura and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(725, 2, NULL, 3378, 69, NULL, 'ac-repair-service-center-in-phulera', 'Mi0xLTMzNzgtNjk=', 'Top 10 ac repair and service centre in Phulera', 'Ac repair in Phulera, ac service centre in Phulera, ac service center in Phulera', 'Ac repair services in Phulera - experienced split, window air conditioner repairing in Phulera and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(726, 2, NULL, 3378, 70, NULL, 'ac-repair-service-center-in-c-scheme', 'Mi0xLTMzNzgtNzA=', 'Top 10 ac repair and service centre in C-scheme', 'Ac repair in C-scheme, ac service centre in C-scheme, ac service center in C-scheme', 'Ac repair services in C-scheme - experienced split, window air conditioner repairing in C-scheme and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(727, 2, NULL, 3378, 71, NULL, 'ac-repair-service-center-in-chitrakoot-scheme', 'Mi0xLTMzNzgtNzE=', 'Top 10 ac repair and service centre in chitrakoot scheme', 'Ac repair in chitrakoot scheme, ac service centre in chitrakoot scheme, ac service center in chitrakoot scheme', 'Ac repair services in chitrakoot scheme - experienced split, window air conditioner repairing in chitrakoot scheme and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(728, 2, NULL, 3378, 72, NULL, 'ac-repair-service-center-in-chaksu', 'Mi0xLTMzNzgtNzI=', 'Top 10 ac repair and service centre in chaksu', 'Ac repair in chaksu, ac service centre in chaksu, ac service center in chaksu', 'Ac repair services in chaksu - experienced split, window air conditioner repairing in chaksu and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(729, 2, NULL, 3378, 73, NULL, 'ac-repair-service-center-in-choti-chopar', 'Mi0xLTMzNzgtNzM=', 'Top 10 ac repair and service centre in Choti Chopar', 'Ac repair in Choti Chopar, ac service centre in Choti Chopar, ac service center in Choti Chopar', 'Ac repair services in Choti Chopar - experienced split, window air conditioner repairing in Choti Chopar and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(730, 2, NULL, 3378, 74, NULL, 'ac-repair-service-center-in-chomu-house', 'Mi0xLTMzNzgtNzQ=', 'Top 10 ac repair and service centre in Chomu House', 'Ac repair in Chomu House, ac service centre in Chomu House, ac service center in Chomu House', 'Ac repair services in Chomu House - experienced split, window air conditioner repairing in Chomu House and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(731, 2, NULL, 3378, 75, NULL, 'ac-repair-service-center-in-chandi-ki-taksal', 'Mi0xLTMzNzgtNzU=', 'Top 10 ac repair and service centre in Chandi Ki taksal', 'Ac repair in Chandi Ki taksal, ac service centre in Chandi Ki taksal, ac service center in Chandi Ki taksal', 'Ac repair services in Chandi Ki taksal - experienced split, window air conditioner repairing in Chandi Ki taksal and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(732, 2, NULL, 3378, 76, NULL, 'ac-repair-service-center-in-chaura-rasta', 'Mi0xLTMzNzgtNzY=', 'Top 10 ac repair and service centre in Chaura Rasta', 'Ac repair in Chaura Rasta, ac service centre in Chaura Rasta, ac service center in Chaura Rasta', 'Ac repair services in Chaura Rasta - experienced split, window air conditioner repairing in Chaura Rasta and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(733, 2, NULL, 3378, 77, NULL, 'ac-repair-service-center-in-chandwaji', 'Mi0xLTMzNzgtNzc=', 'Top 10 ac repair and service centre in Chandwaji', 'Ac repair in Chandwaji, ac service centre in Chandwaji, ac service center in Chandwaji', 'Ac repair services in Chandwaji - experienced split, window air conditioner repairing in Chandwaji and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(734, 2, NULL, 3378, 78, NULL, 'ac-repair-service-center-in-durgapura', 'Mi0xLTMzNzgtNzg=', 'Top 10 ac repair and service centre in Durgapura', 'Ac repair in Durgapura, ac service centre in Durgapura, ac service center in Durgapura', 'Ac repair services in Durgapura - experienced split, window air conditioner repairing in Durgapura and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(735, 2, NULL, 3378, 79, NULL, 'ac-repair-service-center-in-gopalbari', 'Mi0xLTMzNzgtNzk=', 'Top 10 ac repair and service centre in Gopalbari', 'Ac repair in Gopalbari, ac service centre in Gopalbari, ac service center in Gopalbari', 'Ac repair services in Gopalbari - experienced split, window air conditioner repairing in Gopalbari and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(736, 2, NULL, 3378, 80, NULL, 'ac-repair-service-center-in-gangori-bazar', 'Mi0xLTMzNzgtODA=', 'Top 10 ac repair and service centre in Gangori Bazar', 'Ac repair in Gangori Bazar, ac service centre in Gangori Bazar, ac service center in Gangori Bazar', 'Ac repair services in Gangori Bazar - experienced split, window air conditioner repairing in Gangori Bazar and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(737, 2, NULL, 3378, 81, NULL, 'ac-repair-service-center-in-ghat-gate', 'Mi0xLTMzNzgtODE=', 'Top 10 ac repair and service centre in Ghat Gate', 'Ac repair in Ghat Gate, ac service centre in Ghat Gate, ac service center in Ghat Gate', 'Ac repair services in Ghat Gate - experienced split, window air conditioner repairing in Ghat Gate and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(738, 2, NULL, 3378, 82, NULL, 'ac-repair-service-center-in-govindpura-baseri', 'Mi0xLTMzNzgtODI=', 'Top 10 ac repair and service centre in Govindpura baseri', 'Ac repair in Govindpura baseri, ac service centre in Govindpura baseri, ac service center in Govindpura baseri', 'Ac repair services in Govindpura baseri - experienced split, window air conditioner repairing in Govindpura baseri and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(739, 2, NULL, 3378, 83, NULL, 'ac-repair-service-center-in-galta-gate', 'Mi0xLTMzNzgtODM=', 'Top 10 ac repair and service centre in Galta Gate', 'Ac repair in Galta Gate, ac service centre in Galta Gate, ac service center in Galta Gate', 'Ac repair services in Galta Gate - experienced split, window air conditioner repairing in Galta Gate and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(740, 2, NULL, 3378, 84, NULL, 'ac-repair-service-center-in-gurunanak-pura', 'Mi0xLTMzNzgtODQ=', 'Top 10 ac repair and service centre in Gurunanak Pura', 'Ac repair in Gurunanak Pura, ac service centre in Gurunanak Pura, ac service center in Gurunanak Pura', 'Ac repair services in Gurunanak Pura - experienced split, window air conditioner repairing in Gurunanak Pura and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(741, 2, NULL, 3378, 85, NULL, 'ac-repair-service-center-in-hawa-sadak', 'Mi0xLTMzNzgtODU=', 'Top 10 ac repair and service centre in Hawa Sadak', 'Ac repair in Hawa Sadak, ac service centre in Hawa Sadak, ac service center in Hawa Sadak', 'Ac repair services in Hawa Sadak - experienced split, window air conditioner repairing in Hawa Sadak and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(742, 2, NULL, 3378, 86, NULL, 'ac-repair-service-center-in-hawa-mahal-bazar', 'Mi0xLTMzNzgtODY=', 'Top 10 ac repair and service centre in Hawa Mahal Bazar', 'Ac repair in Hawa Mahal Bazar, ac service centre in Hawa Mahal Bazar, ac service center in Hawa Mahal Bazar', 'Ac repair services in Hawa Mahal Bazar - experienced split, window air conditioner repairing in Hawa Mahal Bazar and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(743, 2, NULL, 3378, 87, NULL, 'ac-repair-service-center-in-hasanpura', 'Mi0xLTMzNzgtODc=', 'Top 10 ac repair and service centre in Hasanpura', 'Ac repair in Hasanpura, ac service centre in Hasanpura, ac service center in Hasanpura', 'Ac repair services in Hasanpura - experienced split, window air conditioner repairing in Hasanpura and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(744, 2, NULL, 3378, 88, NULL, 'ac-repair-service-center-in-indira-bazar', 'Mi0xLTMzNzgtODg=', 'Top 10 ac repair and service centre in Indira Bazar', 'Ac repair in Indira Bazar, ac service centre in Indira Bazar, ac service center in Indira Bazar', 'Ac repair services in Indira Bazar - experienced split, window air conditioner repairing in Indira Bazar and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(745, 2, NULL, 3378, 89, NULL, 'ac-repair-service-center-in-imli-phatak', 'Mi0xLTMzNzgtODk=', 'Top 10 ac repair and service centre in Imli Phatak', 'Ac repair in Imli Phatak, ac service centre in Imli Phatak, ac service center in Imli Phatak', 'Ac repair services in Imli Phatak - experienced split, window air conditioner repairing in Imli Phatak and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(746, 2, NULL, 3378, 90, NULL, 'ac-repair-service-center-in-industrial-estate', 'Mi0xLTMzNzgtOTA=', 'Top 10 ac repair and service centre in Industrial Estate', 'Ac repair in Industrial Estate, ac service centre in Industrial Estate, ac service center in Industrial Estate', 'Ac repair services in Industrial Estate - experienced split, window air conditioner repairing in Industrial Estate and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(747, 2, NULL, 3378, 91, NULL, 'ac-repair-service-center-in-sudarshanpura-industrial-area', 'Mi0xLTMzNzgtOTE=', 'Top 10 ac repair and service centre in Sudarshanpura Industrial Area', 'Ac repair in Sudarshanpura Industrial Area, ac service centre in Sudarshanpura Industrial Area, ac service center in Sudarshanpura Industrial Area', 'Ac repair services in Sudarshanpura Industrial Area - experienced split, window air conditioner repairing in Sudarshanpura Industrial Area and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(748, 2, NULL, 3378, 92, NULL, 'ac-repair-service-center-in-jaipur-railway-station', 'Mi0xLTMzNzgtOTI=', 'Top 10 ac repair and service centre in Jaipur Railway Station', 'Ac repair in Jaipur Railway Station, ac service centre in Jaipur Railway Station, ac service center in Jaipur Railway Station', 'Ac repair services in Jaipur Railway Station - experienced split, window air conditioner repairing in Jaipur Railway Station and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(749, 2, NULL, 3378, 93, NULL, 'ac-repair-service-center-in-jamdoli', 'Mi0xLTMzNzgtOTM=', 'Top 10 ac repair and service centre in Jamdoli', 'Ac repair in Jamdoli, ac service centre in Jamdoli, ac service center in Jamdoli', 'Ac repair services in Jamdoli - experienced split, window air conditioner repairing in Jamdoli and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(750, 2, NULL, 3378, 94, NULL, 'ac-repair-service-center-in-jobner', 'Mi0xLTMzNzgtOTQ=', 'Top 10 ac repair and service centre in jobner', 'Ac repair in jobner, ac service centre in jobner, ac service center in jobner', 'Ac repair services in jobner - experienced split, window air conditioner repairing in jobner and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(751, 2, NULL, 3378, 95, NULL, 'ac-repair-service-center-in-kotputali', 'Mi0xLTMzNzgtOTU=', 'Top 10 ac repair and service centre in Kotputali', 'Ac repair in Kotputali, ac service centre in Kotputali, ac service center in Kotputali', 'Ac repair services in Kotputali - experienced split, window air conditioner repairing in Kotputali and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(752, 2, NULL, 3378, 96, NULL, 'ac-repair-service-center-in-kanota', 'Mi0xLTMzNzgtOTY=', 'Top 10 ac repair and service centre in Kanota', 'Ac repair in Kanota, ac service centre in Kanota, ac service center in Kanota', 'Ac repair services in Kanota - experienced split, window air conditioner repairing in Kanota and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(753, 2, NULL, 3378, 97, NULL, 'ac-repair-service-center-in-kishanpole-bazar', 'Mi0xLTMzNzgtOTc=', 'Top 10 ac repair and service centre in Kishanpole Bazar', 'Ac repair in Kishanpole Bazar, ac service centre in Kishanpole Bazar, ac service center in Kishanpole Bazar', 'Ac repair services in Kishanpole Bazar - experienced split, window air conditioner repairing in Kishanpole Bazar and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(754, 2, NULL, 3378, 98, NULL, 'ac-repair-service-center-in-khatipura', 'Mi0xLTMzNzgtOTg=', 'Top 10 ac repair and service centre in khatipura', 'Ac repair in khatipura, ac service centre in khatipura, ac service center in khatipura', 'Ac repair services in khatipura - experienced split, window air conditioner repairing in khatipura and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(755, 2, NULL, 3378, 99, NULL, 'ac-repair-service-center-in-kings-road', 'Mi0xLTMzNzgtOTk=', 'Top 10 ac repair and service centre in Kings Road', 'Ac repair in Kings Road, ac service centre in Kings Road, ac service center in Kings Road', 'Ac repair services in Kings Road - experienced split, window air conditioner repairing in Kings Road and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(756, 2, NULL, 3378, 100, NULL, 'ac-repair-service-center-in-kalwad', 'Mi0xLTMzNzgtMTAw', 'Top 10 ac repair and service centre in Kalwad', 'Ac repair in Kalwad, ac service centre in Kalwad, ac service center in Kalwad', 'Ac repair services in Kalwad - experienced split, window air conditioner repairing in Kalwad and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(757, 2, NULL, 3378, 101, NULL, 'ac-repair-service-center-in-kartarpura', 'Mi0xLTMzNzgtMTAx', 'Top 10 ac repair and service centre in Kartarpura', 'Ac repair in Kartarpura, ac service centre in Kartarpura, ac service center in Kartarpura', 'Ac repair services in Kartarpura - experienced split, window air conditioner repairing in Kartarpura and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(758, 2, NULL, 3378, 102, NULL, 'ac-repair-service-center-in-khurra-brahampuri', 'Mi0xLTMzNzgtMTAy', 'Top 10 ac repair and service centre in Khurra brahampuri', 'Ac repair in Khurra brahampuri, ac service centre in Khurra brahampuri, ac service center in Khurra brahampuri', 'Ac repair services in Khurra brahampuri - experienced split, window air conditioner repairing in Khurra brahampuri and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(759, 2, NULL, 3378, 103, NULL, 'ac-repair-service-center-in-kaladera', 'Mi0xLTMzNzgtMTAz', 'Top 10 ac repair and service centre in Kaladera', 'Ac repair in Kaladera, ac service centre in Kaladera, ac service center in Kaladera', 'Ac repair services in Kaladera - experienced split, window air conditioner repairing in Kaladera and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(760, 2, NULL, 3378, 104, NULL, 'ac-repair-service-center-in-luniawas', 'Mi0xLTMzNzgtMTA0', 'Top 10 ac repair and service centre in Luniawas', 'Ac repair in Luniawas, ac service centre in Luniawas, ac service center in Luniawas', 'Ac repair services in Luniawas - experienced split, window air conditioner repairing in Luniawas and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(761, 2, NULL, 3378, 105, NULL, 'ac-repair-service-center-in-nirman-nagar', 'Mi0xLTMzNzgtMTA1', 'Top 10 ac repair and service centre in Nirman Nagar', 'Ac repair in Nirman Nagar, ac service centre in Nirman Nagar, ac service center in Nirman Nagar', 'Ac repair services in Nirman Nagar - experienced split, window air conditioner repairing in Nirman Nagar and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(762, 2, NULL, 3378, 106, NULL, 'ac-repair-service-center-in-narain-singh-road', 'Mi0xLTMzNzgtMTA2', 'Top 10 ac repair and service centre in Narain Singh Road', 'Ac repair in Narain Singh Road, ac service centre in Narain Singh Road, ac service center in Narain Singh Road', 'Ac repair services in Narain Singh Road - experienced split, window air conditioner repairing in Narain Singh Road and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(763, 2, NULL, 3378, 107, NULL, 'ac-repair-service-center-in-new-atish-market', 'Mi0xLTMzNzgtMTA3', 'Top 10 ac repair and service centre in New Atish Market', 'Ac repair in New Atish Market, ac service centre in New Atish Market, ac service center in New Atish Market', 'Ac repair services in New Atish Market - experienced split, window air conditioner repairing in New Atish Market and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(764, 2, NULL, 3378, 108, NULL, 'ac-repair-service-center-in-nahari-ka-naka', 'Mi0xLTMzNzgtMTA4', 'Top 10 ac repair and service centre in Nahari ka Naka', 'Ac repair in Nahari ka Naka, ac service centre in Nahari ka Naka, ac service center in Nahari ka Naka', 'Ac repair services in Nahari ka Naka - experienced split, window air conditioner repairing in Nahari ka Naka and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(765, 2, NULL, 3378, 109, NULL, 'ac-repair-service-center-in-nayla', 'Mi0xLTMzNzgtMTA5', 'Top 10 ac repair and service centre in Nayla', 'Ac repair in Nayla, ac service centre in Nayla, ac service center in Nayla', 'Ac repair services in Nayla - experienced split, window air conditioner repairing in Nayla and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(766, 2, NULL, 3378, 110, NULL, 'ac-repair-service-center-in-nemi-sagar-colony', 'Mi0xLTMzNzgtMTEw', 'Top 10 ac repair and service centre in Nemi Sagar Colony', 'Ac repair in Nemi Sagar Colony, ac service centre in Nemi Sagar Colony, ac service center in Nemi Sagar Colony', 'Ac repair services in Nemi Sagar Colony - experienced split, window air conditioner repairing in Nemi Sagar Colony and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(767, 2, NULL, 3378, 111, NULL, 'ac-repair-service-center-in-nityanand-colony', 'Mi0xLTMzNzgtMTEx', 'Top 10 ac repair and service centre in Nityanand Colony', 'Ac repair in Nityanand Colony, ac service centre in Nityanand Colony, ac service center in Nityanand Colony', 'Ac repair services in Nityanand Colony - experienced split, window air conditioner repairing in Nityanand Colony and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(768, 2, NULL, 3378, 112, NULL, 'ac-repair-service-center-in-nathawala', 'Mi0xLTMzNzgtMTEy', 'Top 10 ac repair and service centre in Nathawala', 'Ac repair in Nathawala, ac service centre in Nathawala, ac service center in Nathawala', 'Ac repair services in Nathawala - experienced split, window air conditioner repairing in Nathawala and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(769, 2, NULL, 3378, 113, NULL, 'ac-repair-service-center-in-panchyawala', 'Mi0xLTMzNzgtMTEz', 'Top 10 ac repair and service centre in Panchyawala', 'Ac repair in Panchyawala, ac service centre in Panchyawala, ac service center in Panchyawala', 'Ac repair services in Panchyawala - experienced split, window air conditioner repairing in Panchyawala and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(770, 2, NULL, 3378, 114, NULL, 'ac-repair-service-center-in-phulera', 'Mi0xLTMzNzgtMTE0', 'Top 10 ac repair and service centre in Phulera', 'Ac repair in Phulera, ac service centre in Phulera, ac service center in Phulera', 'Ac repair services in Phulera - experienced split, window air conditioner repairing in Phulera and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(771, 2, NULL, 3378, 115, NULL, 'ac-repair-service-center-in-phagi', 'Mi0xLTMzNzgtMTE1', 'Top 10 ac repair and service centre in Phagi', 'Ac repair in Phagi, ac service centre in Phagi, ac service center in Phagi', 'Ac repair services in Phagi - experienced split, window air conditioner repairing in Phagi and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(772, 2, NULL, 3378, 116, NULL, 'ac-repair-service-center-in-queens-road', 'Mi0xLTMzNzgtMTE2', 'Top 10 ac repair and service centre in Queens Road', 'Ac repair in Queens Road, ac service centre in Queens Road, ac service center in Queens Road', 'Ac repair services in Queens Road - experienced split, window air conditioner repairing in Queens Road and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(773, 2, NULL, 3378, 117, NULL, 'ac-repair-service-center-in-renwal', 'Mi0xLTMzNzgtMTE3', 'Top 10 ac repair and service centre in Renwal', 'Ac repair in Renwal, ac service centre in Renwal, ac service center in Renwal', 'Ac repair services in Renwal - experienced split, window air conditioner repairing in Renwal and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(774, 2, NULL, 3378, 118, NULL, 'ac-repair-service-center-in-rampura-dabri', 'Mi0xLTMzNzgtMTE4', 'Top 10 ac repair and service centre in Rampura dabri', 'Ac repair in Rampura dabri, ac service centre in Rampura dabri, ac service center in Rampura dabri', 'Ac repair services in Rampura dabri - experienced split, window air conditioner repairing in Rampura dabri and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(775, 2, NULL, 3378, 119, NULL, 'ac-repair-service-center-in-sindhi-camp', 'Mi0xLTMzNzgtMTE5', 'Top 10 ac repair and service centre in Sindhi Camp', 'Ac repair in Sindhi Camp, ac service centre in Sindhi Camp, ac service center in Sindhi Camp', 'Ac repair services in Sindhi Camp - experienced split, window air conditioner repairing in Sindhi Camp and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(776, 2, NULL, 3378, 120, NULL, 'ac-repair-service-center-in-sanganeri-gate', 'Mi0xLTMzNzgtMTIw', 'Top 10 ac repair and service centre in Sanganeri Gate', 'Ac repair in Sanganeri Gate, ac service centre in Sanganeri Gate, ac service center in Sanganeri Gate', 'Ac repair services in Sanganeri Gate - experienced split, window air conditioner repairing in Sanganeri Gate and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(777, 2, NULL, 3378, 121, NULL, 'ac-repair-service-center-in-shahpura', 'Mi0xLTMzNzgtMTIx', 'Top 10 ac repair and service centre in Shahpura', 'Ac repair in Shahpura, ac service centre in Shahpura, ac service center in Shahpura', 'Ac repair services in Shahpura - experienced split, window air conditioner repairing in Shahpura and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(778, 2, NULL, 3378, 122, NULL, 'ac-repair-service-center-in-subhash-chowk', 'Mi0xLTMzNzgtMTIy', 'Top 10 ac repair and service centre in Subhash Chowk', 'Ac repair in Subhash Chowk, ac service centre in Subhash Chowk, ac service center in Subhash Chowk', 'Ac repair services in Subhash Chowk - experienced split, window air conditioner repairing in Subhash Chowk and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(779, 2, NULL, 3378, 123, NULL, 'ac-repair-service-center-in-samod', 'Mi0xLTMzNzgtMTIz', 'Top 10 ac repair and service centre in Samod', 'Ac repair in Samod, ac service centre in Samod, ac service center in Samod', 'Ac repair services in Samod - experienced split, window air conditioner repairing in Samod and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(780, 2, NULL, 3378, 124, NULL, 'ac-repair-service-center-in-triveni-nagar', 'Mi0xLTMzNzgtMTI0', 'Top 10 ac repair and service centre in Triveni Nagar', 'Ac repair in Triveni Nagar, ac service centre in Triveni Nagar, ac service center in Triveni Nagar', 'Ac repair services in Triveni Nagar - experienced split, window air conditioner repairing in Triveni Nagar and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(781, 2, NULL, 3378, 125, NULL, 'ac-repair-service-center-in-thikariya', 'Mi0xLTMzNzgtMTI1', 'Top 10 ac repair and service centre in Thikariya', 'Ac repair in Thikariya, ac service centre in Thikariya, ac service center in Thikariya', 'Ac repair services in Thikariya - experienced split, window air conditioner repairing in Thikariya and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(782, 2, NULL, 3378, 126, NULL, 'ac-repair-service-center-in-udaipuria', 'Mi0xLTMzNzgtMTI2', 'Top 10 ac repair and service centre in Udaipuria', 'Ac repair in Udaipuria, ac service centre in Udaipuria, ac service center in Udaipuria', 'Ac repair services in Udaipuria - experienced split, window air conditioner repairing in Udaipuria and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(783, 2, NULL, 3378, 127, NULL, 'ac-repair-service-center-in-vishwakarma-industrial-area', 'Mi0xLTMzNzgtMTI3', 'Top 10 ac repair and service centre in Vishwakarma Industrial Area', 'Ac repair in Vishwakarma Industrial Area, ac service centre in Vishwakarma Industrial Area, ac service center in Vishwakarma Industrial Area', 'Ac repair services in Vishwakarma Industrial Area - experienced split, window air conditioner repairing in Vishwakarma Industrial Area and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(784, 2, NULL, 3378, 128, NULL, 'ac-repair-service-center-in-vanasthali-marg-station-road', 'Mi0xLTMzNzgtMTI4', 'Top 10 ac repair and service centre in Vanasthali Marg Station Road', 'Ac repair in Vanasthali Marg Station Road, ac service centre in Vanasthali Marg Station Road, ac service center in Vanasthali Marg Station Road', 'Ac repair services in Vanasthali Marg Station Road - experienced split, window air conditioner repairing in Vanasthali Marg Station Road and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(785, 2, NULL, 3378, 129, NULL, 'ac-repair-service-center-in-watika', 'Mi0xLTMzNzgtMTI5', 'Top 10 ac repair and service centre in Watika', 'Ac repair in Watika, ac service centre in Watika, ac service center in Watika', 'Ac repair services in Watika - experienced split, window air conditioner repairing in Watika and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
-(786, 2, NULL, 3378, 130, NULL, 'ac-repair-service-center-in-sodala', 'Mi0xLTMzNzgtMTMw', 'Top 10 ac repair and service centre in Sodala', 'Ac repair in Sodala, ac service centre in Sodala, ac service center in Sodala', 'Ac repair services in Sodala - experienced split, window air conditioner repairing in Sodala and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2018-07-31 13:18:27', 1, 1),
+(691, 2, NULL, 3378, 35, NULL, 'ac-repair-service-center-in-meena-wala', 'Mi0xLTMzNzgtMzU=', 'Top 10 ac repair and service centre in Meena Wala, jaipur', 'Ac repair in Meena Wala, jaipur, ac service centre in Meena Wala, jaipur, ac service center in Meena Wala, jaipur', 'Ac repair services in Meena Wala, jaipur - experienced split, window air conditioner repairing in Meena Wala, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(692, 2, NULL, 3378, 36, NULL, 'ac-repair-service-center-in-moti-doongari-road', 'Mi0xLTMzNzgtMzY=', 'Top 10 ac repair and service centre in Moti Doongari Road, jaipur', 'Ac repair in Moti Doongari Road, jaipur, ac service centre in Moti Doongari Road, jaipur, ac service center in Moti Doongari Road, jaipur', 'Ac repair services in Moti Doongari Road, jaipur - experienced split, window air conditioner repairing in Moti Doongari Road, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(693, 2, NULL, 3378, 37, NULL, 'ac-repair-service-center-in-muhana', 'Mi0xLTMzNzgtMzc=', 'Top 10 ac repair and service centre in Muhana, jaipur', 'Ac repair in Muhana, jaipur, ac service centre in Muhana, jaipur, ac service center in Muhana, jaipur', 'Ac repair services in Muhana, jaipur - experienced split, window air conditioner repairing in Muhana, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(694, 2, NULL, 3378, 38, NULL, 'ac-repair-service-center-in-mukandpura', 'Mi0xLTMzNzgtMzg=', 'Top 10 ac repair and service centre in Mukandpura, jaipur', 'Ac repair in Mukandpura, jaipur, ac service centre in Mukandpura, jaipur, ac service center in Mukandpura, jaipur', 'Ac repair services in Mukandpura, jaipur - experienced split, window air conditioner repairing in Mukandpura, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(695, 2, NULL, 3378, 39, NULL, 'ac-repair-service-center-in-mundia-rampura', 'Mi0xLTMzNzgtMzk=', 'Top 10 ac repair and service centre in Mundia Rampura, jaipur', 'Ac repair in Mundia Rampura, jaipur, ac service centre in Mundia Rampura, jaipur, ac service center in Mundia Rampura, jaipur', 'Ac repair services in Mundia Rampura, jaipur - experienced split, window air conditioner repairing in Mundia Rampura, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(696, 2, NULL, 3378, 40, NULL, 'ac-repair-service-center-in-murlipura', 'Mi0xLTMzNzgtNDA=', 'Top 10 ac repair and service centre in Murlipura, jaipur', 'Ac repair in Murlipura, jaipur, ac service centre in Murlipura, jaipur, ac service center in Murlipura, jaipur', 'Ac repair services in Murlipura, jaipur - experienced split, window air conditioner repairing in Murlipura, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(697, 2, NULL, 3378, 41, NULL, 'ac-repair-service-center-in-nangal-jaisa-bohra', 'Mi0xLTMzNzgtNDE=', 'Top 10 ac repair and service centre in Nangal Jaisa Bohra, jaipur', 'Ac repair in Nangal Jaisa Bohra, jaipur, ac service centre in Nangal Jaisa Bohra, jaipur, ac service center in Nangal Jaisa Bohra, jaipur', 'Ac repair services in Nangal Jaisa Bohra, jaipur - experienced split, window air conditioner repairing in Nangal Jaisa Bohra, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(698, 2, NULL, 3378, 42, NULL, 'ac-repair-service-center-in-neendar', 'Mi0xLTMzNzgtNDI=', 'Top 10 ac repair and service centre in Neendar, jaipur', 'Ac repair in Neendar, jaipur, ac service centre in Neendar, jaipur, ac service center in Neendar, jaipur', 'Ac repair services in Neendar, jaipur - experienced split, window air conditioner repairing in Neendar, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(699, 2, NULL, 3378, 43, NULL, 'ac-repair-service-center-in-neendar-benar', 'Mi0xLTMzNzgtNDM=', 'Top 10 ac repair and service centre in neendar benar, jaipur', 'Ac repair in neendar benar, jaipur, ac service centre in neendar benar, jaipur, ac service center in neendar benar, jaipur', 'Ac repair services in neendar benar, jaipur - experienced split, window air conditioner repairing in neendar benar, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(700, 2, NULL, 3378, 44, NULL, 'ac-repair-service-center-in-niwaroo', 'Mi0xLTMzNzgtNDQ=', 'Top 10 ac repair and service centre in Niwaroo, jaipur', 'Ac repair in Niwaroo, jaipur, ac service centre in Niwaroo, jaipur, ac service center in Niwaroo, jaipur', 'Ac repair services in Niwaroo, jaipur - experienced split, window air conditioner repairing in Niwaroo, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(701, 2, NULL, 3378, 45, NULL, 'ac-repair-service-center-in-pratap-nagar', 'Mi0xLTMzNzgtNDU=', 'Top 10 ac repair and service centre in Pratap Nagar, jaipur', 'Ac repair in Pratap Nagar, jaipur, ac service centre in Pratap Nagar, jaipur, ac service center in Pratap Nagar, jaipur', 'Ac repair services in Pratap Nagar, jaipur - experienced split, window air conditioner repairing in Pratap Nagar, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(702, 2, NULL, 3378, 46, NULL, 'ac-repair-service-center-in-raja-park', 'Mi0xLTMzNzgtNDY=', 'Top 10 ac repair and service centre in Raja Park, jaipur', 'Ac repair in Raja Park, jaipur, ac service centre in Raja Park, jaipur, ac service center in Raja Park, jaipur', 'Ac repair services in Raja Park, jaipur - experienced split, window air conditioner repairing in Raja Park, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(703, 2, NULL, 3378, 47, NULL, 'ac-repair-service-center-in-ramganj-bazar', 'Mi0xLTMzNzgtNDc=', 'Top 10 ac repair and service centre in Ramganj Bazar, jaipur', 'Ac repair in Ramganj Bazar, jaipur, ac service centre in Ramganj Bazar, jaipur, ac service center in Ramganj Bazar, jaipur', 'Ac repair services in Ramganj Bazar, jaipur - experienced split, window air conditioner repairing in Ramganj Bazar, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(704, 2, NULL, 3378, 48, NULL, 'ac-repair-service-center-in-sfs-mansarovar', 'Mi0xLTMzNzgtNDg=', 'Top 10 ac repair and service centre in SFS Mansarovar, jaipur', 'Ac repair in SFS Mansarovar, jaipur, ac service centre in SFS Mansarovar, jaipur, ac service center in SFS Mansarovar, jaipur', 'Ac repair services in SFS Mansarovar, jaipur - experienced split, window air conditioner repairing in SFS Mansarovar, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(705, 2, NULL, 3378, 49, NULL, 'ac-repair-service-center-in-shastri-nagar', 'Mi0xLTMzNzgtNDk=', 'Top 10 ac repair and service centre in Shastri Nagar, jaipur', 'Ac repair in Shastri Nagar, jaipur, ac service centre in Shastri Nagar, jaipur, ac service center in Shastri Nagar, jaipur', 'Ac repair services in Shastri Nagar, jaipur - experienced split, window air conditioner repairing in Shastri Nagar, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(706, 2, NULL, 3378, 50, NULL, 'ac-repair-service-center-in-shyam-nagar', 'Mi0xLTMzNzgtNTA=', 'Top 10 ac repair and service centre in Shyam Nagar, jaipur', 'Ac repair in Shyam Nagar, jaipur, ac service centre in Shyam Nagar, jaipur, ac service center in Shyam Nagar, jaipur', 'Ac repair services in Shyam Nagar, jaipur - experienced split, window air conditioner repairing in Shyam Nagar, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(707, 2, NULL, 3378, 51, NULL, 'ac-repair-service-center-in-sindhi-colony', 'Mi0xLTMzNzgtNTE=', 'Top 10 ac repair and service centre in Sindhi Colony, jaipur', 'Ac repair in Sindhi Colony, jaipur, ac service centre in Sindhi Colony, jaipur, ac service center in Sindhi Colony, jaipur', 'Ac repair services in Sindhi Colony, jaipur - experienced split, window air conditioner repairing in Sindhi Colony, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(708, 2, NULL, 3378, 52, NULL, 'ac-repair-service-center-in-sirsi', 'Mi0xLTMzNzgtNTI=', 'Top 10 ac repair and service centre in Sirsi, jaipur', 'Ac repair in Sirsi, jaipur, ac service centre in Sirsi, jaipur, ac service center in Sirsi, jaipur', 'Ac repair services in Sirsi, jaipur - experienced split, window air conditioner repairing in Sirsi, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(709, 2, NULL, 3378, 53, NULL, 'ac-repair-service-center-in-sitapura-industrial-area', 'Mi0xLTMzNzgtNTM=', 'Top 10 ac repair and service centre in Sitapura Industrial Area, jaipur', 'Ac repair in Sitapura Industrial Area, jaipur, ac service centre in Sitapura Industrial Area, jaipur, ac service center in Sitapura Industrial Area, jaipur', 'Ac repair services in Sitapura Industrial Area, jaipur - experienced split, window air conditioner repairing in Sitapura Industrial Area, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(710, 2, NULL, 3378, 54, NULL, 'ac-repair-service-center-in-station-road', 'Mi0xLTMzNzgtNTQ=', 'Top 10 ac repair and service centre in Station Road, jaipur', 'Ac repair in Station Road, jaipur, ac service centre in Station Road, jaipur, ac service center in Station Road, jaipur', 'Ac repair services in Station Road, jaipur - experienced split, window air conditioner repairing in Station Road, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(711, 2, NULL, 3378, 55, NULL, 'ac-repair-service-center-in-tilak-nagar', 'Mi0xLTMzNzgtNTU=', 'Top 10 ac repair and service centre in Tilak Nagar, jaipur', 'Ac repair in Tilak Nagar, jaipur, ac service centre in Tilak Nagar, jaipur, ac service center in Tilak Nagar, jaipur', 'Ac repair services in Tilak Nagar, jaipur - experienced split, window air conditioner repairing in Tilak Nagar, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(712, 2, NULL, 3378, 56, NULL, 'ac-repair-service-center-in-toda-meena', 'Mi0xLTMzNzgtNTY=', 'Top 10 ac repair and service centre in Toda Meena, jaipur', 'Ac repair in Toda Meena, jaipur, ac service centre in Toda Meena, jaipur, ac service center in Toda Meena, jaipur', 'Ac repair services in Toda Meena, jaipur - experienced split, window air conditioner repairing in Toda Meena, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(713, 2, NULL, 3378, 57, NULL, 'ac-repair-service-center-in-tripolia-bazar', 'Mi0xLTMzNzgtNTc=', 'Top 10 ac repair and service centre in Tripolia Bazar, jaipur', 'Ac repair in Tripolia Bazar, jaipur, ac service centre in Tripolia Bazar, jaipur, ac service center in Tripolia Bazar, jaipur', 'Ac repair services in Tripolia Bazar, jaipur - experienced split, window air conditioner repairing in Tripolia Bazar, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(714, 2, NULL, 3378, 58, NULL, 'ac-repair-service-center-in-vaishali-nagar', 'Mi0xLTMzNzgtNTg=', 'Top 10 ac repair and service centre in Vaishali Nagar, jaipur', 'Ac repair in Vaishali Nagar, jaipur, ac service centre in Vaishali Nagar, jaipur, ac service center in Vaishali Nagar, jaipur', 'Ac repair services in Vaishali Nagar, jaipur - experienced split, window air conditioner repairing in Vaishali Nagar, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(715, 2, NULL, 3378, 59, NULL, 'ac-repair-service-center-in-vidhyadhar-nagar', 'Mi0xLTMzNzgtNTk=', 'Top 10 ac repair and service centre in Vidhyadhar Nagar, jaipur', 'Ac repair in Vidhyadhar Nagar, jaipur, ac service centre in Vidhyadhar Nagar, jaipur, ac service center in Vidhyadhar Nagar, jaipur', 'Ac repair services in Vidhyadhar Nagar, jaipur - experienced split, window air conditioner repairing in Vidhyadhar Nagar, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(716, 2, NULL, 3378, 60, NULL, 'ac-repair-service-center-in-gopalpura-byepass', 'Mi0xLTMzNzgtNjA=', 'Top 10 ac repair and service centre in Gopalpura Byepass, jaipur', 'Ac repair in Gopalpura Byepass, jaipur, ac service centre in Gopalpura Byepass, jaipur, ac service center in Gopalpura Byepass, jaipur', 'Ac repair services in Gopalpura Byepass, jaipur - experienced split, window air conditioner repairing in Gopalpura Byepass, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(717, 2, NULL, 3378, 61, NULL, 'ac-repair-service-center-in-tonk-road', 'Mi0xLTMzNzgtNjE=', 'Top 10 ac repair and service centre in Tonk Road, jaipur', 'Ac repair in Tonk Road, jaipur, ac service centre in Tonk Road, jaipur, ac service center in Tonk Road, jaipur', 'Ac repair services in Tonk Road, jaipur - experienced split, window air conditioner repairing in Tonk Road, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(718, 2, NULL, 3378, 62, NULL, 'ac-repair-service-center-in-achrol', 'Mi0xLTMzNzgtNjI=', 'Top 10 ac repair and service centre in Achrol, jaipur', 'Ac repair in Achrol, jaipur, ac service centre in Achrol, jaipur, ac service center in Achrol, jaipur', 'Ac repair services in Achrol, jaipur - experienced split, window air conditioner repairing in Achrol, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(719, 2, NULL, 3378, 63, NULL, 'ac-repair-service-center-in-gandhi-nagar', 'Mi0xLTMzNzgtNjM=', 'Top 10 ac repair and service centre in Gandhi Nagar, jaipur', 'Ac repair in Gandhi Nagar, jaipur, ac service centre in Gandhi Nagar, jaipur, ac service center in Gandhi Nagar, jaipur', 'Ac repair services in Gandhi Nagar, jaipur - experienced split, window air conditioner repairing in Gandhi Nagar, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(720, 2, NULL, 3378, 64, NULL, 'ac-repair-service-center-in-bapu-bazar', 'Mi0xLTMzNzgtNjQ=', 'Top 10 ac repair and service centre in bapu bazar, jaipur', 'Ac repair in bapu bazar, jaipur, ac service centre in bapu bazar, jaipur, ac service center in bapu bazar, jaipur', 'Ac repair services in bapu bazar, jaipur - experienced split, window air conditioner repairing in bapu bazar, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(721, 2, NULL, 3378, 65, NULL, 'ac-repair-service-center-in-bais-godam', 'Mi0xLTMzNzgtNjU=', 'Top 10 ac repair and service centre in Bais Godam, jaipur', 'Ac repair in Bais Godam, jaipur, ac service centre in Bais Godam, jaipur, ac service center in Bais Godam, jaipur', 'Ac repair services in Bais Godam, jaipur - experienced split, window air conditioner repairing in Bais Godam, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(722, 2, NULL, 3378, 66, NULL, 'ac-repair-service-center-in-bagru', 'Mi0xLTMzNzgtNjY=', 'Top 10 ac repair and service centre in Bagru, jaipur', 'Ac repair in Bagru, jaipur, ac service centre in Bagru, jaipur, ac service center in Bagru, jaipur', 'Ac repair services in Bagru, jaipur - experienced split, window air conditioner repairing in Bagru, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(723, 2, NULL, 3378, 67, NULL, 'ac-repair-service-center-in-badi-chaupar', 'Mi0xLTMzNzgtNjc=', 'Top 10 ac repair and service centre in Badi Chaupar, jaipur', 'Ac repair in Badi Chaupar, jaipur, ac service centre in Badi Chaupar, jaipur, ac service center in Badi Chaupar, jaipur', 'Ac repair services in Badi Chaupar, jaipur - experienced split, window air conditioner repairing in Badi Chaupar, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(724, 2, NULL, 3378, 68, NULL, 'ac-repair-service-center-in-bas-badanpura', 'Mi0xLTMzNzgtNjg=', 'Top 10 ac repair and service centre in Bas Badanpura, jaipur', 'Ac repair in Bas Badanpura, jaipur, ac service centre in Bas Badanpura, jaipur, ac service center in Bas Badanpura, jaipur', 'Ac repair services in Bas Badanpura, jaipur - experienced split, window air conditioner repairing in Bas Badanpura, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(725, 2, NULL, 3378, 69, NULL, 'ac-repair-service-center-in-phulera', 'Mi0xLTMzNzgtNjk=', 'Top 10 ac repair and service centre in Phulera, jaipur', 'Ac repair in Phulera, jaipur, ac service centre in Phulera, jaipur, ac service center in Phulera, jaipur', 'Ac repair services in Phulera, jaipur - experienced split, window air conditioner repairing in Phulera, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(726, 2, NULL, 3378, 70, NULL, 'ac-repair-service-center-in-c-scheme', 'Mi0xLTMzNzgtNzA=', 'Top 10 ac repair and service centre in C-scheme, jaipur', 'Ac repair in C-scheme, jaipur, ac service centre in C-scheme, jaipur, ac service center in C-scheme, jaipur', 'Ac repair services in C-scheme, jaipur - experienced split, window air conditioner repairing in C-scheme, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(727, 2, NULL, 3378, 71, NULL, 'ac-repair-service-center-in-chitrakoot-scheme', 'Mi0xLTMzNzgtNzE=', 'Top 10 ac repair and service centre in chitrakoot scheme, jaipur', 'Ac repair in chitrakoot scheme, jaipur, ac service centre in chitrakoot scheme, jaipur, ac service center in chitrakoot scheme, jaipur', 'Ac repair services in chitrakoot scheme, jaipur - experienced split, window air conditioner repairing in chitrakoot scheme, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(728, 2, NULL, 3378, 72, NULL, 'ac-repair-service-center-in-chaksu', 'Mi0xLTMzNzgtNzI=', 'Top 10 ac repair and service centre in chaksu, jaipur', 'Ac repair in chaksu, jaipur, ac service centre in chaksu, jaipur, ac service center in chaksu, jaipur', 'Ac repair services in chaksu, jaipur - experienced split, window air conditioner repairing in chaksu, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(729, 2, NULL, 3378, 73, NULL, 'ac-repair-service-center-in-choti-chopar', 'Mi0xLTMzNzgtNzM=', 'Top 10 ac repair and service centre in Choti Chopar, jaipur', 'Ac repair in Choti Chopar, jaipur, ac service centre in Choti Chopar, jaipur, ac service center in Choti Chopar, jaipur', 'Ac repair services in Choti Chopar, jaipur - experienced split, window air conditioner repairing in Choti Chopar, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(730, 2, NULL, 3378, 74, NULL, 'ac-repair-service-center-in-chomu-house', 'Mi0xLTMzNzgtNzQ=', 'Top 10 ac repair and service centre in Chomu House, jaipur', 'Ac repair in Chomu House, jaipur, ac service centre in Chomu House, jaipur, ac service center in Chomu House, jaipur', 'Ac repair services in Chomu House, jaipur - experienced split, window air conditioner repairing in Chomu House, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(731, 2, NULL, 3378, 75, NULL, 'ac-repair-service-center-in-chandi-ki-taksal', 'Mi0xLTMzNzgtNzU=', 'Top 10 ac repair and service centre in Chandi Ki taksal, jaipur', 'Ac repair in Chandi Ki taksal, jaipur, ac service centre in Chandi Ki taksal, jaipur, ac service center in Chandi Ki taksal, jaipur', 'Ac repair services in Chandi Ki taksal, jaipur - experienced split, window air conditioner repairing in Chandi Ki taksal, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(732, 2, NULL, 3378, 76, NULL, 'ac-repair-service-center-in-chaura-rasta', 'Mi0xLTMzNzgtNzY=', 'Top 10 ac repair and service centre in Chaura Rasta, jaipur', 'Ac repair in Chaura Rasta, jaipur, ac service centre in Chaura Rasta, jaipur, ac service center in Chaura Rasta, jaipur', 'Ac repair services in Chaura Rasta, jaipur - experienced split, window air conditioner repairing in Chaura Rasta, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(733, 2, NULL, 3378, 77, NULL, 'ac-repair-service-center-in-chandwaji', 'Mi0xLTMzNzgtNzc=', 'Top 10 ac repair and service centre in Chandwaji, jaipur', 'Ac repair in Chandwaji, jaipur, ac service centre in Chandwaji, jaipur, ac service center in Chandwaji, jaipur', 'Ac repair services in Chandwaji, jaipur - experienced split, window air conditioner repairing in Chandwaji, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(734, 2, NULL, 3378, 78, NULL, 'ac-repair-service-center-in-durgapura', 'Mi0xLTMzNzgtNzg=', 'Top 10 ac repair and service centre in Durgapura, jaipur', 'Ac repair in Durgapura, jaipur, ac service centre in Durgapura, jaipur, ac service center in Durgapura, jaipur', 'Ac repair services in Durgapura, jaipur - experienced split, window air conditioner repairing in Durgapura, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(735, 2, NULL, 3378, 79, NULL, 'ac-repair-service-center-in-gopalbari', 'Mi0xLTMzNzgtNzk=', 'Top 10 ac repair and service centre in Gopalbari, jaipur', 'Ac repair in Gopalbari, jaipur, ac service centre in Gopalbari, jaipur, ac service center in Gopalbari, jaipur', 'Ac repair services in Gopalbari, jaipur - experienced split, window air conditioner repairing in Gopalbari, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(736, 2, NULL, 3378, 80, NULL, 'ac-repair-service-center-in-gangori-bazar', 'Mi0xLTMzNzgtODA=', 'Top 10 ac repair and service centre in Gangori Bazar, jaipur', 'Ac repair in Gangori Bazar, jaipur, ac service centre in Gangori Bazar, jaipur, ac service center in Gangori Bazar, jaipur', 'Ac repair services in Gangori Bazar, jaipur - experienced split, window air conditioner repairing in Gangori Bazar, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(737, 2, NULL, 3378, 81, NULL, 'ac-repair-service-center-in-ghat-gate', 'Mi0xLTMzNzgtODE=', 'Top 10 ac repair and service centre in Ghat Gate, jaipur', 'Ac repair in Ghat Gate, jaipur, ac service centre in Ghat Gate, jaipur, ac service center in Ghat Gate, jaipur', 'Ac repair services in Ghat Gate, jaipur - experienced split, window air conditioner repairing in Ghat Gate, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(738, 2, NULL, 3378, 82, NULL, 'ac-repair-service-center-in-govindpura-baseri', 'Mi0xLTMzNzgtODI=', 'Top 10 ac repair and service centre in Govindpura baseri, jaipur', 'Ac repair in Govindpura baseri, jaipur, ac service centre in Govindpura baseri, jaipur, ac service center in Govindpura baseri, jaipur', 'Ac repair services in Govindpura baseri, jaipur - experienced split, window air conditioner repairing in Govindpura baseri, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(739, 2, NULL, 3378, 83, NULL, 'ac-repair-service-center-in-galta-gate', 'Mi0xLTMzNzgtODM=', 'Top 10 ac repair and service centre in Galta Gate, jaipur', 'Ac repair in Galta Gate, jaipur, ac service centre in Galta Gate, jaipur, ac service center in Galta Gate, jaipur', 'Ac repair services in Galta Gate, jaipur - experienced split, window air conditioner repairing in Galta Gate, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(740, 2, NULL, 3378, 84, NULL, 'ac-repair-service-center-in-gurunanak-pura', 'Mi0xLTMzNzgtODQ=', 'Top 10 ac repair and service centre in Gurunanak Pura, jaipur', 'Ac repair in Gurunanak Pura, jaipur, ac service centre in Gurunanak Pura, jaipur, ac service center in Gurunanak Pura, jaipur', 'Ac repair services in Gurunanak Pura, jaipur - experienced split, window air conditioner repairing in Gurunanak Pura, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(741, 2, NULL, 3378, 85, NULL, 'ac-repair-service-center-in-hawa-sadak', 'Mi0xLTMzNzgtODU=', 'Top 10 ac repair and service centre in Hawa Sadak, jaipur', 'Ac repair in Hawa Sadak, jaipur, ac service centre in Hawa Sadak, jaipur, ac service center in Hawa Sadak, jaipur', 'Ac repair services in Hawa Sadak, jaipur - experienced split, window air conditioner repairing in Hawa Sadak, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(742, 2, NULL, 3378, 86, NULL, 'ac-repair-service-center-in-hawa-mahal-bazar', 'Mi0xLTMzNzgtODY=', 'Top 10 ac repair and service centre in Hawa Mahal Bazar, jaipur', 'Ac repair in Hawa Mahal Bazar, jaipur, ac service centre in Hawa Mahal Bazar, jaipur, ac service center in Hawa Mahal Bazar, jaipur', 'Ac repair services in Hawa Mahal Bazar, jaipur - experienced split, window air conditioner repairing in Hawa Mahal Bazar, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(743, 2, NULL, 3378, 87, NULL, 'ac-repair-service-center-in-hasanpura', 'Mi0xLTMzNzgtODc=', 'Top 10 ac repair and service centre in Hasanpura, jaipur', 'Ac repair in Hasanpura, jaipur, ac service centre in Hasanpura, jaipur, ac service center in Hasanpura, jaipur', 'Ac repair services in Hasanpura, jaipur - experienced split, window air conditioner repairing in Hasanpura, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(744, 2, NULL, 3378, 88, NULL, 'ac-repair-service-center-in-indira-bazar', 'Mi0xLTMzNzgtODg=', 'Top 10 ac repair and service centre in Indira Bazar, jaipur', 'Ac repair in Indira Bazar, jaipur, ac service centre in Indira Bazar, jaipur, ac service center in Indira Bazar, jaipur', 'Ac repair services in Indira Bazar, jaipur - experienced split, window air conditioner repairing in Indira Bazar, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(745, 2, NULL, 3378, 89, NULL, 'ac-repair-service-center-in-imli-phatak', 'Mi0xLTMzNzgtODk=', 'Top 10 ac repair and service centre in Imli Phatak, jaipur', 'Ac repair in Imli Phatak, jaipur, ac service centre in Imli Phatak, jaipur, ac service center in Imli Phatak, jaipur', 'Ac repair services in Imli Phatak, jaipur - experienced split, window air conditioner repairing in Imli Phatak, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(746, 2, NULL, 3378, 90, NULL, 'ac-repair-service-center-in-industrial-estate', 'Mi0xLTMzNzgtOTA=', 'Top 10 ac repair and service centre in Industrial Estate, jaipur', 'Ac repair in Industrial Estate, jaipur, ac service centre in Industrial Estate, jaipur, ac service center in Industrial Estate, jaipur', 'Ac repair services in Industrial Estate, jaipur - experienced split, window air conditioner repairing in Industrial Estate, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(747, 2, NULL, 3378, 91, NULL, 'ac-repair-service-center-in-sudarshanpura-industrial-area', 'Mi0xLTMzNzgtOTE=', 'Top 10 ac repair and service centre in Sudarshanpura Industrial Area, jaipur', 'Ac repair in Sudarshanpura Industrial Area, jaipur, ac service centre in Sudarshanpura Industrial Area, jaipur, ac service center in Sudarshanpura Industrial Area, jaipur', 'Ac repair services in Sudarshanpura Industrial Area, jaipur - experienced split, window air conditioner repairing in Sudarshanpura Industrial Area, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(748, 2, NULL, 3378, 92, NULL, 'ac-repair-service-center-in-jaipur-railway-station', 'Mi0xLTMzNzgtOTI=', 'Top 10 ac repair and service centre in Jaipur Railway Station, jaipur', 'Ac repair in Jaipur Railway Station, jaipur, ac service centre in Jaipur Railway Station, jaipur, ac service center in Jaipur Railway Station, jaipur', 'Ac repair services in Jaipur Railway Station, jaipur - experienced split, window air conditioner repairing in Jaipur Railway Station, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(749, 2, NULL, 3378, 93, NULL, 'ac-repair-service-center-in-jamdoli', 'Mi0xLTMzNzgtOTM=', 'Top 10 ac repair and service centre in Jamdoli, jaipur', 'Ac repair in Jamdoli, jaipur, ac service centre in Jamdoli, jaipur, ac service center in Jamdoli, jaipur', 'Ac repair services in Jamdoli, jaipur - experienced split, window air conditioner repairing in Jamdoli, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(750, 2, NULL, 3378, 94, NULL, 'ac-repair-service-center-in-jobner', 'Mi0xLTMzNzgtOTQ=', 'Top 10 ac repair and service centre in jobner, jaipur', 'Ac repair in jobner, jaipur, ac service centre in jobner, jaipur, ac service center in jobner, jaipur', 'Ac repair services in jobner, jaipur - experienced split, window air conditioner repairing in jobner, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(751, 2, NULL, 3378, 95, NULL, 'ac-repair-service-center-in-kotputali', 'Mi0xLTMzNzgtOTU=', 'Top 10 ac repair and service centre in Kotputali, jaipur', 'Ac repair in Kotputali, jaipur, ac service centre in Kotputali, jaipur, ac service center in Kotputali, jaipur', 'Ac repair services in Kotputali, jaipur - experienced split, window air conditioner repairing in Kotputali, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(752, 2, NULL, 3378, 96, NULL, 'ac-repair-service-center-in-kanota', 'Mi0xLTMzNzgtOTY=', 'Top 10 ac repair and service centre in Kanota, jaipur', 'Ac repair in Kanota, jaipur, ac service centre in Kanota, jaipur, ac service center in Kanota, jaipur', 'Ac repair services in Kanota, jaipur - experienced split, window air conditioner repairing in Kanota, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(753, 2, NULL, 3378, 97, NULL, 'ac-repair-service-center-in-kishanpole-bazar', 'Mi0xLTMzNzgtOTc=', 'Top 10 ac repair and service centre in Kishanpole Bazar, jaipur', 'Ac repair in Kishanpole Bazar, jaipur, ac service centre in Kishanpole Bazar, jaipur, ac service center in Kishanpole Bazar, jaipur', 'Ac repair services in Kishanpole Bazar, jaipur - experienced split, window air conditioner repairing in Kishanpole Bazar, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(754, 2, NULL, 3378, 98, NULL, 'ac-repair-service-center-in-khatipura', 'Mi0xLTMzNzgtOTg=', 'Top 10 ac repair and service centre in khatipura, jaipur', 'Ac repair in khatipura, jaipur, ac service centre in khatipura, jaipur, ac service center in khatipura, jaipur', 'Ac repair services in khatipura, jaipur - experienced split, window air conditioner repairing in khatipura, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(755, 2, NULL, 3378, 99, NULL, 'ac-repair-service-center-in-kings-road', 'Mi0xLTMzNzgtOTk=', 'Top 10 ac repair and service centre in Kings Road, jaipur', 'Ac repair in Kings Road, jaipur, ac service centre in Kings Road, jaipur, ac service center in Kings Road, jaipur', 'Ac repair services in Kings Road, jaipur - experienced split, window air conditioner repairing in Kings Road, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(756, 2, NULL, 3378, 100, NULL, 'ac-repair-service-center-in-kalwad', 'Mi0xLTMzNzgtMTAw', 'Top 10 ac repair and service centre in Kalwad, jaipur', 'Ac repair in Kalwad, jaipur, ac service centre in Kalwad, jaipur, ac service center in Kalwad, jaipur', 'Ac repair services in Kalwad, jaipur - experienced split, window air conditioner repairing in Kalwad, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(757, 2, NULL, 3378, 101, NULL, 'ac-repair-service-center-in-kartarpura', 'Mi0xLTMzNzgtMTAx', 'Top 10 ac repair and service centre in Kartarpura, jaipur', 'Ac repair in Kartarpura, jaipur, ac service centre in Kartarpura, jaipur, ac service center in Kartarpura, jaipur', 'Ac repair services in Kartarpura, jaipur - experienced split, window air conditioner repairing in Kartarpura, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(758, 2, NULL, 3378, 102, NULL, 'ac-repair-service-center-in-khurra-brahampuri', 'Mi0xLTMzNzgtMTAy', 'Top 10 ac repair and service centre in Khurra brahampuri, jaipur', 'Ac repair in Khurra brahampuri, jaipur, ac service centre in Khurra brahampuri, jaipur, ac service center in Khurra brahampuri, jaipur', 'Ac repair services in Khurra brahampuri, jaipur - experienced split, window air conditioner repairing in Khurra brahampuri, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(759, 2, NULL, 3378, 103, NULL, 'ac-repair-service-center-in-kaladera', 'Mi0xLTMzNzgtMTAz', 'Top 10 ac repair and service centre in Kaladera, jaipur', 'Ac repair in Kaladera, jaipur, ac service centre in Kaladera, jaipur, ac service center in Kaladera, jaipur', 'Ac repair services in Kaladera, jaipur - experienced split, window air conditioner repairing in Kaladera, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(760, 2, NULL, 3378, 104, NULL, 'ac-repair-service-center-in-luniawas', 'Mi0xLTMzNzgtMTA0', 'Top 10 ac repair and service centre in Luniawas, jaipur', 'Ac repair in Luniawas, jaipur, ac service centre in Luniawas, jaipur, ac service center in Luniawas, jaipur', 'Ac repair services in Luniawas, jaipur - experienced split, window air conditioner repairing in Luniawas, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(761, 2, NULL, 3378, 105, NULL, 'ac-repair-service-center-in-nirman-nagar', 'Mi0xLTMzNzgtMTA1', 'Top 10 ac repair and service centre in Nirman Nagar, jaipur', 'Ac repair in Nirman Nagar, jaipur, ac service centre in Nirman Nagar, jaipur, ac service center in Nirman Nagar, jaipur', 'Ac repair services in Nirman Nagar, jaipur - experienced split, window air conditioner repairing in Nirman Nagar, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(762, 2, NULL, 3378, 106, NULL, 'ac-repair-service-center-in-narain-singh-road', 'Mi0xLTMzNzgtMTA2', 'Top 10 ac repair and service centre in Narain Singh Road, jaipur', 'Ac repair in Narain Singh Road, jaipur, ac service centre in Narain Singh Road, jaipur, ac service center in Narain Singh Road, jaipur', 'Ac repair services in Narain Singh Road, jaipur - experienced split, window air conditioner repairing in Narain Singh Road, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(763, 2, NULL, 3378, 107, NULL, 'ac-repair-service-center-in-new-atish-market', 'Mi0xLTMzNzgtMTA3', 'Top 10 ac repair and service centre in New Atish Market, jaipur', 'Ac repair in New Atish Market, jaipur, ac service centre in New Atish Market, jaipur, ac service center in New Atish Market, jaipur', 'Ac repair services in New Atish Market, jaipur - experienced split, window air conditioner repairing in New Atish Market, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(764, 2, NULL, 3378, 108, NULL, 'ac-repair-service-center-in-nahari-ka-naka', 'Mi0xLTMzNzgtMTA4', 'Top 10 ac repair and service centre in Nahari ka Naka, jaipur', 'Ac repair in Nahari ka Naka, jaipur, ac service centre in Nahari ka Naka, jaipur, ac service center in Nahari ka Naka, jaipur', 'Ac repair services in Nahari ka Naka, jaipur - experienced split, window air conditioner repairing in Nahari ka Naka, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(765, 2, NULL, 3378, 109, NULL, 'ac-repair-service-center-in-nayla', 'Mi0xLTMzNzgtMTA5', 'Top 10 ac repair and service centre in Nayla, jaipur', 'Ac repair in Nayla, jaipur, ac service centre in Nayla, jaipur, ac service center in Nayla, jaipur', 'Ac repair services in Nayla, jaipur - experienced split, window air conditioner repairing in Nayla, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(766, 2, NULL, 3378, 110, NULL, 'ac-repair-service-center-in-nemi-sagar-colony', 'Mi0xLTMzNzgtMTEw', 'Top 10 ac repair and service centre in Nemi Sagar Colony, jaipur', 'Ac repair in Nemi Sagar Colony, jaipur, ac service centre in Nemi Sagar Colony, jaipur, ac service center in Nemi Sagar Colony, jaipur', 'Ac repair services in Nemi Sagar Colony, jaipur - experienced split, window air conditioner repairing in Nemi Sagar Colony, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(767, 2, NULL, 3378, 111, NULL, 'ac-repair-service-center-in-nityanand-colony', 'Mi0xLTMzNzgtMTEx', 'Top 10 ac repair and service centre in Nityanand Colony, jaipur', 'Ac repair in Nityanand Colony, jaipur, ac service centre in Nityanand Colony, jaipur, ac service center in Nityanand Colony, jaipur', 'Ac repair services in Nityanand Colony, jaipur - experienced split, window air conditioner repairing in Nityanand Colony, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(768, 2, NULL, 3378, 112, NULL, 'ac-repair-service-center-in-nathawala', 'Mi0xLTMzNzgtMTEy', 'Top 10 ac repair and service centre in Nathawala, jaipur', 'Ac repair in Nathawala, jaipur, ac service centre in Nathawala, jaipur, ac service center in Nathawala, jaipur', 'Ac repair services in Nathawala, jaipur - experienced split, window air conditioner repairing in Nathawala, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(769, 2, NULL, 3378, 113, NULL, 'ac-repair-service-center-in-panchyawala', 'Mi0xLTMzNzgtMTEz', 'Top 10 ac repair and service centre in Panchyawala, jaipur', 'Ac repair in Panchyawala, jaipur, ac service centre in Panchyawala, jaipur, ac service center in Panchyawala, jaipur', 'Ac repair services in Panchyawala, jaipur - experienced split, window air conditioner repairing in Panchyawala, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(770, 2, NULL, 3378, 114, NULL, 'ac-repair-service-center-in-phulera', 'Mi0xLTMzNzgtMTE0', 'Top 10 ac repair and service centre in Phulera, jaipur', 'Ac repair in Phulera, jaipur, ac service centre in Phulera, jaipur, ac service center in Phulera, jaipur', 'Ac repair services in Phulera, jaipur - experienced split, window air conditioner repairing in Phulera, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(771, 2, NULL, 3378, 115, NULL, 'ac-repair-service-center-in-phagi', 'Mi0xLTMzNzgtMTE1', 'Top 10 ac repair and service centre in Phagi, jaipur', 'Ac repair in Phagi, jaipur, ac service centre in Phagi, jaipur, ac service center in Phagi, jaipur', 'Ac repair services in Phagi, jaipur - experienced split, window air conditioner repairing in Phagi, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(772, 2, NULL, 3378, 116, NULL, 'ac-repair-service-center-in-queens-road', 'Mi0xLTMzNzgtMTE2', 'Top 10 ac repair and service centre in Queens Road, jaipur', 'Ac repair in Queens Road, jaipur, ac service centre in Queens Road, jaipur, ac service center in Queens Road, jaipur', 'Ac repair services in Queens Road, jaipur - experienced split, window air conditioner repairing in Queens Road, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(773, 2, NULL, 3378, 117, NULL, 'ac-repair-service-center-in-renwal', 'Mi0xLTMzNzgtMTE3', 'Top 10 ac repair and service centre in Renwal, jaipur', 'Ac repair in Renwal, jaipur, ac service centre in Renwal, jaipur, ac service center in Renwal, jaipur', 'Ac repair services in Renwal, jaipur - experienced split, window air conditioner repairing in Renwal, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(774, 2, NULL, 3378, 118, NULL, 'ac-repair-service-center-in-rampura-dabri', 'Mi0xLTMzNzgtMTE4', 'Top 10 ac repair and service centre in Rampura dabri, jaipur', 'Ac repair in Rampura dabri, jaipur, ac service centre in Rampura dabri, jaipur, ac service center in Rampura dabri, jaipur', 'Ac repair services in Rampura dabri, jaipur - experienced split, window air conditioner repairing in Rampura dabri, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(775, 2, NULL, 3378, 119, NULL, 'ac-repair-service-center-in-sindhi-camp', 'Mi0xLTMzNzgtMTE5', 'Top 10 ac repair and service centre in Sindhi Camp, jaipur', 'Ac repair in Sindhi Camp, jaipur, ac service centre in Sindhi Camp, jaipur, ac service center in Sindhi Camp, jaipur', 'Ac repair services in Sindhi Camp, jaipur - experienced split, window air conditioner repairing in Sindhi Camp, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(776, 2, NULL, 3378, 120, NULL, 'ac-repair-service-center-in-sanganeri-gate', 'Mi0xLTMzNzgtMTIw', 'Top 10 ac repair and service centre in Sanganeri Gate, jaipur', 'Ac repair in Sanganeri Gate, jaipur, ac service centre in Sanganeri Gate, jaipur, ac service center in Sanganeri Gate, jaipur', 'Ac repair services in Sanganeri Gate, jaipur - experienced split, window air conditioner repairing in Sanganeri Gate, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(777, 2, NULL, 3378, 121, NULL, 'ac-repair-service-center-in-shahpura', 'Mi0xLTMzNzgtMTIx', 'Top 10 ac repair and service centre in Shahpura, jaipur', 'Ac repair in Shahpura, jaipur, ac service centre in Shahpura, jaipur, ac service center in Shahpura, jaipur', 'Ac repair services in Shahpura, jaipur - experienced split, window air conditioner repairing in Shahpura, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(778, 2, NULL, 3378, 122, NULL, 'ac-repair-service-center-in-subhash-chowk', 'Mi0xLTMzNzgtMTIy', 'Top 10 ac repair and service centre in Subhash Chowk, jaipur', 'Ac repair in Subhash Chowk, jaipur, ac service centre in Subhash Chowk, jaipur, ac service center in Subhash Chowk, jaipur', 'Ac repair services in Subhash Chowk, jaipur - experienced split, window air conditioner repairing in Subhash Chowk, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1);
+INSERT INTO `websites_page_head_titles` (`id`, `category`, `subcategory`, `city`, `area`, `business_page`, `page_url`, `encoded_params`, `title`, `keyword`, `description`, `created_at`, `updated_at`, `update_status`, `status`) VALUES
+(779, 2, NULL, 3378, 123, NULL, 'ac-repair-service-center-in-samod', 'Mi0xLTMzNzgtMTIz', 'Top 10 ac repair and service centre in Samod, jaipur', 'Ac repair in Samod, jaipur, ac service centre in Samod, jaipur, ac service center in Samod, jaipur', 'Ac repair services in Samod, jaipur - experienced split, window air conditioner repairing in Samod, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(780, 2, NULL, 3378, 124, NULL, 'ac-repair-service-center-in-triveni-nagar', 'Mi0xLTMzNzgtMTI0', 'Top 10 ac repair and service centre in Triveni Nagar, jaipur', 'Ac repair in Triveni Nagar, jaipur, ac service centre in Triveni Nagar, jaipur, ac service center in Triveni Nagar, jaipur', 'Ac repair services in Triveni Nagar, jaipur - experienced split, window air conditioner repairing in Triveni Nagar, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(781, 2, NULL, 3378, 125, NULL, 'ac-repair-service-center-in-thikariya', 'Mi0xLTMzNzgtMTI1', 'Top 10 ac repair and service centre in Thikariya, jaipur', 'Ac repair in Thikariya, jaipur, ac service centre in Thikariya, jaipur, ac service center in Thikariya, jaipur', 'Ac repair services in Thikariya, jaipur - experienced split, window air conditioner repairing in Thikariya, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(782, 2, NULL, 3378, 126, NULL, 'ac-repair-service-center-in-udaipuria', 'Mi0xLTMzNzgtMTI2', 'Top 10 ac repair and service centre in Udaipuria, jaipur', 'Ac repair in Udaipuria, jaipur, ac service centre in Udaipuria, jaipur, ac service center in Udaipuria, jaipur', 'Ac repair services in Udaipuria, jaipur - experienced split, window air conditioner repairing in Udaipuria, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(783, 2, NULL, 3378, 127, NULL, 'ac-repair-service-center-in-vishwakarma-industrial-area', 'Mi0xLTMzNzgtMTI3', 'Top 10 ac repair and service centre in Vishwakarma Industrial Area, jaipur', 'Ac repair in Vishwakarma Industrial Area, jaipur, ac service centre in Vishwakarma Industrial Area, jaipur, ac service center in Vishwakarma Industrial Area, jaipur', 'Ac repair services in Vishwakarma Industrial Area, jaipur - experienced split, window air conditioner repairing in Vishwakarma Industrial Area, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(784, 2, NULL, 3378, 128, NULL, 'ac-repair-service-center-in-vanasthali-marg-station-road', 'Mi0xLTMzNzgtMTI4', 'Top 10 ac repair and service centre in Vanasthali Marg Station Road, jaipur', 'Ac repair in Vanasthali Marg Station Road, jaipur, ac service centre in Vanasthali Marg Station Road, jaipur, ac service center in Vanasthali Marg Station Road, jaipur', 'Ac repair services in Vanasthali Marg Station Road, jaipur - experienced split, window air conditioner repairing in Vanasthali Marg Station Road, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(785, 2, NULL, 3378, 129, NULL, 'ac-repair-service-center-in-watika', 'Mi0xLTMzNzgtMTI5', 'Top 10 ac repair and service centre in Watika, jaipur', 'Ac repair in Watika, jaipur, ac service centre in Watika, jaipur, ac service center in Watika, jaipur', 'Ac repair services in Watika, jaipur - experienced split, window air conditioner repairing in Watika, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
+(786, 2, NULL, 3378, 130, NULL, 'ac-repair-service-center-in-sodala', 'Mi0xLTMzNzgtMTMw', 'Top 10 ac repair and service centre in Sodala, jaipur', 'Ac repair in Sodala, jaipur, ac service centre in Sodala, jaipur, ac service center in Sodala, jaipur', 'Ac repair services in Sodala, jaipur - experienced split, window air conditioner repairing in Sodala, jaipur and get ac repairing charges, air condition repair center contact addresses, phone numbers, ratings, reviews.', '2018-07-31 13:18:27', '2019-02-01 12:45:03', 1, 1),
 (787, 3, NULL, 3378, NULL, NULL, 'led-tv-repair-and-service-centre', 'My0xLTMzNzg=', 'Top 10 led tv repair and service centre in jaipur | enquire us', 'Led tv repair in jaipur,led tv service centre in jaipur, led tv service center in jaipur', 'Led tv repair and service centre in jaipur - list of authorized led tv service centers, repairing shops, technicians in jaipur and get service providers cost, contact addresses.', '2018-07-31 13:25:51', '2018-07-31 13:25:51', 1, 1),
 (788, 3, NULL, 3378, 1, NULL, 'led-tv-repair-and-service-centre-in-adarsh-nagar', 'My0xLTMzNzgtMQ==', 'Top 10 led tv repair and service centre in Adarsh Nagar | enquire us', 'Led tv repair in Adarsh Nagar,led tv service centre in Adarsh Nagar, led tv service center in Adarsh Nagar', 'Led tv repair and service centre in Adarsh Nagar - list of authorized led tv service centers, repairing shops, technicians in Adarsh Nagar and get service providers cost, contact addresses.', '2018-07-31 13:25:51', '2018-07-31 13:25:51', 1, 1),
-(789, 3, NULL, 3378, 2, NULL, 'led-tv-repair-and-service-centre-in-ajmer-road', 'My0xLTMzNzgtMg==', 'Top 10 led tv repair and service centre in Ajmer Road | enquire us', 'Led tv repair in Ajmer Road,led tv service centre in Ajmer Road, led tv service center in Ajmer Road', 'Led tv repair and service centre in Ajmer Road - list of authorized led tv service centers, repairing shops, technicians in Ajmer Road and get service providers cost, contact addresses.', '2018-07-31 13:25:51', '2018-07-31 13:25:51', 1, 1);
-INSERT INTO `websites_page_head_titles` (`id`, `category`, `subcategory`, `city`, `area`, `business_page`, `page_url`, `encoded_params`, `title`, `keyword`, `description`, `created_at`, `updated_at`, `update_status`, `status`) VALUES
+(789, 3, NULL, 3378, 2, NULL, 'led-tv-repair-and-service-centre-in-ajmer-road', 'My0xLTMzNzgtMg==', 'Top 10 led tv repair and service centre in Ajmer Road | enquire us', 'Led tv repair in Ajmer Road,led tv service centre in Ajmer Road, led tv service center in Ajmer Road', 'Led tv repair and service centre in Ajmer Road - list of authorized led tv service centers, repairing shops, technicians in Ajmer Road and get service providers cost, contact addresses.', '2018-07-31 13:25:51', '2018-07-31 13:25:51', 1, 1),
 (790, 3, NULL, 3378, 3, NULL, 'led-tv-repair-and-service-centre-in-ambabari', 'My0xLTMzNzgtMw==', 'Top 10 led tv repair and service centre in Ambabari | enquire us', 'Led tv repair in Ambabari,led tv service centre in Ambabari, led tv service center in Ambabari', 'Led tv repair and service centre in Ambabari - list of authorized led tv service centers, repairing shops, technicians in Ambabari and get service providers cost, contact addresses.', '2018-07-31 13:25:51', '2018-07-31 13:25:51', 1, 1),
 (791, 3, NULL, 3378, 4, NULL, 'led-tv-repair-and-service-centre-in-amer', 'My0xLTMzNzgtNA==', 'Top 10 led tv repair and service centre in Amer | enquire us', 'Led tv repair in Amer,led tv service centre in Amer, led tv service center in Amer', 'Led tv repair and service centre in Amer - list of authorized led tv service centers, repairing shops, technicians in Amer and get service providers cost, contact addresses.', '2018-07-31 13:25:51', '2018-07-31 13:25:51', 1, 1),
 (792, 3, NULL, 3378, 5, NULL, 'led-tv-repair-and-service-centre-in-bani-park', 'My0xLTMzNzgtNQ==', 'Top 10 led tv repair and service centre in Bani Park | enquire us', 'Led tv repair in Bani Park,led tv service centre in Bani Park, led tv service center in Bani Park', 'Led tv repair and service centre in Bani Park - list of authorized led tv service centers, repairing shops, technicians in Bani Park and get service providers cost, contact addresses.', '2018-07-31 13:25:51', '2018-07-31 13:25:51', 1, 1),
@@ -57385,7 +58559,8 @@ INSERT INTO `websites_page_head_titles` (`id`, `category`, `subcategory`, `city`
 (869, 3, NULL, 3378, 82, NULL, 'led-tv-repair-and-service-centre-in-govindpura-baseri', 'My0xLTMzNzgtODI=', 'Top 10 led tv repair and service centre in Govindpura baseri | enquire us', 'Led tv repair in Govindpura baseri,led tv service centre in Govindpura baseri, led tv service center in Govindpura baseri', 'Led tv repair and service centre in Govindpura baseri - list of authorized led tv service centers, repairing shops, technicians in Govindpura baseri and get service providers cost, contact addresses.', '2018-07-31 13:25:51', '2018-07-31 13:25:51', 1, 1),
 (870, 3, NULL, 3378, 83, NULL, 'led-tv-repair-and-service-centre-in-galta-gate', 'My0xLTMzNzgtODM=', 'Top 10 led tv repair and service centre in Galta Gate | enquire us', 'Led tv repair in Galta Gate,led tv service centre in Galta Gate, led tv service center in Galta Gate', 'Led tv repair and service centre in Galta Gate - list of authorized led tv service centers, repairing shops, technicians in Galta Gate and get service providers cost, contact addresses.', '2018-07-31 13:25:51', '2018-07-31 13:25:51', 1, 1),
 (871, 3, NULL, 3378, 84, NULL, 'led-tv-repair-and-service-centre-in-gurunanak-pura', 'My0xLTMzNzgtODQ=', 'Top 10 led tv repair and service centre in Gurunanak Pura | enquire us', 'Led tv repair in Gurunanak Pura,led tv service centre in Gurunanak Pura, led tv service center in Gurunanak Pura', 'Led tv repair and service centre in Gurunanak Pura - list of authorized led tv service centers, repairing shops, technicians in Gurunanak Pura and get service providers cost, contact addresses.', '2018-07-31 13:25:51', '2018-07-31 13:25:51', 1, 1),
-(872, 3, NULL, 3378, 85, NULL, 'led-tv-repair-and-service-centre-in-hawa-sadak', 'My0xLTMzNzgtODU=', 'Top 10 led tv repair and service centre in Hawa Sadak | enquire us', 'Led tv repair in Hawa Sadak,led tv service centre in Hawa Sadak, led tv service center in Hawa Sadak', 'Led tv repair and service centre in Hawa Sadak - list of authorized led tv service centers, repairing shops, technicians in Hawa Sadak and get service providers cost, contact addresses.', '2018-07-31 13:25:51', '2018-07-31 13:25:51', 1, 1),
+(872, 3, NULL, 3378, 85, NULL, 'led-tv-repair-and-service-centre-in-hawa-sadak', 'My0xLTMzNzgtODU=', 'Top 10 led tv repair and service centre in Hawa Sadak | enquire us', 'Led tv repair in Hawa Sadak,led tv service centre in Hawa Sadak, led tv service center in Hawa Sadak', 'Led tv repair and service centre in Hawa Sadak - list of authorized led tv service centers, repairing shops, technicians in Hawa Sadak and get service providers cost, contact addresses.', '2018-07-31 13:25:51', '2018-07-31 13:25:51', 1, 1);
+INSERT INTO `websites_page_head_titles` (`id`, `category`, `subcategory`, `city`, `area`, `business_page`, `page_url`, `encoded_params`, `title`, `keyword`, `description`, `created_at`, `updated_at`, `update_status`, `status`) VALUES
 (873, 3, NULL, 3378, 86, NULL, 'led-tv-repair-and-service-centre-in-hawa-mahal-bazar', 'My0xLTMzNzgtODY=', 'Top 10 led tv repair and service centre in Hawa Mahal Bazar | enquire us', 'Led tv repair in Hawa Mahal Bazar,led tv service centre in Hawa Mahal Bazar, led tv service center in Hawa Mahal Bazar', 'Led tv repair and service centre in Hawa Mahal Bazar - list of authorized led tv service centers, repairing shops, technicians in Hawa Mahal Bazar and get service providers cost, contact addresses.', '2018-07-31 13:25:51', '2018-07-31 13:25:51', 1, 1),
 (874, 3, NULL, 3378, 87, NULL, 'led-tv-repair-and-service-centre-in-hasanpura', 'My0xLTMzNzgtODc=', 'Top 10 led tv repair and service centre in Hasanpura | enquire us', 'Led tv repair in Hasanpura,led tv service centre in Hasanpura, led tv service center in Hasanpura', 'Led tv repair and service centre in Hasanpura - list of authorized led tv service centers, repairing shops, technicians in Hasanpura and get service providers cost, contact addresses.', '2018-07-31 13:25:51', '2018-07-31 13:25:51', 1, 1),
 (875, 3, NULL, 3378, 88, NULL, 'led-tv-repair-and-service-centre-in-indira-bazar', 'My0xLTMzNzgtODg=', 'Top 10 led tv repair and service centre in Indira Bazar | enquire us', 'Led tv repair in Indira Bazar,led tv service centre in Indira Bazar, led tv service center in Indira Bazar', 'Led tv repair and service centre in Indira Bazar - list of authorized led tv service centers, repairing shops, technicians in Indira Bazar and get service providers cost, contact addresses.', '2018-07-31 13:25:51', '2018-07-31 13:25:51', 1, 1),
@@ -57396,8 +58571,7 @@ INSERT INTO `websites_page_head_titles` (`id`, `category`, `subcategory`, `city`
 (880, 3, NULL, 3378, 93, NULL, 'led-tv-repair-and-service-centre-in-jamdoli', 'My0xLTMzNzgtOTM=', 'Top 10 led tv repair and service centre in Jamdoli | enquire us', 'Led tv repair in Jamdoli,led tv service centre in Jamdoli, led tv service center in Jamdoli', 'Led tv repair and service centre in Jamdoli - list of authorized led tv service centers, repairing shops, technicians in Jamdoli and get service providers cost, contact addresses.', '2018-07-31 13:25:51', '2018-07-31 13:25:51', 1, 1),
 (881, 3, NULL, 3378, 94, NULL, 'led-tv-repair-and-service-centre-in-jobner', 'My0xLTMzNzgtOTQ=', 'Top 10 led tv repair and service centre in jobner | enquire us', 'Led tv repair in jobner,led tv service centre in jobner, led tv service center in jobner', 'Led tv repair and service centre in jobner - list of authorized led tv service centers, repairing shops, technicians in jobner and get service providers cost, contact addresses.', '2018-07-31 13:25:51', '2018-07-31 13:25:51', 1, 1),
 (882, 3, NULL, 3378, 95, NULL, 'led-tv-repair-and-service-centre-in-kotputali', 'My0xLTMzNzgtOTU=', 'Top 10 led tv repair and service centre in Kotputali | enquire us', 'Led tv repair in Kotputali,led tv service centre in Kotputali, led tv service center in Kotputali', 'Led tv repair and service centre in Kotputali - list of authorized led tv service centers, repairing shops, technicians in Kotputali and get service providers cost, contact addresses.', '2018-07-31 13:25:51', '2018-07-31 13:25:51', 1, 1),
-(883, 3, NULL, 3378, 96, NULL, 'led-tv-repair-and-service-centre-in-kanota', 'My0xLTMzNzgtOTY=', 'Top 10 led tv repair and service centre in Kanota | enquire us', 'Led tv repair in Kanota,led tv service centre in Kanota, led tv service center in Kanota', 'Led tv repair and service centre in Kanota - list of authorized led tv service centers, repairing shops, technicians in Kanota and get service providers cost, contact addresses.', '2018-07-31 13:25:51', '2018-07-31 13:25:51', 1, 1);
-INSERT INTO `websites_page_head_titles` (`id`, `category`, `subcategory`, `city`, `area`, `business_page`, `page_url`, `encoded_params`, `title`, `keyword`, `description`, `created_at`, `updated_at`, `update_status`, `status`) VALUES
+(883, 3, NULL, 3378, 96, NULL, 'led-tv-repair-and-service-centre-in-kanota', 'My0xLTMzNzgtOTY=', 'Top 10 led tv repair and service centre in Kanota | enquire us', 'Led tv repair in Kanota,led tv service centre in Kanota, led tv service center in Kanota', 'Led tv repair and service centre in Kanota - list of authorized led tv service centers, repairing shops, technicians in Kanota and get service providers cost, contact addresses.', '2018-07-31 13:25:51', '2018-07-31 13:25:51', 1, 1),
 (884, 3, NULL, 3378, 97, NULL, 'led-tv-repair-and-service-centre-in-kishanpole-bazar', 'My0xLTMzNzgtOTc=', 'Top 10 led tv repair and service centre in Kishanpole Bazar | enquire us', 'Led tv repair in Kishanpole Bazar,led tv service centre in Kishanpole Bazar, led tv service center in Kishanpole Bazar', 'Led tv repair and service centre in Kishanpole Bazar - list of authorized led tv service centers, repairing shops, technicians in Kishanpole Bazar and get service providers cost, contact addresses.', '2018-07-31 13:25:51', '2018-07-31 13:25:51', 1, 1),
 (885, 3, NULL, 3378, 98, NULL, 'led-tv-repair-and-service-centre-in-khatipura', 'My0xLTMzNzgtOTg=', 'Top 10 led tv repair and service centre in khatipura | enquire us', 'Led tv repair in khatipura,led tv service centre in khatipura, led tv service center in khatipura', 'Led tv repair and service centre in khatipura - list of authorized led tv service centers, repairing shops, technicians in khatipura and get service providers cost, contact addresses.', '2018-07-31 13:25:51', '2018-07-31 13:25:51', 1, 1),
 (886, 3, NULL, 3378, 99, NULL, 'led-tv-repair-and-service-centre-in-kings-road', 'My0xLTMzNzgtOTk=', 'Top 10 led tv repair and service centre in Kings Road | enquire us', 'Led tv repair in Kings Road,led tv service centre in Kings Road, led tv service center in Kings Road', 'Led tv repair and service centre in Kings Road - list of authorized led tv service centers, repairing shops, technicians in Kings Road and get service providers cost, contact addresses.', '2018-07-31 13:25:51', '2018-07-31 13:25:51', 1, 1),
@@ -57433,12 +58607,10 @@ INSERT INTO `websites_page_head_titles` (`id`, `category`, `subcategory`, `city`
 (916, 3, NULL, 3378, 129, NULL, 'led-tv-repair-and-service-centre-in-watika', 'My0xLTMzNzgtMTI5', 'Top 10 led tv repair and service centre in Watika | enquire us', 'Led tv repair in Watika,led tv service centre in Watika, led tv service center in Watika', 'Led tv repair and service centre in Watika - list of authorized led tv service centers, repairing shops, technicians in Watika and get service providers cost, contact addresses.', '2018-07-31 13:25:51', '2018-07-31 13:25:51', 1, 1),
 (917, 3, NULL, 3378, 130, NULL, 'led-tv-repair-and-service-centre-in-sodala', 'My0xLTMzNzgtMTMw', 'Top 10 led tv repair and service centre in Sodala | enquire us', 'Led tv repair in Sodala,led tv service centre in Sodala, led tv service center in Sodala', 'Led tv repair and service centre in Sodala - list of authorized led tv service centers, repairing shops, technicians in Sodala and get service providers cost, contact addresses.', '2018-07-31 13:25:51', '2018-07-31 13:25:51', 1, 1),
 (918, NULL, NULL, 3378, 2, '2', 'Apple-caterers-in-Ajmer-Road', 'Mi0zLTMzNzgtMg==', 'Apple caterers in Ajmer Road', 'Apple caterers in Ajmer Road', 'Apple caterers in Ajmer Road', '2018-08-02 14:06:53', '2018-08-02 14:06:53', 1, 1),
-(919, NULL, NULL, NULL, NULL, NULL, 'about-us', NULL, 'About Us', 'About Us', 'About Us', '2018-08-07 14:05:04', '2018-08-28 12:46:55', 1, 1),
 (920, NULL, NULL, 3378, 34, '7', 'Shree-saras-Kripa-Caterers-in-Mansarovar', 'Ny0zLTMzNzgtMzQ=', 'Shree saras Kripa Caterers in Mansarovar', 'Shree saras Kripa Caterers in Mansarovar', 'Shree saras Kripa Caterers in Mansarovar', '2018-08-12 06:04:15', '2018-08-12 06:04:15', 1, 1),
 (921, NULL, NULL, 3378, 19, '8', 'NR-caterers-in-Jaipur', 'OC0zLTMzNzgtMTk=', 'NR caterers in Jaipur', 'NR caterers in Jaipur', 'NR caterers in Jaipur', '2018-08-12 06:21:10', '2018-08-12 06:21:10', 1, 1),
 (922, NULL, NULL, 3378, 32, '9', 'Anjani-Caterers-in-malviya-Nagar', 'OS0zLTMzNzgtMzI=', 'Anjani Caterers in malviya Nagar', 'Anjani Caterers in malviya Nagar', 'Anjani Caterers in malviya Nagar', '2018-08-12 06:33:47', '2018-08-12 06:33:47', 1, 1),
 (923, NULL, NULL, 3378, 98, '10', 'Shree-Ganesh-Caterers-in-khatipura', 'MTAtMy0zMzc4LTk4', 'Shree Ganesh Caterers in khatipura', 'Shree Ganesh Caterers in khatipura', 'Shree Ganesh Caterers in khatipura', '2018-08-22 19:30:36', '2018-08-22 19:30:36', 1, 1),
-(924, NULL, NULL, NULL, NULL, NULL, '/', NULL, 'Enquire us |Best local search engine in Jaipur Rajasthan India', 'hii', 'hii', '2018-08-24 12:40:15', '2018-08-24 12:40:15', 1, 1),
 (925, 5, NULL, 3378, NULL, NULL, 'taxi', 'NS0xLTMzNzg=', 'Cab & taxi services in jaipur - local non ac taxi booking- enquireus.com', 'Cabs in jaipur, local taxi service, airport taxi service, non ac taxi services, taxi service enquiry, taxi wala, call taxi services, taxi services, phone number, address, reviews', 'Find &#10004;car hire, &#10004;tempo travellers on hire, &#10004;car hire-toyota innova, &#10004;call taxi services, &#10004;tour operators in jaipur. get phone numbers, address, reviews, photos, maps for top taxi services near me in jaipur on enquireus', '2018-08-24 16:35:00', '2018-08-25 07:29:53', 1, 1),
 (926, 5, NULL, 3378, 1, NULL, 'taxi-in-adarsh-nagar', 'NS0xLTMzNzgtMQ==', 'Cab & taxi services in Adarsh Nagar, jaipur - local non ac taxi booking- enquireus.com', 'Cabs in Adarsh Nagar, jaipur, local taxi service, airport taxi service, non ac taxi services, taxi service enquiry, taxi wala, call taxi services, taxi services, phone number, address, reviews', 'Find &#10004;car hire, &#10004;tempo travellers on hire, &#10004;car hire-toyota innova, &#10004;call taxi services, &#10004;tour operators in Adarsh Nagar, jaipur. get phone numbers, address, reviews, photos, maps for top taxi services near me in Adarsh Nagar, jaipur on enquireus', '2018-08-24 16:35:00', '2018-08-25 07:29:53', 1, 1),
 (927, 5, NULL, 3378, 2, NULL, 'taxi-in-ajmer-road', 'NS0xLTMzNzgtMg==', 'Cab & taxi services in Ajmer Road, jaipur - local non ac taxi booking- enquireus.com', 'Cabs in Ajmer Road, jaipur, local taxi service, airport taxi service, non ac taxi services, taxi service enquiry, taxi wala, call taxi services, taxi services, phone number, address, reviews', 'Find &#10004;car hire, &#10004;tempo travellers on hire, &#10004;car hire-toyota innova, &#10004;call taxi services, &#10004;tour operators in Ajmer Road, jaipur. get phone numbers, address, reviews, photos, maps for top taxi services near me in Ajmer Road, jaipur on enquireus', '2018-08-24 16:35:00', '2018-08-25 07:29:53', 1, 1),
@@ -57473,7 +58645,8 @@ INSERT INTO `websites_page_head_titles` (`id`, `category`, `subcategory`, `city`
 (956, 5, NULL, 3378, 31, NULL, 'taxi-in-mahapura', 'NS0xLTMzNzgtMzE=', 'Cab & taxi services in Mahapura, jaipur - local non ac taxi booking- enquireus.com', 'Cabs in Mahapura, jaipur, local taxi service, airport taxi service, non ac taxi services, taxi service enquiry, taxi wala, call taxi services, taxi services, phone number, address, reviews', 'Find &#10004;car hire, &#10004;tempo travellers on hire, &#10004;car hire-toyota innova, &#10004;call taxi services, &#10004;tour operators in Mahapura, jaipur. get phone numbers, address, reviews, photos, maps for top taxi services near me in Mahapura, jaipur on enquireus', '2018-08-24 16:35:00', '2018-08-25 07:29:53', 1, 1),
 (957, 5, NULL, 3378, 32, NULL, 'taxi-in-malviya-nagar', 'NS0xLTMzNzgtMzI=', 'Cab & taxi services in malviya Nagar, jaipur - local non ac taxi booking- enquireus.com', 'Cabs in malviya Nagar, jaipur, local taxi service, airport taxi service, non ac taxi services, taxi service enquiry, taxi wala, call taxi services, taxi services, phone number, address, reviews', 'Find &#10004;car hire, &#10004;tempo travellers on hire, &#10004;car hire-toyota innova, &#10004;call taxi services, &#10004;tour operators in malviya Nagar, jaipur. get phone numbers, address, reviews, photos, maps for top taxi services near me in malviya Nagar, jaipur on enquireus', '2018-08-24 16:35:00', '2018-08-25 07:29:53', 1, 1),
 (958, 5, NULL, 3378, 33, NULL, 'taxi-in-malviya-industrial-area', 'NS0xLTMzNzgtMzM=', 'Cab & taxi services in Malviya Industrial Area, jaipur - local non ac taxi booking- enquireus.com', 'Cabs in Malviya Industrial Area, jaipur, local taxi service, airport taxi service, non ac taxi services, taxi service enquiry, taxi wala, call taxi services, taxi services, phone number, address, reviews', 'Find &#10004;car hire, &#10004;tempo travellers on hire, &#10004;car hire-toyota innova, &#10004;call taxi services, &#10004;tour operators in Malviya Industrial Area, jaipur. get phone numbers, address, reviews, photos, maps for top taxi services near me in Malviya Industrial Area, jaipur on enquireus', '2018-08-24 16:35:00', '2018-08-25 07:29:53', 1, 1),
-(959, 5, NULL, 3378, 34, NULL, 'taxi-in-mansarovar', 'NS0xLTMzNzgtMzQ=', 'Cab & taxi services in Mansarovar, jaipur - local non ac taxi booking- enquireus.com', 'Cabs in Mansarovar, jaipur, local taxi service, airport taxi service, non ac taxi services, taxi service enquiry, taxi wala, call taxi services, taxi services, phone number, address, reviews', 'Find &#10004;car hire, &#10004;tempo travellers on hire, &#10004;car hire-toyota innova, &#10004;call taxi services, &#10004;tour operators in Mansarovar, jaipur. get phone numbers, address, reviews, photos, maps for top taxi services near me in Mansarovar, jaipur on enquireus', '2018-08-24 16:35:00', '2018-08-25 07:29:53', 1, 1),
+(959, 5, NULL, 3378, 34, NULL, 'taxi-in-mansarovar', 'NS0xLTMzNzgtMzQ=', 'Cab & taxi services in Mansarovar, jaipur - local non ac taxi booking- enquireus.com', 'Cabs in Mansarovar, jaipur, local taxi service, airport taxi service, non ac taxi services, taxi service enquiry, taxi wala, call taxi services, taxi services, phone number, address, reviews', 'Find &#10004;car hire, &#10004;tempo travellers on hire, &#10004;car hire-toyota innova, &#10004;call taxi services, &#10004;tour operators in Mansarovar, jaipur. get phone numbers, address, reviews, photos, maps for top taxi services near me in Mansarovar, jaipur on enquireus', '2018-08-24 16:35:00', '2018-08-25 07:29:53', 1, 1);
+INSERT INTO `websites_page_head_titles` (`id`, `category`, `subcategory`, `city`, `area`, `business_page`, `page_url`, `encoded_params`, `title`, `keyword`, `description`, `created_at`, `updated_at`, `update_status`, `status`) VALUES
 (960, 5, NULL, 3378, 35, NULL, 'taxi-in-meena-wala', 'NS0xLTMzNzgtMzU=', 'Cab & taxi services in Meena Wala, jaipur - local non ac taxi booking- enquireus.com', 'Cabs in Meena Wala, jaipur, local taxi service, airport taxi service, non ac taxi services, taxi service enquiry, taxi wala, call taxi services, taxi services, phone number, address, reviews', 'Find &#10004;car hire, &#10004;tempo travellers on hire, &#10004;car hire-toyota innova, &#10004;call taxi services, &#10004;tour operators in Meena Wala, jaipur. get phone numbers, address, reviews, photos, maps for top taxi services near me in Meena Wala, jaipur on enquireus', '2018-08-24 16:35:00', '2018-08-25 07:29:53', 1, 1),
 (961, 5, NULL, 3378, 36, NULL, 'taxi-in-moti-doongari-road', 'NS0xLTMzNzgtMzY=', 'Cab & taxi services in Moti Doongari Road, jaipur - local non ac taxi booking- enquireus.com', 'Cabs in Moti Doongari Road, jaipur, local taxi service, airport taxi service, non ac taxi services, taxi service enquiry, taxi wala, call taxi services, taxi services, phone number, address, reviews', 'Find &#10004;car hire, &#10004;tempo travellers on hire, &#10004;car hire-toyota innova, &#10004;call taxi services, &#10004;tour operators in Moti Doongari Road, jaipur. get phone numbers, address, reviews, photos, maps for top taxi services near me in Moti Doongari Road, jaipur on enquireus', '2018-08-24 16:35:00', '2018-08-25 07:29:53', 1, 1),
 (962, 5, NULL, 3378, 37, NULL, 'taxi-in-muhana', 'NS0xLTMzNzgtMzc=', 'Cab & taxi services in Muhana, jaipur - local non ac taxi booking- enquireus.com', 'Cabs in Muhana, jaipur, local taxi service, airport taxi service, non ac taxi services, taxi service enquiry, taxi wala, call taxi services, taxi services, phone number, address, reviews', 'Find &#10004;car hire, &#10004;tempo travellers on hire, &#10004;car hire-toyota innova, &#10004;call taxi services, &#10004;tour operators in Muhana, jaipur. get phone numbers, address, reviews, photos, maps for top taxi services near me in Muhana, jaipur on enquireus', '2018-08-24 16:35:00', '2018-08-25 07:29:53', 1, 1),
@@ -57481,8 +58654,7 @@ INSERT INTO `websites_page_head_titles` (`id`, `category`, `subcategory`, `city`
 (964, 5, NULL, 3378, 39, NULL, 'taxi-in-mundia-rampura', 'NS0xLTMzNzgtMzk=', 'Cab & taxi services in Mundia Rampura, jaipur - local non ac taxi booking- enquireus.com', 'Cabs in Mundia Rampura, jaipur, local taxi service, airport taxi service, non ac taxi services, taxi service enquiry, taxi wala, call taxi services, taxi services, phone number, address, reviews', 'Find &#10004;car hire, &#10004;tempo travellers on hire, &#10004;car hire-toyota innova, &#10004;call taxi services, &#10004;tour operators in Mundia Rampura, jaipur. get phone numbers, address, reviews, photos, maps for top taxi services near me in Mundia Rampura, jaipur on enquireus', '2018-08-24 16:35:00', '2018-08-25 07:29:53', 1, 1),
 (965, 5, NULL, 3378, 40, NULL, 'taxi-in-murlipura', 'NS0xLTMzNzgtNDA=', 'Cab & taxi services in Murlipura, jaipur - local non ac taxi booking- enquireus.com', 'Cabs in Murlipura, jaipur, local taxi service, airport taxi service, non ac taxi services, taxi service enquiry, taxi wala, call taxi services, taxi services, phone number, address, reviews', 'Find &#10004;car hire, &#10004;tempo travellers on hire, &#10004;car hire-toyota innova, &#10004;call taxi services, &#10004;tour operators in Murlipura, jaipur. get phone numbers, address, reviews, photos, maps for top taxi services near me in Murlipura, jaipur on enquireus', '2018-08-24 16:35:00', '2018-08-25 07:29:53', 1, 1),
 (966, 5, NULL, 3378, 41, NULL, 'taxi-in-nangal-jaisa-bohra', 'NS0xLTMzNzgtNDE=', 'Cab & taxi services in Nangal Jaisa Bohra, jaipur - local non ac taxi booking- enquireus.com', 'Cabs in Nangal Jaisa Bohra, jaipur, local taxi service, airport taxi service, non ac taxi services, taxi service enquiry, taxi wala, call taxi services, taxi services, phone number, address, reviews', 'Find &#10004;car hire, &#10004;tempo travellers on hire, &#10004;car hire-toyota innova, &#10004;call taxi services, &#10004;tour operators in Nangal Jaisa Bohra, jaipur. get phone numbers, address, reviews, photos, maps for top taxi services near me in Nangal Jaisa Bohra, jaipur on enquireus', '2018-08-24 16:35:00', '2018-08-25 07:29:53', 1, 1),
-(967, 5, NULL, 3378, 42, NULL, 'taxi-in-neendar', 'NS0xLTMzNzgtNDI=', 'Cab & taxi services in Neendar, jaipur - local non ac taxi booking- enquireus.com', 'Cabs in Neendar, jaipur, local taxi service, airport taxi service, non ac taxi services, taxi service enquiry, taxi wala, call taxi services, taxi services, phone number, address, reviews', 'Find &#10004;car hire, &#10004;tempo travellers on hire, &#10004;car hire-toyota innova, &#10004;call taxi services, &#10004;tour operators in Neendar, jaipur. get phone numbers, address, reviews, photos, maps for top taxi services near me in Neendar, jaipur on enquireus', '2018-08-24 16:35:00', '2018-08-25 07:29:53', 1, 1);
-INSERT INTO `websites_page_head_titles` (`id`, `category`, `subcategory`, `city`, `area`, `business_page`, `page_url`, `encoded_params`, `title`, `keyword`, `description`, `created_at`, `updated_at`, `update_status`, `status`) VALUES
+(967, 5, NULL, 3378, 42, NULL, 'taxi-in-neendar', 'NS0xLTMzNzgtNDI=', 'Cab & taxi services in Neendar, jaipur - local non ac taxi booking- enquireus.com', 'Cabs in Neendar, jaipur, local taxi service, airport taxi service, non ac taxi services, taxi service enquiry, taxi wala, call taxi services, taxi services, phone number, address, reviews', 'Find &#10004;car hire, &#10004;tempo travellers on hire, &#10004;car hire-toyota innova, &#10004;call taxi services, &#10004;tour operators in Neendar, jaipur. get phone numbers, address, reviews, photos, maps for top taxi services near me in Neendar, jaipur on enquireus', '2018-08-24 16:35:00', '2018-08-25 07:29:53', 1, 1),
 (968, 5, NULL, 3378, 43, NULL, 'taxi-in-neendar-benar', 'NS0xLTMzNzgtNDM=', 'Cab & taxi services in neendar benar, jaipur - local non ac taxi booking- enquireus.com', 'Cabs in neendar benar, jaipur, local taxi service, airport taxi service, non ac taxi services, taxi service enquiry, taxi wala, call taxi services, taxi services, phone number, address, reviews', 'Find &#10004;car hire, &#10004;tempo travellers on hire, &#10004;car hire-toyota innova, &#10004;call taxi services, &#10004;tour operators in neendar benar, jaipur. get phone numbers, address, reviews, photos, maps for top taxi services near me in neendar benar, jaipur on enquireus', '2018-08-24 16:35:00', '2018-08-25 07:29:53', 1, 1),
 (969, 5, NULL, 3378, 44, NULL, 'taxi-in-niwaroo', 'NS0xLTMzNzgtNDQ=', 'Cab & taxi services in Niwaroo, jaipur - local non ac taxi booking- enquireus.com', 'Cabs in Niwaroo, jaipur, local taxi service, airport taxi service, non ac taxi services, taxi service enquiry, taxi wala, call taxi services, taxi services, phone number, address, reviews', 'Find &#10004;car hire, &#10004;tempo travellers on hire, &#10004;car hire-toyota innova, &#10004;call taxi services, &#10004;tour operators in Niwaroo, jaipur. get phone numbers, address, reviews, photos, maps for top taxi services near me in Niwaroo, jaipur on enquireus', '2018-08-24 16:35:00', '2018-08-25 07:29:53', 1, 1),
 (970, 5, NULL, 3378, 45, NULL, 'taxi-in-pratap-nagar', 'NS0xLTMzNzgtNDU=', 'Cab & taxi services in Pratap Nagar, jaipur - local non ac taxi booking- enquireus.com', 'Cabs in Pratap Nagar, jaipur, local taxi service, airport taxi service, non ac taxi services, taxi service enquiry, taxi wala, call taxi services, taxi services, phone number, address, reviews', 'Find &#10004;car hire, &#10004;tempo travellers on hire, &#10004;car hire-toyota innova, &#10004;call taxi services, &#10004;tour operators in Pratap Nagar, jaipur. get phone numbers, address, reviews, photos, maps for top taxi services near me in Pratap Nagar, jaipur on enquireus', '2018-08-24 16:35:00', '2018-08-25 07:29:53', 1, 1),
@@ -57545,7 +58717,8 @@ INSERT INTO `websites_page_head_titles` (`id`, `category`, `subcategory`, `city`
 (1027, 5, NULL, 3378, 102, NULL, 'taxi-in-khurra-brahampuri', 'NS0xLTMzNzgtMTAy', 'Cab & taxi services in Khurra brahampuri, jaipur - local non ac taxi booking- enquireus.com', 'Cabs in Khurra brahampuri, jaipur, local taxi service, airport taxi service, non ac taxi services, taxi service enquiry, taxi wala, call taxi services, taxi services, phone number, address, reviews', 'Find &#10004;car hire, &#10004;tempo travellers on hire, &#10004;car hire-toyota innova, &#10004;call taxi services, &#10004;tour operators in Khurra brahampuri, jaipur. get phone numbers, address, reviews, photos, maps for top taxi services near me in Khurra brahampuri, jaipur on enquireus', '2018-08-24 16:35:00', '2018-08-25 07:29:53', 1, 1),
 (1028, 5, NULL, 3378, 103, NULL, 'taxi-in-kaladera', 'NS0xLTMzNzgtMTAz', 'Cab & taxi services in Kaladera, jaipur - local non ac taxi booking- enquireus.com', 'Cabs in Kaladera, jaipur, local taxi service, airport taxi service, non ac taxi services, taxi service enquiry, taxi wala, call taxi services, taxi services, phone number, address, reviews', 'Find &#10004;car hire, &#10004;tempo travellers on hire, &#10004;car hire-toyota innova, &#10004;call taxi services, &#10004;tour operators in Kaladera, jaipur. get phone numbers, address, reviews, photos, maps for top taxi services near me in Kaladera, jaipur on enquireus', '2018-08-24 16:35:00', '2018-08-25 07:29:53', 1, 1),
 (1029, 5, NULL, 3378, 104, NULL, 'taxi-in-luniawas', 'NS0xLTMzNzgtMTA0', 'Cab & taxi services in Luniawas, jaipur - local non ac taxi booking- enquireus.com', 'Cabs in Luniawas, jaipur, local taxi service, airport taxi service, non ac taxi services, taxi service enquiry, taxi wala, call taxi services, taxi services, phone number, address, reviews', 'Find &#10004;car hire, &#10004;tempo travellers on hire, &#10004;car hire-toyota innova, &#10004;call taxi services, &#10004;tour operators in Luniawas, jaipur. get phone numbers, address, reviews, photos, maps for top taxi services near me in Luniawas, jaipur on enquireus', '2018-08-24 16:35:00', '2018-08-25 07:29:53', 1, 1),
-(1030, 5, NULL, 3378, 105, NULL, 'taxi-in-nirman-nagar', 'NS0xLTMzNzgtMTA1', 'Cab & taxi services in Nirman Nagar, jaipur - local non ac taxi booking- enquireus.com', 'Cabs in Nirman Nagar, jaipur, local taxi service, airport taxi service, non ac taxi services, taxi service enquiry, taxi wala, call taxi services, taxi services, phone number, address, reviews', 'Find &#10004;car hire, &#10004;tempo travellers on hire, &#10004;car hire-toyota innova, &#10004;call taxi services, &#10004;tour operators in Nirman Nagar, jaipur. get phone numbers, address, reviews, photos, maps for top taxi services near me in Nirman Nagar, jaipur on enquireus', '2018-08-24 16:35:00', '2018-08-25 07:29:53', 1, 1),
+(1030, 5, NULL, 3378, 105, NULL, 'taxi-in-nirman-nagar', 'NS0xLTMzNzgtMTA1', 'Cab & taxi services in Nirman Nagar, jaipur - local non ac taxi booking- enquireus.com', 'Cabs in Nirman Nagar, jaipur, local taxi service, airport taxi service, non ac taxi services, taxi service enquiry, taxi wala, call taxi services, taxi services, phone number, address, reviews', 'Find &#10004;car hire, &#10004;tempo travellers on hire, &#10004;car hire-toyota innova, &#10004;call taxi services, &#10004;tour operators in Nirman Nagar, jaipur. get phone numbers, address, reviews, photos, maps for top taxi services near me in Nirman Nagar, jaipur on enquireus', '2018-08-24 16:35:00', '2018-08-25 07:29:53', 1, 1);
+INSERT INTO `websites_page_head_titles` (`id`, `category`, `subcategory`, `city`, `area`, `business_page`, `page_url`, `encoded_params`, `title`, `keyword`, `description`, `created_at`, `updated_at`, `update_status`, `status`) VALUES
 (1031, 5, NULL, 3378, 106, NULL, 'taxi-in-narain-singh-road', 'NS0xLTMzNzgtMTA2', 'Cab & taxi services in Narain Singh Road, jaipur - local non ac taxi booking- enquireus.com', 'Cabs in Narain Singh Road, jaipur, local taxi service, airport taxi service, non ac taxi services, taxi service enquiry, taxi wala, call taxi services, taxi services, phone number, address, reviews', 'Find &#10004;car hire, &#10004;tempo travellers on hire, &#10004;car hire-toyota innova, &#10004;call taxi services, &#10004;tour operators in Narain Singh Road, jaipur. get phone numbers, address, reviews, photos, maps for top taxi services near me in Narain Singh Road, jaipur on enquireus', '2018-08-24 16:35:00', '2018-08-25 07:29:53', 1, 1),
 (1032, 5, NULL, 3378, 107, NULL, 'taxi-in-new-atish-market', 'NS0xLTMzNzgtMTA3', 'Cab & taxi services in New Atish Market, jaipur - local non ac taxi booking- enquireus.com', 'Cabs in New Atish Market, jaipur, local taxi service, airport taxi service, non ac taxi services, taxi service enquiry, taxi wala, call taxi services, taxi services, phone number, address, reviews', 'Find &#10004;car hire, &#10004;tempo travellers on hire, &#10004;car hire-toyota innova, &#10004;call taxi services, &#10004;tour operators in New Atish Market, jaipur. get phone numbers, address, reviews, photos, maps for top taxi services near me in New Atish Market, jaipur on enquireus', '2018-08-24 16:35:00', '2018-08-25 07:29:53', 1, 1),
 (1033, 5, NULL, 3378, 108, NULL, 'taxi-in-nahari-ka-naka', 'NS0xLTMzNzgtMTA4', 'Cab & taxi services in Nahari ka Naka, jaipur - local non ac taxi booking- enquireus.com', 'Cabs in Nahari ka Naka, jaipur, local taxi service, airport taxi service, non ac taxi services, taxi service enquiry, taxi wala, call taxi services, taxi services, phone number, address, reviews', 'Find &#10004;car hire, &#10004;tempo travellers on hire, &#10004;car hire-toyota innova, &#10004;call taxi services, &#10004;tour operators in Nahari ka Naka, jaipur. get phone numbers, address, reviews, photos, maps for top taxi services near me in Nahari ka Naka, jaipur on enquireus', '2018-08-24 16:35:00', '2018-08-25 07:29:53', 1, 1),
@@ -57553,8 +58726,7 @@ INSERT INTO `websites_page_head_titles` (`id`, `category`, `subcategory`, `city`
 (1035, 5, NULL, 3378, 110, NULL, 'taxi-in-nemi-sagar-colony', 'NS0xLTMzNzgtMTEw', 'Cab & taxi services in Nemi Sagar Colony, jaipur - local non ac taxi booking- enquireus.com', 'Cabs in Nemi Sagar Colony, jaipur, local taxi service, airport taxi service, non ac taxi services, taxi service enquiry, taxi wala, call taxi services, taxi services, phone number, address, reviews', 'Find &#10004;car hire, &#10004;tempo travellers on hire, &#10004;car hire-toyota innova, &#10004;call taxi services, &#10004;tour operators in Nemi Sagar Colony, jaipur. get phone numbers, address, reviews, photos, maps for top taxi services near me in Nemi Sagar Colony, jaipur on enquireus', '2018-08-24 16:35:00', '2018-08-25 07:29:53', 1, 1),
 (1036, 5, NULL, 3378, 111, NULL, 'taxi-in-nityanand-colony', 'NS0xLTMzNzgtMTEx', 'Cab & taxi services in Nityanand Colony, jaipur - local non ac taxi booking- enquireus.com', 'Cabs in Nityanand Colony, jaipur, local taxi service, airport taxi service, non ac taxi services, taxi service enquiry, taxi wala, call taxi services, taxi services, phone number, address, reviews', 'Find &#10004;car hire, &#10004;tempo travellers on hire, &#10004;car hire-toyota innova, &#10004;call taxi services, &#10004;tour operators in Nityanand Colony, jaipur. get phone numbers, address, reviews, photos, maps for top taxi services near me in Nityanand Colony, jaipur on enquireus', '2018-08-24 16:35:00', '2018-08-25 07:29:53', 1, 1),
 (1037, 5, NULL, 3378, 112, NULL, 'taxi-in-nathawala', 'NS0xLTMzNzgtMTEy', 'Cab & taxi services in Nathawala, jaipur - local non ac taxi booking- enquireus.com', 'Cabs in Nathawala, jaipur, local taxi service, airport taxi service, non ac taxi services, taxi service enquiry, taxi wala, call taxi services, taxi services, phone number, address, reviews', 'Find &#10004;car hire, &#10004;tempo travellers on hire, &#10004;car hire-toyota innova, &#10004;call taxi services, &#10004;tour operators in Nathawala, jaipur. get phone numbers, address, reviews, photos, maps for top taxi services near me in Nathawala, jaipur on enquireus', '2018-08-24 16:35:00', '2018-08-25 07:29:53', 1, 1),
-(1038, 5, NULL, 3378, 113, NULL, 'taxi-in-panchyawala', 'NS0xLTMzNzgtMTEz', 'Cab & taxi services in Panchyawala, jaipur - local non ac taxi booking- enquireus.com', 'Cabs in Panchyawala, jaipur, local taxi service, airport taxi service, non ac taxi services, taxi service enquiry, taxi wala, call taxi services, taxi services, phone number, address, reviews', 'Find &#10004;car hire, &#10004;tempo travellers on hire, &#10004;car hire-toyota innova, &#10004;call taxi services, &#10004;tour operators in Panchyawala, jaipur. get phone numbers, address, reviews, photos, maps for top taxi services near me in Panchyawala, jaipur on enquireus', '2018-08-24 16:35:00', '2018-08-25 07:29:53', 1, 1);
-INSERT INTO `websites_page_head_titles` (`id`, `category`, `subcategory`, `city`, `area`, `business_page`, `page_url`, `encoded_params`, `title`, `keyword`, `description`, `created_at`, `updated_at`, `update_status`, `status`) VALUES
+(1038, 5, NULL, 3378, 113, NULL, 'taxi-in-panchyawala', 'NS0xLTMzNzgtMTEz', 'Cab & taxi services in Panchyawala, jaipur - local non ac taxi booking- enquireus.com', 'Cabs in Panchyawala, jaipur, local taxi service, airport taxi service, non ac taxi services, taxi service enquiry, taxi wala, call taxi services, taxi services, phone number, address, reviews', 'Find &#10004;car hire, &#10004;tempo travellers on hire, &#10004;car hire-toyota innova, &#10004;call taxi services, &#10004;tour operators in Panchyawala, jaipur. get phone numbers, address, reviews, photos, maps for top taxi services near me in Panchyawala, jaipur on enquireus', '2018-08-24 16:35:00', '2018-08-25 07:29:53', 1, 1),
 (1039, 5, NULL, 3378, 114, NULL, 'taxi-in-phulera', 'NS0xLTMzNzgtMTE0', 'Cab & taxi services in Phulera, jaipur - local non ac taxi booking- enquireus.com', 'Cabs in Phulera, jaipur, local taxi service, airport taxi service, non ac taxi services, taxi service enquiry, taxi wala, call taxi services, taxi services, phone number, address, reviews', 'Find &#10004;car hire, &#10004;tempo travellers on hire, &#10004;car hire-toyota innova, &#10004;call taxi services, &#10004;tour operators in Phulera, jaipur. get phone numbers, address, reviews, photos, maps for top taxi services near me in Phulera, jaipur on enquireus', '2018-08-24 16:35:00', '2018-08-25 07:29:53', 1, 1),
 (1040, 5, NULL, 3378, 115, NULL, 'taxi-in-phagi', 'NS0xLTMzNzgtMTE1', 'Cab & taxi services in Phagi, jaipur - local non ac taxi booking- enquireus.com', 'Cabs in Phagi, jaipur, local taxi service, airport taxi service, non ac taxi services, taxi service enquiry, taxi wala, call taxi services, taxi services, phone number, address, reviews', 'Find &#10004;car hire, &#10004;tempo travellers on hire, &#10004;car hire-toyota innova, &#10004;call taxi services, &#10004;tour operators in Phagi, jaipur. get phone numbers, address, reviews, photos, maps for top taxi services near me in Phagi, jaipur on enquireus', '2018-08-24 16:35:00', '2018-08-25 07:29:53', 1, 1),
 (1041, 5, NULL, 3378, 116, NULL, 'taxi-in-queens-road', 'NS0xLTMzNzgtMTE2', 'Cab & taxi services in Queens Road, jaipur - local non ac taxi booking- enquireus.com', 'Cabs in Queens Road, jaipur, local taxi service, airport taxi service, non ac taxi services, taxi service enquiry, taxi wala, call taxi services, taxi services, phone number, address, reviews', 'Find &#10004;car hire, &#10004;tempo travellers on hire, &#10004;car hire-toyota innova, &#10004;call taxi services, &#10004;tour operators in Queens Road, jaipur. get phone numbers, address, reviews, photos, maps for top taxi services near me in Queens Road, jaipur on enquireus', '2018-08-24 16:35:00', '2018-08-25 07:29:53', 1, 1),
@@ -57607,13 +58779,13 @@ INSERT INTO `websites_page_head_titles` (`id`, `category`, `subcategory`, `city`
 (1088, 6, NULL, 3378, 29, NULL, 'gynecologist-in-lal-kothi', 'Ni0xLTMzNzgtMjk=', 'Top 5 gynecologists, obstetricians doctors in Lal Kothi, jaipur, hospitals | enquireus Lal Kothi, jaipur', 'Book gynecologists, obstetricians doctors in Lal Kothi, jaipur - find the best obstetrics and gynecology doctors, hospitals in Lal Kothi, jaipur for females, women and get obgyn clinics, gynecologist specialists, pregnancy experts contact addresses, phone numbers, ratings, reviews and enquireus score instantly to your mobile.', 'Best gynecologists in Lal Kothi, jaipur,gynecologists in Lal Kothi, jaipur,top 5 gynecologist in Lal Kothi, jaipur,top gynecologist in Lal Kothi, jaipur, gynecologist doctor in Lal Kothi, jaipur,gynecologist specialist in Lal Kothi, jaipur,obstetricians in Lal Kothi, jaipur,gynecology clinics in Lal Kothi, jaipur,gynecology hospital in Lal Kothi, jaipur', '2018-08-25 09:43:12', '2018-08-25 09:43:12', 1, 1),
 (1089, 6, NULL, 3378, 30, NULL, 'gynecologist-in-m-i--road', 'Ni0xLTMzNzgtMzA=', 'Top 5 gynecologists, obstetricians doctors in M.I. Road, jaipur, hospitals | enquireus M.I. Road, jaipur', 'Book gynecologists, obstetricians doctors in M.I. Road, jaipur - find the best obstetrics and gynecology doctors, hospitals in M.I. Road, jaipur for females, women and get obgyn clinics, gynecologist specialists, pregnancy experts contact addresses, phone numbers, ratings, reviews and enquireus score instantly to your mobile.', 'Best gynecologists in M.I. Road, jaipur,gynecologists in M.I. Road, jaipur,top 5 gynecologist in M.I. Road, jaipur,top gynecologist in M.I. Road, jaipur, gynecologist doctor in M.I. Road, jaipur,gynecologist specialist in M.I. Road, jaipur,obstetricians in M.I. Road, jaipur,gynecology clinics in M.I. Road, jaipur,gynecology hospital in M.I. Road, jaipur', '2018-08-25 09:43:12', '2018-08-25 09:43:12', 1, 1),
 (1090, 6, NULL, 3378, 31, NULL, 'gynecologist-in-mahapura', 'Ni0xLTMzNzgtMzE=', 'Top 5 gynecologists, obstetricians doctors in Mahapura, jaipur, hospitals | enquireus Mahapura, jaipur', 'Book gynecologists, obstetricians doctors in Mahapura, jaipur - find the best obstetrics and gynecology doctors, hospitals in Mahapura, jaipur for females, women and get obgyn clinics, gynecologist specialists, pregnancy experts contact addresses, phone numbers, ratings, reviews and enquireus score instantly to your mobile.', 'Best gynecologists in Mahapura, jaipur,gynecologists in Mahapura, jaipur,top 5 gynecologist in Mahapura, jaipur,top gynecologist in Mahapura, jaipur, gynecologist doctor in Mahapura, jaipur,gynecologist specialist in Mahapura, jaipur,obstetricians in Mahapura, jaipur,gynecology clinics in Mahapura, jaipur,gynecology hospital in Mahapura, jaipur', '2018-08-25 09:43:12', '2018-08-25 09:43:12', 1, 1),
-(1091, 6, NULL, 3378, 32, NULL, 'gynecologist-in-malviya-nagar', 'Ni0xLTMzNzgtMzI=', 'Top 5 gynecologists, obstetricians doctors in malviya Nagar, jaipur, hospitals | enquireus malviya Nagar, jaipur', 'Book gynecologists, obstetricians doctors in malviya Nagar, jaipur - find the best obstetrics and gynecology doctors, hospitals in malviya Nagar, jaipur for females, women and get obgyn clinics, gynecologist specialists, pregnancy experts contact addresses, phone numbers, ratings, reviews and enquireus score instantly to your mobile.', 'Best gynecologists in malviya Nagar, jaipur,gynecologists in malviya Nagar, jaipur,top 5 gynecologist in malviya Nagar, jaipur,top gynecologist in malviya Nagar, jaipur, gynecologist doctor in malviya Nagar, jaipur,gynecologist specialist in malviya Nagar, jaipur,obstetricians in malviya Nagar, jaipur,gynecology clinics in malviya Nagar, jaipur,gynecology hospital in malviya Nagar, jaipur', '2018-08-25 09:43:12', '2018-08-25 09:43:12', 1, 1),
+(1091, 6, NULL, 3378, 32, NULL, 'gynecologist-in-malviya-nagar', 'Ni0xLTMzNzgtMzI=', 'Top 5 gynecologists, obstetricians doctors in malviya Nagar, jaipur, hospitals | enquireus malviya Nagar, jaipur', 'Book gynecologists, obstetricians doctors in malviya Nagar, jaipur - find the best obstetrics and gynecology doctors, hospitals in malviya Nagar, jaipur for females, women and get obgyn clinics, gynecologist specialists, pregnancy experts contact addresses, phone numbers, ratings, reviews and enquireus score instantly to your mobile.', 'Best gynecologists in malviya Nagar, jaipur,gynecologists in malviya Nagar, jaipur,top 5 gynecologist in malviya Nagar, jaipur,top gynecologist in malviya Nagar, jaipur, gynecologist doctor in malviya Nagar, jaipur,gynecologist specialist in malviya Nagar, jaipur,obstetricians in malviya Nagar, jaipur,gynecology clinics in malviya Nagar, jaipur,gynecology hospital in malviya Nagar, jaipur', '2018-08-25 09:43:12', '2018-08-25 09:43:12', 1, 1);
+INSERT INTO `websites_page_head_titles` (`id`, `category`, `subcategory`, `city`, `area`, `business_page`, `page_url`, `encoded_params`, `title`, `keyword`, `description`, `created_at`, `updated_at`, `update_status`, `status`) VALUES
 (1092, 6, NULL, 3378, 33, NULL, 'gynecologist-in-malviya-industrial-area', 'Ni0xLTMzNzgtMzM=', 'Top 5 gynecologists, obstetricians doctors in Malviya Industrial Area, jaipur, hospitals | enquireus Malviya Industrial Area, jaipur', 'Book gynecologists, obstetricians doctors in Malviya Industrial Area, jaipur - find the best obstetrics and gynecology doctors, hospitals in Malviya Industrial Area, jaipur for females, women and get obgyn clinics, gynecologist specialists, pregnancy experts contact addresses, phone numbers, ratings, reviews and enquireus score instantly to your mobile.', 'Best gynecologists in Malviya Industrial Area, jaipur,gynecologists in Malviya Industrial Area, jaipur,top 5 gynecologist in Malviya Industrial Area, jaipur,top gynecologist in Malviya Industrial Area, jaipur, gynecologist doctor in Malviya Industrial Area, jaipur,gynecologist specialist in Malviya Industrial Area, jaipur,obstetricians in Malviya Industrial Area, jaipur,gynecology clinics in Malviya Industrial Area, jaipur,gynecology hospital in Malviya Industrial Area, jaipur', '2018-08-25 09:43:12', '2018-08-25 09:43:12', 1, 1),
 (1093, 6, NULL, 3378, 34, NULL, 'gynecologist-in-mansarovar', 'Ni0xLTMzNzgtMzQ=', 'Top 5 gynecologists, obstetricians doctors in Mansarovar, jaipur, hospitals | enquireus Mansarovar, jaipur', 'Book gynecologists, obstetricians doctors in Mansarovar, jaipur - find the best obstetrics and gynecology doctors, hospitals in Mansarovar, jaipur for females, women and get obgyn clinics, gynecologist specialists, pregnancy experts contact addresses, phone numbers, ratings, reviews and enquireus score instantly to your mobile.', 'Best gynecologists in Mansarovar, jaipur,gynecologists in Mansarovar, jaipur,top 5 gynecologist in Mansarovar, jaipur,top gynecologist in Mansarovar, jaipur, gynecologist doctor in Mansarovar, jaipur,gynecologist specialist in Mansarovar, jaipur,obstetricians in Mansarovar, jaipur,gynecology clinics in Mansarovar, jaipur,gynecology hospital in Mansarovar, jaipur', '2018-08-25 09:43:12', '2018-08-25 09:43:12', 1, 1),
 (1094, 6, NULL, 3378, 35, NULL, 'gynecologist-in-meena-wala', 'Ni0xLTMzNzgtMzU=', 'Top 5 gynecologists, obstetricians doctors in Meena Wala, jaipur, hospitals | enquireus Meena Wala, jaipur', 'Book gynecologists, obstetricians doctors in Meena Wala, jaipur - find the best obstetrics and gynecology doctors, hospitals in Meena Wala, jaipur for females, women and get obgyn clinics, gynecologist specialists, pregnancy experts contact addresses, phone numbers, ratings, reviews and enquireus score instantly to your mobile.', 'Best gynecologists in Meena Wala, jaipur,gynecologists in Meena Wala, jaipur,top 5 gynecologist in Meena Wala, jaipur,top gynecologist in Meena Wala, jaipur, gynecologist doctor in Meena Wala, jaipur,gynecologist specialist in Meena Wala, jaipur,obstetricians in Meena Wala, jaipur,gynecology clinics in Meena Wala, jaipur,gynecology hospital in Meena Wala, jaipur', '2018-08-25 09:43:12', '2018-08-25 09:43:12', 1, 1),
 (1095, 6, NULL, 3378, 36, NULL, 'gynecologist-in-moti-doongari-road', 'Ni0xLTMzNzgtMzY=', 'Top 5 gynecologists, obstetricians doctors in Moti Doongari Road, jaipur, hospitals | enquireus Moti Doongari Road, jaipur', 'Book gynecologists, obstetricians doctors in Moti Doongari Road, jaipur - find the best obstetrics and gynecology doctors, hospitals in Moti Doongari Road, jaipur for females, women and get obgyn clinics, gynecologist specialists, pregnancy experts contact addresses, phone numbers, ratings, reviews and enquireus score instantly to your mobile.', 'Best gynecologists in Moti Doongari Road, jaipur,gynecologists in Moti Doongari Road, jaipur,top 5 gynecologist in Moti Doongari Road, jaipur,top gynecologist in Moti Doongari Road, jaipur, gynecologist doctor in Moti Doongari Road, jaipur,gynecologist specialist in Moti Doongari Road, jaipur,obstetricians in Moti Doongari Road, jaipur,gynecology clinics in Moti Doongari Road, jaipur,gynecology hospital in Moti Doongari Road, jaipur', '2018-08-25 09:43:12', '2018-08-25 09:43:12', 1, 1),
-(1096, 6, NULL, 3378, 37, NULL, 'gynecologist-in-muhana', 'Ni0xLTMzNzgtMzc=', 'Top 5 gynecologists, obstetricians doctors in Muhana, jaipur, hospitals | enquireus Muhana, jaipur', 'Book gynecologists, obstetricians doctors in Muhana, jaipur - find the best obstetrics and gynecology doctors, hospitals in Muhana, jaipur for females, women and get obgyn clinics, gynecologist specialists, pregnancy experts contact addresses, phone numbers, ratings, reviews and enquireus score instantly to your mobile.', 'Best gynecologists in Muhana, jaipur,gynecologists in Muhana, jaipur,top 5 gynecologist in Muhana, jaipur,top gynecologist in Muhana, jaipur, gynecologist doctor in Muhana, jaipur,gynecologist specialist in Muhana, jaipur,obstetricians in Muhana, jaipur,gynecology clinics in Muhana, jaipur,gynecology hospital in Muhana, jaipur', '2018-08-25 09:43:12', '2018-08-25 09:43:12', 1, 1);
-INSERT INTO `websites_page_head_titles` (`id`, `category`, `subcategory`, `city`, `area`, `business_page`, `page_url`, `encoded_params`, `title`, `keyword`, `description`, `created_at`, `updated_at`, `update_status`, `status`) VALUES
+(1096, 6, NULL, 3378, 37, NULL, 'gynecologist-in-muhana', 'Ni0xLTMzNzgtMzc=', 'Top 5 gynecologists, obstetricians doctors in Muhana, jaipur, hospitals | enquireus Muhana, jaipur', 'Book gynecologists, obstetricians doctors in Muhana, jaipur - find the best obstetrics and gynecology doctors, hospitals in Muhana, jaipur for females, women and get obgyn clinics, gynecologist specialists, pregnancy experts contact addresses, phone numbers, ratings, reviews and enquireus score instantly to your mobile.', 'Best gynecologists in Muhana, jaipur,gynecologists in Muhana, jaipur,top 5 gynecologist in Muhana, jaipur,top gynecologist in Muhana, jaipur, gynecologist doctor in Muhana, jaipur,gynecologist specialist in Muhana, jaipur,obstetricians in Muhana, jaipur,gynecology clinics in Muhana, jaipur,gynecology hospital in Muhana, jaipur', '2018-08-25 09:43:12', '2018-08-25 09:43:12', 1, 1),
 (1097, 6, NULL, 3378, 38, NULL, 'gynecologist-in-mukandpura', 'Ni0xLTMzNzgtMzg=', 'Top 5 gynecologists, obstetricians doctors in Mukandpura, jaipur, hospitals | enquireus Mukandpura, jaipur', 'Book gynecologists, obstetricians doctors in Mukandpura, jaipur - find the best obstetrics and gynecology doctors, hospitals in Mukandpura, jaipur for females, women and get obgyn clinics, gynecologist specialists, pregnancy experts contact addresses, phone numbers, ratings, reviews and enquireus score instantly to your mobile.', 'Best gynecologists in Mukandpura, jaipur,gynecologists in Mukandpura, jaipur,top 5 gynecologist in Mukandpura, jaipur,top gynecologist in Mukandpura, jaipur, gynecologist doctor in Mukandpura, jaipur,gynecologist specialist in Mukandpura, jaipur,obstetricians in Mukandpura, jaipur,gynecology clinics in Mukandpura, jaipur,gynecology hospital in Mukandpura, jaipur', '2018-08-25 09:43:12', '2018-08-25 09:43:12', 1, 1),
 (1098, 6, NULL, 3378, 39, NULL, 'gynecologist-in-mundia-rampura', 'Ni0xLTMzNzgtMzk=', 'Top 5 gynecologists, obstetricians doctors in Mundia Rampura, jaipur, hospitals | enquireus Mundia Rampura, jaipur', 'Book gynecologists, obstetricians doctors in Mundia Rampura, jaipur - find the best obstetrics and gynecology doctors, hospitals in Mundia Rampura, jaipur for females, women and get obgyn clinics, gynecologist specialists, pregnancy experts contact addresses, phone numbers, ratings, reviews and enquireus score instantly to your mobile.', 'Best gynecologists in Mundia Rampura, jaipur,gynecologists in Mundia Rampura, jaipur,top 5 gynecologist in Mundia Rampura, jaipur,top gynecologist in Mundia Rampura, jaipur, gynecologist doctor in Mundia Rampura, jaipur,gynecologist specialist in Mundia Rampura, jaipur,obstetricians in Mundia Rampura, jaipur,gynecology clinics in Mundia Rampura, jaipur,gynecology hospital in Mundia Rampura, jaipur', '2018-08-25 09:43:12', '2018-08-25 09:43:12', 1, 1),
 (1099, 6, NULL, 3378, 40, NULL, 'gynecologist-in-murlipura', 'Ni0xLTMzNzgtNDA=', 'Top 5 gynecologists, obstetricians doctors in Murlipura, jaipur, hospitals | enquireus Murlipura, jaipur', 'Book gynecologists, obstetricians doctors in Murlipura, jaipur - find the best obstetrics and gynecology doctors, hospitals in Murlipura, jaipur for females, women and get obgyn clinics, gynecologist specialists, pregnancy experts contact addresses, phone numbers, ratings, reviews and enquireus score instantly to your mobile.', 'Best gynecologists in Murlipura, jaipur,gynecologists in Murlipura, jaipur,top 5 gynecologist in Murlipura, jaipur,top gynecologist in Murlipura, jaipur, gynecologist doctor in Murlipura, jaipur,gynecologist specialist in Murlipura, jaipur,obstetricians in Murlipura, jaipur,gynecology clinics in Murlipura, jaipur,gynecology hospital in Murlipura, jaipur', '2018-08-25 09:43:12', '2018-08-25 09:43:12', 1, 1),
@@ -57659,13 +58831,13 @@ INSERT INTO `websites_page_head_titles` (`id`, `category`, `subcategory`, `city`
 (1139, 6, NULL, 3378, 80, NULL, 'gynecologist-in-gangori-bazar', 'Ni0xLTMzNzgtODA=', 'Top 5 gynecologists, obstetricians doctors in Gangori Bazar, jaipur, hospitals | enquireus Gangori Bazar, jaipur', 'Book gynecologists, obstetricians doctors in Gangori Bazar, jaipur - find the best obstetrics and gynecology doctors, hospitals in Gangori Bazar, jaipur for females, women and get obgyn clinics, gynecologist specialists, pregnancy experts contact addresses, phone numbers, ratings, reviews and enquireus score instantly to your mobile.', 'Best gynecologists in Gangori Bazar, jaipur,gynecologists in Gangori Bazar, jaipur,top 5 gynecologist in Gangori Bazar, jaipur,top gynecologist in Gangori Bazar, jaipur, gynecologist doctor in Gangori Bazar, jaipur,gynecologist specialist in Gangori Bazar, jaipur,obstetricians in Gangori Bazar, jaipur,gynecology clinics in Gangori Bazar, jaipur,gynecology hospital in Gangori Bazar, jaipur', '2018-08-25 09:43:12', '2018-08-25 09:43:12', 1, 1),
 (1140, 6, NULL, 3378, 81, NULL, 'gynecologist-in-ghat-gate', 'Ni0xLTMzNzgtODE=', 'Top 5 gynecologists, obstetricians doctors in Ghat Gate, jaipur, hospitals | enquireus Ghat Gate, jaipur', 'Book gynecologists, obstetricians doctors in Ghat Gate, jaipur - find the best obstetrics and gynecology doctors, hospitals in Ghat Gate, jaipur for females, women and get obgyn clinics, gynecologist specialists, pregnancy experts contact addresses, phone numbers, ratings, reviews and enquireus score instantly to your mobile.', 'Best gynecologists in Ghat Gate, jaipur,gynecologists in Ghat Gate, jaipur,top 5 gynecologist in Ghat Gate, jaipur,top gynecologist in Ghat Gate, jaipur, gynecologist doctor in Ghat Gate, jaipur,gynecologist specialist in Ghat Gate, jaipur,obstetricians in Ghat Gate, jaipur,gynecology clinics in Ghat Gate, jaipur,gynecology hospital in Ghat Gate, jaipur', '2018-08-25 09:43:12', '2018-08-25 09:43:12', 1, 1),
 (1141, 6, NULL, 3378, 82, NULL, 'gynecologist-in-govindpura-baseri', 'Ni0xLTMzNzgtODI=', 'Top 5 gynecologists, obstetricians doctors in Govindpura baseri, jaipur, hospitals | enquireus Govindpura baseri, jaipur', 'Book gynecologists, obstetricians doctors in Govindpura baseri, jaipur - find the best obstetrics and gynecology doctors, hospitals in Govindpura baseri, jaipur for females, women and get obgyn clinics, gynecologist specialists, pregnancy experts contact addresses, phone numbers, ratings, reviews and enquireus score instantly to your mobile.', 'Best gynecologists in Govindpura baseri, jaipur,gynecologists in Govindpura baseri, jaipur,top 5 gynecologist in Govindpura baseri, jaipur,top gynecologist in Govindpura baseri, jaipur, gynecologist doctor in Govindpura baseri, jaipur,gynecologist specialist in Govindpura baseri, jaipur,obstetricians in Govindpura baseri, jaipur,gynecology clinics in Govindpura baseri, jaipur,gynecology hospital in Govindpura baseri, jaipur', '2018-08-25 09:43:12', '2018-08-25 09:43:12', 1, 1),
-(1142, 6, NULL, 3378, 83, NULL, 'gynecologist-in-galta-gate', 'Ni0xLTMzNzgtODM=', 'Top 5 gynecologists, obstetricians doctors in Galta Gate, jaipur, hospitals | enquireus Galta Gate, jaipur', 'Book gynecologists, obstetricians doctors in Galta Gate, jaipur - find the best obstetrics and gynecology doctors, hospitals in Galta Gate, jaipur for females, women and get obgyn clinics, gynecologist specialists, pregnancy experts contact addresses, phone numbers, ratings, reviews and enquireus score instantly to your mobile.', 'Best gynecologists in Galta Gate, jaipur,gynecologists in Galta Gate, jaipur,top 5 gynecologist in Galta Gate, jaipur,top gynecologist in Galta Gate, jaipur, gynecologist doctor in Galta Gate, jaipur,gynecologist specialist in Galta Gate, jaipur,obstetricians in Galta Gate, jaipur,gynecology clinics in Galta Gate, jaipur,gynecology hospital in Galta Gate, jaipur', '2018-08-25 09:43:12', '2018-08-25 09:43:12', 1, 1),
+(1142, 6, NULL, 3378, 83, NULL, 'gynecologist-in-galta-gate', 'Ni0xLTMzNzgtODM=', 'Top 5 gynecologists, obstetricians doctors in Galta Gate, jaipur, hospitals | enquireus Galta Gate, jaipur', 'Book gynecologists, obstetricians doctors in Galta Gate, jaipur - find the best obstetrics and gynecology doctors, hospitals in Galta Gate, jaipur for females, women and get obgyn clinics, gynecologist specialists, pregnancy experts contact addresses, phone numbers, ratings, reviews and enquireus score instantly to your mobile.', 'Best gynecologists in Galta Gate, jaipur,gynecologists in Galta Gate, jaipur,top 5 gynecologist in Galta Gate, jaipur,top gynecologist in Galta Gate, jaipur, gynecologist doctor in Galta Gate, jaipur,gynecologist specialist in Galta Gate, jaipur,obstetricians in Galta Gate, jaipur,gynecology clinics in Galta Gate, jaipur,gynecology hospital in Galta Gate, jaipur', '2018-08-25 09:43:12', '2018-08-25 09:43:12', 1, 1);
+INSERT INTO `websites_page_head_titles` (`id`, `category`, `subcategory`, `city`, `area`, `business_page`, `page_url`, `encoded_params`, `title`, `keyword`, `description`, `created_at`, `updated_at`, `update_status`, `status`) VALUES
 (1143, 6, NULL, 3378, 84, NULL, 'gynecologist-in-gurunanak-pura', 'Ni0xLTMzNzgtODQ=', 'Top 5 gynecologists, obstetricians doctors in Gurunanak Pura, jaipur, hospitals | enquireus Gurunanak Pura, jaipur', 'Book gynecologists, obstetricians doctors in Gurunanak Pura, jaipur - find the best obstetrics and gynecology doctors, hospitals in Gurunanak Pura, jaipur for females, women and get obgyn clinics, gynecologist specialists, pregnancy experts contact addresses, phone numbers, ratings, reviews and enquireus score instantly to your mobile.', 'Best gynecologists in Gurunanak Pura, jaipur,gynecologists in Gurunanak Pura, jaipur,top 5 gynecologist in Gurunanak Pura, jaipur,top gynecologist in Gurunanak Pura, jaipur, gynecologist doctor in Gurunanak Pura, jaipur,gynecologist specialist in Gurunanak Pura, jaipur,obstetricians in Gurunanak Pura, jaipur,gynecology clinics in Gurunanak Pura, jaipur,gynecology hospital in Gurunanak Pura, jaipur', '2018-08-25 09:43:12', '2018-08-25 09:43:12', 1, 1),
 (1144, 6, NULL, 3378, 85, NULL, 'gynecologist-in-hawa-sadak', 'Ni0xLTMzNzgtODU=', 'Top 5 gynecologists, obstetricians doctors in Hawa Sadak, jaipur, hospitals | enquireus Hawa Sadak, jaipur', 'Book gynecologists, obstetricians doctors in Hawa Sadak, jaipur - find the best obstetrics and gynecology doctors, hospitals in Hawa Sadak, jaipur for females, women and get obgyn clinics, gynecologist specialists, pregnancy experts contact addresses, phone numbers, ratings, reviews and enquireus score instantly to your mobile.', 'Best gynecologists in Hawa Sadak, jaipur,gynecologists in Hawa Sadak, jaipur,top 5 gynecologist in Hawa Sadak, jaipur,top gynecologist in Hawa Sadak, jaipur, gynecologist doctor in Hawa Sadak, jaipur,gynecologist specialist in Hawa Sadak, jaipur,obstetricians in Hawa Sadak, jaipur,gynecology clinics in Hawa Sadak, jaipur,gynecology hospital in Hawa Sadak, jaipur', '2018-08-25 09:43:12', '2018-08-25 09:43:12', 1, 1),
 (1145, 6, NULL, 3378, 86, NULL, 'gynecologist-in-hawa-mahal-bazar', 'Ni0xLTMzNzgtODY=', 'Top 5 gynecologists, obstetricians doctors in Hawa Mahal Bazar, jaipur, hospitals | enquireus Hawa Mahal Bazar, jaipur', 'Book gynecologists, obstetricians doctors in Hawa Mahal Bazar, jaipur - find the best obstetrics and gynecology doctors, hospitals in Hawa Mahal Bazar, jaipur for females, women and get obgyn clinics, gynecologist specialists, pregnancy experts contact addresses, phone numbers, ratings, reviews and enquireus score instantly to your mobile.', 'Best gynecologists in Hawa Mahal Bazar, jaipur,gynecologists in Hawa Mahal Bazar, jaipur,top 5 gynecologist in Hawa Mahal Bazar, jaipur,top gynecologist in Hawa Mahal Bazar, jaipur, gynecologist doctor in Hawa Mahal Bazar, jaipur,gynecologist specialist in Hawa Mahal Bazar, jaipur,obstetricians in Hawa Mahal Bazar, jaipur,gynecology clinics in Hawa Mahal Bazar, jaipur,gynecology hospital in Hawa Mahal Bazar, jaipur', '2018-08-25 09:43:12', '2018-08-25 09:43:12', 1, 1),
 (1146, 6, NULL, 3378, 87, NULL, 'gynecologist-in-hasanpura', 'Ni0xLTMzNzgtODc=', 'Top 5 gynecologists, obstetricians doctors in Hasanpura, jaipur, hospitals | enquireus Hasanpura, jaipur', 'Book gynecologists, obstetricians doctors in Hasanpura, jaipur - find the best obstetrics and gynecology doctors, hospitals in Hasanpura, jaipur for females, women and get obgyn clinics, gynecologist specialists, pregnancy experts contact addresses, phone numbers, ratings, reviews and enquireus score instantly to your mobile.', 'Best gynecologists in Hasanpura, jaipur,gynecologists in Hasanpura, jaipur,top 5 gynecologist in Hasanpura, jaipur,top gynecologist in Hasanpura, jaipur, gynecologist doctor in Hasanpura, jaipur,gynecologist specialist in Hasanpura, jaipur,obstetricians in Hasanpura, jaipur,gynecology clinics in Hasanpura, jaipur,gynecology hospital in Hasanpura, jaipur', '2018-08-25 09:43:12', '2018-08-25 09:43:12', 1, 1),
-(1147, 6, NULL, 3378, 88, NULL, 'gynecologist-in-indira-bazar', 'Ni0xLTMzNzgtODg=', 'Top 5 gynecologists, obstetricians doctors in Indira Bazar, jaipur, hospitals | enquireus Indira Bazar, jaipur', 'Book gynecologists, obstetricians doctors in Indira Bazar, jaipur - find the best obstetrics and gynecology doctors, hospitals in Indira Bazar, jaipur for females, women and get obgyn clinics, gynecologist specialists, pregnancy experts contact addresses, phone numbers, ratings, reviews and enquireus score instantly to your mobile.', 'Best gynecologists in Indira Bazar, jaipur,gynecologists in Indira Bazar, jaipur,top 5 gynecologist in Indira Bazar, jaipur,top gynecologist in Indira Bazar, jaipur, gynecologist doctor in Indira Bazar, jaipur,gynecologist specialist in Indira Bazar, jaipur,obstetricians in Indira Bazar, jaipur,gynecology clinics in Indira Bazar, jaipur,gynecology hospital in Indira Bazar, jaipur', '2018-08-25 09:43:12', '2018-08-25 09:43:12', 1, 1);
-INSERT INTO `websites_page_head_titles` (`id`, `category`, `subcategory`, `city`, `area`, `business_page`, `page_url`, `encoded_params`, `title`, `keyword`, `description`, `created_at`, `updated_at`, `update_status`, `status`) VALUES
+(1147, 6, NULL, 3378, 88, NULL, 'gynecologist-in-indira-bazar', 'Ni0xLTMzNzgtODg=', 'Top 5 gynecologists, obstetricians doctors in Indira Bazar, jaipur, hospitals | enquireus Indira Bazar, jaipur', 'Book gynecologists, obstetricians doctors in Indira Bazar, jaipur - find the best obstetrics and gynecology doctors, hospitals in Indira Bazar, jaipur for females, women and get obgyn clinics, gynecologist specialists, pregnancy experts contact addresses, phone numbers, ratings, reviews and enquireus score instantly to your mobile.', 'Best gynecologists in Indira Bazar, jaipur,gynecologists in Indira Bazar, jaipur,top 5 gynecologist in Indira Bazar, jaipur,top gynecologist in Indira Bazar, jaipur, gynecologist doctor in Indira Bazar, jaipur,gynecologist specialist in Indira Bazar, jaipur,obstetricians in Indira Bazar, jaipur,gynecology clinics in Indira Bazar, jaipur,gynecology hospital in Indira Bazar, jaipur', '2018-08-25 09:43:12', '2018-08-25 09:43:12', 1, 1),
 (1148, 6, NULL, 3378, 89, NULL, 'gynecologist-in-imli-phatak', 'Ni0xLTMzNzgtODk=', 'Top 5 gynecologists, obstetricians doctors in Imli Phatak, jaipur, hospitals | enquireus Imli Phatak, jaipur', 'Book gynecologists, obstetricians doctors in Imli Phatak, jaipur - find the best obstetrics and gynecology doctors, hospitals in Imli Phatak, jaipur for females, women and get obgyn clinics, gynecologist specialists, pregnancy experts contact addresses, phone numbers, ratings, reviews and enquireus score instantly to your mobile.', 'Best gynecologists in Imli Phatak, jaipur,gynecologists in Imli Phatak, jaipur,top 5 gynecologist in Imli Phatak, jaipur,top gynecologist in Imli Phatak, jaipur, gynecologist doctor in Imli Phatak, jaipur,gynecologist specialist in Imli Phatak, jaipur,obstetricians in Imli Phatak, jaipur,gynecology clinics in Imli Phatak, jaipur,gynecology hospital in Imli Phatak, jaipur', '2018-08-25 09:43:12', '2018-08-25 09:43:12', 1, 1),
 (1149, 6, NULL, 3378, 90, NULL, 'gynecologist-in-industrial-estate', 'Ni0xLTMzNzgtOTA=', 'Top 5 gynecologists, obstetricians doctors in Industrial Estate, jaipur, hospitals | enquireus Industrial Estate, jaipur', 'Book gynecologists, obstetricians doctors in Industrial Estate, jaipur - find the best obstetrics and gynecology doctors, hospitals in Industrial Estate, jaipur for females, women and get obgyn clinics, gynecologist specialists, pregnancy experts contact addresses, phone numbers, ratings, reviews and enquireus score instantly to your mobile.', 'Best gynecologists in Industrial Estate, jaipur,gynecologists in Industrial Estate, jaipur,top 5 gynecologist in Industrial Estate, jaipur,top gynecologist in Industrial Estate, jaipur, gynecologist doctor in Industrial Estate, jaipur,gynecologist specialist in Industrial Estate, jaipur,obstetricians in Industrial Estate, jaipur,gynecology clinics in Industrial Estate, jaipur,gynecology hospital in Industrial Estate, jaipur', '2018-08-25 09:43:12', '2018-08-25 09:43:12', 1, 1),
 (1150, 6, NULL, 3378, 91, NULL, 'gynecologist-in-sudarshanpura-industrial-area', 'Ni0xLTMzNzgtOTE=', 'Top 5 gynecologists, obstetricians doctors in Sudarshanpura Industrial Area, jaipur, hospitals | enquireus Sudarshanpura Industrial Area, jaipur', 'Book gynecologists, obstetricians doctors in Sudarshanpura Industrial Area, jaipur - find the best obstetrics and gynecology doctors, hospitals in Sudarshanpura Industrial Area, jaipur for females, women and get obgyn clinics, gynecologist specialists, pregnancy experts contact addresses, phone numbers, ratings, reviews and enquireus score instantly to your mobile.', 'Best gynecologists in Sudarshanpura Industrial Area, jaipur,gynecologists in Sudarshanpura Industrial Area, jaipur,top 5 gynecologist in Sudarshanpura Industrial Area, jaipur,top gynecologist in Sudarshanpura Industrial Area, jaipur, gynecologist doctor in Sudarshanpura Industrial Area, jaipur,gynecologist specialist in Sudarshanpura Industrial Area, jaipur,obstetricians in Sudarshanpura Industrial Area, jaipur,gynecology clinics in Sudarshanpura Industrial Area, jaipur,gynecology hospital in Sudarshanpura Industrial Area, jaipur', '2018-08-25 09:43:12', '2018-08-25 09:43:12', 1, 1),
@@ -57714,7 +58886,8 @@ INSERT INTO `websites_page_head_titles` (`id`, `category`, `subcategory`, `city`
 (1193, 7, NULL, 3378, 2, NULL, 'dentists-in-ajmer-road', 'Ny0xLTMzNzgtMg==', 'Top 5 dentists in Ajmer Road, jaipur| best dental surgeon and dental hospital', 'Dentist in Ajmer Road, jaipur, dental clinic in Ajmer Road, jaipur, dental hospital in Ajmer Road, jaipur, best dentist in Ajmer Road, jaipur', 'Dentists in Ajmer Road, jaipur. find ?root canal doctors, ?dental surgeons, ?orthodontist doctors, ?teeth whitening services, ?paedodontist doctors, ?dental implant, ?plaque removal specialists in Ajmer Road, jaipur and book appointment instantly', '2018-08-25 17:38:41', '2018-08-25 17:38:41', 1, 1),
 (1194, 7, NULL, 3378, 3, NULL, 'dentists-in-ambabari', 'Ny0xLTMzNzgtMw==', 'Top 5 dentists in Ambabari, jaipur| best dental surgeon and dental hospital', 'Dentist in Ambabari, jaipur, dental clinic in Ambabari, jaipur, dental hospital in Ambabari, jaipur, best dentist in Ambabari, jaipur', 'Dentists in Ambabari, jaipur. find ?root canal doctors, ?dental surgeons, ?orthodontist doctors, ?teeth whitening services, ?paedodontist doctors, ?dental implant, ?plaque removal specialists in Ambabari, jaipur and book appointment instantly', '2018-08-25 17:38:41', '2018-08-25 17:38:41', 1, 1),
 (1195, 7, NULL, 3378, 4, NULL, 'dentists-in-amer', 'Ny0xLTMzNzgtNA==', 'Top 5 dentists in Amer, jaipur| best dental surgeon and dental hospital', 'Dentist in Amer, jaipur, dental clinic in Amer, jaipur, dental hospital in Amer, jaipur, best dentist in Amer, jaipur', 'Dentists in Amer, jaipur. find ?root canal doctors, ?dental surgeons, ?orthodontist doctors, ?teeth whitening services, ?paedodontist doctors, ?dental implant, ?plaque removal specialists in Amer, jaipur and book appointment instantly', '2018-08-25 17:38:41', '2018-08-25 17:38:41', 1, 1),
-(1196, 7, NULL, 3378, 5, NULL, 'dentists-in-bani-park', 'Ny0xLTMzNzgtNQ==', 'Top 5 dentists in Bani Park, jaipur| best dental surgeon and dental hospital', 'Dentist in Bani Park, jaipur, dental clinic in Bani Park, jaipur, dental hospital in Bani Park, jaipur, best dentist in Bani Park, jaipur', 'Dentists in Bani Park, jaipur. find ?root canal doctors, ?dental surgeons, ?orthodontist doctors, ?teeth whitening services, ?paedodontist doctors, ?dental implant, ?plaque removal specialists in Bani Park, jaipur and book appointment instantly', '2018-08-25 17:38:41', '2018-08-25 17:38:41', 1, 1),
+(1196, 7, NULL, 3378, 5, NULL, 'dentists-in-bani-park', 'Ny0xLTMzNzgtNQ==', 'Top 5 dentists in Bani Park, jaipur| best dental surgeon and dental hospital', 'Dentist in Bani Park, jaipur, dental clinic in Bani Park, jaipur, dental hospital in Bani Park, jaipur, best dentist in Bani Park, jaipur', 'Dentists in Bani Park, jaipur. find ?root canal doctors, ?dental surgeons, ?orthodontist doctors, ?teeth whitening services, ?paedodontist doctors, ?dental implant, ?plaque removal specialists in Bani Park, jaipur and book appointment instantly', '2018-08-25 17:38:41', '2018-08-25 17:38:41', 1, 1);
+INSERT INTO `websites_page_head_titles` (`id`, `category`, `subcategory`, `city`, `area`, `business_page`, `page_url`, `encoded_params`, `title`, `keyword`, `description`, `created_at`, `updated_at`, `update_status`, `status`) VALUES
 (1197, 7, NULL, 3378, 6, NULL, 'dentists-in-sanganer', 'Ny0xLTMzNzgtNg==', 'Top 5 dentists in Sanganer, jaipur| best dental surgeon and dental hospital', 'Dentist in Sanganer, jaipur, dental clinic in Sanganer, jaipur, dental hospital in Sanganer, jaipur, best dentist in Sanganer, jaipur', 'Dentists in Sanganer, jaipur. find ?root canal doctors, ?dental surgeons, ?orthodontist doctors, ?teeth whitening services, ?paedodontist doctors, ?dental implant, ?plaque removal specialists in Sanganer, jaipur and book appointment instantly', '2018-08-25 17:38:41', '2018-08-25 17:38:41', 1, 1),
 (1198, 7, NULL, 3378, 7, NULL, 'dentists-in-bajaj-nagar', 'Ny0xLTMzNzgtNw==', 'Top 5 dentists in Bajaj Nagar, jaipur| best dental surgeon and dental hospital', 'Dentist in Bajaj Nagar, jaipur, dental clinic in Bajaj Nagar, jaipur, dental hospital in Bajaj Nagar, jaipur, best dentist in Bajaj Nagar, jaipur', 'Dentists in Bajaj Nagar, jaipur. find ?root canal doctors, ?dental surgeons, ?orthodontist doctors, ?teeth whitening services, ?paedodontist doctors, ?dental implant, ?plaque removal specialists in Bajaj Nagar, jaipur and book appointment instantly', '2018-08-25 17:38:41', '2018-08-25 17:38:41', 1, 1),
 (1199, 7, NULL, 3378, 8, NULL, 'dentists-in-bapu-nagar', 'Ny0xLTMzNzgtOA==', 'Top 5 dentists in Bapu Nagar, jaipur| best dental surgeon and dental hospital', 'Dentist in Bapu Nagar, jaipur, dental clinic in Bapu Nagar, jaipur, dental hospital in Bapu Nagar, jaipur, best dentist in Bapu Nagar, jaipur', 'Dentists in Bapu Nagar, jaipur. find ?root canal doctors, ?dental surgeons, ?orthodontist doctors, ?teeth whitening services, ?paedodontist doctors, ?dental implant, ?plaque removal specialists in Bapu Nagar, jaipur and book appointment instantly', '2018-08-25 17:38:41', '2018-08-25 17:38:41', 1, 1),
@@ -57722,8 +58895,7 @@ INSERT INTO `websites_page_head_titles` (`id`, `category`, `subcategory`, `city`
 (1201, 7, NULL, 3378, 10, NULL, 'dentists-in-bhankrota', 'Ny0xLTMzNzgtMTA=', 'Top 5 dentists in Bhankrota, jaipur| best dental surgeon and dental hospital', 'Dentist in Bhankrota, jaipur, dental clinic in Bhankrota, jaipur, dental hospital in Bhankrota, jaipur, best dentist in Bhankrota, jaipur', 'Dentists in Bhankrota, jaipur. find ?root canal doctors, ?dental surgeons, ?orthodontist doctors, ?teeth whitening services, ?paedodontist doctors, ?dental implant, ?plaque removal specialists in Bhankrota, jaipur and book appointment instantly', '2018-08-25 17:38:41', '2018-08-25 17:38:41', 1, 1),
 (1202, 7, NULL, 3378, 11, NULL, 'dentists-in-bindayaka', 'Ny0xLTMzNzgtMTE=', 'Top 5 dentists in Bindayaka, jaipur| best dental surgeon and dental hospital', 'Dentist in Bindayaka, jaipur, dental clinic in Bindayaka, jaipur, dental hospital in Bindayaka, jaipur, best dentist in Bindayaka, jaipur', 'Dentists in Bindayaka, jaipur. find ?root canal doctors, ?dental surgeons, ?orthodontist doctors, ?teeth whitening services, ?paedodontist doctors, ?dental implant, ?plaque removal specialists in Bindayaka, jaipur and book appointment instantly', '2018-08-25 17:38:41', '2018-08-25 17:38:41', 1, 1),
 (1203, 7, NULL, 3378, 12, NULL, 'dentists-in-chandpole-bazar', 'Ny0xLTMzNzgtMTI=', 'Top 5 dentists in Chandpole Bazar, jaipur| best dental surgeon and dental hospital', 'Dentist in Chandpole Bazar, jaipur, dental clinic in Chandpole Bazar, jaipur, dental hospital in Chandpole Bazar, jaipur, best dentist in Chandpole Bazar, jaipur', 'Dentists in Chandpole Bazar, jaipur. find ?root canal doctors, ?dental surgeons, ?orthodontist doctors, ?teeth whitening services, ?paedodontist doctors, ?dental implant, ?plaque removal specialists in Chandpole Bazar, jaipur and book appointment instantly', '2018-08-25 17:38:41', '2018-08-25 17:38:41', 1, 1),
-(1204, 7, NULL, 3378, 13, NULL, 'dentists-in-chomu', 'Ny0xLTMzNzgtMTM=', 'Top 5 dentists in Chomu, jaipur| best dental surgeon and dental hospital', 'Dentist in Chomu, jaipur, dental clinic in Chomu, jaipur, dental hospital in Chomu, jaipur, best dentist in Chomu, jaipur', 'Dentists in Chomu, jaipur. find ?root canal doctors, ?dental surgeons, ?orthodontist doctors, ?teeth whitening services, ?paedodontist doctors, ?dental implant, ?plaque removal specialists in Chomu, jaipur and book appointment instantly', '2018-08-25 17:38:41', '2018-08-25 17:38:41', 1, 1);
-INSERT INTO `websites_page_head_titles` (`id`, `category`, `subcategory`, `city`, `area`, `business_page`, `page_url`, `encoded_params`, `title`, `keyword`, `description`, `created_at`, `updated_at`, `update_status`, `status`) VALUES
+(1204, 7, NULL, 3378, 13, NULL, 'dentists-in-chomu', 'Ny0xLTMzNzgtMTM=', 'Top 5 dentists in Chomu, jaipur| best dental surgeon and dental hospital', 'Dentist in Chomu, jaipur, dental clinic in Chomu, jaipur, dental hospital in Chomu, jaipur, best dentist in Chomu, jaipur', 'Dentists in Chomu, jaipur. find ?root canal doctors, ?dental surgeons, ?orthodontist doctors, ?teeth whitening services, ?paedodontist doctors, ?dental implant, ?plaque removal specialists in Chomu, jaipur and book appointment instantly', '2018-08-25 17:38:41', '2018-08-25 17:38:41', 1, 1),
 (1205, 7, NULL, 3378, 14, NULL, 'dentists-in-dehar-ke-balaji', 'Ny0xLTMzNzgtMTQ=', 'Top 5 dentists in Dehar ke Balaji, jaipur| best dental surgeon and dental hospital', 'Dentist in Dehar ke Balaji, jaipur, dental clinic in Dehar ke Balaji, jaipur, dental hospital in Dehar ke Balaji, jaipur, best dentist in Dehar ke Balaji, jaipur', 'Dentists in Dehar ke Balaji, jaipur. find ?root canal doctors, ?dental surgeons, ?orthodontist doctors, ?teeth whitening services, ?paedodontist doctors, ?dental implant, ?plaque removal specialists in Dehar ke Balaji, jaipur and book appointment instantly', '2018-08-25 17:38:41', '2018-08-25 17:38:41', 1, 1),
 (1206, 7, NULL, 3378, 15, NULL, 'dentists-in-heerapura', 'Ny0xLTMzNzgtMTU=', 'Top 5 dentists in Heerapura, jaipur| best dental surgeon and dental hospital', 'Dentist in Heerapura, jaipur, dental clinic in Heerapura, jaipur, dental hospital in Heerapura, jaipur, best dentist in Heerapura, jaipur', 'Dentists in Heerapura, jaipur. find ?root canal doctors, ?dental surgeons, ?orthodontist doctors, ?teeth whitening services, ?paedodontist doctors, ?dental implant, ?plaque removal specialists in Heerapura, jaipur and book appointment instantly', '2018-08-25 17:38:41', '2018-08-25 17:38:41', 1, 1),
 (1207, 7, NULL, 3378, 16, NULL, 'dentists-in-indra-bazar', 'Ny0xLTMzNzgtMTY=', 'Top 5 dentists in Indra bazar, jaipur| best dental surgeon and dental hospital', 'Dentist in Indra bazar, jaipur, dental clinic in Indra bazar, jaipur, dental hospital in Indra bazar, jaipur, best dentist in Indra bazar, jaipur', 'Dentists in Indra bazar, jaipur. find ?root canal doctors, ?dental surgeons, ?orthodontist doctors, ?teeth whitening services, ?paedodontist doctors, ?dental implant, ?plaque removal specialists in Indra bazar, jaipur and book appointment instantly', '2018-08-25 17:38:41', '2018-08-25 17:38:41', 1, 1),
@@ -57795,7 +58967,8 @@ INSERT INTO `websites_page_head_titles` (`id`, `category`, `subcategory`, `city`
 (1273, 7, NULL, 3378, 82, NULL, 'dentists-in-govindpura-baseri', 'Ny0xLTMzNzgtODI=', 'Top 5 dentists in Govindpura baseri, jaipur| best dental surgeon and dental hospital', 'Dentist in Govindpura baseri, jaipur, dental clinic in Govindpura baseri, jaipur, dental hospital in Govindpura baseri, jaipur, best dentist in Govindpura baseri, jaipur', 'Dentists in Govindpura baseri, jaipur. find ?root canal doctors, ?dental surgeons, ?orthodontist doctors, ?teeth whitening services, ?paedodontist doctors, ?dental implant, ?plaque removal specialists in Govindpura baseri, jaipur and book appointment instantly', '2018-08-25 17:38:41', '2018-08-25 17:38:41', 1, 1),
 (1274, 7, NULL, 3378, 83, NULL, 'dentists-in-galta-gate', 'Ny0xLTMzNzgtODM=', 'Top 5 dentists in Galta Gate, jaipur| best dental surgeon and dental hospital', 'Dentist in Galta Gate, jaipur, dental clinic in Galta Gate, jaipur, dental hospital in Galta Gate, jaipur, best dentist in Galta Gate, jaipur', 'Dentists in Galta Gate, jaipur. find ?root canal doctors, ?dental surgeons, ?orthodontist doctors, ?teeth whitening services, ?paedodontist doctors, ?dental implant, ?plaque removal specialists in Galta Gate, jaipur and book appointment instantly', '2018-08-25 17:38:41', '2018-08-25 17:38:41', 1, 1),
 (1275, 7, NULL, 3378, 84, NULL, 'dentists-in-gurunanak-pura', 'Ny0xLTMzNzgtODQ=', 'Top 5 dentists in Gurunanak Pura, jaipur| best dental surgeon and dental hospital', 'Dentist in Gurunanak Pura, jaipur, dental clinic in Gurunanak Pura, jaipur, dental hospital in Gurunanak Pura, jaipur, best dentist in Gurunanak Pura, jaipur', 'Dentists in Gurunanak Pura, jaipur. find ?root canal doctors, ?dental surgeons, ?orthodontist doctors, ?teeth whitening services, ?paedodontist doctors, ?dental implant, ?plaque removal specialists in Gurunanak Pura, jaipur and book appointment instantly', '2018-08-25 17:38:41', '2018-08-25 17:38:41', 1, 1),
-(1276, 7, NULL, 3378, 85, NULL, 'dentists-in-hawa-sadak', 'Ny0xLTMzNzgtODU=', 'Top 5 dentists in Hawa Sadak, jaipur| best dental surgeon and dental hospital', 'Dentist in Hawa Sadak, jaipur, dental clinic in Hawa Sadak, jaipur, dental hospital in Hawa Sadak, jaipur, best dentist in Hawa Sadak, jaipur', 'Dentists in Hawa Sadak, jaipur. find ?root canal doctors, ?dental surgeons, ?orthodontist doctors, ?teeth whitening services, ?paedodontist doctors, ?dental implant, ?plaque removal specialists in Hawa Sadak, jaipur and book appointment instantly', '2018-08-25 17:38:41', '2018-08-25 17:38:41', 1, 1),
+(1276, 7, NULL, 3378, 85, NULL, 'dentists-in-hawa-sadak', 'Ny0xLTMzNzgtODU=', 'Top 5 dentists in Hawa Sadak, jaipur| best dental surgeon and dental hospital', 'Dentist in Hawa Sadak, jaipur, dental clinic in Hawa Sadak, jaipur, dental hospital in Hawa Sadak, jaipur, best dentist in Hawa Sadak, jaipur', 'Dentists in Hawa Sadak, jaipur. find ?root canal doctors, ?dental surgeons, ?orthodontist doctors, ?teeth whitening services, ?paedodontist doctors, ?dental implant, ?plaque removal specialists in Hawa Sadak, jaipur and book appointment instantly', '2018-08-25 17:38:41', '2018-08-25 17:38:41', 1, 1);
+INSERT INTO `websites_page_head_titles` (`id`, `category`, `subcategory`, `city`, `area`, `business_page`, `page_url`, `encoded_params`, `title`, `keyword`, `description`, `created_at`, `updated_at`, `update_status`, `status`) VALUES
 (1277, 7, NULL, 3378, 86, NULL, 'dentists-in-hawa-mahal-bazar', 'Ny0xLTMzNzgtODY=', 'Top 5 dentists in Hawa Mahal Bazar, jaipur| best dental surgeon and dental hospital', 'Dentist in Hawa Mahal Bazar, jaipur, dental clinic in Hawa Mahal Bazar, jaipur, dental hospital in Hawa Mahal Bazar, jaipur, best dentist in Hawa Mahal Bazar, jaipur', 'Dentists in Hawa Mahal Bazar, jaipur. find ?root canal doctors, ?dental surgeons, ?orthodontist doctors, ?teeth whitening services, ?paedodontist doctors, ?dental implant, ?plaque removal specialists in Hawa Mahal Bazar, jaipur and book appointment instantly', '2018-08-25 17:38:41', '2018-08-25 17:38:41', 1, 1),
 (1278, 7, NULL, 3378, 87, NULL, 'dentists-in-hasanpura', 'Ny0xLTMzNzgtODc=', 'Top 5 dentists in Hasanpura, jaipur| best dental surgeon and dental hospital', 'Dentist in Hasanpura, jaipur, dental clinic in Hasanpura, jaipur, dental hospital in Hasanpura, jaipur, best dentist in Hasanpura, jaipur', 'Dentists in Hasanpura, jaipur. find ?root canal doctors, ?dental surgeons, ?orthodontist doctors, ?teeth whitening services, ?paedodontist doctors, ?dental implant, ?plaque removal specialists in Hasanpura, jaipur and book appointment instantly', '2018-08-25 17:38:41', '2018-08-25 17:38:41', 1, 1),
 (1279, 7, NULL, 3378, 88, NULL, 'dentists-in-indira-bazar', 'Ny0xLTMzNzgtODg=', 'Top 5 dentists in Indira Bazar, jaipur| best dental surgeon and dental hospital', 'Dentist in Indira Bazar, jaipur, dental clinic in Indira Bazar, jaipur, dental hospital in Indira Bazar, jaipur, best dentist in Indira Bazar, jaipur', 'Dentists in Indira Bazar, jaipur. find ?root canal doctors, ?dental surgeons, ?orthodontist doctors, ?teeth whitening services, ?paedodontist doctors, ?dental implant, ?plaque removal specialists in Indira Bazar, jaipur and book appointment instantly', '2018-08-25 17:38:41', '2018-08-25 17:38:41', 1, 1),
@@ -57803,8 +58976,7 @@ INSERT INTO `websites_page_head_titles` (`id`, `category`, `subcategory`, `city`
 (1281, 7, NULL, 3378, 90, NULL, 'dentists-in-industrial-estate', 'Ny0xLTMzNzgtOTA=', 'Top 5 dentists in Industrial Estate, jaipur| best dental surgeon and dental hospital', 'Dentist in Industrial Estate, jaipur, dental clinic in Industrial Estate, jaipur, dental hospital in Industrial Estate, jaipur, best dentist in Industrial Estate, jaipur', 'Dentists in Industrial Estate, jaipur. find ?root canal doctors, ?dental surgeons, ?orthodontist doctors, ?teeth whitening services, ?paedodontist doctors, ?dental implant, ?plaque removal specialists in Industrial Estate, jaipur and book appointment instantly', '2018-08-25 17:38:41', '2018-08-25 17:38:41', 1, 1),
 (1282, 7, NULL, 3378, 91, NULL, 'dentists-in-sudarshanpura-industrial-area', 'Ny0xLTMzNzgtOTE=', 'Top 5 dentists in Sudarshanpura Industrial Area, jaipur| best dental surgeon and dental hospital', 'Dentist in Sudarshanpura Industrial Area, jaipur, dental clinic in Sudarshanpura Industrial Area, jaipur, dental hospital in Sudarshanpura Industrial Area, jaipur, best dentist in Sudarshanpura Industrial Area, jaipur', 'Dentists in Sudarshanpura Industrial Area, jaipur. find ?root canal doctors, ?dental surgeons, ?orthodontist doctors, ?teeth whitening services, ?paedodontist doctors, ?dental implant, ?plaque removal specialists in Sudarshanpura Industrial Area, jaipur and book appointment instantly', '2018-08-25 17:38:41', '2018-08-25 17:38:41', 1, 1),
 (1283, 7, NULL, 3378, 92, NULL, 'dentists-in-jaipur-railway-station', 'Ny0xLTMzNzgtOTI=', 'Top 5 dentists in Jaipur Railway Station, jaipur| best dental surgeon and dental hospital', 'Dentist in Jaipur Railway Station, jaipur, dental clinic in Jaipur Railway Station, jaipur, dental hospital in Jaipur Railway Station, jaipur, best dentist in Jaipur Railway Station, jaipur', 'Dentists in Jaipur Railway Station, jaipur. find ?root canal doctors, ?dental surgeons, ?orthodontist doctors, ?teeth whitening services, ?paedodontist doctors, ?dental implant, ?plaque removal specialists in Jaipur Railway Station, jaipur and book appointment instantly', '2018-08-25 17:38:41', '2018-08-25 17:38:41', 1, 1),
-(1284, 7, NULL, 3378, 93, NULL, 'dentists-in-jamdoli', 'Ny0xLTMzNzgtOTM=', 'Top 5 dentists in Jamdoli, jaipur| best dental surgeon and dental hospital', 'Dentist in Jamdoli, jaipur, dental clinic in Jamdoli, jaipur, dental hospital in Jamdoli, jaipur, best dentist in Jamdoli, jaipur', 'Dentists in Jamdoli, jaipur. find ?root canal doctors, ?dental surgeons, ?orthodontist doctors, ?teeth whitening services, ?paedodontist doctors, ?dental implant, ?plaque removal specialists in Jamdoli, jaipur and book appointment instantly', '2018-08-25 17:38:41', '2018-08-25 17:38:41', 1, 1);
-INSERT INTO `websites_page_head_titles` (`id`, `category`, `subcategory`, `city`, `area`, `business_page`, `page_url`, `encoded_params`, `title`, `keyword`, `description`, `created_at`, `updated_at`, `update_status`, `status`) VALUES
+(1284, 7, NULL, 3378, 93, NULL, 'dentists-in-jamdoli', 'Ny0xLTMzNzgtOTM=', 'Top 5 dentists in Jamdoli, jaipur| best dental surgeon and dental hospital', 'Dentist in Jamdoli, jaipur, dental clinic in Jamdoli, jaipur, dental hospital in Jamdoli, jaipur, best dentist in Jamdoli, jaipur', 'Dentists in Jamdoli, jaipur. find ?root canal doctors, ?dental surgeons, ?orthodontist doctors, ?teeth whitening services, ?paedodontist doctors, ?dental implant, ?plaque removal specialists in Jamdoli, jaipur and book appointment instantly', '2018-08-25 17:38:41', '2018-08-25 17:38:41', 1, 1),
 (1285, 7, NULL, 3378, 94, NULL, 'dentists-in-jobner', 'Ny0xLTMzNzgtOTQ=', 'Top 5 dentists in jobner, jaipur| best dental surgeon and dental hospital', 'Dentist in jobner, jaipur, dental clinic in jobner, jaipur, dental hospital in jobner, jaipur, best dentist in jobner, jaipur', 'Dentists in jobner, jaipur. find ?root canal doctors, ?dental surgeons, ?orthodontist doctors, ?teeth whitening services, ?paedodontist doctors, ?dental implant, ?plaque removal specialists in jobner, jaipur and book appointment instantly', '2018-08-25 17:38:41', '2018-08-25 17:38:41', 1, 1),
 (1286, 7, NULL, 3378, 95, NULL, 'dentists-in-kotputali', 'Ny0xLTMzNzgtOTU=', 'Top 5 dentists in Kotputali, jaipur| best dental surgeon and dental hospital', 'Dentist in Kotputali, jaipur, dental clinic in Kotputali, jaipur, dental hospital in Kotputali, jaipur, best dentist in Kotputali, jaipur', 'Dentists in Kotputali, jaipur. find ?root canal doctors, ?dental surgeons, ?orthodontist doctors, ?teeth whitening services, ?paedodontist doctors, ?dental implant, ?plaque removal specialists in Kotputali, jaipur and book appointment instantly', '2018-08-25 17:38:41', '2018-08-25 17:38:41', 1, 1),
 (1287, 7, NULL, 3378, 96, NULL, 'dentists-in-kanota', 'Ny0xLTMzNzgtOTY=', 'Top 5 dentists in Kanota, jaipur| best dental surgeon and dental hospital', 'Dentist in Kanota, jaipur, dental clinic in Kanota, jaipur, dental hospital in Kanota, jaipur, best dentist in Kanota, jaipur', 'Dentists in Kanota, jaipur. find ?root canal doctors, ?dental surgeons, ?orthodontist doctors, ?teeth whitening services, ?paedodontist doctors, ?dental implant, ?plaque removal specialists in Kanota, jaipur and book appointment instantly', '2018-08-25 17:38:41', '2018-08-25 17:38:41', 1, 1),
@@ -57839,15 +59011,270 @@ INSERT INTO `websites_page_head_titles` (`id`, `category`, `subcategory`, `city`
 (1316, 7, NULL, 3378, 125, NULL, 'dentists-in-thikariya', 'Ny0xLTMzNzgtMTI1', 'Top 5 dentists in Thikariya, jaipur| best dental surgeon and dental hospital', 'Dentist in Thikariya, jaipur, dental clinic in Thikariya, jaipur, dental hospital in Thikariya, jaipur, best dentist in Thikariya, jaipur', 'Dentists in Thikariya, jaipur. find ?root canal doctors, ?dental surgeons, ?orthodontist doctors, ?teeth whitening services, ?paedodontist doctors, ?dental implant, ?plaque removal specialists in Thikariya, jaipur and book appointment instantly', '2018-08-25 17:38:41', '2018-08-25 17:38:41', 1, 1),
 (1317, 7, NULL, 3378, 126, NULL, 'dentists-in-udaipuria', 'Ny0xLTMzNzgtMTI2', 'Top 5 dentists in Udaipuria, jaipur| best dental surgeon and dental hospital', 'Dentist in Udaipuria, jaipur, dental clinic in Udaipuria, jaipur, dental hospital in Udaipuria, jaipur, best dentist in Udaipuria, jaipur', 'Dentists in Udaipuria, jaipur. find ?root canal doctors, ?dental surgeons, ?orthodontist doctors, ?teeth whitening services, ?paedodontist doctors, ?dental implant, ?plaque removal specialists in Udaipuria, jaipur and book appointment instantly', '2018-08-25 17:38:41', '2018-08-25 17:38:41', 1, 1),
 (1318, 7, NULL, 3378, 127, NULL, 'dentists-in-vishwakarma-industrial-area', 'Ny0xLTMzNzgtMTI3', 'Top 5 dentists in Vishwakarma Industrial Area, jaipur| best dental surgeon and dental hospital', 'Dentist in Vishwakarma Industrial Area, jaipur, dental clinic in Vishwakarma Industrial Area, jaipur, dental hospital in Vishwakarma Industrial Area, jaipur, best dentist in Vishwakarma Industrial Area, jaipur', 'Dentists in Vishwakarma Industrial Area, jaipur. find ?root canal doctors, ?dental surgeons, ?orthodontist doctors, ?teeth whitening services, ?paedodontist doctors, ?dental implant, ?plaque removal specialists in Vishwakarma Industrial Area, jaipur and book appointment instantly', '2018-08-25 17:38:41', '2018-08-25 17:38:41', 1, 1),
-(1319, 7, NULL, 3378, 128, NULL, 'dentists-in-vanasthali-marg-station-road', 'Ny0xLTMzNzgtMTI4', 'Top 5 dentists in Vanasthali Marg Station Road, jaipur| best dental surgeon and dental hospital', 'Dentist in Vanasthali Marg Station Road, jaipur, dental clinic in Vanasthali Marg Station Road, jaipur, dental hospital in Vanasthali Marg Station Road, jaipur, best dentist in Vanasthali Marg Station Road, jaipur', 'Dentists in Vanasthali Marg Station Road, jaipur. find ?root canal doctors, ?dental surgeons, ?orthodontist doctors, ?teeth whitening services, ?paedodontist doctors, ?dental implant, ?plaque removal specialists in Vanasthali Marg Station Road, jaipur and book appointment instantly', '2018-08-25 17:38:41', '2018-08-25 17:38:41', 1, 1),
-(1320, 7, NULL, 3378, 129, NULL, 'dentists-in-watika', 'Ny0xLTMzNzgtMTI5', 'Top 5 dentists in Watika, jaipur| best dental surgeon and dental hospital', 'Dentist in Watika, jaipur, dental clinic in Watika, jaipur, dental hospital in Watika, jaipur, best dentist in Watika, jaipur', 'Dentists in Watika, jaipur. find ?root canal doctors, ?dental surgeons, ?orthodontist doctors, ?teeth whitening services, ?paedodontist doctors, ?dental implant, ?plaque removal specialists in Watika, jaipur and book appointment instantly', '2018-08-25 17:38:41', '2018-08-25 17:38:41', 1, 1),
-(1321, 7, NULL, 3378, 130, NULL, 'dentists-in-sodala', 'Ny0xLTMzNzgtMTMw', 'Top 5 dentists in Sodala, jaipur| best dental surgeon and dental hospital', 'Dentist in Sodala, jaipur, dental clinic in Sodala, jaipur, dental hospital in Sodala, jaipur, best dentist in Sodala, jaipur', 'Dentists in Sodala, jaipur. find ?root canal doctors, ?dental surgeons, ?orthodontist doctors, ?teeth whitening services, ?paedodontist doctors, ?dental implant, ?plaque removal specialists in Sodala, jaipur and book appointment instantly', '2018-08-25 17:38:41', '2018-08-25 17:38:41', 1, 1),
-(1322, NULL, NULL, 3378, 58, '15', 'Tooth-Saviours-Dental-Clinic-in-Vaishali-Nagar', 'MTUtMy0zMzc4LTU4', 'Tooth Saviours Dental Clinic in Vaishali Nagar', 'Tooth Saviours Dental Clinic in Vaishali Nagar', 'Tooth Saviours Dental Clinic in Vaishali Nagar', '2018-08-25 17:45:06', '2018-08-25 17:45:06', 1, 1),
-(1323, NULL, NULL, 3378, 58, '16', 'Tooth-saviours-in-Vaishali-Nagar', 'MTYtMy0zMzc4LTU4', 'Tooth saviours in Vaishali Nagar', 'Tooth saviours in Vaishali Nagar', 'Tooth saviours in Vaishali Nagar', '2018-08-25 17:50:27', '2018-08-25 17:50:27', 1, 1),
-(1324, NULL, NULL, 3378, 24, '17', 'Chopra-Dental-Clinic-in-Jhotwara', 'MTctMy0zMzc4LTI0', 'Chopra Dental Clinic in Jhotwara', 'Chopra Dental Clinic in Jhotwara', 'Chopra Dental Clinic in Jhotwara', '2018-08-25 17:59:10', '2018-08-25 17:59:10', 1, 1),
-(1325, NULL, NULL, 3378, 9, '18', 'Dreamteam-Technologies-in-Barkat-Nagar', 'MTgtMy0zMzc4LTk=', 'Dreamteam Technologies in Barkat Nagar', 'Dreamteam Technologies in Barkat Nagar', 'Dreamteam Technologies in Barkat Nagar', '2018-08-29 09:32:16', '2018-08-29 09:32:16', 1, 1),
-(1326, NULL, NULL, 3378, 1, '19', 'Indian-Crafts-in-Adarsh-Nagar', 'MTktMy0zMzc4LTE=', 'Indian Crafts in Adarsh Nagar', 'Indian Crafts in Adarsh Nagar', 'Indian Crafts in Adarsh Nagar', '2018-08-29 09:38:07', '2018-08-29 09:38:07', 1, 1),
-(1327, NULL, NULL, NULL, NULL, NULL, 'contact-us', NULL, 'contact us title', 'contact us keyword', 'contact us description', '2018-08-29 12:20:19', '2018-08-29 12:20:19', 1, 1);
+(1626, 1, 1, 3378, NULL, NULL, 'wedding-caterers', 'MS0yLTMzNzg=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1627, 1, 1, 3378, 1, NULL, 'wedding-caterers-in-adarsh-nagar', 'MS0yLTMzNzgtMQ==', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1628, 1, 1, 3378, 2, NULL, 'wedding-caterers-in-ajmer-road', 'MS0yLTMzNzgtMg==', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1629, 1, 1, 3378, 3, NULL, 'wedding-caterers-in-ambabari', 'MS0yLTMzNzgtMw==', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1630, 1, 1, 3378, 4, NULL, 'wedding-caterers-in-amer', 'MS0yLTMzNzgtNA==', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1631, 1, 1, 3378, 5, NULL, 'wedding-caterers-in-bani-park', 'MS0yLTMzNzgtNQ==', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1632, 1, 1, 3378, 6, NULL, 'wedding-caterers-in-sanganer', 'MS0yLTMzNzgtNg==', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1633, 1, 1, 3378, 7, NULL, 'wedding-caterers-in-bajaj-nagar', 'MS0yLTMzNzgtNw==', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1634, 1, 1, 3378, 8, NULL, 'wedding-caterers-in-bapu-nagar', 'MS0yLTMzNzgtOA==', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1635, 1, 1, 3378, 9, NULL, 'wedding-caterers-in-barkat-nagar', 'MS0yLTMzNzgtOQ==', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1636, 1, 1, 3378, 10, NULL, 'wedding-caterers-in-bhankrota', 'MS0yLTMzNzgtMTA=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1637, 1, 1, 3378, 11, NULL, 'wedding-caterers-in-bindayaka', 'MS0yLTMzNzgtMTE=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1638, 1, 1, 3378, 12, NULL, 'wedding-caterers-in-chandpole-bazar', 'MS0yLTMzNzgtMTI=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1639, 1, 1, 3378, 13, NULL, 'wedding-caterers-in-chomu', 'MS0yLTMzNzgtMTM=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1640, 1, 1, 3378, 14, NULL, 'wedding-caterers-in-dehar-ke-balaji', 'MS0yLTMzNzgtMTQ=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1641, 1, 1, 3378, 15, NULL, 'wedding-caterers-in-heerapura', 'MS0yLTMzNzgtMTU=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1642, 1, 1, 3378, 16, NULL, 'wedding-caterers-in-indra-bazar', 'MS0yLTMzNzgtMTY=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1643, 1, 1, 3378, 17, NULL, 'wedding-caterers-in-jagatpura', 'MS0yLTMzNzgtMTc=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1644, 1, 1, 3378, 18, NULL, 'wedding-caterers-in-jaipur-city', 'MS0yLTMzNzgtMTg=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1645, 1, 1, 3378, 19, NULL, 'wedding-caterers-in-jaipur', 'MS0yLTMzNzgtMTk=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1646, 1, 1, 3378, 20, NULL, 'wedding-caterers-in-jaisingh-pura-khor', 'MS0yLTMzNzgtMjA=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1647, 1, 1, 3378, 21, NULL, 'wedding-caterers-in-janta-colony', 'MS0yLTMzNzgtMjE=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1648, 1, 1, 3378, 22, NULL, 'wedding-caterers-in-jawahar-nagar', 'MS0yLTMzNzgtMjI=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1649, 1, 1, 3378, 23, NULL, 'wedding-caterers-in-jhalana-doongri', 'MS0yLTMzNzgtMjM=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1650, 1, 1, 3378, 24, NULL, 'wedding-caterers-in-jhotwara', 'MS0yLTMzNzgtMjQ=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1651, 1, 1, 3378, 25, NULL, 'wedding-caterers-in-jhotwara-industrial-area', 'MS0yLTMzNzgtMjU=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1652, 1, 1, 3378, 26, NULL, 'wedding-caterers-in-khora-meena', 'MS0yLTMzNzgtMjY=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1653, 1, 1, 3378, 27, NULL, 'wedding-caterers-in-kishanpole-bazar', 'MS0yLTMzNzgtMjc=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1654, 1, 1, 3378, 28, NULL, 'wedding-caterers-in-kookas', 'MS0yLTMzNzgtMjg=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1655, 1, 1, 3378, 29, NULL, 'wedding-caterers-in-lal-kothi', 'MS0yLTMzNzgtMjk=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1656, 1, 1, 3378, 30, NULL, 'wedding-caterers-in-m-i--road', 'MS0yLTMzNzgtMzA=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1657, 1, 1, 3378, 31, NULL, 'wedding-caterers-in-mahapura', 'MS0yLTMzNzgtMzE=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1658, 1, 1, 3378, 32, NULL, 'wedding-caterers-in-malviya-nagar', 'MS0yLTMzNzgtMzI=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1659, 1, 1, 3378, 33, NULL, 'wedding-caterers-in-malviya-industrial-area', 'MS0yLTMzNzgtMzM=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1660, 1, 1, 3378, 34, NULL, 'wedding-caterers-in-mansarovar', 'MS0yLTMzNzgtMzQ=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1661, 1, 1, 3378, 35, NULL, 'wedding-caterers-in-meena-wala', 'MS0yLTMzNzgtMzU=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1662, 1, 1, 3378, 36, NULL, 'wedding-caterers-in-moti-doongari-road', 'MS0yLTMzNzgtMzY=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1663, 1, 1, 3378, 37, NULL, 'wedding-caterers-in-muhana', 'MS0yLTMzNzgtMzc=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1664, 1, 1, 3378, 38, NULL, 'wedding-caterers-in-mukandpura', 'MS0yLTMzNzgtMzg=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1665, 1, 1, 3378, 39, NULL, 'wedding-caterers-in-mundia-rampura', 'MS0yLTMzNzgtMzk=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1666, 1, 1, 3378, 40, NULL, 'wedding-caterers-in-murlipura', 'MS0yLTMzNzgtNDA=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1667, 1, 1, 3378, 41, NULL, 'wedding-caterers-in-nangal-jaisa-bohra', 'MS0yLTMzNzgtNDE=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1668, 1, 1, 3378, 42, NULL, 'wedding-caterers-in-neendar', 'MS0yLTMzNzgtNDI=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1669, 1, 1, 3378, 43, NULL, 'wedding-caterers-in-neendar-benar', 'MS0yLTMzNzgtNDM=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1670, 1, 1, 3378, 44, NULL, 'wedding-caterers-in-niwaroo', 'MS0yLTMzNzgtNDQ=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1671, 1, 1, 3378, 45, NULL, 'wedding-caterers-in-pratap-nagar', 'MS0yLTMzNzgtNDU=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1672, 1, 1, 3378, 46, NULL, 'wedding-caterers-in-raja-park', 'MS0yLTMzNzgtNDY=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1673, 1, 1, 3378, 47, NULL, 'wedding-caterers-in-ramganj-bazar', 'MS0yLTMzNzgtNDc=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1674, 1, 1, 3378, 48, NULL, 'wedding-caterers-in-sfs-mansarovar', 'MS0yLTMzNzgtNDg=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1675, 1, 1, 3378, 49, NULL, 'wedding-caterers-in-shastri-nagar', 'MS0yLTMzNzgtNDk=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1676, 1, 1, 3378, 50, NULL, 'wedding-caterers-in-shyam-nagar', 'MS0yLTMzNzgtNTA=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1677, 1, 1, 3378, 51, NULL, 'wedding-caterers-in-sindhi-colony', 'MS0yLTMzNzgtNTE=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1678, 1, 1, 3378, 52, NULL, 'wedding-caterers-in-sirsi', 'MS0yLTMzNzgtNTI=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1679, 1, 1, 3378, 53, NULL, 'wedding-caterers-in-sitapura-industrial-area', 'MS0yLTMzNzgtNTM=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1680, 1, 1, 3378, 54, NULL, 'wedding-caterers-in-station-road', 'MS0yLTMzNzgtNTQ=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1681, 1, 1, 3378, 55, NULL, 'wedding-caterers-in-tilak-nagar', 'MS0yLTMzNzgtNTU=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1682, 1, 1, 3378, 56, NULL, 'wedding-caterers-in-toda-meena', 'MS0yLTMzNzgtNTY=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1683, 1, 1, 3378, 57, NULL, 'wedding-caterers-in-tripolia-bazar', 'MS0yLTMzNzgtNTc=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1684, 1, 1, 3378, 58, NULL, 'wedding-caterers-in-vaishali-nagar', 'MS0yLTMzNzgtNTg=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1685, 1, 1, 3378, 59, NULL, 'wedding-caterers-in-vidhyadhar-nagar', 'MS0yLTMzNzgtNTk=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1686, 1, 1, 3378, 60, NULL, 'wedding-caterers-in-gopalpura-byepass', 'MS0yLTMzNzgtNjA=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1687, 1, 1, 3378, 61, NULL, 'wedding-caterers-in-tonk-road', 'MS0yLTMzNzgtNjE=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1688, 1, 1, 3378, 62, NULL, 'wedding-caterers-in-achrol', 'MS0yLTMzNzgtNjI=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1689, 1, 1, 3378, 63, NULL, 'wedding-caterers-in-gandhi-nagar', 'MS0yLTMzNzgtNjM=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1690, 1, 1, 3378, 64, NULL, 'wedding-caterers-in-bapu-bazar', 'MS0yLTMzNzgtNjQ=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1691, 1, 1, 3378, 65, NULL, 'wedding-caterers-in-bais-godam', 'MS0yLTMzNzgtNjU=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1692, 1, 1, 3378, 66, NULL, 'wedding-caterers-in-bagru', 'MS0yLTMzNzgtNjY=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1693, 1, 1, 3378, 67, NULL, 'wedding-caterers-in-badi-chaupar', 'MS0yLTMzNzgtNjc=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1694, 1, 1, 3378, 68, NULL, 'wedding-caterers-in-bas-badanpura', 'MS0yLTMzNzgtNjg=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1695, 1, 1, 3378, 69, NULL, 'wedding-caterers-in-phulera', 'MS0yLTMzNzgtNjk=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1696, 1, 1, 3378, 70, NULL, 'wedding-caterers-in-c-scheme', 'MS0yLTMzNzgtNzA=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1697, 1, 1, 3378, 71, NULL, 'wedding-caterers-in-chitrakoot-scheme', 'MS0yLTMzNzgtNzE=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1698, 1, 1, 3378, 72, NULL, 'wedding-caterers-in-chaksu', 'MS0yLTMzNzgtNzI=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1699, 1, 1, 3378, 73, NULL, 'wedding-caterers-in-choti-chopar', 'MS0yLTMzNzgtNzM=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1700, 1, 1, 3378, 74, NULL, 'wedding-caterers-in-chomu-house', 'MS0yLTMzNzgtNzQ=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1701, 1, 1, 3378, 75, NULL, 'wedding-caterers-in-chandi-ki-taksal', 'MS0yLTMzNzgtNzU=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1702, 1, 1, 3378, 76, NULL, 'wedding-caterers-in-chaura-rasta', 'MS0yLTMzNzgtNzY=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1703, 1, 1, 3378, 77, NULL, 'wedding-caterers-in-chandwaji', 'MS0yLTMzNzgtNzc=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1704, 1, 1, 3378, 78, NULL, 'wedding-caterers-in-durgapura', 'MS0yLTMzNzgtNzg=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1705, 1, 1, 3378, 79, NULL, 'wedding-caterers-in-gopalbari', 'MS0yLTMzNzgtNzk=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1706, 1, 1, 3378, 80, NULL, 'wedding-caterers-in-gangori-bazar', 'MS0yLTMzNzgtODA=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1707, 1, 1, 3378, 81, NULL, 'wedding-caterers-in-ghat-gate', 'MS0yLTMzNzgtODE=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1708, 1, 1, 3378, 82, NULL, 'wedding-caterers-in-govindpura-baseri', 'MS0yLTMzNzgtODI=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1709, 1, 1, 3378, 83, NULL, 'wedding-caterers-in-galta-gate', 'MS0yLTMzNzgtODM=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1710, 1, 1, 3378, 84, NULL, 'wedding-caterers-in-gurunanak-pura', 'MS0yLTMzNzgtODQ=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1711, 1, 1, 3378, 85, NULL, 'wedding-caterers-in-hawa-sadak', 'MS0yLTMzNzgtODU=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1712, 1, 1, 3378, 86, NULL, 'wedding-caterers-in-hawa-mahal-bazar', 'MS0yLTMzNzgtODY=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1713, 1, 1, 3378, 87, NULL, 'wedding-caterers-in-hasanpura', 'MS0yLTMzNzgtODc=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1714, 1, 1, 3378, 88, NULL, 'wedding-caterers-in-indira-bazar', 'MS0yLTMzNzgtODg=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1715, 1, 1, 3378, 89, NULL, 'wedding-caterers-in-imli-phatak', 'MS0yLTMzNzgtODk=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1716, 1, 1, 3378, 90, NULL, 'wedding-caterers-in-industrial-estate', 'MS0yLTMzNzgtOTA=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1717, 1, 1, 3378, 91, NULL, 'wedding-caterers-in-sudarshanpura-industrial-area', 'MS0yLTMzNzgtOTE=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1718, 1, 1, 3378, 92, NULL, 'wedding-caterers-in-jaipur-railway-station', 'MS0yLTMzNzgtOTI=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1719, 1, 1, 3378, 93, NULL, 'wedding-caterers-in-jamdoli', 'MS0yLTMzNzgtOTM=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1720, 1, 1, 3378, 94, NULL, 'wedding-caterers-in-jobner', 'MS0yLTMzNzgtOTQ=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1721, 1, 1, 3378, 95, NULL, 'wedding-caterers-in-kotputali', 'MS0yLTMzNzgtOTU=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1722, 1, 1, 3378, 96, NULL, 'wedding-caterers-in-kanota', 'MS0yLTMzNzgtOTY=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1723, 1, 1, 3378, 97, NULL, 'wedding-caterers-in-kishanpole-bazar', 'MS0yLTMzNzgtOTc=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1724, 1, 1, 3378, 98, NULL, 'wedding-caterers-in-khatipura', 'MS0yLTMzNzgtOTg=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1725, 1, 1, 3378, 99, NULL, 'wedding-caterers-in-kings-road', 'MS0yLTMzNzgtOTk=', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1726, 1, 1, 3378, 100, NULL, 'wedding-caterers-in-kalwad', 'MS0yLTMzNzgtMTAw', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1727, 1, 1, 3378, 101, NULL, 'wedding-caterers-in-kartarpura', 'MS0yLTMzNzgtMTAx', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1728, 1, 1, 3378, 102, NULL, 'wedding-caterers-in-khurra-brahampuri', 'MS0yLTMzNzgtMTAy', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1729, 1, 1, 3378, 103, NULL, 'wedding-caterers-in-kaladera', 'MS0yLTMzNzgtMTAz', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1730, 1, 1, 3378, 104, NULL, 'wedding-caterers-in-luniawas', 'MS0yLTMzNzgtMTA0', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1731, 1, 1, 3378, 105, NULL, 'wedding-caterers-in-nirman-nagar', 'MS0yLTMzNzgtMTA1', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1732, 1, 1, 3378, 106, NULL, 'wedding-caterers-in-narain-singh-road', 'MS0yLTMzNzgtMTA2', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1733, 1, 1, 3378, 107, NULL, 'wedding-caterers-in-new-atish-market', 'MS0yLTMzNzgtMTA3', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1734, 1, 1, 3378, 108, NULL, 'wedding-caterers-in-nahari-ka-naka', 'MS0yLTMzNzgtMTA4', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1735, 1, 1, 3378, 109, NULL, 'wedding-caterers-in-nayla', 'MS0yLTMzNzgtMTA5', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1736, 1, 1, 3378, 110, NULL, 'wedding-caterers-in-nemi-sagar-colony', 'MS0yLTMzNzgtMTEw', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1737, 1, 1, 3378, 111, NULL, 'wedding-caterers-in-nityanand-colony', 'MS0yLTMzNzgtMTEx', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1738, 1, 1, 3378, 112, NULL, 'wedding-caterers-in-nathawala', 'MS0yLTMzNzgtMTEy', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1739, 1, 1, 3378, 113, NULL, 'wedding-caterers-in-panchyawala', 'MS0yLTMzNzgtMTEz', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1740, 1, 1, 3378, 114, NULL, 'wedding-caterers-in-phulera', 'MS0yLTMzNzgtMTE0', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1741, 1, 1, 3378, 115, NULL, 'wedding-caterers-in-phagi', 'MS0yLTMzNzgtMTE1', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1742, 1, 1, 3378, 116, NULL, 'wedding-caterers-in-queens-road', 'MS0yLTMzNzgtMTE2', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1743, 1, 1, 3378, 117, NULL, 'wedding-caterers-in-renwal', 'MS0yLTMzNzgtMTE3', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1744, 1, 1, 3378, 118, NULL, 'wedding-caterers-in-rampura-dabri', 'MS0yLTMzNzgtMTE4', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1745, 1, 1, 3378, 119, NULL, 'wedding-caterers-in-sindhi-camp', 'MS0yLTMzNzgtMTE5', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1746, 1, 1, 3378, 120, NULL, 'wedding-caterers-in-sanganeri-gate', 'MS0yLTMzNzgtMTIw', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1747, 1, 1, 3378, 121, NULL, 'wedding-caterers-in-shahpura', 'MS0yLTMzNzgtMTIx', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1748, 1, 1, 3378, 122, NULL, 'wedding-caterers-in-subhash-chowk', 'MS0yLTMzNzgtMTIy', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1749, 1, 1, 3378, 123, NULL, 'wedding-caterers-in-samod', 'MS0yLTMzNzgtMTIz', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1750, 1, 1, 3378, 124, NULL, 'wedding-caterers-in-triveni-nagar', 'MS0yLTMzNzgtMTI0', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1751, 1, 1, 3378, 125, NULL, 'wedding-caterers-in-thikariya', 'MS0yLTMzNzgtMTI1', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1752, 1, 1, 3378, 126, NULL, 'wedding-caterers-in-udaipuria', 'MS0yLTMzNzgtMTI2', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1753, 1, 1, 3378, 127, NULL, 'wedding-caterers-in-vishwakarma-industrial-area', 'MS0yLTMzNzgtMTI3', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1754, 1, 1, 3378, 128, NULL, 'wedding-caterers-in-vanasthali-marg-station-road', 'MS0yLTMzNzgtMTI4', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1755, 1, 1, 3378, 129, NULL, 'wedding-caterers-in-watika', 'MS0yLTMzNzgtMTI5', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1756, 1, 1, 3378, 130, NULL, 'wedding-caterers-in-sodala', 'MS0yLTMzNzgtMTMw', 'Weddind', 'Weddind', 'Weddind', '2019-02-01 09:57:01', '2019-02-01 09:57:01', 1, 1),
+(1757, 1, 1, 3378, NULL, NULL, 'wedding-caterers', 'MS0yLTMzNzg=', 'Caterers in jaipur', 'Caterers in jaipur', 'Caterers in jaipur', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1758, 1, 1, 3378, 1, NULL, 'wedding-caterers-in-adarsh-nagar', 'MS0yLTMzNzgtMQ==', 'Caterers in Adarsh Nagar', 'Caterers in Adarsh Nagar', 'Caterers in Adarsh Nagar', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1759, 1, 1, 3378, 2, NULL, 'wedding-caterers-in-ajmer-road', 'MS0yLTMzNzgtMg==', 'Caterers in Ajmer Road', 'Caterers in Ajmer Road', 'Caterers in Ajmer Road', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1760, 1, 1, 3378, 3, NULL, 'wedding-caterers-in-ambabari', 'MS0yLTMzNzgtMw==', 'Caterers in Ambabari', 'Caterers in Ambabari', 'Caterers in Ambabari', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1761, 1, 1, 3378, 4, NULL, 'wedding-caterers-in-amer', 'MS0yLTMzNzgtNA==', 'Caterers in Amer', 'Caterers in Amer', 'Caterers in Amer', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1762, 1, 1, 3378, 5, NULL, 'wedding-caterers-in-bani-park', 'MS0yLTMzNzgtNQ==', 'Caterers in Bani Park', 'Caterers in Bani Park', 'Caterers in Bani Park', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1763, 1, 1, 3378, 6, NULL, 'wedding-caterers-in-sanganer', 'MS0yLTMzNzgtNg==', 'Caterers in Sanganer', 'Caterers in Sanganer', 'Caterers in Sanganer', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1764, 1, 1, 3378, 7, NULL, 'wedding-caterers-in-bajaj-nagar', 'MS0yLTMzNzgtNw==', 'Caterers in Bajaj Nagar', 'Caterers in Bajaj Nagar', 'Caterers in Bajaj Nagar', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1);
+INSERT INTO `websites_page_head_titles` (`id`, `category`, `subcategory`, `city`, `area`, `business_page`, `page_url`, `encoded_params`, `title`, `keyword`, `description`, `created_at`, `updated_at`, `update_status`, `status`) VALUES
+(1765, 1, 1, 3378, 8, NULL, 'wedding-caterers-in-bapu-nagar', 'MS0yLTMzNzgtOA==', 'Caterers in Bapu Nagar', 'Caterers in Bapu Nagar', 'Caterers in Bapu Nagar', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1766, 1, 1, 3378, 9, NULL, 'wedding-caterers-in-barkat-nagar', 'MS0yLTMzNzgtOQ==', 'Caterers in Barkat Nagar', 'Caterers in Barkat Nagar', 'Caterers in Barkat Nagar', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1767, 1, 1, 3378, 10, NULL, 'wedding-caterers-in-bhankrota', 'MS0yLTMzNzgtMTA=', 'Caterers in Bhankrota', 'Caterers in Bhankrota', 'Caterers in Bhankrota', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1768, 1, 1, 3378, 11, NULL, 'wedding-caterers-in-bindayaka', 'MS0yLTMzNzgtMTE=', 'Caterers in Bindayaka', 'Caterers in Bindayaka', 'Caterers in Bindayaka', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1769, 1, 1, 3378, 12, NULL, 'wedding-caterers-in-chandpole-bazar', 'MS0yLTMzNzgtMTI=', 'Caterers in Chandpole Bazar', 'Caterers in Chandpole Bazar', 'Caterers in Chandpole Bazar', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1770, 1, 1, 3378, 13, NULL, 'wedding-caterers-in-chomu', 'MS0yLTMzNzgtMTM=', 'Caterers in Chomu', 'Caterers in Chomu', 'Caterers in Chomu', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1771, 1, 1, 3378, 14, NULL, 'wedding-caterers-in-dehar-ke-balaji', 'MS0yLTMzNzgtMTQ=', 'Caterers in Dehar ke Balaji', 'Caterers in Dehar ke Balaji', 'Caterers in Dehar ke Balaji', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1772, 1, 1, 3378, 15, NULL, 'wedding-caterers-in-heerapura', 'MS0yLTMzNzgtMTU=', 'Caterers in Heerapura', 'Caterers in Heerapura', 'Caterers in Heerapura', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1773, 1, 1, 3378, 16, NULL, 'wedding-caterers-in-indra-bazar', 'MS0yLTMzNzgtMTY=', 'Caterers in Indra bazar', 'Caterers in Indra bazar', 'Caterers in Indra bazar', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1774, 1, 1, 3378, 17, NULL, 'wedding-caterers-in-jagatpura', 'MS0yLTMzNzgtMTc=', 'Caterers in Jagatpura', 'Caterers in Jagatpura', 'Caterers in Jagatpura', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1775, 1, 1, 3378, 18, NULL, 'wedding-caterers-in-jaipur-city', 'MS0yLTMzNzgtMTg=', 'Caterers in Jaipur city', 'Caterers in Jaipur city', 'Caterers in Jaipur city', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1776, 1, 1, 3378, 19, NULL, 'wedding-caterers-in-jaipur', 'MS0yLTMzNzgtMTk=', 'Caterers in Jaipur', 'Caterers in Jaipur', 'Caterers in Jaipur', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1777, 1, 1, 3378, 20, NULL, 'wedding-caterers-in-jaisingh-pura-khor', 'MS0yLTMzNzgtMjA=', 'Caterers in Jaisingh Pura Khor', 'Caterers in Jaisingh Pura Khor', 'Caterers in Jaisingh Pura Khor', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1778, 1, 1, 3378, 21, NULL, 'wedding-caterers-in-janta-colony', 'MS0yLTMzNzgtMjE=', 'Caterers in Janta colony', 'Caterers in Janta colony', 'Caterers in Janta colony', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1779, 1, 1, 3378, 22, NULL, 'wedding-caterers-in-jawahar-nagar', 'MS0yLTMzNzgtMjI=', 'Caterers in Jawahar Nagar', 'Caterers in Jawahar Nagar', 'Caterers in Jawahar Nagar', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1780, 1, 1, 3378, 23, NULL, 'wedding-caterers-in-jhalana-doongri', 'MS0yLTMzNzgtMjM=', 'Caterers in Jhalana Doongri', 'Caterers in Jhalana Doongri', 'Caterers in Jhalana Doongri', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1781, 1, 1, 3378, 24, NULL, 'wedding-caterers-in-jhotwara', 'MS0yLTMzNzgtMjQ=', 'Caterers in Jhotwara', 'Caterers in Jhotwara', 'Caterers in Jhotwara', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1782, 1, 1, 3378, 25, NULL, 'wedding-caterers-in-jhotwara-industrial-area', 'MS0yLTMzNzgtMjU=', 'Caterers in Jhotwara Industrial Area', 'Caterers in Jhotwara Industrial Area', 'Caterers in Jhotwara Industrial Area', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1783, 1, 1, 3378, 26, NULL, 'wedding-caterers-in-khora-meena', 'MS0yLTMzNzgtMjY=', 'Caterers in Khora Meena', 'Caterers in Khora Meena', 'Caterers in Khora Meena', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1784, 1, 1, 3378, 27, NULL, 'wedding-caterers-in-kishanpole-bazar', 'MS0yLTMzNzgtMjc=', 'Caterers in Kishanpole Bazar', 'Caterers in Kishanpole Bazar', 'Caterers in Kishanpole Bazar', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1785, 1, 1, 3378, 28, NULL, 'wedding-caterers-in-kookas', 'MS0yLTMzNzgtMjg=', 'Caterers in kookas', 'Caterers in kookas', 'Caterers in kookas', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1786, 1, 1, 3378, 29, NULL, 'wedding-caterers-in-lal-kothi', 'MS0yLTMzNzgtMjk=', 'Caterers in Lal Kothi', 'Caterers in Lal Kothi', 'Caterers in Lal Kothi', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1787, 1, 1, 3378, 30, NULL, 'wedding-caterers-in-m-i--road', 'MS0yLTMzNzgtMzA=', 'Caterers in M.I. Road', 'Caterers in M.I. Road', 'Caterers in M.I. Road', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1788, 1, 1, 3378, 31, NULL, 'wedding-caterers-in-mahapura', 'MS0yLTMzNzgtMzE=', 'Caterers in Mahapura', 'Caterers in Mahapura', 'Caterers in Mahapura', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1789, 1, 1, 3378, 32, NULL, 'wedding-caterers-in-malviya-nagar', 'MS0yLTMzNzgtMzI=', 'Caterers in malviya Nagar', 'Caterers in malviya Nagar', 'Caterers in malviya Nagar', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1790, 1, 1, 3378, 33, NULL, 'wedding-caterers-in-malviya-industrial-area', 'MS0yLTMzNzgtMzM=', 'Caterers in Malviya Industrial Area', 'Caterers in Malviya Industrial Area', 'Caterers in Malviya Industrial Area', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1791, 1, 1, 3378, 34, NULL, 'wedding-caterers-in-mansarovar', 'MS0yLTMzNzgtMzQ=', 'Caterers in Mansarovar', 'Caterers in Mansarovar', 'Caterers in Mansarovar', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1792, 1, 1, 3378, 35, NULL, 'wedding-caterers-in-meena-wala', 'MS0yLTMzNzgtMzU=', 'Caterers in Meena Wala', 'Caterers in Meena Wala', 'Caterers in Meena Wala', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1793, 1, 1, 3378, 36, NULL, 'wedding-caterers-in-moti-doongari-road', 'MS0yLTMzNzgtMzY=', 'Caterers in Moti Doongari Road', 'Caterers in Moti Doongari Road', 'Caterers in Moti Doongari Road', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1794, 1, 1, 3378, 37, NULL, 'wedding-caterers-in-muhana', 'MS0yLTMzNzgtMzc=', 'Caterers in Muhana', 'Caterers in Muhana', 'Caterers in Muhana', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1795, 1, 1, 3378, 38, NULL, 'wedding-caterers-in-mukandpura', 'MS0yLTMzNzgtMzg=', 'Caterers in Mukandpura', 'Caterers in Mukandpura', 'Caterers in Mukandpura', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1796, 1, 1, 3378, 39, NULL, 'wedding-caterers-in-mundia-rampura', 'MS0yLTMzNzgtMzk=', 'Caterers in Mundia Rampura', 'Caterers in Mundia Rampura', 'Caterers in Mundia Rampura', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1797, 1, 1, 3378, 40, NULL, 'wedding-caterers-in-murlipura', 'MS0yLTMzNzgtNDA=', 'Caterers in Murlipura', 'Caterers in Murlipura', 'Caterers in Murlipura', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1798, 1, 1, 3378, 41, NULL, 'wedding-caterers-in-nangal-jaisa-bohra', 'MS0yLTMzNzgtNDE=', 'Caterers in Nangal Jaisa Bohra', 'Caterers in Nangal Jaisa Bohra', 'Caterers in Nangal Jaisa Bohra', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1799, 1, 1, 3378, 42, NULL, 'wedding-caterers-in-neendar', 'MS0yLTMzNzgtNDI=', 'Caterers in Neendar', 'Caterers in Neendar', 'Caterers in Neendar', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1800, 1, 1, 3378, 43, NULL, 'wedding-caterers-in-neendar-benar', 'MS0yLTMzNzgtNDM=', 'Caterers in neendar benar', 'Caterers in neendar benar', 'Caterers in neendar benar', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1801, 1, 1, 3378, 44, NULL, 'wedding-caterers-in-niwaroo', 'MS0yLTMzNzgtNDQ=', 'Caterers in Niwaroo', 'Caterers in Niwaroo', 'Caterers in Niwaroo', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1802, 1, 1, 3378, 45, NULL, 'wedding-caterers-in-pratap-nagar', 'MS0yLTMzNzgtNDU=', 'Caterers in Pratap Nagar', 'Caterers in Pratap Nagar', 'Caterers in Pratap Nagar', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1803, 1, 1, 3378, 46, NULL, 'wedding-caterers-in-raja-park', 'MS0yLTMzNzgtNDY=', 'Caterers in Raja Park', 'Caterers in Raja Park', 'Caterers in Raja Park', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1804, 1, 1, 3378, 47, NULL, 'wedding-caterers-in-ramganj-bazar', 'MS0yLTMzNzgtNDc=', 'Caterers in Ramganj Bazar', 'Caterers in Ramganj Bazar', 'Caterers in Ramganj Bazar', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1805, 1, 1, 3378, 48, NULL, 'wedding-caterers-in-sfs-mansarovar', 'MS0yLTMzNzgtNDg=', 'Caterers in SFS Mansarovar', 'Caterers in SFS Mansarovar', 'Caterers in SFS Mansarovar', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1806, 1, 1, 3378, 49, NULL, 'wedding-caterers-in-shastri-nagar', 'MS0yLTMzNzgtNDk=', 'Caterers in Shastri Nagar', 'Caterers in Shastri Nagar', 'Caterers in Shastri Nagar', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1807, 1, 1, 3378, 50, NULL, 'wedding-caterers-in-shyam-nagar', 'MS0yLTMzNzgtNTA=', 'Caterers in Shyam Nagar', 'Caterers in Shyam Nagar', 'Caterers in Shyam Nagar', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1808, 1, 1, 3378, 51, NULL, 'wedding-caterers-in-sindhi-colony', 'MS0yLTMzNzgtNTE=', 'Caterers in Sindhi Colony', 'Caterers in Sindhi Colony', 'Caterers in Sindhi Colony', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1809, 1, 1, 3378, 52, NULL, 'wedding-caterers-in-sirsi', 'MS0yLTMzNzgtNTI=', 'Caterers in Sirsi', 'Caterers in Sirsi', 'Caterers in Sirsi', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1810, 1, 1, 3378, 53, NULL, 'wedding-caterers-in-sitapura-industrial-area', 'MS0yLTMzNzgtNTM=', 'Caterers in Sitapura Industrial Area', 'Caterers in Sitapura Industrial Area', 'Caterers in Sitapura Industrial Area', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1811, 1, 1, 3378, 54, NULL, 'wedding-caterers-in-station-road', 'MS0yLTMzNzgtNTQ=', 'Caterers in Station Road', 'Caterers in Station Road', 'Caterers in Station Road', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1812, 1, 1, 3378, 55, NULL, 'wedding-caterers-in-tilak-nagar', 'MS0yLTMzNzgtNTU=', 'Caterers in Tilak Nagar', 'Caterers in Tilak Nagar', 'Caterers in Tilak Nagar', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1813, 1, 1, 3378, 56, NULL, 'wedding-caterers-in-toda-meena', 'MS0yLTMzNzgtNTY=', 'Caterers in Toda Meena', 'Caterers in Toda Meena', 'Caterers in Toda Meena', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1814, 1, 1, 3378, 57, NULL, 'wedding-caterers-in-tripolia-bazar', 'MS0yLTMzNzgtNTc=', 'Caterers in Tripolia Bazar', 'Caterers in Tripolia Bazar', 'Caterers in Tripolia Bazar', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1815, 1, 1, 3378, 58, NULL, 'wedding-caterers-in-vaishali-nagar', 'MS0yLTMzNzgtNTg=', 'Caterers in Vaishali Nagar', 'Caterers in Vaishali Nagar', 'Caterers in Vaishali Nagar', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1816, 1, 1, 3378, 59, NULL, 'wedding-caterers-in-vidhyadhar-nagar', 'MS0yLTMzNzgtNTk=', 'Caterers in Vidhyadhar Nagar', 'Caterers in Vidhyadhar Nagar', 'Caterers in Vidhyadhar Nagar', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1817, 1, 1, 3378, 60, NULL, 'wedding-caterers-in-gopalpura-byepass', 'MS0yLTMzNzgtNjA=', 'Caterers in Gopalpura Byepass', 'Caterers in Gopalpura Byepass', 'Caterers in Gopalpura Byepass', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1818, 1, 1, 3378, 61, NULL, 'wedding-caterers-in-tonk-road', 'MS0yLTMzNzgtNjE=', 'Caterers in Tonk Road', 'Caterers in Tonk Road', 'Caterers in Tonk Road', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1819, 1, 1, 3378, 62, NULL, 'wedding-caterers-in-achrol', 'MS0yLTMzNzgtNjI=', 'Caterers in Achrol', 'Caterers in Achrol', 'Caterers in Achrol', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1820, 1, 1, 3378, 63, NULL, 'wedding-caterers-in-gandhi-nagar', 'MS0yLTMzNzgtNjM=', 'Caterers in Gandhi Nagar', 'Caterers in Gandhi Nagar', 'Caterers in Gandhi Nagar', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1821, 1, 1, 3378, 64, NULL, 'wedding-caterers-in-bapu-bazar', 'MS0yLTMzNzgtNjQ=', 'Caterers in bapu bazar', 'Caterers in bapu bazar', 'Caterers in bapu bazar', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1822, 1, 1, 3378, 65, NULL, 'wedding-caterers-in-bais-godam', 'MS0yLTMzNzgtNjU=', 'Caterers in Bais Godam', 'Caterers in Bais Godam', 'Caterers in Bais Godam', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1823, 1, 1, 3378, 66, NULL, 'wedding-caterers-in-bagru', 'MS0yLTMzNzgtNjY=', 'Caterers in Bagru', 'Caterers in Bagru', 'Caterers in Bagru', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1824, 1, 1, 3378, 67, NULL, 'wedding-caterers-in-badi-chaupar', 'MS0yLTMzNzgtNjc=', 'Caterers in Badi Chaupar', 'Caterers in Badi Chaupar', 'Caterers in Badi Chaupar', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1825, 1, 1, 3378, 68, NULL, 'wedding-caterers-in-bas-badanpura', 'MS0yLTMzNzgtNjg=', 'Caterers in Bas Badanpura', 'Caterers in Bas Badanpura', 'Caterers in Bas Badanpura', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1826, 1, 1, 3378, 69, NULL, 'wedding-caterers-in-phulera', 'MS0yLTMzNzgtNjk=', 'Caterers in Phulera', 'Caterers in Phulera', 'Caterers in Phulera', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1827, 1, 1, 3378, 70, NULL, 'wedding-caterers-in-c-scheme', 'MS0yLTMzNzgtNzA=', 'Caterers in C-scheme', 'Caterers in C-scheme', 'Caterers in C-scheme', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1828, 1, 1, 3378, 71, NULL, 'wedding-caterers-in-chitrakoot-scheme', 'MS0yLTMzNzgtNzE=', 'Caterers in chitrakoot scheme', 'Caterers in chitrakoot scheme', 'Caterers in chitrakoot scheme', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1829, 1, 1, 3378, 72, NULL, 'wedding-caterers-in-chaksu', 'MS0yLTMzNzgtNzI=', 'Caterers in chaksu', 'Caterers in chaksu', 'Caterers in chaksu', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1830, 1, 1, 3378, 73, NULL, 'wedding-caterers-in-choti-chopar', 'MS0yLTMzNzgtNzM=', 'Caterers in Choti Chopar', 'Caterers in Choti Chopar', 'Caterers in Choti Chopar', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1831, 1, 1, 3378, 74, NULL, 'wedding-caterers-in-chomu-house', 'MS0yLTMzNzgtNzQ=', 'Caterers in Chomu House', 'Caterers in Chomu House', 'Caterers in Chomu House', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1832, 1, 1, 3378, 75, NULL, 'wedding-caterers-in-chandi-ki-taksal', 'MS0yLTMzNzgtNzU=', 'Caterers in Chandi Ki taksal', 'Caterers in Chandi Ki taksal', 'Caterers in Chandi Ki taksal', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1833, 1, 1, 3378, 76, NULL, 'wedding-caterers-in-chaura-rasta', 'MS0yLTMzNzgtNzY=', 'Caterers in Chaura Rasta', 'Caterers in Chaura Rasta', 'Caterers in Chaura Rasta', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1834, 1, 1, 3378, 77, NULL, 'wedding-caterers-in-chandwaji', 'MS0yLTMzNzgtNzc=', 'Caterers in Chandwaji', 'Caterers in Chandwaji', 'Caterers in Chandwaji', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1835, 1, 1, 3378, 78, NULL, 'wedding-caterers-in-durgapura', 'MS0yLTMzNzgtNzg=', 'Caterers in Durgapura', 'Caterers in Durgapura', 'Caterers in Durgapura', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1836, 1, 1, 3378, 79, NULL, 'wedding-caterers-in-gopalbari', 'MS0yLTMzNzgtNzk=', 'Caterers in Gopalbari', 'Caterers in Gopalbari', 'Caterers in Gopalbari', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1837, 1, 1, 3378, 80, NULL, 'wedding-caterers-in-gangori-bazar', 'MS0yLTMzNzgtODA=', 'Caterers in Gangori Bazar', 'Caterers in Gangori Bazar', 'Caterers in Gangori Bazar', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1838, 1, 1, 3378, 81, NULL, 'wedding-caterers-in-ghat-gate', 'MS0yLTMzNzgtODE=', 'Caterers in Ghat Gate', 'Caterers in Ghat Gate', 'Caterers in Ghat Gate', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1839, 1, 1, 3378, 82, NULL, 'wedding-caterers-in-govindpura-baseri', 'MS0yLTMzNzgtODI=', 'Caterers in Govindpura baseri', 'Caterers in Govindpura baseri', 'Caterers in Govindpura baseri', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1840, 1, 1, 3378, 83, NULL, 'wedding-caterers-in-galta-gate', 'MS0yLTMzNzgtODM=', 'Caterers in Galta Gate', 'Caterers in Galta Gate', 'Caterers in Galta Gate', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1841, 1, 1, 3378, 84, NULL, 'wedding-caterers-in-gurunanak-pura', 'MS0yLTMzNzgtODQ=', 'Caterers in Gurunanak Pura', 'Caterers in Gurunanak Pura', 'Caterers in Gurunanak Pura', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1842, 1, 1, 3378, 85, NULL, 'wedding-caterers-in-hawa-sadak', 'MS0yLTMzNzgtODU=', 'Caterers in Hawa Sadak', 'Caterers in Hawa Sadak', 'Caterers in Hawa Sadak', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1843, 1, 1, 3378, 86, NULL, 'wedding-caterers-in-hawa-mahal-bazar', 'MS0yLTMzNzgtODY=', 'Caterers in Hawa Mahal Bazar', 'Caterers in Hawa Mahal Bazar', 'Caterers in Hawa Mahal Bazar', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1844, 1, 1, 3378, 87, NULL, 'wedding-caterers-in-hasanpura', 'MS0yLTMzNzgtODc=', 'Caterers in Hasanpura', 'Caterers in Hasanpura', 'Caterers in Hasanpura', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1845, 1, 1, 3378, 88, NULL, 'wedding-caterers-in-indira-bazar', 'MS0yLTMzNzgtODg=', 'Caterers in Indira Bazar', 'Caterers in Indira Bazar', 'Caterers in Indira Bazar', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1846, 1, 1, 3378, 89, NULL, 'wedding-caterers-in-imli-phatak', 'MS0yLTMzNzgtODk=', 'Caterers in Imli Phatak', 'Caterers in Imli Phatak', 'Caterers in Imli Phatak', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1847, 1, 1, 3378, 90, NULL, 'wedding-caterers-in-industrial-estate', 'MS0yLTMzNzgtOTA=', 'Caterers in Industrial Estate', 'Caterers in Industrial Estate', 'Caterers in Industrial Estate', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1848, 1, 1, 3378, 91, NULL, 'wedding-caterers-in-sudarshanpura-industrial-area', 'MS0yLTMzNzgtOTE=', 'Caterers in Sudarshanpura Industrial Area', 'Caterers in Sudarshanpura Industrial Area', 'Caterers in Sudarshanpura Industrial Area', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1849, 1, 1, 3378, 92, NULL, 'wedding-caterers-in-jaipur-railway-station', 'MS0yLTMzNzgtOTI=', 'Caterers in Jaipur Railway Station', 'Caterers in Jaipur Railway Station', 'Caterers in Jaipur Railway Station', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1850, 1, 1, 3378, 93, NULL, 'wedding-caterers-in-jamdoli', 'MS0yLTMzNzgtOTM=', 'Caterers in Jamdoli', 'Caterers in Jamdoli', 'Caterers in Jamdoli', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1851, 1, 1, 3378, 94, NULL, 'wedding-caterers-in-jobner', 'MS0yLTMzNzgtOTQ=', 'Caterers in jobner', 'Caterers in jobner', 'Caterers in jobner', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1852, 1, 1, 3378, 95, NULL, 'wedding-caterers-in-kotputali', 'MS0yLTMzNzgtOTU=', 'Caterers in Kotputali', 'Caterers in Kotputali', 'Caterers in Kotputali', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1853, 1, 1, 3378, 96, NULL, 'wedding-caterers-in-kanota', 'MS0yLTMzNzgtOTY=', 'Caterers in Kanota', 'Caterers in Kanota', 'Caterers in Kanota', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1854, 1, 1, 3378, 97, NULL, 'wedding-caterers-in-kishanpole-bazar', 'MS0yLTMzNzgtOTc=', 'Caterers in Kishanpole Bazar', 'Caterers in Kishanpole Bazar', 'Caterers in Kishanpole Bazar', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1855, 1, 1, 3378, 98, NULL, 'wedding-caterers-in-khatipura', 'MS0yLTMzNzgtOTg=', 'Caterers in khatipura', 'Caterers in khatipura', 'Caterers in khatipura', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1856, 1, 1, 3378, 99, NULL, 'wedding-caterers-in-kings-road', 'MS0yLTMzNzgtOTk=', 'Caterers in Kings Road', 'Caterers in Kings Road', 'Caterers in Kings Road', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1857, 1, 1, 3378, 100, NULL, 'wedding-caterers-in-kalwad', 'MS0yLTMzNzgtMTAw', 'Caterers in Kalwad', 'Caterers in Kalwad', 'Caterers in Kalwad', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1858, 1, 1, 3378, 101, NULL, 'wedding-caterers-in-kartarpura', 'MS0yLTMzNzgtMTAx', 'Caterers in Kartarpura', 'Caterers in Kartarpura', 'Caterers in Kartarpura', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1859, 1, 1, 3378, 102, NULL, 'wedding-caterers-in-khurra-brahampuri', 'MS0yLTMzNzgtMTAy', 'Caterers in Khurra brahampuri', 'Caterers in Khurra brahampuri', 'Caterers in Khurra brahampuri', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1860, 1, 1, 3378, 103, NULL, 'wedding-caterers-in-kaladera', 'MS0yLTMzNzgtMTAz', 'Caterers in Kaladera', 'Caterers in Kaladera', 'Caterers in Kaladera', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1861, 1, 1, 3378, 104, NULL, 'wedding-caterers-in-luniawas', 'MS0yLTMzNzgtMTA0', 'Caterers in Luniawas', 'Caterers in Luniawas', 'Caterers in Luniawas', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1862, 1, 1, 3378, 105, NULL, 'wedding-caterers-in-nirman-nagar', 'MS0yLTMzNzgtMTA1', 'Caterers in Nirman Nagar', 'Caterers in Nirman Nagar', 'Caterers in Nirman Nagar', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1863, 1, 1, 3378, 106, NULL, 'wedding-caterers-in-narain-singh-road', 'MS0yLTMzNzgtMTA2', 'Caterers in Narain Singh Road', 'Caterers in Narain Singh Road', 'Caterers in Narain Singh Road', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1864, 1, 1, 3378, 107, NULL, 'wedding-caterers-in-new-atish-market', 'MS0yLTMzNzgtMTA3', 'Caterers in New Atish Market', 'Caterers in New Atish Market', 'Caterers in New Atish Market', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1865, 1, 1, 3378, 108, NULL, 'wedding-caterers-in-nahari-ka-naka', 'MS0yLTMzNzgtMTA4', 'Caterers in Nahari ka Naka', 'Caterers in Nahari ka Naka', 'Caterers in Nahari ka Naka', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1866, 1, 1, 3378, 109, NULL, 'wedding-caterers-in-nayla', 'MS0yLTMzNzgtMTA5', 'Caterers in Nayla', 'Caterers in Nayla', 'Caterers in Nayla', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1867, 1, 1, 3378, 110, NULL, 'wedding-caterers-in-nemi-sagar-colony', 'MS0yLTMzNzgtMTEw', 'Caterers in Nemi Sagar Colony', 'Caterers in Nemi Sagar Colony', 'Caterers in Nemi Sagar Colony', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1868, 1, 1, 3378, 111, NULL, 'wedding-caterers-in-nityanand-colony', 'MS0yLTMzNzgtMTEx', 'Caterers in Nityanand Colony', 'Caterers in Nityanand Colony', 'Caterers in Nityanand Colony', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1869, 1, 1, 3378, 112, NULL, 'wedding-caterers-in-nathawala', 'MS0yLTMzNzgtMTEy', 'Caterers in Nathawala', 'Caterers in Nathawala', 'Caterers in Nathawala', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1870, 1, 1, 3378, 113, NULL, 'wedding-caterers-in-panchyawala', 'MS0yLTMzNzgtMTEz', 'Caterers in Panchyawala', 'Caterers in Panchyawala', 'Caterers in Panchyawala', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1871, 1, 1, 3378, 114, NULL, 'wedding-caterers-in-phulera', 'MS0yLTMzNzgtMTE0', 'Caterers in Phulera', 'Caterers in Phulera', 'Caterers in Phulera', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1872, 1, 1, 3378, 115, NULL, 'wedding-caterers-in-phagi', 'MS0yLTMzNzgtMTE1', 'Caterers in Phagi', 'Caterers in Phagi', 'Caterers in Phagi', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1873, 1, 1, 3378, 116, NULL, 'wedding-caterers-in-queens-road', 'MS0yLTMzNzgtMTE2', 'Caterers in Queens Road', 'Caterers in Queens Road', 'Caterers in Queens Road', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1874, 1, 1, 3378, 117, NULL, 'wedding-caterers-in-renwal', 'MS0yLTMzNzgtMTE3', 'Caterers in Renwal', 'Caterers in Renwal', 'Caterers in Renwal', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1875, 1, 1, 3378, 118, NULL, 'wedding-caterers-in-rampura-dabri', 'MS0yLTMzNzgtMTE4', 'Caterers in Rampura dabri', 'Caterers in Rampura dabri', 'Caterers in Rampura dabri', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1876, 1, 1, 3378, 119, NULL, 'wedding-caterers-in-sindhi-camp', 'MS0yLTMzNzgtMTE5', 'Caterers in Sindhi Camp', 'Caterers in Sindhi Camp', 'Caterers in Sindhi Camp', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1877, 1, 1, 3378, 120, NULL, 'wedding-caterers-in-sanganeri-gate', 'MS0yLTMzNzgtMTIw', 'Caterers in Sanganeri Gate', 'Caterers in Sanganeri Gate', 'Caterers in Sanganeri Gate', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1878, 1, 1, 3378, 121, NULL, 'wedding-caterers-in-shahpura', 'MS0yLTMzNzgtMTIx', 'Caterers in Shahpura', 'Caterers in Shahpura', 'Caterers in Shahpura', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1879, 1, 1, 3378, 122, NULL, 'wedding-caterers-in-subhash-chowk', 'MS0yLTMzNzgtMTIy', 'Caterers in Subhash Chowk', 'Caterers in Subhash Chowk', 'Caterers in Subhash Chowk', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1880, 1, 1, 3378, 123, NULL, 'wedding-caterers-in-samod', 'MS0yLTMzNzgtMTIz', 'Caterers in Samod', 'Caterers in Samod', 'Caterers in Samod', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1881, 1, 1, 3378, 124, NULL, 'wedding-caterers-in-triveni-nagar', 'MS0yLTMzNzgtMTI0', 'Caterers in Triveni Nagar', 'Caterers in Triveni Nagar', 'Caterers in Triveni Nagar', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1882, 1, 1, 3378, 125, NULL, 'wedding-caterers-in-thikariya', 'MS0yLTMzNzgtMTI1', 'Caterers in Thikariya', 'Caterers in Thikariya', 'Caterers in Thikariya', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1883, 1, 1, 3378, 126, NULL, 'wedding-caterers-in-udaipuria', 'MS0yLTMzNzgtMTI2', 'Caterers in Udaipuria', 'Caterers in Udaipuria', 'Caterers in Udaipuria', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1884, 1, 1, 3378, 127, NULL, 'wedding-caterers-in-vishwakarma-industrial-area', 'MS0yLTMzNzgtMTI3', 'Caterers in Vishwakarma Industrial Area', 'Caterers in Vishwakarma Industrial Area', 'Caterers in Vishwakarma Industrial Area', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1885, 1, 1, 3378, 128, NULL, 'wedding-caterers-in-vanasthali-marg-station-road', 'MS0yLTMzNzgtMTI4', 'Caterers in Vanasthali Marg Station Road', 'Caterers in Vanasthali Marg Station Road', 'Caterers in Vanasthali Marg Station Road', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1886, 1, 1, 3378, 129, NULL, 'wedding-caterers-in-watika', 'MS0yLTMzNzgtMTI5', 'Caterers in Watika', 'Caterers in Watika', 'Caterers in Watika', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1887, 1, 1, 3378, 130, NULL, 'wedding-caterers-in-sodala', 'MS0yLTMzNzgtMTMw', 'Caterers in Sodala', 'Caterers in Sodala', 'Caterers in Sodala', '2019-02-01 12:37:14', '2019-02-01 12:37:14', 1, 1),
+(1888, NULL, NULL, 3378, 59, '26', 'ambrlabs-in-Vidhyadhar-Nagar', 'MjYtMy0zMzc4LTU5', 'ambrlabs in Vidhyadhar Nagar', 'ambrlabs in Vidhyadhar Nagar', 'ambrlabs in Vidhyadhar Nagar', '2019-02-06 14:05:37', '2019-02-06 14:05:37', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -57877,9 +59304,21 @@ INSERT INTO `website_pages` (`id`, `page_title`, `page_description`, `created_at
 --
 
 --
+-- Indexes for table `admin_approvals_for_updates`
+--
+ALTER TABLE `admin_approvals_for_updates`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `areas`
 --
 ALTER TABLE `areas`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `blogs`
+--
+ALTER TABLE `blogs`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -57901,15 +59340,39 @@ ALTER TABLE `category_enquiries`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `category_suggestions`
+--
+ALTER TABLE `category_suggestions`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `cities`
 --
 ALTER TABLE `cities`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `client_assigned_to_sales`
+--
+ALTER TABLE `client_assigned_to_sales`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `client_enquiries`
 --
 ALTER TABLE `client_enquiries`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `client_meetings`
+--
+ALTER TABLE `client_meetings`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `client_meeting_response`
+--
+ALTER TABLE `client_meeting_response`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -57922,6 +59385,18 @@ ALTER TABLE `client_reviews`
 -- Indexes for table `countries`
 --
 ALTER TABLE `countries`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `created_by_user_location`
+--
+ALTER TABLE `created_by_user_location`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `employees`
+--
+ALTER TABLE `employees`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -58049,16 +59524,28 @@ ALTER TABLE `website_pages`
 --
 
 --
+-- AUTO_INCREMENT for table `admin_approvals_for_updates`
+--
+ALTER TABLE `admin_approvals_for_updates`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT for table `areas`
 --
 ALTER TABLE `areas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=131;
 
 --
+-- AUTO_INCREMENT for table `blogs`
+--
+ALTER TABLE `blogs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `category_clubs`
@@ -58070,7 +59557,13 @@ ALTER TABLE `category_clubs`
 -- AUTO_INCREMENT for table `category_enquiries`
 --
 ALTER TABLE `category_enquiries`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `category_suggestions`
+--
+ALTER TABLE `category_suggestions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `cities`
@@ -58079,10 +59572,28 @@ ALTER TABLE `cities`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48315;
 
 --
+-- AUTO_INCREMENT for table `client_assigned_to_sales`
+--
+ALTER TABLE `client_assigned_to_sales`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
 -- AUTO_INCREMENT for table `client_enquiries`
 --
 ALTER TABLE `client_enquiries`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `client_meetings`
+--
+ALTER TABLE `client_meetings`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `client_meeting_response`
+--
+ALTER TABLE `client_meeting_response`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `client_reviews`
@@ -58097,10 +59608,22 @@ ALTER TABLE `countries`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=247;
 
 --
+-- AUTO_INCREMENT for table `created_by_user_location`
+--
+ALTER TABLE `created_by_user_location`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+
+--
+-- AUTO_INCREMENT for table `employees`
+--
+ALTER TABLE `employees`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `keyword_city_client_visibility`
 --
 ALTER TABLE `keyword_city_client_visibility`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -58136,13 +59659,13 @@ ALTER TABLE `states`
 -- AUTO_INCREMENT for table `subcategory`
 --
 ALTER TABLE `subcategory`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `subscribers`
 --
 ALTER TABLE `subscribers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1104;
 
 --
 -- AUTO_INCREMENT for table `super_categories`
@@ -58154,61 +59677,61 @@ ALTER TABLE `super_categories`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `user_area_visibility`
 --
 ALTER TABLE `user_area_visibility`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3788;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3272;
 
 --
 -- AUTO_INCREMENT for table `user_company_information`
 --
 ALTER TABLE `user_company_information`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `user_details`
 --
 ALTER TABLE `user_details`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `user_images`
 --
 ALTER TABLE `user_images`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `user_keywords`
 --
 ALTER TABLE `user_keywords`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
 -- AUTO_INCREMENT for table `user_location`
 --
 ALTER TABLE `user_location`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `user_other_information`
 --
 ALTER TABLE `user_other_information`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=253;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=309;
 
 --
 -- AUTO_INCREMENT for table `user_roles`
 --
 ALTER TABLE `user_roles`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `websites_page_head_titles`
 --
 ALTER TABLE `websites_page_head_titles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1328;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1889;
 
 --
 -- AUTO_INCREMENT for table `website_pages`
