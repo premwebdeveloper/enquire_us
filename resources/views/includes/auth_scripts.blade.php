@@ -17,7 +17,6 @@
         var oTable = $('.dataTables-example').DataTable({
             pageLength: 10,
             lengthMenu: [[10, 25, 50, -1], [10, 25, 50, "All"]],
-            "order": [[ 6, "desc" ]]
             responsive: true,
             dom: '<"html5buttons"B>lTfgitp',
             buttons: [
