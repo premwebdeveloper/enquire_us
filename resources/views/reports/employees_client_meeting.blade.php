@@ -79,13 +79,14 @@
                         <table class="table table-striped table-bordered table-hover dataTables-example">
                             <thead>
                                 <tr>
+                                    <th>Employee</th>
                                     <th>Business Name</th>
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Phone</th>
                                     <th>Address</th>
                                     <th>Date</th>
-                                    <!-- <th>Action</th> -->
+                                    <th>Status</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -93,20 +94,20 @@
                                 @foreach($meeting_records as $key => $rows)
 
                                     <tr class="gradeX">
+                                        <td>{{ $rows->created_by_name }}</td>
                                         <td>{{ $rows->business_name }}</td>
                                         <td>{{ $rows->name }}</td>
                                         <td>{{ $rows->email }}</td>
                                         <td>{!! $rows->phone !!}</td>
                                         <td>{{ $rows->building.', '. $rows->street.', '. $rows->landmark.', '. $rows->area.', '. $rows->city.', '. $rows->state.', '. $rows->country.', '. $rows->pincode}}</td>
                                         <td>{{ $rows->created_at }}</td>
-                                        <!-- <td>
-                                            <a class="btn btn-success" title="Edit" href="#">
-                                                <i class="fa fa-pencil" aria-hidden="true"></i>
-                                            </a>
-                                            <a class="btn btn-success" title="Delete" href="#">
-                                                <i class="fa fa-trash" aria-hidden="true"></i>
-                                            </a>
-                                        </td> -->
+                                        <td>
+                                            @if($rows->status == 1)
+                                                Approved
+                                            @else
+                                                UnApproved
+                                            @endif
+                                        </td>
                                     </tr>
                                 @endforeach
 

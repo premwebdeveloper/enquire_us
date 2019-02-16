@@ -51,11 +51,12 @@ class Reports extends Controller
 
     	// Get meetings of this employee
     	$meeting_records = DB::table('user_details')
-    						->join('user_location', 'user_location.user_id', '=', 'user_details.user_id')
+                            ->join('user_location', 'user_location.user_id', '=', 'user_details.user_id')
+    						->join('employees', 'employees.user_id', '=', 'user_details.created_by')
     						->where('user_details.created_by', $employee)
     						->whereDate('user_details.created_at', '>=', $start_date)
     						->whereDate('user_details.created_at', '<=', $end_date)
-    						->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country')
+    						->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country', 'employees.name as created_by_name')
     						->get();
 
     	return view('reports.employees_client_meeting', array('employees' => $employees, 'meeting_records' => $meeting_records));
