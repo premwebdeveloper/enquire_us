@@ -337,5 +337,11 @@
     Route::get('information_update_notifications/{type}', 'Notifications@information_update_notifications')->name('information_update_notifications');
 
     // Admin approve client updates
-    Route::post('admin_approval_for_updates', 'Notifications@admin_approval_for_updates')->name('admin_approval_for_updates');    
+    Route::post('admin_approval_for_updates', 'Notifications@admin_approval_for_updates')->name('admin_approval_for_updates');   
+
+    // Show reports page
+    Route::get('reports', 'Reports@index')->name('reports');
+    Route::get('employees_client_meeting', 'Reports@employees_client_meeting')->name('employees_client_meeting');
+    Route::post('generate_employee_client_meeting_report', 'Reports@generate_employee_client_meeting_report')->name('generate_employee_client_meeting_report');
+
 // });

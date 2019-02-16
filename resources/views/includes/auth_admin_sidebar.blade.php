@@ -74,6 +74,7 @@
                 <li><a href="{{route('reviews')}}"><i class="fa fa-users"></i> <span class="nav-label">User Reviews</span></a></li>
 
                 <li><a href="{{route('blogs')}}"><i class="fa fa-users"></i> <span class="nav-label">Blogs</span></a></li>
+                <li><a href="{{route('reports')}}"><i class="fa fa-users"></i> <span class="nav-label">Reports</span></a></li>
 
                 <?php
             /* *********************************************** */

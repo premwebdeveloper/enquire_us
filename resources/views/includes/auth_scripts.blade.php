@@ -2,6 +2,14 @@
 
     $(document).ready(function(){
 
+        // date range picker js
+        $('#data_5 .input-daterange').datepicker({
+            keyboardNavigation: false,
+            forceParse: false,
+            autoclose: true
+        });
+
+
         /* ****************************************************************************** */
         // Meeting assign to sales by support executive
         $(document).on('click', '.assignToSales', function(){

@@ -32,6 +32,8 @@
 
     <!-- Date time picker js -->
     <script src="{{ asset('resources/assets/js/bootstrap-datetimepicker.min.js') }}"></script>
+    <!-- date renage picket js -->
+    <script src="{{ asset('resources/assets/js/plugins/datapicker/bootstrap-datepicker.js') }}"></script>
 
     <script src="{{ asset('resources/assets/js/inspinia.js') }}"></script>
 

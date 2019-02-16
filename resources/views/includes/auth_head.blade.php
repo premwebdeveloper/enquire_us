@@ -23,6 +23,8 @@
 
     <!-- Date time picker css -->
     <link href="{{ asset('resources/assets/css/bootstrap-datetimepicker.css') }}" rel="stylesheet">
+    <!-- date range picker css -->
+    <link href="{{ asset('resources/assets/css/plugins/datapicker/datepicker3.css') }}" rel="stylesheet">
     <link href="{{ asset('resources/assets/css/custom.css') }}" rel="stylesheet">
 
 </head>
