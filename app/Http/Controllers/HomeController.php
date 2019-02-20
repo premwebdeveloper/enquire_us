@@ -137,6 +137,9 @@ class HomeController extends Controller
             $city = $encoded[2];
             $area = '';
 
+            $city_info = DB::table('cities')->where('id', $city)->first();
+            $city_info = json_decode(json_encode($city_info), True);
+
             // Here check the title status if title status is category then
             if($title_status == 1){
 
@@ -305,11 +308,6 @@ class HomeController extends Controller
 
             $all_companies_meta_data = json_encode($all_companies_meta_data);
 
-            // get city name 
-            $city_info = DB::table('cities')->where('id', $page_titles->city)->first();
-
-            $city_info = json_decode(json_encode($city_info), True);
-
             $list_item_meta_content = array(
                 "@context" => "https://schema.org",
                 "@type" => "BreadcrumbList",
@@ -352,6 +350,9 @@ class HomeController extends Controller
             $title_status = $encoded[1];
             $city = $encoded[2];
             $area = $encoded[3];
+
+            $city_info = DB::table('cities')->where('id', $city)->first();
+            $city_info = json_decode(json_encode($city_info), True);
 
             if($title_status == 1) {        // If title is category
 
