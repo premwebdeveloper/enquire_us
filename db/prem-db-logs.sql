@@ -568,3 +568,5 @@ ALTER TABLE `admin_approvals_for_updates` CHANGE `status` `status` TINYINT(1) NO
 
 -- ---------------ALTER TABLE `client_reviews` on 20-02-2019----------------------
 ALTER TABLE `client_reviews` CHANGE `phone` `phone` VARCHAR(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL;
+
+ALTER TABLE `client_reviews` CHANGE `rating` `rating` FLOAT NULL DEFAULT NULL;
