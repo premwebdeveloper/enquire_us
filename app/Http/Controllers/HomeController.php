@@ -305,7 +305,45 @@ class HomeController extends Controller
 
             $all_companies_meta_data = json_encode($all_companies_meta_data);
 
-            return view('frontend.clients', array('clients' => $clients, 'subcategories' => $subcategories, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'title_info' => $title_info, 'pageUrls' => $pageUrls, 'selected_area' => $area, 'category_company_list_meta_content' => $category_company_list_meta_content, 'list_seo_title' => $list_seo_title, 'all_companies_meta_data' => $all_companies_meta_data));
+            // get city name 
+            $city_info = DB::table('cities')->where('id', $page_titles->city)->first();
+
+            $city_info = json_decode(json_encode($city_info), True);
+
+            $list_item_meta_content = array(
+                "@context" => "https://schema.org",
+                "@type" => "BreadcrumbList",
+                "itemListElement" => array(
+                    array(
+                        "@type" => "ListItem",
+                        "position" => 1,
+                        "item" => array(
+                            "@id" => "https://enquireus.com/",
+                            "name" => "Home"
+                        )
+                    ),
+                    array(
+                        "@type" => "ListItem",
+                        "position" => 2,
+                        "item" => array(
+                            "@id" => "https://enquireus.com/".$city_info['name']."/",
+                            "name" => $city_info['name']
+                        )
+                    ),
+                    array(
+                        "@type" => "ListItem",
+                        "position" => 3,
+                        "item" => array(
+                            "@id" => "https://enquireus.com/".$city_info['name']."/".$page_url."/".$page_titles->encoded_params."",
+                            "name" => $page_url
+                        )
+                    )                        
+                )
+            );
+
+            $list_item_meta_content = json_encode($list_item_meta_content);
+
+            return view('frontend.clients', array('clients' => $clients, 'subcategories' => $subcategories, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'title_info' => $title_info, 'pageUrls' => $pageUrls, 'selected_area' => $area, 'category_company_list_meta_content' => $category_company_list_meta_content, 'list_seo_title' => $list_seo_title, 'all_companies_meta_data' => $all_companies_meta_data, 'list_item_meta_content' => $list_item_meta_content));
         }
         else{
 
@@ -492,7 +530,44 @@ class HomeController extends Controller
 
                 $all_companies_meta_data = json_encode($all_companies_meta_data);
 
-                return view('frontend.clients', array('clients' => $clients, 'subcategories' => $subcategories, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'title_info' => $title_info, 'pageUrls' => $pageUrls, 'selected_area' => $area, 'category_company_list_meta_content' => $category_company_list_meta_content, 'list_seo_title' => $list_seo_title, 'all_companies_meta_data' => $all_companies_meta_data));
+                // get city name 
+                $city_info = DB::table('cities')->where('id', $page_titles->city)->first();
+                $city_info = json_decode(json_encode($city_info), True);
+
+                $list_item_meta_content = array(
+                    "@context" => "https://schema.org",
+                    "@type" => "BreadcrumbList",
+                    "itemListElement" => array(
+                        array(
+                            "@type" => "ListItem",
+                            "position" => 1,
+                            "item" => array(
+                                "@id" => "https://enquireus.com/",
+                                "name" => "Home"
+                            )
+                        ),
+                        array(
+                            "@type" => "ListItem",
+                            "position" => 2,
+                            "item" => array(
+                                "@id" => "https://enquireus.com/".$city_info['name']."/",
+                                "name" => $city_info['name']
+                            )
+                        ),
+                        array(
+                            "@type" => "ListItem",
+                            "position" => 3,
+                            "item" => array(
+                                "@id" => "https://enquireus.com/".$city_info['name']."/".$page_url."/".$page_titles->encoded_params."",
+                                "name" => $page_url
+                            )
+                        )                        
+                    )
+                );
+
+                $list_item_meta_content = json_encode($list_item_meta_content);
+
+                return view('frontend.clients', array('clients' => $clients, 'subcategories' => $subcategories, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'title_info' => $title_info, 'pageUrls' => $pageUrls, 'selected_area' => $area, 'category_company_list_meta_content' => $category_company_list_meta_content, 'list_seo_title' => $list_seo_title, 'all_companies_meta_data' => $all_companies_meta_data, 'list_item_meta_content' => $list_item_meta_content));
             }
             elseif ($title_status == 2) {   // If title is sub category
 
@@ -672,7 +747,44 @@ class HomeController extends Controller
 
                 $all_companies_meta_data = json_encode($all_companies_meta_data);
 
-                return view('frontend.clients', array('clients' => $clients, 'subcategories' => $subcategories, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'title_info' => $title_info, 'pageUrls' => $pageUrls, 'selected_area' => $area, 'category_company_list_meta_content' => $category_company_list_meta_content, 'list_seo_title' => $list_seo_title, 'all_companies_meta_data' => $all_companies_meta_data));
+                // get city name 
+                $city_info = DB::table('cities')->where('id', $page_titles->city)->first();
+                $city_info = json_decode(json_encode($city_info), True);
+
+                $list_item_meta_content = array(
+                    "@context" => "https://schema.org",
+                    "@type" => "BreadcrumbList",
+                    "itemListElement" => array(
+                        array(
+                            "@type" => "ListItem",
+                            "position" => 1,
+                            "item" => array(
+                                "@id" => "https://enquireus.com/",
+                                "name" => "Home"
+                            )
+                        ),
+                        array(
+                            "@type" => "ListItem",
+                            "position" => 2,
+                            "item" => array(
+                                "@id" => "https://enquireus.com/".$city_info['name']."/",
+                                "name" => $city_info['name']
+                            )
+                        ),
+                        array(
+                            "@type" => "ListItem",
+                            "position" => 3,
+                            "item" => array(
+                                "@id" => "https://enquireus.com/".$city_info['name']."/".$page_url."/".$page_titles->encoded_params."",
+                                "name" => $page_url
+                            )
+                        )                        
+                    )
+                );
+
+                $list_item_meta_content = json_encode($list_item_meta_content);
+
+                return view('frontend.clients', array('clients' => $clients, 'subcategories' => $subcategories, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'title_info' => $title_info, 'pageUrls' => $pageUrls, 'selected_area' => $area, 'category_company_list_meta_content' => $category_company_list_meta_content, 'list_seo_title' => $list_seo_title, 'all_companies_meta_data' => $all_companies_meta_data, 'list_item_meta_content' => $list_item_meta_content));
             }
             else {                          // If title is company
 
