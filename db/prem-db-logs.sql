@@ -565,3 +565,6 @@ ALTER TABLE `category_suggestions` ADD `client_uid` INT NOT NULL COMMENT 'sugges
 
 -- ---------------ALTER TABLE `admin_approvals_for_updates` on 09-01-2019----------------------
 ALTER TABLE `admin_approvals_for_updates` CHANGE `status` `status` TINYINT(1) NOT NULL COMMENT '1 for update basic information and 2 for update payment modes and 3 for update business timing and 4 for update image information';
+
+-- ---------------ALTER TABLE `client_reviews` on 20-02-2019----------------------
+ALTER TABLE `client_reviews` CHANGE `phone` `phone` VARCHAR(10) CHARACTER SET latin1 COLLATE latin1_swedish_ci NULL;
