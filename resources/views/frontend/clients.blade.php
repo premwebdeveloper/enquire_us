@@ -10,7 +10,7 @@
 <!-- #header -->
 <div id="main" class="site-main">
     <div class="shop-banner"> 
-        <img style="width:100%;" alt="enquire us" src="http://savetk.com/assets/uploads/cache/bb1688447f5584f6274c712dd9651a0a-1366x250.jpg"> 
+        <img style="width:100%;" alt="enquire us" src="{{ asset('resources/assets/images/banner.jpg') }}"> 
     </div>
 	<div class="container">
 		<div class="row">
