@@ -68,19 +68,19 @@
                         </div>
 
                         <div class="social-media">
-                          <a target="_blank" rel="nofollow" href="https://www.facebook.com/" class="icon-link  facebook fill">
+                          <a target="_blank" rel="nofollow" href="https://www.facebook.com/enquireusindia/" class="icon-link  facebook fill">
                             <i class="fa fa-facebook"></i>
                           </a>
-                          <a target="_blank" rel="nofollow" href="https://www.linkedin.com/" class="icon-link linkedin fill">
+                          <a target="_blank" rel="nofollow" href="https://www.linkedin.com/company/enquireus/" class="icon-link linkedin fill">
                             <i class="fa fa-linkedin"></i>
                           </a>
-                          <a href="https://twitter.com/" target="_blank"  class="icon-link  twitter fill">
+                          <a href="https://twitter.com/enquire_us" target="_blank"  class="icon-link  twitter fill">
                             <i class="fa fa-twitter"></i>
                           </a>
                           <a target="_blank" rel="nofollow" href="https://plus.google.com/" class="icon-link google-plus fill">
                             <i class="fa fa-google-plus"></i>
                           </a>
-                          <a target="_blank" rel="nofollow" href="https://www.instagram.com/" class="icon-link instagram fill">
+                          <a target="_blank" rel="nofollow" href="https://www.instagram.com/enquire_us/" class="icon-link instagram fill">
                             <i class="fa fa-instagram"></i>
                           </a>
                           <a target="_blank" rel="nofollow" href="http://www.pinterest.com/" class="icon-link pinterest fill">
