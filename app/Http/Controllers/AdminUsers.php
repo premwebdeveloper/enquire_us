@@ -82,6 +82,65 @@ class AdminUsers extends Controller
         // Approve in user_location table
         $locations = DB::table('user_location')->where(['user_id' => $user_id])->update(['update_status' => '1', 'status' => '1']);
 
+        // If logged in user is admin then create 25 feedback rating for this client 
+        if(Auth::user()->id == 1){
+
+            $default_feedbacks = array();
+
+            $rating = array('4.1', '4.2', '4.3', '4.4', '4.5', '4.6', '4.7', '4.2', '4.3', '4.4', '4.5', '4.6', '4.7', '4.8', '4.9', '5.0', '4.6', '4.7', '4.8', '4.9', '5.0');
+
+            $feedback = array('Nice','Good','Perfect','I would like to thank you for the excellent coordination..','I would like to take this service again and again from you only.','Thank you for all your help. Your service was excellent and very FAST.','Many thanks for you kind and efficient service. I have already and will definitely continue to recommend your services to others in the future. Wishing you all a lovely day and weekend','I was very impressed with your service and shall recommend it to others.......','Best Service provider','Perfect One','Very good service','I personally tried his service and it was perfect.'
+            );
+
+            $names = array("Aadhya", "Gaurav", "Ananya", "Ankita", "Diya", "Riya", "Aarohi", "Kyra", "Aarav", "Vivaan", "Ananya", "Advik", "Kabir", "Anaya", "Aarav", "Aditya", "Arjun", "Ramesh", "Reyansh", "Mohammed", "Suresh", "Arnav", "Aayan", "Krishna", "Ishaan", "Shaurya", "Atharva", "Sanjay", "Pranav", "vijay", "Aaryan", "Dhruv", "Amit", "Ritvik", "Aarush", "Prem", "Darsh", "Ravi", "Sunil", "Rishabh", "Mukesh", "Rajesh", "Akshay", "Manish", "Gulshan", "Kunal", "Dipanshu", "Aaradhya", "Pradeep", "Mahendra", "Manoj", "Dharmendra", "Anshul", "Hridya");
+
+            $emails = array("Aadhya@gmail.com", "Gaurav@gmail.com", "Ananya@gmail.com", "Ankita@gmail.com", "Diya@gmail.com", "Riya@gmail.com", "Aarohi@gmail.com", "Kyra@gmail.com", "Aarav@gmail.com", "Vivaan@gmail.com", "Ananya@gmail.com", "Advik@gmail.com", "Kabir@gmail.com", "Anaya@gmail.com", "Aarav@gmail.com", "Aditya@gmail.com", "Arjun@gmail.com", "Ramesh@gmail.com", "Reyansh@gmail.com", "Mohammed@gmail.com", "Suresh@gmail.com", "Arnav@gmail.com", "Aayan@gmail.com", "Krishna@gmail.com", "Ishaan@gmail.com", "Shaurya@gmail.com", "Atharva@gmail.com", "Sanjay@gmail.com", "Pranav@gmail.com", "vijay@gmail.com", "Aaryan@gmail.com", "Dhruv@gmail.com", "Amit@gmail.com", "Ritvik@gmail.com", "Aarush@gmail.com", "Prem@gmail.com", "Darsh@gmail.com", "Ravi@gmail.com", "Sunil@gmail.com", "Rishabh@gmail.com", "Mukesh@gmail.com", "Rajesh@gmail.com", "Akshay@gmail.com", "Manish@gmail.com", "Gulshan@gmail.com", "Kunal@gmail.com", "Dipanshu@gmail.com", "Aaradhya@gmail.com", "Pradeep@gmail.com", "Mahendra@gmail.com", "Manoj@gmail.com", "Dharmendra@gmail.com", "Anshul@gmail.com", "Hridya@gmail.com");
+
+            $numbers = array('25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35');
+            $random_numbers = array_rand($numbers, 3);
+            $times = $numbers[$random_numbers[0]];
+            
+            $name_email = array();
+
+            for ($i=0; $i < $times; $i++) { 
+
+                $all_names = array_column($name_email, 'name');
+                            
+                if(!in_array($names[$i], $all_names)){
+
+                    $name_email[$i]['name'] = $names[$i];
+                    $name_email[$i]['email'] = $emails[$i];
+                }
+            }
+
+            $name_email = array_values($name_email);
+
+            for ($i=0; $i < count($name_email); $i++) { 
+
+                $random_rating = array_rand($rating, 3);
+                $random_feedback = array_rand($feedback, 3);
+                
+                $default_feedbacks[$i]['rating'] = $rating[$random_rating[0]];
+                $default_feedbacks[$i]['feedback'] = $feedback[$random_feedback[0]];
+                $default_feedbacks[$i]['names'] = $name_email[$i];      
+            }
+
+            foreach ($default_feedbacks as $key => $value) {
+                
+                $create = DB::table('client_reviews')->insert([
+
+                    'client_uid' => $user_id,
+                    'name' => $value['names']['name'],
+                    'email' => $value['names']['email'],
+                    'review' => $value['feedback'],
+                    'rating' => $value['rating'],
+                    'status' => 1,
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s')
+                ]);
+            }
+        }
+
         if($locations):
 
             $status = 'User approved successfully.';
@@ -230,6 +289,65 @@ class AdminUsers extends Controller
         );
 
         $user_id = DB::getPdo()->lastInsertId();
+
+        // If logged in user is admin then create 25 feedback rating for this client 
+        if(Auth::user()->id == 1){
+
+            $default_feedbacks = array();
+
+            $rating = array('4.1', '4.2', '4.3', '4.4', '4.5', '4.6', '4.7', '4.2', '4.3', '4.4', '4.5', '4.6', '4.7', '4.8', '4.9', '5.0', '4.6', '4.7', '4.8', '4.9', '5.0');
+
+            $feedback = array('Nice','Good','Perfect','I would like to thank you for the excellent coordination..','I would like to take this service again and again from you only.','Thank you for all your help. Your service was excellent and very FAST.','Many thanks for you kind and efficient service. I have already and will definitely continue to recommend your services to others in the future. Wishing you all a lovely day and weekend','I was very impressed with your service and shall recommend it to others.......','Best Service provider','Perfect One','Very good service','I personally tried his service and it was perfect.'
+            );
+
+            $names = array("Aadhya", "Gaurav", "Ananya", "Ankita", "Diya", "Riya", "Aarohi", "Kyra", "Aarav", "Vivaan", "Ananya", "Advik", "Kabir", "Anaya", "Aarav", "Aditya", "Arjun", "Ramesh", "Reyansh", "Mohammed", "Suresh", "Arnav", "Aayan", "Krishna", "Ishaan", "Shaurya", "Atharva", "Sanjay", "Pranav", "vijay", "Aaryan", "Dhruv", "Amit", "Ritvik", "Aarush", "Prem", "Darsh", "Ravi", "Sunil", "Rishabh", "Mukesh", "Rajesh", "Akshay", "Manish", "Gulshan", "Kunal", "Dipanshu", "Aaradhya", "Pradeep", "Mahendra", "Manoj", "Dharmendra", "Anshul", "Hridya");
+
+            $emails = array("Aadhya@gmail.com", "Gaurav@gmail.com", "Ananya@gmail.com", "Ankita@gmail.com", "Diya@gmail.com", "Riya@gmail.com", "Aarohi@gmail.com", "Kyra@gmail.com", "Aarav@gmail.com", "Vivaan@gmail.com", "Ananya@gmail.com", "Advik@gmail.com", "Kabir@gmail.com", "Anaya@gmail.com", "Aarav@gmail.com", "Aditya@gmail.com", "Arjun@gmail.com", "Ramesh@gmail.com", "Reyansh@gmail.com", "Mohammed@gmail.com", "Suresh@gmail.com", "Arnav@gmail.com", "Aayan@gmail.com", "Krishna@gmail.com", "Ishaan@gmail.com", "Shaurya@gmail.com", "Atharva@gmail.com", "Sanjay@gmail.com", "Pranav@gmail.com", "vijay@gmail.com", "Aaryan@gmail.com", "Dhruv@gmail.com", "Amit@gmail.com", "Ritvik@gmail.com", "Aarush@gmail.com", "Prem@gmail.com", "Darsh@gmail.com", "Ravi@gmail.com", "Sunil@gmail.com", "Rishabh@gmail.com", "Mukesh@gmail.com", "Rajesh@gmail.com", "Akshay@gmail.com", "Manish@gmail.com", "Gulshan@gmail.com", "Kunal@gmail.com", "Dipanshu@gmail.com", "Aaradhya@gmail.com", "Pradeep@gmail.com", "Mahendra@gmail.com", "Manoj@gmail.com", "Dharmendra@gmail.com", "Anshul@gmail.com", "Hridya@gmail.com");
+
+            $numbers = array('25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35');
+            $random_numbers = array_rand($numbers, 3);
+            $times = $numbers[$random_numbers[0]];
+            
+            $name_email = array();
+
+            for ($i=0; $i < $times; $i++) { 
+
+                $all_names = array_column($name_email, 'name');
+                            
+                if(!in_array($names[$i], $all_names)){
+
+                    $name_email[$i]['name'] = $names[$i];
+                    $name_email[$i]['email'] = $emails[$i];
+                }
+            }
+
+            $name_email = array_values($name_email);
+
+            for ($i=0; $i < count($name_email); $i++) { 
+
+                $random_rating = array_rand($rating, 3);
+                $random_feedback = array_rand($feedback, 3);
+                
+                $default_feedbacks[$i]['rating'] = $rating[$random_rating[0]];
+                $default_feedbacks[$i]['feedback'] = $feedback[$random_feedback[0]];
+                $default_feedbacks[$i]['names'] = $name_email[$i];      
+            }
+
+            foreach ($default_feedbacks as $key => $value) {
+                
+                $create = DB::table('client_reviews')->insert([
+
+                    'client_uid' => $user_id,
+                    'name' => $value['names']['name'],
+                    'email' => $value['names']['email'],
+                    'review' => $value['feedback'],
+                    'rating' => $value['rating'],
+                    'status' => 1,
+                    'created_at' => date('Y-m-d H:i:s'),
+                    'updated_at' => date('Y-m-d H:i:s')
+                ]);
+            }
+        }
 
         // insert created by user location
         $user_role = DB::table('created_by_user_location')->insert(
@@ -1172,6 +1290,65 @@ class AdminUsers extends Controller
         // If user is not approved then approve user also
         if($approve_also == 1){
 
+            // If logged in user is admin then create 25 feedback rating for this client 
+            if(Auth::user()->id == 1){
+
+                $default_feedbacks = array();
+
+                $rating = array('4.1', '4.2', '4.3', '4.4', '4.5', '4.6', '4.7', '4.2', '4.3', '4.4', '4.5', '4.6', '4.7', '4.8', '4.9', '5.0', '4.6', '4.7', '4.8', '4.9', '5.0');
+
+                $feedback = array('Nice','Good','Perfect','I would like to thank you for the excellent coordination..','I would like to take this service again and again from you only.','Thank you for all your help. Your service was excellent and very FAST.','Many thanks for you kind and efficient service. I have already and will definitely continue to recommend your services to others in the future. Wishing you all a lovely day and weekend','I was very impressed with your service and shall recommend it to others.......','Best Service provider','Perfect One','Very good service','I personally tried his service and it was perfect.'
+                );
+
+                $names = array("Aadhya", "Gaurav", "Ananya", "Ankita", "Diya", "Riya", "Aarohi", "Kyra", "Aarav", "Vivaan", "Ananya", "Advik", "Kabir", "Anaya", "Aarav", "Aditya", "Arjun", "Ramesh", "Reyansh", "Mohammed", "Suresh", "Arnav", "Aayan", "Krishna", "Ishaan", "Shaurya", "Atharva", "Sanjay", "Pranav", "vijay", "Aaryan", "Dhruv", "Amit", "Ritvik", "Aarush", "Prem", "Darsh", "Ravi", "Sunil", "Rishabh", "Mukesh", "Rajesh", "Akshay", "Manish", "Gulshan", "Kunal", "Dipanshu", "Aaradhya", "Pradeep", "Mahendra", "Manoj", "Dharmendra", "Anshul", "Hridya");
+
+                $emails = array("Aadhya@gmail.com", "Gaurav@gmail.com", "Ananya@gmail.com", "Ankita@gmail.com", "Diya@gmail.com", "Riya@gmail.com", "Aarohi@gmail.com", "Kyra@gmail.com", "Aarav@gmail.com", "Vivaan@gmail.com", "Ananya@gmail.com", "Advik@gmail.com", "Kabir@gmail.com", "Anaya@gmail.com", "Aarav@gmail.com", "Aditya@gmail.com", "Arjun@gmail.com", "Ramesh@gmail.com", "Reyansh@gmail.com", "Mohammed@gmail.com", "Suresh@gmail.com", "Arnav@gmail.com", "Aayan@gmail.com", "Krishna@gmail.com", "Ishaan@gmail.com", "Shaurya@gmail.com", "Atharva@gmail.com", "Sanjay@gmail.com", "Pranav@gmail.com", "vijay@gmail.com", "Aaryan@gmail.com", "Dhruv@gmail.com", "Amit@gmail.com", "Ritvik@gmail.com", "Aarush@gmail.com", "Prem@gmail.com", "Darsh@gmail.com", "Ravi@gmail.com", "Sunil@gmail.com", "Rishabh@gmail.com", "Mukesh@gmail.com", "Rajesh@gmail.com", "Akshay@gmail.com", "Manish@gmail.com", "Gulshan@gmail.com", "Kunal@gmail.com", "Dipanshu@gmail.com", "Aaradhya@gmail.com", "Pradeep@gmail.com", "Mahendra@gmail.com", "Manoj@gmail.com", "Dharmendra@gmail.com", "Anshul@gmail.com", "Hridya@gmail.com");
+
+                $numbers = array('25', '26', '27', '28', '29', '30', '31', '32', '33', '34', '35');
+                $random_numbers = array_rand($numbers, 3);
+                $times = $numbers[$random_numbers[0]];
+                
+                $name_email = array();
+
+                for ($i=0; $i < $times; $i++) { 
+
+                    $all_names = array_column($name_email, 'name');
+                                
+                    if(!in_array($names[$i], $all_names)){
+
+                        $name_email[$i]['name'] = $names[$i];
+                        $name_email[$i]['email'] = $emails[$i];
+                    }
+                }
+
+                $name_email = array_values($name_email);
+
+                for ($i=0; $i < count($name_email); $i++) { 
+
+                    $random_rating = array_rand($rating, 3);
+                    $random_feedback = array_rand($feedback, 3);
+                    
+                    $default_feedbacks[$i]['rating'] = $rating[$random_rating[0]];
+                    $default_feedbacks[$i]['feedback'] = $feedback[$random_feedback[0]];
+                    $default_feedbacks[$i]['names'] = $name_email[$i];      
+                }
+
+                foreach ($default_feedbacks as $key => $value) {
+                    
+                    $create = DB::table('client_reviews')->insert([
+
+                        'client_uid' => $user_id,
+                        'name' => $value['names']['name'],
+                        'email' => $value['names']['email'],
+                        'review' => $value['feedback'],
+                        'rating' => $value['rating'],
+                        'status' => 1,
+                        'created_at' => date('Y-m-d H:i:s'),
+                        'updated_at' => date('Y-m-d H:i:s')
+                    ]);
+                }
+            }
+        
             // Approve user in users table
             $update = User::where(['id'=>$user_id])->update(['status' => '1']);
 
@@ -1180,6 +1357,8 @@ class AdminUsers extends Controller
 
             // Approve in user_location table
             $locations = DB::table('user_location')->where(['user_id' => $user_id])->update(['update_status' => '1', 'status' => '1']);
+
+
 
             $status .= 'User approved successfully. ';
         }
