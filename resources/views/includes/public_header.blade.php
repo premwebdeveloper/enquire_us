@@ -214,13 +214,12 @@
                   <ul class="nav navbar-nav">
                     <!--<li class="active"><a href="http://savetk.com/home">Home</a></li>-->
                     <li><a href="{{url('/')}}">Home</a></li>
-                    <li><a href="javascript:;">Offline deals</a></li>
-                    <li><a href="javascript:;">Online deals</a></li>
-                    <li><a href="javascript:;">Promotions</a></li>
-                    <li><a href="javascript:;">Stores</a></li>
-                    <li><a href="javascript:;">Store map</a></li>
-                    <li><a href="javascript:;">Categories</a></li>
-                    <li><a style="color:#000;" href="javascript:;">Book food with discount <i class="fa fa-arrow-right" aria-hidden="true"></i></a></li>
+                    <li><a href="javascript:;">Doctors</a></li>
+                    <li><a href="javascript:;">Professional Services</a></li>
+                    <li><a href="javascript:;">On Demand Services</a></li>
+                    <li><a href="javascript:;">Personal Care</a></li>
+                    <li><a href="javascript:;">Real Estate</a></li>
+                    <li><a href="javascript:;">Wedding</a></li>                    
                   </ul>
                 </div>
               </nav>
