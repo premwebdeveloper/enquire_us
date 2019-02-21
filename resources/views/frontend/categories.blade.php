@@ -10,8 +10,7 @@
 			<!--Latest offers-->
 			<div class="col-sm-12 offset-margin-2">
 				<div class="row">
-
-                    <div class="col-sm-3">
+                    <div class="col-sm-3 hidden-xs">
                         <div class="col-sm-12">
                             <div class="filter cata-dis-none">
                                 <h1 class="brand-header">Super Categories </h1>
@@ -36,7 +35,7 @@
                             @if(!empty($categories[0]))
 
                                 @foreach($categories as $category)
-									<div class="col-lg-2 col-sm-2 col-xs-12 text-center-img height_145">
+									<div class="col-lg-2 col-sm-2 col-xs-6 text-center-img height_145">
                                         <a href="javascript:;" class="cat_ies" id="cate_<?= $category->id; ?>">
                                             <img alt="" src="{{url('/')}}/storage/app/uploads/categories/<?= $category->image; ?>" class="img-responsive" style="height: 100px;">
                                             <span>
@@ -55,6 +54,17 @@
                             @endif
 						</div>                                             
 					</div>
+
+                    <div class="col-sm-3 hidden-lg">
+                        
+                        <h1 class="brand-header">Super Categories </h1>
+                        @foreach($super_catgories as $supercat)                                        
+                            <a href="{{ route('categories', ['super_cat_id' => $supercat->id]) }}" class="cat_ies" id="fcate_2">
+                                {{ ucwords($supercat->name) }} | 
+                            </a>
+                        @endforeach
+                        
+                    </div>
 				</div>
 			</div>
 		</div>

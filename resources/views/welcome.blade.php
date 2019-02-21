@@ -97,25 +97,25 @@
                     @php $s = 6; $l = 11; @endphp
                     @for($i = 1; $i < count($super_catgory); $i++)
                                     
-                        <div class="col-sm-2">
+                        <div class="col-sm-2 col-xs-6">
                             <div class="row">
                                 <div class="col-lg-12 res-catagories text-center">
                                     <a href="{{ route('categories', ['super_cat_id' => $super_catgory[$i]->id]) }}" class="list-group-item super_caties">                                       
                                         <img src="storage/app/uploads/super_category/{{ $super_catgory[$i]->image }}" alt="{{ $super_catgory[$i]->name }}" width="150" />
                                         <br>
-                                        {{ $super_catgory[$i]->name }}
+                                        {{ ucwords($super_catgory[$i]->name) }}
                                     </a>                                    
                                 </div>
                             </div>
                         </div>
 
                         @if($s == $i)
-                            <div class="col-sm-1"> &nbsp; </div>
+                            <div class="col-sm-1 hidden-xs"> &nbsp; </div>
                             @php $s += 11; @endphp  
                         @endif
 
                         @if($l == $i)
-                            <div class="col-sm-1"> &nbsp; </div>
+                            <div class="col-sm-1 hidden-xs"> &nbsp; </div>
                             @php $l += 11; @endphp
                         @endif
 
@@ -140,7 +140,7 @@
                                                 if(!empty($home_page_client['logo']))
                                                 {
                                                     ?>
-                                                    <img alt="" src="{{url('/')}}/storage/app/uploads/{{ $home_page_client['logo']}}" class="img-responsive" style="height: 125px;">  
+                                                    <img alt="" src="{{url('/')}}/storage/app/uploads/{{ $home_page_client['logo']}}" class="img-responsive">  
                                                     <?php
                                                 }
                                                 else

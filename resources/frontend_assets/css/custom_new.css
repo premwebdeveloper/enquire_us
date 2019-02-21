@@ -83,7 +83,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	border: none;
 	background: none;
 	background-color: transparent;
-	padding: 6px 15px;
+	padding: 6px 0px;
 }
 a.list-group-item {
 	color: #000;
@@ -1022,9 +1022,9 @@ header {
 	position: relative;
 }
 .offer-small .vendor-image {
-	border-bottom: 1px solid #ececec;
+	border-bottom: none;
 	text-align: center;
-	padding:3px 3px 2px 3px;
+	padding:3px 3px 10px 3px;
 }
 .offer-small .vendor-image img {
 	width: 100%;
@@ -1043,7 +1043,6 @@ header {
     margin-bottom: 0;
     overflow: hidden;
     text-transform: uppercase;
-    padding:5px 5px;
 }
 .offer-title h3 a{
 	color: #333;
@@ -1059,7 +1058,7 @@ header {
 	font-size: 13px;
 }
 .offer-ends {
-	color: #979797;
+	color: #000;
 	text-align: left;
 	font-family: 'open_sansregular';
 }
@@ -2507,7 +2506,9 @@ footer {
 /*===============================================
 					Dashboard
 ================================================*/
-
+.mt100{
+    margin-top: 35px;
+}
 .dash-title h3 {
 	margin: 0;
 	font-family: "open_sansregular";
@@ -3298,6 +3299,9 @@ footer {
 }
 }
  @media (max-width: 767px) {
+.filter {
+    float: left;
+}
 .navbar-nav > li > a {
 	padding-left: 40px;
 }
@@ -3355,6 +3359,13 @@ footer {
 }
 .languageBox p {
 	text-align: right;
+}
+.mt100{
+    margin-top: 30px;
+}
+.list-group-item{
+    padding: 0px 0px;
+    display: -webkit-inline-box;
 }
 /*==================================================
 				Reg Page
@@ -3467,12 +3478,16 @@ ul.intro-social-buttons > li:last-child {
 {
 	display: none;
 }
-
-.offer-small .vendor-image img{
-    height: auto!important;
+.amit img{
+    height: 70px!important;
 }
-
-
+.offer-small .vendor-image img{
+    height: 80px!important;
+}
+.enquireus a.list-group-item {
+    font-size: 8px;
+    line-height: 1;
+}
 }
 .offer-small .vendor-image img{
     height: 125px;
@@ -3545,6 +3560,9 @@ ul.intro-social-buttons > li:last-child {
 }
 .offer-small {
     min-height: 295px;
+}
+.offer-small .vendor-image img{
+    height: 125px;
 }
 }
 @media (max-width: 768px) {
@@ -3638,7 +3656,8 @@ ul.intro-social-buttons > li:last-child {
     width: 100%;
 }
 .offer-small {
-    min-height: 125px;
+    min-height: 80px;
+    border-bottom: 1px solid #57575740;
 }
 .offer-small .offer-title {
     height: 70px;
@@ -3669,7 +3688,10 @@ ul.intro-social-buttons > li:last-child {
 	padding: 0;
 }
 .offer-small {
-    min-height: 125px;
+    min-height: 100px;
+}
+.offer-small.amit img {
+    height: 70px!important;
 }
 .offer-small .offer-title {
     height: 70px;
