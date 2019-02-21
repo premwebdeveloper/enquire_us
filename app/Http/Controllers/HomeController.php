@@ -308,6 +308,8 @@ class HomeController extends Controller
 
             $all_companies_meta_data = json_encode($all_companies_meta_data);
 
+            $page_url_new = str_replace("-", " ", $page_url);
+
             $list_item_meta_content = array(
                 "@context" => "https://schema.org",
                 "@type" => "BreadcrumbList",
@@ -333,7 +335,7 @@ class HomeController extends Controller
                         "position" => 3,
                         "item" => array(
                             "@id" => "https://enquireus.com/".$city_info['name']."/".$page_url."/".$page_titles->encoded_params."",
-                            "name" => $page_url
+                            "name" => $page_url_new
                         )
                     )                        
                 )
@@ -535,6 +537,8 @@ class HomeController extends Controller
                 $city_info = DB::table('cities')->where('id', $page_titles->city)->first();
                 $city_info = json_decode(json_encode($city_info), True);
 
+                $page_url_new = str_replace("-", " ", $page_url);
+
                 $list_item_meta_content = array(
                     "@context" => "https://schema.org",
                     "@type" => "BreadcrumbList",
@@ -560,7 +564,7 @@ class HomeController extends Controller
                             "position" => 3,
                             "item" => array(
                                 "@id" => "https://enquireus.com/".$city_info['name']."/".$page_url."/".$page_titles->encoded_params."",
-                                "name" => $page_url
+                                "name" => $page_url_new
                             )
                         )                        
                     )
@@ -752,6 +756,8 @@ class HomeController extends Controller
                 $city_info = DB::table('cities')->where('id', $page_titles->city)->first();
                 $city_info = json_decode(json_encode($city_info), True);
 
+                $page_url_new = str_replace("-", " ", $page_url);
+
                 $list_item_meta_content = array(
                     "@context" => "https://schema.org",
                     "@type" => "BreadcrumbList",
@@ -777,7 +783,7 @@ class HomeController extends Controller
                             "position" => 3,
                             "item" => array(
                                 "@id" => "https://enquireus.com/".$city_info['name']."/".$page_url."/".$page_titles->encoded_params."",
-                                "name" => $page_url
+                                "name" => $page_url_new
                             )
                         )                        
                     )
