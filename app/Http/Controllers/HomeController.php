@@ -182,6 +182,45 @@ class HomeController extends Controller
                 // get this category content
                 $title_info = DB::table('category')->where('id', $title_id)->first();
 
+                // Get all rating and reviews for there clients
+                $reviewCount = 0;
+                $ratingValue = 0;
+                foreach ($clients as $key => $clts) {
+                    
+                    // Get reviews for this client
+                    $c_reviews = DB::table('client_reviews')->where('client_uid', $clts->user_id)->get();
+
+                    $reviewCount += count($c_reviews);
+                    foreach ($c_reviews as $key => $c_rvs) {
+                        
+                        $ratingValue += $c_rvs->rating;
+                    }
+                }
+
+                // If there is any review exist 
+                if($reviewCount > 0){
+
+                    $aggregate_rating = $ratingValue/$reviewCount;
+                    $aggregate_rating = round($aggregate_rating, 1);
+
+                    $company_meta_content = array(
+                        "@context"=>"http://schema.org",
+                        "@type"=>"WebPage",
+                        "aggregateRating"=>array(
+                            "@type"=>"AggregateRating",
+                            "ratingValue"=>$aggregate_rating,
+                            "ratingCount"=>$reviewCount,
+                            "bestRating"=>"5",
+                            "worstRating"=>"1",
+                            "itemReviewed"=>"ServiceReview"
+                        )
+                    );
+
+                    $company_meta_content = json_encode($company_meta_content);
+                }else{
+                    $company_meta_content = '';
+                }
+
             }else{
 
                 // get sub category name only to show on page
@@ -227,6 +266,45 @@ class HomeController extends Controller
                     $query->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country', 'websites_page_head_titles.page_url', 'websites_page_head_titles.encoded_params', 'cities.name as city_name');
 
                 $clients = $query->get();
+
+                // Get all rating and reviews for there clients
+                $reviewCount = 0;
+                $ratingValue = 0;
+                foreach ($clients as $key => $clts) {
+                    
+                    // Get reviews for this client
+                    $c_reviews = DB::table('client_reviews')->where('client_uid', $clts->user_id)->get();
+
+                    $reviewCount += count($c_reviews);
+                    foreach ($c_reviews as $key => $c_rvs) {
+                        
+                        $ratingValue += $c_rvs->rating;
+                    }
+                }
+
+                // If there is any review exist 
+                if($reviewCount > 0){
+
+                    $aggregate_rating = $ratingValue/$reviewCount;
+                    $aggregate_rating = round($aggregate_rating, 1);
+
+                    $company_meta_content = array(
+                        "@context"=>"http://schema.org",
+                        "@type"=>"WebPage",
+                        "aggregateRating"=>array(
+                            "@type"=>"AggregateRating",
+                            "ratingValue"=>$aggregate_rating,
+                            "ratingCount"=>$reviewCount,
+                            "bestRating"=>"5",
+                            "worstRating"=>"1",
+                            "itemReviewed"=>"ServiceReview"
+                        )
+                    );
+
+                    $company_meta_content = json_encode($company_meta_content);
+                }else{
+                    $company_meta_content = '';
+                }
 
             }
             $company_list_elements = array();
@@ -343,7 +421,7 @@ class HomeController extends Controller
 
             $list_item_meta_content = json_encode($list_item_meta_content);
 
-            return view('frontend.clients', array('clients' => $clients, 'subcategories' => $subcategories, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'title_info' => $title_info, 'pageUrls' => $pageUrls, 'selected_area' => $area, 'category_company_list_meta_content' => $category_company_list_meta_content, 'list_seo_title' => $list_seo_title, 'all_companies_meta_data' => $all_companies_meta_data, 'list_item_meta_content' => $list_item_meta_content));
+            return view('frontend.clients', array('clients' => $clients, 'subcategories' => $subcategories, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'title_info' => $title_info, 'pageUrls' => $pageUrls, 'selected_area' => $area, 'category_company_list_meta_content' => $category_company_list_meta_content, 'list_seo_title' => $list_seo_title, 'all_companies_meta_data' => $all_companies_meta_data, 'list_item_meta_content' => $list_item_meta_content, 'company_meta_content' => $company_meta_content));
         }
         else{
 
@@ -451,7 +529,46 @@ class HomeController extends Controller
                         $clients{$index} = $cA;
                         $index++;
                     }
-                }        
+                }
+
+                // Get all rating and reviews for there clients
+                $reviewCount = 0;
+                $ratingValue = 0;
+                foreach ($clients as $key => $clts) {
+                    
+                    // Get reviews for this client
+                    $c_reviews = DB::table('client_reviews')->where('client_uid', $clts->user_id)->get();
+
+                    $reviewCount += count($c_reviews);
+                    foreach ($c_reviews as $key => $c_rvs) {
+                        
+                        $ratingValue += $c_rvs->rating;
+                    }
+                }
+
+                // If there is any review exist 
+                if($reviewCount > 0){
+
+                    $aggregate_rating = $ratingValue/$reviewCount;
+                    $aggregate_rating = round($aggregate_rating, 1);
+
+                    $company_meta_content = array(
+                        "@context"=>"http://schema.org",
+                        "@type"=>"WebPage",
+                        "aggregateRating"=>array(
+                            "@type"=>"AggregateRating",
+                            "ratingValue"=>$aggregate_rating,
+                            "ratingCount"=>$reviewCount,
+                            "bestRating"=>"5",
+                            "worstRating"=>"1",
+                            "itemReviewed"=>"ServiceReview"
+                        )
+                    );
+
+                    $company_meta_content = json_encode($company_meta_content);
+                }else{
+                    $company_meta_content = '';
+                }
 
                 // Show company list in meta content on category view
                 $company_list_elements = array();
@@ -572,7 +689,7 @@ class HomeController extends Controller
 
                 $list_item_meta_content = json_encode($list_item_meta_content);
 
-                return view('frontend.clients', array('clients' => $clients, 'subcategories' => $subcategories, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'title_info' => $title_info, 'pageUrls' => $pageUrls, 'selected_area' => $area, 'category_company_list_meta_content' => $category_company_list_meta_content, 'list_seo_title' => $list_seo_title, 'all_companies_meta_data' => $all_companies_meta_data, 'list_item_meta_content' => $list_item_meta_content));
+                return view('frontend.clients', array('clients' => $clients, 'subcategories' => $subcategories, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'title_info' => $title_info, 'pageUrls' => $pageUrls, 'selected_area' => $area, 'category_company_list_meta_content' => $category_company_list_meta_content, 'list_seo_title' => $list_seo_title, 'all_companies_meta_data' => $all_companies_meta_data, 'list_item_meta_content' => $list_item_meta_content, 'company_meta_content' => $company_meta_content));
             }
             elseif ($title_status == 2) {   // If title is sub category
 
@@ -670,7 +787,46 @@ class HomeController extends Controller
                         $clients{$index} = $cA;
                         $index++;
                     }
-                }                
+                }
+
+                // Get all rating and reviews for there clients
+                $reviewCount = 0;
+                $ratingValue = 0;
+                foreach ($clients as $key => $clts) {
+                    
+                    // Get reviews for this client
+                    $c_reviews = DB::table('client_reviews')->where('client_uid', $clts->user_id)->get();
+
+                    $reviewCount += count($c_reviews);
+                    foreach ($c_reviews as $key => $c_rvs) {
+                        
+                        $ratingValue += $c_rvs->rating;
+                    }
+                }
+
+                // If there is any review exist 
+                if($reviewCount > 0){
+
+                    $aggregate_rating = $ratingValue/$reviewCount;
+                    $aggregate_rating = round($aggregate_rating, 1);
+
+                    $company_meta_content = array(
+                        "@context"=>"http://schema.org",
+                        "@type"=>"WebPage",
+                        "aggregateRating"=>array(
+                            "@type"=>"AggregateRating",
+                            "ratingValue"=>$aggregate_rating,
+                            "ratingCount"=>$reviewCount,
+                            "bestRating"=>"5",
+                            "worstRating"=>"1",
+                            "itemReviewed"=>"ServiceReview"
+                        )
+                    );
+
+                    $company_meta_content = json_encode($company_meta_content);
+                }else{
+                    $company_meta_content = '';
+                }              
 
                 // Show company list in meta content on category view
                 $company_list_elements = array();
@@ -791,7 +947,7 @@ class HomeController extends Controller
 
                 $list_item_meta_content = json_encode($list_item_meta_content);
 
-                return view('frontend.clients', array('clients' => $clients, 'subcategories' => $subcategories, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'title_info' => $title_info, 'pageUrls' => $pageUrls, 'selected_area' => $area, 'category_company_list_meta_content' => $category_company_list_meta_content, 'list_seo_title' => $list_seo_title, 'all_companies_meta_data' => $all_companies_meta_data, 'list_item_meta_content' => $list_item_meta_content));
+                return view('frontend.clients', array('clients' => $clients, 'subcategories' => $subcategories, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'title_info' => $title_info, 'pageUrls' => $pageUrls, 'selected_area' => $area, 'category_company_list_meta_content' => $category_company_list_meta_content, 'list_seo_title' => $list_seo_title, 'all_companies_meta_data' => $all_companies_meta_data, 'list_item_meta_content' => $list_item_meta_content, 'company_meta_content' => $company_meta_content));
             }
             else {                          // If title is company
 
@@ -830,16 +986,35 @@ class HomeController extends Controller
                 // Company content show in meta tags start code here //
                 // Create client reviews for meta content
                 $company_meta_reviews = array();
+                $total_rating = 0;
                 foreach ($reviews as $key => $review) {
-                    $company_meta_reviews[$key]['@type']="Review";
-                    $company_meta_reviews[$key]['datePublished']=$review->created_at;
-                    $company_meta_reviews[$key]['reviewBody']=$review->review;
-                    $company_meta_reviews[$key]['author']=array(
-                                                                    "@type"=>"Person",
-                                                                    "name"=>$review->name
-                                                                );
+
+                    // Show 5 reviews only
+                    if($key < 5){
+
+                        $company_meta_reviews[$key]['@type']="Review";
+                        $company_meta_reviews[$key]['datePublished']=$review->created_at;
+                        $company_meta_reviews[$key]['reviewBody']=$review->review;
+                        $company_meta_reviews[$key]['author']=array(
+                                                                        "@type"=>"Person",
+                                                                        "name"=>$review->name
+                                                                    );
+                        $total_rating += $review->rating;
+                    }
                 }
 
+                $reviews_count = count($reviews);
+                
+                // If there is no review exist then aggregate rating 0
+                if($reviews_count > 0){
+
+                    $aggregate_rating = $total_rating/$reviews_count;                    
+                    $aggregate_rating = round($aggregate_rating, 1);
+                }else{
+
+                    $aggregate_rating = 0;
+                }
+                
                 // create meta client keyword
                 $company_meta_keywords = [];
                 foreach ($client_keywords as $key => $keyword) {
@@ -920,8 +1095,8 @@ class HomeController extends Controller
                     "telephone"=>$client->phone,
                     "aggregateRating"=>array(
                         "@type"=>"AggregateRating",
-                        "ratingValue"=>"4.1",
-                        "ratingCount"=>"15"
+                        "ratingValue"=>$aggregate_rating,
+                        "ratingCount"=>$reviews_count
                     ),
                     "review"=>$company_meta_reviews,
                     "paymentAccepted"=>$meta_payment_modes,
