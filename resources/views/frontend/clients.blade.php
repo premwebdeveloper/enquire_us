@@ -25,7 +25,7 @@
                                     @endif
 
                                     @if(isset($area_name))
-                                       In {{ $area_name }}
+                                       in {{ $area_name }}
                                     @endif
                                 </h1>
                             </div>
@@ -66,160 +66,143 @@
                     <!-- Middle main content bar -->
 					<div class="col-sm-9 mt100">
                         @if(!empty($clients[0]))
-                        @foreach($clients as $client)
-                        <div class="display-salon hidden-xs">
-                            <div class="row">
-                                <div class="col-sm-12">
+                            @foreach($clients as $client)
+                                <div class="display-salon hidden-xs">
                                     <div class="row">
-                                        <div class="col-sm-3 hidden-xxs hidden-xs">
-                                            <?php
-                                                if(!empty($client->logo))
-                                                {
-                                                    ?>
-                                                    <img alt="{{ $client->business_name }}" src="{{url('/')}}/storage/app/uploads/{{ $client->logo }}" class="img-responsive image-style">
+                                        <div class="col-sm-12">
+                                            <div class="row">
+                                                <div class="col-sm-3 hidden-xxs hidden-xs">
                                                     <?php
-                                                }
-                                                else
-                                                {
+                                                        if(!empty($client->logo))
+                                                        {
+                                                            ?>
+                                                            <img alt="{{ $client->business_name }}" src="{{url('/')}}/storage/app/uploads/{{ $client->logo }}" class="img-responsive image-style">
+                                                            <?php
+                                                        }
+                                                        else
+                                                        {
+                                                            ?>
+                                                            <img alt="" src="{{url('/')}}/resources/frontend_assets/images/logo.png" class="img-responsive image-style">
+                                                            <?php
+                                                        }
                                                     ?>
-                                                    <img alt="" src="{{url('/')}}/resources/frontend_assets/images/logo.png" class="img-responsive image-style">
-                                                    <?php
-                                                }
-                                            ?>
-                                            <div class="row">
-                                                <div class="col-xs-12 text-center">
-                                                    <a href="javascript:;" class="btn btn-green margin-top-10 btn-block client_view_details" id="client-view_{{ $client->user_id }}">
-                                                        <span class="buy-offer">FULL DETAIL</span>
-                                                    </a>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                        <div class="col-sm-7 hidden-xxs hidden-xs">
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    <h2 class="salon-heading">
-                                                        <a href="javascript:;" class="btn-block client_view_details" id="client-view_{{ $client->user_id }}" title="{{ $client->business_name }}">{{ $client->business_name }}</a>
-                                                    </h2>
-                                                </div>
-
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-sm-12 margin-top-5px">
                                                     <div class="row">
+                                                        <div class="col-xs-12 text-center">
+                                                            <a href="javascript:;" class="btn btn-green margin-top-10 btn-block client_view_details" id="client-view_{{ $client->user_id }}">
+                                                                <span class="buy-offer">FULL DETAIL</span>
+                                                            </a>
+                                                        </div>
+                                                    </div>
 
-                                                        <div class="col-xs-12">
-                                                            <div class="rating-star full">
-                                                                <i class="fa fa-star fa-fw"></i>
-                                                            </div>
-                                                            <div class="rating-star full">
-                                                                <i class="fa fa-star fa-fw"></i>
-                                                            </div>
-                                                            <div class="rating-star full">
-                                                                <i class="fa fa-star fa-fw"></i>
-                                                            </div>
-                                                            <div class="rating-star full">
-                                                                <i class="fa fa-star fa-fw"></i>
-                                                            </div>
-                                                            <div class="rating-star half">
-                                                                <i class="fa fa-star-half-full fa-fw"></i>
-                                                            </div>
-                                                            <div class="rating-starcount">4.9 Ratings</div>
+                                                </div>
+                                                <div class="col-sm-7 hidden-xxs hidden-xs">
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <h2 class="salon-heading">
+                                                                <a href="javascript:;" class="btn-block client_view_details" id="client-view_{{ $client->user_id }}" title="{{ $client->business_name }}">{{ $client->business_name }}</a>
+                                                            </h2>
                                                         </div>
 
                                                     </div>
-                                                </div>
-                                            </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-12 margin-top-5px">
+                                                            <div class="row">
 
-                                            <div class="row">
-                                                <div class="col-sm-12">
-                                                    <div class="content-display">
-                                                        <ul>
-                                                            <li> <span class="icon-holder icon-space">
-                                                                <i class="fa fa-map-marker fa-fw"></i></span>
-                                                                @if(!empty($client->area))
-                                                                <span class="text-reset">{{ $client->street }}</span>
-                                                                @endif
-                                                            </li>
-                                                            <li> <span class="icon-holder icon-space ">
-                                                                <i class="fa fa-credit-card fa-fw"></i></span>
-                                                                <span class="text-reset">Cash/Credit/Debit Card</span>
-                                                            </li>
-                                                            <li> <span class="icon-holder icon-space">
-                                                                <i class="fa fa-phone fa-fw"></i></span>
-                                                                <span class="reset-span text-reset">
-                                                                    <a href="javascript:;" class="client_view_details" id="client-view_{{ $client->user_id }}">View Phone</a>
-                                                                </span>
-                                                            </li>
-                                                            <!-- <li> <span class="icon-holder icon-space">
-                                                                 <i class="fa fa-location-arrow fa-fw"></i></span><span class="text-reset">6.95 km Away</span>
-                                                            </li> -->
-                                                        </ul>
+                                                                <div class="col-xs-12">
+                                                                    <div class="rating-star full">
+                                                                        <i class="fa fa-star fa-fw"></i>
+                                                                    </div>
+                                                                    <div class="rating-star full">
+                                                                        <i class="fa fa-star fa-fw"></i>
+                                                                    </div>
+                                                                    <div class="rating-star full">
+                                                                        <i class="fa fa-star fa-fw"></i>
+                                                                    </div>
+                                                                    <div class="rating-star full">
+                                                                        <i class="fa fa-star fa-fw"></i>
+                                                                    </div>
+                                                                    <div class="rating-star half">
+                                                                        <i class="fa fa-star-half-full fa-fw"></i>
+                                                                    </div>
+                                                                    <div class="rating-starcount">4.9 Ratings</div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
                                                     </div>
+
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div class="content-display">
+                                                                <ul>
+                                                                    <li> <span class="icon-holder icon-space">
+                                                                        <i class="fa fa-map-marker fa-fw"></i></span>
+                                                                        @if(!empty($client->area))
+                                                                        <span class="text-reset">{{ $client->street }}</span>
+                                                                        @endif
+                                                                    </li>
+                                                                    <li> <span class="icon-holder icon-space ">
+                                                                        <i class="fa fa-credit-card fa-fw"></i></span>
+                                                                        <span class="text-reset">Cash/Credit/Debit Card</span>
+                                                                    </li>
+                                                                    <li> <span class="icon-holder icon-space">
+                                                                        <i class="fa fa-phone fa-fw"></i></span>
+                                                                        <span class="reset-span text-reset">
+                                                                            <a href="javascript:;" class="client_view_details" id="client-view_{{ $client->user_id }}">View Phone</a>
+                                                                        </span>
+                                                                    </li>
+                                                                    <!-- <li> <span class="icon-holder icon-space">
+                                                                         <i class="fa fa-location-arrow fa-fw"></i></span><span class="text-reset">6.95 km Away</span>
+                                                                    </li> -->
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="col-sm-2 hidden-xxs hidden-xs">
+                                                    <!-- Show enquiry success / error message -->
+                                                    @if($errors->any())
+                                                    <div class="col-md-12 p0">
+                                                        <div class="alert alert-danger alert-dismissible">
+                                                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                                            {{$errors->first()}}
+                                                        </div>
+                                                    </div>
+                                                    @endif
+
+                                                    @php
+                                                        if(isset($title_info->category)){
+                                                            $identity = '1';
+                                                        }else{
+                                                            $identity = '2'; 
+                                                        }
+                                                    @endphp
+
+                                                    <a href="javascript:;" id="enquiry-for_<?= encrypt($title_info->id); ?>_<?= $identity; ?>" class="btn btn-info btn-md multiple_enquiries margin-top-65px"> Enquire Now </a>
+
+                                                    <!-- <a href="javascript:;" class="btn btn-green margin-top-10 btn-block">
+                                                        <span class="buy-offer">Enquire Us</span>
+                                                    </a> -->
                                                 </div>
                                             </div>
-
-<!--                                             <div class="row">
-    <div class="col-sm-12">
-        <div class="row">
-            <div class="col-xs-12">
-                <div class="rate-card">  Rate Card Available : Yes  </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-sm-8 col-xs-12">
-        <div class="rating-link">
-            <span><a href="javascript:;">8 photos</a></span>
-            <span class="margin-left-10px"><a href="javascript:;">14 Reviews</a></span>
-        </div>
-    </div>
-    <div class="col-sm-4 col-xs-12"></div>
-</div> -->
-                                        </div>
-                                        <div class="col-sm-2 hidden-xxs hidden-xs">
-                                            <!-- Show enquiry success / error message -->
-                                            @if($errors->any())
-                                            <div class="col-md-12 p0">
-                                                <div class="alert alert-danger alert-dismissible">
-                                                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                                    {{$errors->first()}}
-                                                </div>
-                                            </div>
-                                            @endif
-
-                                            @php
-                                                if(isset($title_info->category)){
-                                                    $identity = '1';
-                                                }else{
-                                                    $identity = '2'; 
-                                                }
-                                            @endphp
-
-                                            <a href="javascript:;" id="enquiry-for_<?= encrypt($title_info->id); ?>_<?= $identity; ?>" class="btn btn-info btn-md multiple_enquiries margin-top-65px"> Enquire Now </a>
-
-                                            <!-- <a href="javascript:;" class="btn btn-green margin-top-10 btn-block">
-                                                <span class="buy-offer">Enquire Us</span>
-                                            </a> -->
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                        @endforeach
+                            @endforeach
 
                         @else
-                        <div class="display-salon">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="col-md-12 alert alert-info">
-                                        Result not found!
+                            <div class="display-salon">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="col-md-12 alert alert-info">
+                                            Result not found!
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
                         @endif
+
                         <div class="row hidden-lg">
                             
                             @if(!empty($clients[0]))

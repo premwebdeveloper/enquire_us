@@ -342,7 +342,7 @@ class HomeController extends Controller
                                     </a>
                                 </li>
                                 <li class="lstEmt ">
-                                    <a><span class="lng_crcum">10+ Listings</span></a>
+                                    <a><span class="lng_crcum">'.count($clients).'+ Listings</span></a>
                                 </li>
                             </ul>';
             // set breadcrumb on category list page code ends here 
@@ -610,7 +610,7 @@ class HomeController extends Controller
                                         </a>
                                     </li>
                                     <li class="lstEmt ">
-                                        <a><span class="lng_crcum">10+ Listings</span></a>
+                                        <a><span class="lng_crcum">'.count($clients).'+ Listings</span></a>
                                     </li>
                                 </ul>';
                 // set breadcrumb on category list page code ends here 
@@ -868,7 +868,7 @@ class HomeController extends Controller
                                         </a>
                                     </li>
                                     <li class="lstEmt ">
-                                        <a><span class="lng_crcum">10+ Listings</span></a>
+                                        <a><span class="lng_crcum">'.count($clients).'+ Listings</span></a>
                                     </li>
                                 </ul>';
                 // set breadcrumb on category list page code ends here 
