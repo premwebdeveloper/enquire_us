@@ -131,6 +131,7 @@ class HomeController extends Controller
         }
         elseif(count($encoded) == 3){ 
 
+            // Search on city lewel / area not selected
             // If click on category name from category list
             $title_id = $encoded[0];
             $title_status = $encoded[1];
@@ -431,6 +432,10 @@ class HomeController extends Controller
             $city = $encoded[2];
             $area = $encoded[3];
 
+            // Get area name / selected area name
+            $area_info = DB::table('areas')->where('id', $area)->first();
+            $area_name = $area_info->area;
+
             $city_info = DB::table('cities')->where('id', $city)->first();
             $city_info = json_decode(json_encode($city_info), True);
 
@@ -689,7 +694,7 @@ class HomeController extends Controller
 
                 $list_item_meta_content = json_encode($list_item_meta_content);
 
-                return view('frontend.clients', array('clients' => $clients, 'subcategories' => $subcategories, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'title_info' => $title_info, 'pageUrls' => $pageUrls, 'selected_area' => $area, 'category_company_list_meta_content' => $category_company_list_meta_content, 'list_seo_title' => $list_seo_title, 'all_companies_meta_data' => $all_companies_meta_data, 'list_item_meta_content' => $list_item_meta_content, 'company_meta_content' => $company_meta_content));
+                return view('frontend.clients', array('clients' => $clients, 'subcategories' => $subcategories, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'title_info' => $title_info, 'pageUrls' => $pageUrls, 'selected_area' => $area, 'category_company_list_meta_content' => $category_company_list_meta_content, 'list_seo_title' => $list_seo_title, 'all_companies_meta_data' => $all_companies_meta_data, 'list_item_meta_content' => $list_item_meta_content, 'company_meta_content' => $company_meta_content, 'area_name' => $area_name));
             }
             elseif ($title_status == 2) {   // If title is sub category
 
@@ -947,7 +952,7 @@ class HomeController extends Controller
 
                 $list_item_meta_content = json_encode($list_item_meta_content);
 
-                return view('frontend.clients', array('clients' => $clients, 'subcategories' => $subcategories, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'title_info' => $title_info, 'pageUrls' => $pageUrls, 'selected_area' => $area, 'category_company_list_meta_content' => $category_company_list_meta_content, 'list_seo_title' => $list_seo_title, 'all_companies_meta_data' => $all_companies_meta_data, 'list_item_meta_content' => $list_item_meta_content, 'company_meta_content' => $company_meta_content));
+                return view('frontend.clients', array('clients' => $clients, 'subcategories' => $subcategories, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'title_info' => $title_info, 'pageUrls' => $pageUrls, 'selected_area' => $area, 'category_company_list_meta_content' => $category_company_list_meta_content, 'list_seo_title' => $list_seo_title, 'all_companies_meta_data' => $all_companies_meta_data, 'list_item_meta_content' => $list_item_meta_content, 'company_meta_content' => $company_meta_content, 'area_name' => $area_name));
             }
             else {                          // If title is company
 

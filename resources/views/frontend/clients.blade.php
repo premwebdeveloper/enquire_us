@@ -1,11 +1,6 @@
 @extends('layouts.public_app')
 
 @section('content')
-<?php
-/*    echo "<pre>";
-    print_r($clients);
-    exit;*/
-?>
 
 <!-- #header -->
 <div id="main" class="site-main">
@@ -27,6 +22,10 @@
                                         {{ $title_info->category }}
                                     @else
                                         {{ $title_info->subcategory }}
+                                    @endif
+
+                                    @if(isset($area_name))
+                                       In {{ $area_name }}
                                     @endif
                                 </h1>
                             </div>
