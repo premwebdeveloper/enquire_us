@@ -46,7 +46,7 @@
                             </div>
                             <div class="filter top30 cata-dis-none hidden-xs">
                                 <h1 class="brand-header"> Related Links </h1>
-                                <div class="list-group category_list">
+                                <div class="list-group category_list hide_related_link">
                                     @foreach($pageUrls as $url)
                                         <!-- If sub category is searched then subcategory link appeat -->
                                         @if(!empty($url->subcategory))
@@ -59,6 +59,7 @@
                                         </a>
                                     @endforeach
                                 </div>
+                                <a href="javascript:;" id="hide_related_link">View More</a>
                             </div>
                         </div>
                     </div>

@@ -260,3 +260,12 @@ h2.salon-heading a {
 .margin-top-10 {
     margin-top: 10px !important;
 }
+.hide_related_link{
+    height: 2350px;
+    overflow: hidden;
+}
+#hide_related_link{
+    color: #de4b39;
+    font-size: 16px;
+    text-decoration: underline;
+}

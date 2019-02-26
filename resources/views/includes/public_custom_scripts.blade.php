@@ -92,5 +92,13 @@
           }
 
         });
+
+        // view all related links
+        $(document).ready(function(){
+            $("#hide_related_link").on('click',function(){
+                $(".hide_related_link").removeClass('hide_related_link');
+                $("#hide_related_link").hide();
+            });
+        });
     });
 </script>
