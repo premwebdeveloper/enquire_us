@@ -18,25 +18,20 @@
     <meta name="Expires" content="never" />
     <meta name="robots" content="index,follow">
     <meta name="geo.region" content="IN-RJ">
-    <!-- Twitter meta tags -->
     <meta name="twitter:site" content="@Enquire_us" />
     <meta name="twitter:title" content="<?php if(!empty($title)){ echo $title;} ?>" />
     <meta name="twitter:description" content="<?php if(!empty($meta_description)){ echo $meta_description; } ?>" />
     <meta name="twitter:image" content="<?php if(!empty($client->logo)){ ?> {{url('/')}}/storage/app/uploads/{{ $client->logo}} <?php } ?>" />
     <meta name="twitter:url" content="<?= "https://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];?>" />
-    <!-- OG meta tags -->
     <meta property="og:url" content="<?= "https://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];?>"/>
     <meta property="og:type" content="company"/>
     <meta property="og:title" content="<?php if(!empty($title)){ echo $title;} ?>"/>
-        
     <meta property="og:description" content="<?php if(!empty($meta_description)){ echo $meta_description; } ?>" />
     <meta property="og:image" content="<?php if(!empty($client->logo)){ ?> {{url('/')}}/storage/app/uploads/{{ $client->logo}} <?php } ?>">
     <meta property="og:image:width" content="630" />
     <meta property="og:image:height" content="473" />
     <meta property="og:image:secure_url" content="<?php if(!empty($client->logo)){ ?> {{url('/')}}/storage/app/uploads/{{ $client->logo}} <?php } ?>" />
-
     <meta property="og:site_name" content="Enquireus"/>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132864399-1"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -74,13 +69,11 @@
     <!-- Page url list items in meta contetn -->
     <script type="application/ld+json"><?php if(isset($list_item_meta_content)){ echo $list_item_meta_content;} ?></script>
     <script type="application/ld+json"><?php if(isset($all_companies_meta_data)){ echo $all_companies_meta_data;} ?></script>
-
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- favicon -->
     <link rel="shortcut icon" href="{{url('/')}}/resources/frontend_assets/images/favicon.png">
     <!-- Styles -->
-    <!-- <link href="http://savetk.com/assets/css/bootstrap.min.css" rel="stylesheet"> -->
     <link href="{{ asset('resources/frontend_assets/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('resources/frontend_assets/css/custom.css') }}" rel="stylesheet">
     <link href="{{ asset('resources/frontend_assets/css/bootstrap-social.css') }}" rel="stylesheet">

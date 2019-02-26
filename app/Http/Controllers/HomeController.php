@@ -414,7 +414,7 @@ class HomeController extends Controller
                         "position" => 3,
                         "item" => array(
                             "@id" => "https://enquireus.com/".$city_info['name']."/".$page_url."/".$page_titles->encoded_params."",
-                            "name" => $page_url_new
+                            "name" => $page_url_new .' in '. $city_info['name']
                         )
                     )                        
                 )
