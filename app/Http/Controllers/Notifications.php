@@ -139,10 +139,6 @@ class Notifications extends Controller
                 $new_user_details['website'] = $fields_for_updation->website;
             }
 
-           /* echo '<pre>';
-            print_r($new_user_location);
-            exit;*/
-
             // If new keywords submitted for update then get keyword names
             if(isset($fields_for_updation->keyword)):
 
