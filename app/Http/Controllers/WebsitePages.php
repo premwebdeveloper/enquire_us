@@ -232,7 +232,7 @@ class WebsitePages extends Controller
         $date = date('Y-m-d H:i:s');
 
         // if anyone directly come to this function then through back
-        if(empty($sub_category) &&  empty($sub_category) && empty($city)){
+        if(empty($category) &&  empty($sub_category) && empty($city)){
             return redirect('page_titles');
         }
 
@@ -240,7 +240,7 @@ class WebsitePages extends Controller
         if($sub_category){            
             $where = array('category' => $category, 'subcategory' => $sub_category, 'city' => $city);
         }else{            
-            $where = array('category' => $category, 'city' => $city);
+            $where = array('category' => $category, 'subcategory' => null, 'city' => $city);
         }
 
         // Update title, keyword and description
@@ -267,7 +267,7 @@ class WebsitePages extends Controller
                 if($sub_category){
                     $where = array('category' => $category, 'subcategory' => $sub_category, 'city' => $city, 'area' => $row->id);
                 }else{
-                    $where = array('category' => $category, 'city' => $city, 'area' => $row->id);
+                    $where = array('category' => $category, 'subcategory' => null, 'city' => $city, 'area' => $row->id);
                 }
 
                 $new_title = str_replace($cityName, $row->area, ucfirst(strtolower($title)));
