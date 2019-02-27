@@ -80,7 +80,7 @@ class HomeController extends Controller
             ->join('user_location', 'user_location.user_id', '=', 'user_details.user_id')
             ->where(array('user_details.update_status' => 1, 'user_details.status' => 1))
             ->orderBy('user_location.id', 'desc')
-            ->take(5)
+            ->take(15)
             ->select('user_details.*', 'websites_page_head_titles.page_url', 'user_location.business_name')
             ->get();
 

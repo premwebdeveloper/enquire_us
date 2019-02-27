@@ -269,3 +269,9 @@ h2.salon-heading a {
     font-size: 16px;
     text-decoration: underline;
 }
+@media (max-width: 767px) {
+    .rating-starcount{
+        float: left;
+        margin-right: 6px;
+    }
+}

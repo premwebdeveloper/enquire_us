@@ -29,6 +29,7 @@
                                     @endif
                                 </h1>
                             </div>
+                            @if(!empty($subcategories[0]))
                             <div class="filter top30 cata-dis-none hidden-xs">
                                 <h2 class="brand-header">Related Services </h2>
                                 <div class="list-group category_list">
@@ -44,8 +45,9 @@
                                     @endforeach
                                 </div>
                             </div>
+                            @endif
                             <div class="filter top30 cata-dis-none hidden-xs">
-                                <h1 class="brand-header"> Related Links </h1>
+                                <h1 class="brand-header"> Search by Area </h1>
                                 <div class="list-group category_list hide_related_link">
                                     @foreach($pageUrls as $url)
                                         <!-- If sub category is searched then subcategory link appeat -->
@@ -191,18 +193,14 @@
                                     </div>
                                 </div>
                             @endforeach
-
-                        @else
-                            <div class="display-salon">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="col-md-12 alert alert-info">
-                                            Result not found!
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         @endif
+                        <div class="col-lg-12 hidden-xs">
+                            <div class="filter top30 cata-dis-none">
+                                @if(!empty($title_info->description))
+                                    <?= $title_info->description; ?>
+                                @endif
+                            </div>
+                        </div>
 
                         <div class="row hidden-lg">
                             
@@ -241,6 +239,22 @@
                                                     {{ $client->business_name }} 
                                                 </a>
                                             </h3>
+                                            <div class="rating-starcount">4.9</div>
+                                            <div class="rating-star full">
+                                                <i class="fa fa-star fa-fw"></i>
+                                            </div>
+                                            <div class="rating-star full">
+                                                <i class="fa fa-star fa-fw"></i>
+                                            </div>
+                                            <div class="rating-star full">
+                                                <i class="fa fa-star fa-fw"></i>
+                                            </div>
+                                            <div class="rating-star full">
+                                                <i class="fa fa-star fa-fw"></i>
+                                            </div>
+                                            <div class="rating-star half">
+                                                <i class="fa fa-star-half-full fa-fw"></i>
+                                            </div>
                                             <div class="offer-ends trim-content">
                                                 @if(!empty($client->area))
                                                 <p>
@@ -255,7 +269,7 @@
 
                                         <div class="offer-title col-lg-6 col-sm-6 col-xs-2">        
                                             <p class="margin0">
-                                                <a href="tel:{{ $client->phone }}" style="font-size: 26px;color: #e04b36;">
+                                                <a href="tel:{{ $client->phone }}" style="font-size: 26px;color: #e04b36;margin-bottom: 15px;margin-top: 10px;">
                                                     <i class="fa fa-phone" aria-hidden="true"></i> 
                                                 </a>
                                                 @if(!empty($client->whatsapp))
@@ -267,42 +281,39 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 @endforeach
-                            @else
-                                <div class="col-md-12 hidden-lg">
-                                    <div class="col-md-12 alert alert-info">
-                                        Result not found!
-                                    </div>
-                                </div>
                             @endif
+                            <div class="col-xs-12">
+                                <div class="filter top30 cata-dis-none">
+                                    @if(!empty($title_info->description))
+                                        <?= $title_info->description; ?>
+                                    @endif
+                                </div>
+                            </div>
                         </div>
 					</div>
 
                     <!-- Category description -->
                     <div class="col-sm-9 col-sm-offset-3">
-                        <div class="filter top30 cata-dis-none">
-                            @if(!empty($title_info->description))
-                                <?= $title_info->description; ?>
-                            @endif
-                        </div>
                         <div class="filter top30 cata-dis-none breadCrumb">
                             <?= $list_seo_title;?>
                         </div>
                     </div>
                     <div class="col-xs-12 hidden-lg mt100 enquireus">
-                        <h1 class="brand-header">Related Services </h1>
-                        @foreach($subcategories as $subcat)
-                            <?php
-                                $cat_name = $subcat->subcategory;
-                                $cat_name = preg_replace('/[^A-Za-z0-9\-]/', '-', $cat_name);
-                                $encrypted = Crypt::encrypt($subcat->id);
-                            ?>
-                            <a href="javascript:;" class="list-group-item sub_cat_ies" id="sub_cate_<?= $subcat->id; ?>">
-                                {{ $subcat->subcategory }} |
-                            </a>
-                        @endforeach
-                        <h1 class="brand-header mt100"> Related Links </h1>
+                        @if(!empty($subcategories[0]))
+                            <h1 class="brand-header">Related Services </h1>
+                            @foreach($subcategories as $subcat)
+                                <?php
+                                    $cat_name = $subcat->subcategory;
+                                    $cat_name = preg_replace('/[^A-Za-z0-9\-]/', '-', $cat_name);
+                                    $encrypted = Crypt::encrypt($subcat->id);
+                                ?>
+                                <a href="javascript:;" class="list-group-item sub_cat_ies" id="sub_cate_<?= $subcat->id; ?>">
+                                    {{ $subcat->subcategory }} |
+                                </a>
+                            @endforeach
+                        @endif
+                        <h1 class="brand-header mt100"> Search by Area </h1>
                         <div class="list-group category_list">
                             @foreach($pageUrls as $url)
                                 <!-- If sub category is searched then subcategory link appeat -->

@@ -259,19 +259,19 @@
                                                 <i> {{ $review->review }} </i>
                                             </div>
                                             <div class="col-md-4 text-right p0">
-                                                @if($review->rating == 1)
+                                                @if($review->rating == 1 || (float)$review->rating == 4.1 || (float)$review->rating == 4.2)
                                                     <span class="fa fa-star checked"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span>
                                                 @endif
-                                                @if($review->rating == 2)
+                                                @if($review->rating == 2 || (float)$review->rating == 4.3 || (float)$review->rating == 4.4)
                                                     <span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star"></span><span class="fa fa-star"></span><span class="fa fa-star"></span>
                                                 @endif
-                                                @if($review->rating == 3)
+                                                @if($review->rating == 3 || (float)$review->rating == 4.5 || (float)$review->rating == 4.6)
                                                     <span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star"></span><span class="fa fa-star"></span>
                                                 @endif
-                                                @if($review->rating == 4)
+                                                @if((float)$review->rating == 4.7 || (float)$review->rating == 4.8 || $review->rating == 4)
                                                     <span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star"></span>
                                                 @endif
-                                                @if($review->rating == 5)
+                                                @if($review->rating == 5 || (float)$review->rating == 4.9)
                                                     <span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span><span class="fa fa-star checked"></span>
                                                 @endif
                                                 

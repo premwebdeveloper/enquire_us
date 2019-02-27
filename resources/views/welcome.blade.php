@@ -124,17 +124,17 @@
             </div>
 
 			<!-- Our partners -->
-			<div class="col-sm-12 offset-margin-2">
-				<div class="row">
-					<div class="col-sm-12 top30">
-						<h1 class="brand-header">Our Partners </h1>
-					</div>
-					<div class="col-sm-12">
-						<div class="row">
+<!--             <div class="col-sm-12 offset-margin-2">
+    <div class="row">
+        <div class="col-sm-12 top30">
+            <h1 class="brand-header">Our Partners </h1>
+        </div>
+        <div class="col-sm-12">
+            <div class="row">
                             @foreach($home_page_clients as $home_page_client)
-    							<div class="col-lg-55 col-md-55 col-sm-55 col-xs-12 res-cop-box">
-    								<div class="offer-small offer">
-    									<div class="vendor-image amit">
+                                <div class="col-lg-55 col-md-55 col-sm-55 col-xs-12 res-cop-box">
+                                    <div class="offer-small offer">
+                                        <div class="vendor-image amit">
                                             <a title="{{$home_page_client['business_name']}}" href="javascript:;" class="client_view_details" id="client-view_{{ $home_page_client['user_id'] }}">
                                                 <?php
                                                 if(!empty($home_page_client['logo']))
@@ -151,23 +151,23 @@
                                                 }
                                                 ?>
                                             </a>
-    									</div>                                        
-    								</div>
-    							</div>
+                                        </div>                                        
+                                    </div>
+                                </div>
                             @endforeach
-						</div>
-					</div>
-				</div>
-			</div>
+            </div>
+        </div>
+    </div>
+</div> -->
 
-			<!-- Lattest clients -->
-			<div class="col-sm-12 offset-margin-2">
-				<div class="row">
-					<div class="col-sm-12 top30">
-						<h1 class="brand-header">Latest</h1>
-					</div>
-					<div class="col-sm-12">
-						<div class="row">
+            <!-- Lattest clients -->
+            <div class="col-sm-12 offset-margin-2">
+                <div class="row">
+                    <div class="col-sm-12 top30">
+                        <h3 class="brand-header">Latest</h3>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="row">
                             @foreach($latest_home_page_clients as $latest_home_page_client)
                             <div class="col-lg-55 col-md-55 col-sm-55 col-xs-12 res-cop-box">
                                 <div class="offer-small offer">
@@ -192,11 +192,20 @@
                                 </div>
                             </div>
                             @endforeach
-						</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+			<!-- Home page content -->
+			<div class="col-sm-12 offset-margin-2 hidden-xs">
+				<div class="row">
+					<div class="col-sm-12 top30">
+						<h1 class="brand-header">India's No.1 Local Seo Company</h1>
 					</div>
+
 				</div>
 			</div>
-
 		</div>
 	</div>
 </div>
