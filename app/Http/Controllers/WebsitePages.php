@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Storage;
 use Session;
 use Illuminate\Support\Facades\Crypt;
+use DataTables;
 
 class WebsitePages extends Controller
 {
@@ -218,6 +219,16 @@ class WebsitePages extends Controller
         $titles = DB::table('websites_page_head_titles')->where('status', 1)->get();
 
         return view('website_pages.page_titles', array('category' => $category, 'business' => $business, 'titles' => $titles, 'status' => $status, 'exist' => $exist, 'sub_category_info' => $sub_category_info));
+    }
+
+    // Get page titles and urls using ajax
+    public function getAllPageTitles(Request $request)
+    {
+        //  Get All Page titles
+        $titles = DB::table('websites_page_head_titles')->where('status', 1)->get();
+        return Datatables::of($titles)->addColumn('action', function ($row) {
+            return '<a class="btn btn-success editPageUrlTitle" href="javascript:;" id="editPageUrlTitle_'.$row->id.'"> Edit </a>';
+        })->make(true);  
     }
 
     // Update Website page head titles like Title, Meta title, Keyword, Description etc

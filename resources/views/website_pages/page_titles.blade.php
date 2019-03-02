@@ -356,7 +356,7 @@
                     @endif
 
                     <div class="table-responsive">
-                        <table class="table table-striped table-bordered table-hover dataTables-example" >
+                        <table class="table table-striped table-bordered table-hover dataTables-example page_titles_data_table">
                             <thead>
                                 <tr>
                                     <th>Page</th>
@@ -366,19 +366,6 @@
                                     <th>Action</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                @if(!empty($titles))
-                                    @foreach($titles as $title)
-                                    <tr class="gradeX">
-                                        <td>{{ $title->page_url }}</td>
-                                        <td>{{ $title->title }}</td>
-                                        <td>{{ $title->keyword }}</td>
-                                        <td>{{ $title->description }}</td>
-                                        <td> <a class="btn btn-success editPageUrlTitle" href="javascript:;" id="editPageUrlTitle_{{ $title->id }}"> Edit </a> </td>
-                                    </tr>
-                                    @endforeach
-                                @endif
-                            </tbody>
                         </table>
                     </div>
 
@@ -435,8 +422,23 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
+        
+        var pTable = $('.page_titles_data_table').dataTable({
+            "bDestroy": true,
+            "processing": true,
+            "serverSide": true,
+            "ajax": "{{ route('getAllPageTitles') }}",
+            "columns": [
+                {data: 'page_url', name: 'page_url'},
+                {data: 'title', name: 'title'},
+                {data: 'keyword', name: 'keyword'},
+                {data: 'description', name: 'description'},
+                {data: 'action', name: 'action'}
+            ],
+        });
+
         // Edit page url and titles
-        $('.editPageUrlTitle').click(function(){
+        $(document).on('click', '.editPageUrlTitle', function(){
             var id = $(this).attr('id');
             var temp = id.split('_');
             var row_id = temp[1];

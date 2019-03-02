@@ -344,4 +344,6 @@
     Route::get('employees_client_meeting', 'Reports@employees_client_meeting')->name('employees_client_meeting');
     Route::post('generate_employee_client_meeting_report', 'Reports@generate_employee_client_meeting_report')->name('generate_employee_client_meeting_report');
 
+    Route::get('getAllPageTitles', 'WebsitePages@getAllPageTitles')->name('getAllPageTitles');
+
 // });
