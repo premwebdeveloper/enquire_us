@@ -69,6 +69,10 @@
                     <!-- Middle main content bar -->
 					<div class="col-sm-9 mt100">
                         @if(!empty($clients[0]))
+                            <?php 
+                            $clients = json_decode(json_encode($clients), true);
+                            shuffle($clients); 
+                            ?>
                             @foreach($clients as $client)
                                 <div class="display-salon hidden-xs">
                                     <div class="row">
@@ -76,10 +80,10 @@
                                             <div class="row">
                                                 <div class="col-sm-3 hidden-xxs hidden-xs">
                                                     <?php
-                                                        if(!empty($client->logo))
+                                                        if(!empty($client['logo']))
                                                         {
                                                             ?>
-                                                            <img alt="{{ $client->business_name }}" src="{{url('/')}}/storage/app/uploads/{{ $client->logo }}" class="img-responsive image-style">
+                                                            <img alt="{{ $client['business_name'] }}" src="{{url('/')}}/storage/app/uploads/{{ $client['logo'] }}" class="img-responsive image-style">
                                                             <?php
                                                         }
                                                         else
@@ -91,7 +95,7 @@
                                                     ?>
                                                     <div class="row">
                                                         <div class="col-xs-12 text-center">
-                                                            <a href="javascript:;" class="btn btn-green margin-top-10 btn-block client_view_details" id="client-view_{{ $client->user_id }}">
+                                                            <a href="javascript:;" class="btn btn-green margin-top-10 btn-block client_view_details" id="client-view_{{ $client['user_id'] }}">
                                                                 <span class="buy-offer">FULL DETAIL</span>
                                                             </a>
                                                         </div>
@@ -102,7 +106,7 @@
                                                     <div class="row">
                                                         <div class="col-sm-12">
                                                             <h2 class="salon-heading">
-                                                                <a href="javascript:;" class="btn-block client_view_details" id="client-view_{{ $client->user_id }}" title="{{ $client->business_name }}">{{ $client->business_name }}</a>
+                                                                <a href="javascript:;" class="btn-block client_view_details" id="client-view_{{ $client['user_id'] }}" title="{{ $client['business_name'] }}">{{ $client['business_name'] }}</a>
                                                             </h2>
                                                         </div>
 
@@ -140,8 +144,8 @@
                                                                 <ul>
                                                                     <li> <span class="icon-holder icon-space">
                                                                         <i class="fa fa-map-marker fa-fw"></i></span>
-                                                                        @if(!empty($client->area))
-                                                                        <span class="text-reset">{{ $client->street }}</span>
+                                                                        @if(!empty($client['area']))
+                                                                        <span class="text-reset">{{ $client['street'] }}</span>
                                                                         @endif
                                                                     </li>
                                                                     <li> <span class="icon-holder icon-space ">
@@ -151,12 +155,9 @@
                                                                     <li> <span class="icon-holder icon-space">
                                                                         <i class="fa fa-phone fa-fw"></i></span>
                                                                         <span class="reset-span text-reset">
-                                                                            <a href="javascript:;" class="client_view_details" id="client-view_{{ $client->user_id }}">View Phone</a>
+                                                                            <a href="javascript:;" class="client_view_details" id="client-view_{{ $client['user_id'] }}">View Phone</a>
                                                                         </span>
                                                                     </li>
-                                                                    <!-- <li> <span class="icon-holder icon-space">
-                                                                         <i class="fa fa-location-arrow fa-fw"></i></span><span class="text-reset">6.95 km Away</span>
-                                                                    </li> -->
                                                                 </ul>
                                                             </div>
                                                         </div>
@@ -183,10 +184,6 @@
                                                     @endphp
 
                                                     <a href="javascript:;" id="enquiry-for_<?= encrypt($title_info->id); ?>_<?= $identity; ?>" class="btn btn-info btn-md multiple_enquiries margin-top-65px"> Enquire Now </a>
-
-                                                    <!-- <a href="javascript:;" class="btn btn-green margin-top-10 btn-block">
-                                                        <span class="buy-offer">Enquire Us</span>
-                                                    </a> -->
                                                 </div>
                                             </div>
                                         </div>
@@ -201,26 +198,29 @@
                                 @endif
                             </div>
                         </div>
-
+    
+                        <!-- FOR MOBILE SCREEN -->
                         <div class="row hidden-lg">
                             
                             @if(!empty($clients[0]))
+                                <?php 
+                                $clients = json_decode(json_encode($clients), true);
+                                shuffle($clients); 
+                                ?>
                                 @foreach($clients as $client)
 
                                 <div class="col-lg-12 col-sm-12 col-xs-12 res-cop-box">
                                     <div class="offer-small offer">
 
-                                        <?php
-                                            $business_name = $client->business_name;
-                                        ?>
+                                        <?php $business_name = $client['business_name']; ?>
 
                                         <div class="col-lg-6 col-sm-6 col-xs-3 vendor-image">
-                                            <a href="javascript:;" class="client_view_details" id="client-view_{{ $client->user_id }}">
+                                            <a href="javascript:;" class="client_view_details" id="client-view_{{ $client['user_id'] }}">
                                                 <?php
-                                                    if(!empty($client->logo))
+                                                    if(!empty($client['logo']))
                                                     {
                                                         ?>
-                                                        <img alt="" src="{{url('/')}}/storage/app/uploads/{{ $client->logo}}" class="img-responsive">
+                                                        <img alt="" src="{{url('/')}}/storage/app/uploads/{{ $client['logo']}}" class="img-responsive">
                                                         <?php
                                                     }
                                                     else
@@ -235,8 +235,8 @@
 
                                         <div class="offer-title col-lg-6 col-sm-6 col-xs-7">
                                             <h3 class="margin0">
-                                                <a href="javascript:;" class="client_view_details" id="client-view_{{ $client->user_id }}" style="font-size: 13px;font-weight: bold;">
-                                                    {{ $client->business_name }} 
+                                                <a href="javascript:;" class="client_view_details" id="client-view_{{ $client['user_id'] }}" style="font-size: 13px;font-weight: bold;">
+                                                    {{ $client['business_name'] }} 
                                                 </a>
                                             </h3>
                                             <div class="rating-starcount">4.9</div>
@@ -256,11 +256,11 @@
                                                 <i class="fa fa-star-half-full fa-fw"></i>
                                             </div>
                                             <div class="offer-ends trim-content">
-                                                @if(!empty($client->area))
+                                                @if(!empty($client['area']))
                                                 <p>
                                                     <i class="fa fa-map-marker"></i>
                                                     <span>
-                                                        {{ $client->building }}, {{ $client->street }}, {{ $client->landmark }}...
+                                                        {{ $client['building'] }}, {{ $client['street'] }}, {{ $client['landmark'] }}...
                                                     </span>
                                                 </p>
                                                 @endif
@@ -269,10 +269,10 @@
 
                                         <div class="offer-title col-lg-6 col-sm-6 col-xs-2">        
                                             <p class="margin0">
-                                                <a href="tel:{{ $client->phone }}" style="font-size: 26px;color: #e04b36;margin-bottom: 15px;margin-top: 10px;">
+                                                <a href="tel:{{ $client['phone'] }}" style="font-size: 26px;color: #e04b36;margin-bottom: 15px;margin-top: 10px;">
                                                     <i class="fa fa-phone" aria-hidden="true"></i> 
                                                 </a>
-                                                @if(!empty($client->whatsapp))
+                                                @if(!empty($client['whatsapp']))
                                                 <a href="whatsapp://send?phone={{ $client->whatsapp }}&amp;text=Hello!" style="font-size: 26px;color: #17960d;">
                                                     <i class="fa fa-whatsapp" aria-hidden="true"></i> 
                                                 </a>
