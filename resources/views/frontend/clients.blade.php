@@ -7,11 +7,11 @@
     <div class="shop-banner"> 
         <img style="width:100%;" alt="enquire us" src="{{ asset('resources/assets/images/banner.jpg') }}"> 
     </div>
-	<div class="container">
-		<div class="row">
-			<!--Latest offers-->
-			<div class="col-sm-12 offset-margin-2">
-				<div class="row">
+    <div class="container">
+        <div class="row">
+            <!--Latest offers-->
+            <div class="col-sm-12 offset-margin-2">
+                <div class="row">
 
                     <!-- Left sidebar -->
                     <div class="col-sm-3">
@@ -67,11 +67,11 @@
                     </div>
 
                     <!-- Middle main content bar -->
-					<div class="col-sm-9 mt100">
+                    <div class="col-sm-9 mt100">
                         @if(!empty($clients[0]))
                             <?php 
-                            $clients = json_decode(json_encode($clients), true);
-                            shuffle($clients); 
+                                $clients = json_decode(json_encode($clients), true);
+                                shuffle($clients); 
                             ?>
                             @foreach($clients as $client)
                                 <div class="display-salon hidden-xs">
@@ -89,7 +89,7 @@
                                                         else
                                                         {
                                                             ?>
-                                                            <img alt="" src="{{url('/')}}/resources/frontend_assets/images/logo.png" class="img-responsive image-style">
+                                                            <img alt="{{ $client['business_name'] }}" src="{{url('/')}}/resources/frontend_assets/images/logo.png" class="img-responsive image-style">
                                                             <?php
                                                         }
                                                     ?>
@@ -220,13 +220,13 @@
                                                     if(!empty($client['logo']))
                                                     {
                                                         ?>
-                                                        <img alt="" src="{{url('/')}}/storage/app/uploads/{{ $client['logo']}}" class="img-responsive">
+                                                        <img alt="{{ $client['business_name'] }}" src="{{url('/')}}/storage/app/uploads/{{ $client['logo']}}" class="img-responsive">
                                                         <?php
                                                     }
                                                     else
                                                     {
                                                         ?>
-                                                        <img alt="" src="{{url('/')}}/resources/frontend_assets/images/logo.png" class="img-responsive">
+                                                        <img alt="{{ $client['business_name'] }}" src="{{url('/')}}/resources/frontend_assets/images/logo.png" class="img-responsive">
                                                         <?php
                                                     }
                                                 ?>
@@ -273,7 +273,7 @@
                                                     <i class="fa fa-phone" aria-hidden="true"></i> 
                                                 </a>
                                                 @if(!empty($client['whatsapp']))
-                                                <a href="whatsapp://send?phone={{ $client->whatsapp }}&amp;text=Hello!" style="font-size: 26px;color: #17960d;">
+                                                <a href="whatsapp://send?phone={{ $client['whatsapp'] }}&amp;text=Hello!" style="font-size: 26px;color: #17960d;">
                                                     <i class="fa fa-whatsapp" aria-hidden="true"></i> 
                                                 </a>
                                                 @endif
@@ -291,7 +291,7 @@
                                 </div>
                             </div>
                         </div>
-					</div>
+                    </div>
 
                     <!-- Category description -->
                     <div class="col-sm-9 col-sm-offset-3">
@@ -329,10 +329,10 @@
                         </div>
                     </div>
 
-				</div>
-			</div>
-		</div>
-	</div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection
 

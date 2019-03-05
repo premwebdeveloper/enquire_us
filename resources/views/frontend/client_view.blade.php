@@ -58,7 +58,7 @@
                                     <ul id="lightSlider" class="lightSlider lsGrab lSSlide" style="width: 3234px; transform: translate3d(-539px, 0px, 0px); height: 298px; padding-bottom: 0%;">
                                         @foreach($images as $key => $image)
                                             <li data-thumb="{{url('/')}}/storage/app/uploads/{{ $image->image}}" class="lslide" id="slide_<?= $key+1;?>" style="width: 539px; margin-right: 0px;">
-                                                <img alt="" src="{{url('/')}}/storage/app/uploads/{{ $image->image}}" style="width:100%;height: 270px;">
+                                                <img alt="{{ $client->business_name }}" src="{{url('/')}}/storage/app/uploads/{{ $image->image}}" style="width:100%;height: 270px;">
                                             </li>
                                         @endforeach
                                     </ul>
@@ -66,14 +66,14 @@
                                 @elseif(!empty($client->logo))
                                     <ul id="lightSlider" class="lightSlider lsGrab lSSlide" style="width: 3234px; transform: translate3d(-539px, 0px, 0px); height: 298px; padding-bottom: 0%;">
                                         <li data-thumb="{{url('/')}}/storage/app/uploads/{{ $client->logo}}" class="lslide active" style="width: 539px; margin-right: 0px;">
-                                            <img alt="" src="{{url('/')}}/storage/app/uploads/{{ $client->logo}}" style="width:100%;height: 270px;">
+                                            <img alt="{{ $client->business_name }}" src="{{url('/')}}/storage/app/uploads/{{ $client->logo}}" style="width:100%;height: 270px;">
                                         </li>
                                     </ul>
                                 @else
                                     <ul id="lightSlider" class="lightSlider lsGrab lSSlide" style="width: 3234px; transform: translate3d(-539px, 0px, 0px); height: 298px; padding-bottom: 0%;">
 
                                         <li data-thumb="{{url('/')}}/resources/frontend_assets/images/logo.png" class="lslide active" style="width: 539px; margin-right: 0px;">
-                                            <img alt="" src="{{url('/')}}/resources/frontend_assets/images/logo.png" style="width:100%;height: 270px;">
+                                            <img alt="{{ $client->business_name }}" src="{{url('/')}}/resources/frontend_assets/images/logo.png" style="width:100%;height: 270px;">
                                         </li>
                                     </ul>
                                 @endif

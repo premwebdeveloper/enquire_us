@@ -94,8 +94,7 @@
                             <h3>Quick Links</h3>
                             <ul>
                                 <li><a href="{{ route('about-us') }}">About Us</a></li>
-                                <li><a href="{{ route('contact-us') }}">Contact Us</a></li>
-                            
+                                <li><a href="{{ route('contact-us') }}">Contact Us</a></li>                           
                             </ul>
                         </div>
                     </div>

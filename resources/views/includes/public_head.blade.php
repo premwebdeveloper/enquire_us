@@ -32,7 +32,7 @@
     <meta property="og:image:height" content="473" />
     <meta property="og:image:secure_url" content="<?php if(!empty($client->logo)){ ?> {{url('/')}}/storage/app/uploads/{{ $client->logo}} <?php } ?>" />
     <meta property="og:site_name" content="Enquireus"/>
-    <link rel="canonical" href="<?= $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; ?>"/>
+    <link rel="canonical" href="<?= $actual_link = "https://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]"; ?>"/>
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-132864399-1"></script>
     <script>
         window.dataLayer = window.dataLayer || [];

@@ -53,7 +53,7 @@
                             <div id="slider" class="nivoSlider">
                                 @foreach($sliders as $slider)
                                     <a href="javascript:;">
-                                        <img class="img-responsive" src="storage/app/uploads/{{$slider->image}}" alt="Grand Sultan Tea Resort & Golf" />
+                                        <img class="img-responsive" src="storage/app/uploads/{{$slider->image}}" alt="Enquire Us" />
                                     </a>
                                 @endforeach
                             </div>
@@ -168,6 +168,7 @@
                     </div>
                     <div class="col-sm-12">
                         <div class="row">
+
                             @foreach($latest_home_page_clients as $latest_home_page_client)
                             <div class="col-lg-55 col-md-55 col-sm-55 col-xs-12 res-cop-box">
                                 <div class="offer-small offer">
@@ -177,13 +178,13 @@
                                             if(!empty($latest_home_page_client->logo))
                                             {
                                                 ?>
-                                                <img alt="" src="{{url('/')}}/storage/app/uploads/{{ $latest_home_page_client->logo}}" class="img-responsive" style="height: 125px;">
+                                                <img alt="{{ $latest_home_page_client->business_name}}" src="{{url('/')}}/storage/app/uploads/{{ $latest_home_page_client->logo}}" class="img-responsive" style="height: 125px;">
                                                 <?php
                                             }
                                             else
                                             {
                                                 ?>
-                                                <img alt="" src="{{url('/')}}/resources/frontend_assets/images/logo.png" class="img-responsive">
+                                                <img alt="{{ $latest_home_page_client->business_name}}" src="{{url('/')}}/resources/frontend_assets/images/logo.png" class="img-responsive">
                                                 <?php
                                             }
                                             ?>
@@ -203,7 +204,6 @@
 					<div class="col-sm-12 top30">
 						<h1 class="brand-header">India's No.1 Local Seo Company</h1>
 					</div>
-
 				</div>
 			</div>
 		</div>
