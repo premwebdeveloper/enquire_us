@@ -6,12 +6,12 @@
                     <div class="row">
                         <div class="col-lg-12 col-xs-12 pull-right res-header">
                             <div class="languageBox" >
-                                <p>Need Help? Call us at <strong class="tel-numbel"><a href="tel:+8426833930">8426833930</a></strong></p>
+                                <p>Need Help? Call us at <strong class="tel-numbel"><a href="tel:+91-8426833930">8426833930</a></strong></p>
                             </div>
                             <div class="top-link pull-right">
                                 <ul>
                                     <li>
-                                        <a href="tel:+8426833930"><i class="fa fa-phone" aria-hidden="true"></i>&nbsp;Contact</a>
+                                        <a href="tel:+91-8426833930"><i class="fa fa-phone" aria-hidden="true"></i>&nbsp;Contact</a>
                                     </li>
                                     @guest
                                     <li>
@@ -72,7 +72,7 @@
 
                                                     </div>
                                                     <div class="bottom text-center">
-                                                        New here ? <a style="color:#006a4e;text-decoration:underline;" href="{{route('register')}}">Sign Up</a>
+                                                        New here ? <a class="href_green" href="{{route('register')}}">Sign Up</a>
                                                     </div>
                                                 </div>
                                             </li>
@@ -128,7 +128,7 @@
                     <div class="col-lg-3 col-sm-3 col-xs-4 res-logo">
                         <div class="logo">
                             <a href="{{url('/')}}">
-                                <img alt="Enquire Us" src="{{url('/')}}/resources/frontend_assets/images/logo.png"/>
+                                <img alt="Enquire Us" src="{{url('/')}}/resources/frontend_assets/images/enquireus.png"/>
                             </a>
                         </div>
                     </div>

@@ -37,7 +37,7 @@
                                 @foreach($categories as $category)
 									<div class="col-lg-2 col-sm-2 col-xs-6 text-center-img height_145">
                                         <a href="javascript:;" class="cat_ies" id="cate_<?= $category->id; ?>">
-                                            <img alt="{{ ucwords($category->category) }}" src="{{url('/')}}/storage/app/uploads/categories/<?= $category->image; ?>" class="img-responsive" style="height: 100px;">
+                                            <img alt="{{ ucwords($category->category) }}" src="{{url('/')}}/storage/app/uploads/categories/<?= $category->image; ?>" class="img-responsive">
                                             <span>
                                                 {{ ucwords($category->category) }}
                                             </span>

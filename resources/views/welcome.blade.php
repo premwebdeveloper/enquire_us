@@ -51,9 +51,9 @@
                     <div class="col-sm-8">
                         <div class="slider-wrapper theme-default">
                             <div id="slider" class="nivoSlider">
-                                @foreach($sliders as $slider)
+                                @foreach($sliders as $key => $slider)
                                     <a href="javascript:;">
-                                        <img class="img-responsive" src="storage/app/uploads/{{$slider->image}}" alt="Enquire Us" />
+                                        <img class="img-responsive" src="storage/app/uploads/{{$slider->image}}" alt="Enquire Us{{ $key+1 }}" />
                                     </a>
                                 @endforeach
                             </div>
@@ -178,7 +178,7 @@
                                             if(!empty($latest_home_page_client->logo))
                                             {
                                                 ?>
-                                                <img alt="{{ $latest_home_page_client->business_name}}" src="{{url('/')}}/storage/app/uploads/{{ $latest_home_page_client->logo}}" class="img-responsive" style="height: 125px;">
+                                                <img alt="{{ $latest_home_page_client->business_name}}" src="{{url('/')}}/storage/app/uploads/{{ $latest_home_page_client->logo}}" class="img-responsive">
                                                 <?php
                                             }
                                             else

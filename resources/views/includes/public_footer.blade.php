@@ -209,7 +209,7 @@
                             <input type="text" name="suggest_category" class="form-control" id="suggest_category" placeholder="Category" required="required">
                         </div>
                         <div class="col-md-2">
-                            <input type="submit" name="suggest" value="Suggest" class="btn btn-primary" id="suggestCategory" style="margin-top: 25px;">
+                            <input type="submit" name="suggest" value="Suggest" class="btn btn-primary top25" id="suggestCategory">
                         </div>
                     </div>
                 </form>

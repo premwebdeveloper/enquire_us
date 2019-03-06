@@ -52,28 +52,28 @@
                     <div class="col-md-6">
 
                         <div class="lSSlideOuter ">
-                            <div class="lSSlideWrapper usingCss" style="transition-duration: 400ms; transition-timing-function: ease;">
+                            <div class="lSSlideWrapper usingCss">
                                 @if(!empty($images[0]))
 
-                                    <ul id="lightSlider" class="lightSlider lsGrab lSSlide" style="width: 3234px; transform: translate3d(-539px, 0px, 0px); height: 298px; padding-bottom: 0%;">
+                                    <ul id="lightSlider" class="lightSlider lsGrab lSSlide">
                                         @foreach($images as $key => $image)
-                                            <li data-thumb="{{url('/')}}/storage/app/uploads/{{ $image->image}}" class="lslide" id="slide_<?= $key+1;?>" style="width: 539px; margin-right: 0px;">
-                                                <img alt="{{ $client->business_name }}" src="{{url('/')}}/storage/app/uploads/{{ $image->image}}" style="width:100%;height: 270px;">
+                                            <li data-thumb="{{url('/')}}/storage/app/uploads/{{ $image->image}}" class="lslide" id="slide_<?= $key+1;?>">
+                                                <img alt="{{ $client->business_name }}" src="{{url('/')}}/storage/app/uploads/{{ $image->image}}">
                                             </li>
                                         @endforeach
                                     </ul>
 
                                 @elseif(!empty($client->logo))
-                                    <ul id="lightSlider" class="lightSlider lsGrab lSSlide" style="width: 3234px; transform: translate3d(-539px, 0px, 0px); height: 298px; padding-bottom: 0%;">
-                                        <li data-thumb="{{url('/')}}/storage/app/uploads/{{ $client->logo}}" class="lslide active" style="width: 539px; margin-right: 0px;">
-                                            <img alt="{{ $client->business_name }}" src="{{url('/')}}/storage/app/uploads/{{ $client->logo}}" style="width:100%;height: 270px;">
+                                    <ul id="lightSlider" class="lightSlider lsGrab lSSlide">
+                                        <li data-thumb="{{url('/')}}/storage/app/uploads/{{ $client->logo}}" class="lslide active">
+                                            <img alt="{{ $client->business_name }}" src="{{url('/')}}/storage/app/uploads/{{ $client->logo}}">
                                         </li>
                                     </ul>
                                 @else
-                                    <ul id="lightSlider" class="lightSlider lsGrab lSSlide" style="width: 3234px; transform: translate3d(-539px, 0px, 0px); height: 298px; padding-bottom: 0%;">
+                                    <ul id="lightSlider" class="lightSlider lsGrab lSSlide">
 
-                                        <li data-thumb="{{url('/')}}/resources/frontend_assets/images/logo.png" class="lslide active" style="width: 539px; margin-right: 0px;">
-                                            <img alt="{{ $client->business_name }}" src="{{url('/')}}/resources/frontend_assets/images/logo.png" style="width:100%;height: 270px;">
+                                        <li data-thumb="{{url('/')}}/resources/frontend_assets/images/logo.png" class="lslide active">
+                                            <img alt="{{ $client->business_name }}" src="{{url('/')}}/resources/frontend_assets/images/logo.png">
                                         </li>
                                     </ul>
                                 @endif
@@ -86,14 +86,14 @@
                             <div class="col-sm-12">
 
                                 <div class="col-sm-12 shop-title">
-                                    <h3><a style="color:#006A4E;" href="javascript:;">{{ $client->business_name }}</a></h3>
+                                    <h3><a class="grn" href="javascript:;">{{ $client->business_name }}</a></h3>
                                 </div>
 
                                 <!-- <div class="buy-button-section top15">
                                     <button type="button" class="btn btn-cd btn-sms" data-toggle="modal" title="">GET SMS</button>
                                 </div> -->
 
-                                <div class="offer-bought" style="border-top:1px solid #d7d7d7; margin-top:10px;">
+                                <div class="offer-bought">
                                     <div class="col-sm-4 unlimited-offer">
                                         <span class="glyphicon glyphicon-user"></span>
                                         <span class="buy-counter">Mr. {{ $client->name }}</span>
@@ -227,11 +227,11 @@
                 <div class="col-lg-12  col-xs-12">
                     <div class="description">
                         <!--<h2 class="page-title">Description</h2>-->
-                        <div class="page-para" style="float:left; width:100%;text-align:justify;">
+                        <div class="page-para">
                             <h3>About {{ $client->business_name }}</h3>
                             <?= $client->about_company;?>
                         </div>
-                        <div class="page-para" style="float:left; width:100%;"> </div>
+                        <div class="page-para"> </div>
                     </div>
                 </div>
 
@@ -239,10 +239,10 @@
 
                     <ul class="nav nav-tabs" id="review_tab">
                         <li class="active">
-                            <a style="text-transform:inherit;" data-toggle="tab" href="#tab-review-list">Reviews ( {{ count($reviews) }} )</a>
+                            <a class="text-trans" data-toggle="tab" href="#tab-review-list">Reviews ( {{ count($reviews) }} )</a>
                         </li>
                         <li class="">
-                            <a style="text-transform:inherit;" data-toggle="tab" href="#tab-review">Write a Review</a>
+                            <a class="text-trans" data-toggle="tab" href="#tab-review">Write a Review</a>
                         </li>
                     </ul>
 
@@ -363,7 +363,7 @@
                             @foreach($other_info as $other)
                                 @if($other->operation_timing=='1')
                                     <tr>
-                                        <td style="text-transform: capitalize;">{{ $other->day }}</td>
+                                        <td class="text-trans-cap">{{ $other->day }}</td>
                                         <td>{{ $other->from_time }}</td>
                                         <td>-</td>
                                         <td>{{ $other->to_time }}</td>

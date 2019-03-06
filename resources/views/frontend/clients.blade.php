@@ -5,7 +5,7 @@
 <!-- #header -->
 <div id="main" class="site-main">
     <div class="shop-banner"> 
-        <img style="width:100%;" alt="enquire us" src="{{ asset('resources/assets/images/banner.jpg') }}"> 
+        <img class="witdh_100" alt="enquire us banner" src="{{ asset('resources/assets/images/banner.jpg') }}"> 
     </div>
     <div class="container">
         <div class="row">
@@ -17,7 +17,7 @@
                     <div class="col-sm-3">
                         <div class="col-sm-12">
                             <div class="catagory-name">
-                                <h1 class="text-center" style="font-size: 22px;color: #000;margin-top: 10px;">
+                                <h1 class="text-center client_h1">
                                     @if(isset($title_info->category))
                                         {{ $title_info->category }}
                                     @else
@@ -235,7 +235,7 @@
 
                                         <div class="offer-title col-lg-6 col-sm-6 col-xs-7">
                                             <h3 class="margin0">
-                                                <a href="javascript:;" class="client_view_details" id="client-view_{{ $client['user_id'] }}" style="font-size: 13px;font-weight: bold;">
+                                                <a href="javascript:;" class="client_view_details client_h3" id="client-view_{{ $client['user_id'] }}">
                                                     {{ $client['business_name'] }} 
                                                 </a>
                                             </h3>
@@ -269,11 +269,11 @@
 
                                         <div class="offer-title col-lg-6 col-sm-6 col-xs-2">        
                                             <p class="margin0">
-                                                <a href="tel:{{ $client['phone'] }}" style="font-size: 26px;color: #e04b36;margin-bottom: 15px;margin-top: 10px;">
+                                                <a href="tel:{{ $client['phone'] }}" class="client_phone">
                                                     <i class="fa fa-phone" aria-hidden="true"></i> 
                                                 </a>
                                                 @if(!empty($client['whatsapp']))
-                                                <a href="whatsapp://send?phone={{ $client['whatsapp'] }}&amp;text=Hello!" style="font-size: 26px;color: #17960d;">
+                                                <a href="whatsapp://send?phone={{ $client['whatsapp'] }}&amp;text=Hello!" class="client_whatsapp">
                                                     <i class="fa fa-whatsapp" aria-hidden="true"></i> 
                                                 </a>
                                                 @endif
