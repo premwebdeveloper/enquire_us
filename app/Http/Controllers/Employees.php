@@ -38,6 +38,76 @@ class Employees extends Controller
     	return view('employees.create');
     }
 
+    // Show employees clients in chart view
+    public function employees_clients(){
+
+        // Get all employees
+        $employees = DB::table('employees')
+                    ->join('user_roles', 'user_roles.user_id', '=', 'employees.user_id')
+                    ->join('roles', 'roles.id', '=', 'user_roles.role_id')
+                    ->leftJoin('user_details', 'user_details.created_by', '=', 'employees.user_id')
+                    ->where('employees.status', 1)
+                    ->select('employees.*', 'roles.role', DB::raw("count(user_details.created_by) as created_by_count"))
+                    ->groupBy('employees.id')
+                    ->get();
+
+                    //echo '<pre>';
+
+                    $month_names = array();
+                    for($x=11; $x>=0;$x--){
+                        $month_names[$x] = date('F', strtotime(date('Y-m')." -" . $x . " month"));
+                    }
+                    //print_r($month_names);
+
+                    $months = array();
+                    for($x=11; $x>=0;$x--){
+                        $months[$x] = date('Y-m-d', strtotime(date('Y-m')." -" . $x . " month"));
+                    }
+                    //print_r($months);
+
+                    $total_emps_clients = array();
+                    $month_clients = array();
+
+                    foreach($employees as $key => $emp) {
+
+                        $total_emps_clients[$key]['emp_uid'] = $emp->user_id;
+                        $total_emps_clients[$key]['emp_name'] = $emp->name;
+
+                        foreach ($months as $m_key => $first_date) {
+                            
+                            $last_date = date("Y-m-t", strtotime($first_date));
+                            $month_name = date("F", strtotime($first_date));
+
+                            // echo $emp->user_id;echo '<br />';
+                            // echo $first_date;
+                            // echo $last_date;
+
+                            $clients = DB::table('user_details')
+                                        ->join('employees', 'employees.user_id', '=', 'user_details.created_by')
+                                        ->where(['user_details.status' => 1, 'user_details.created_by' => $emp->user_id])
+                                        //->whereBetween('user_details.created_at', [$first_date,$last_date])
+                                        ->whereDate('user_details.created_at', '>', $first_date)
+                                        ->whereDate('user_details.created_at', '<', $last_date)
+                                        ->select('user_details.*')
+                                        ->get();
+                            // echo '<br />';
+                            // print_r(count($clients));
+                            // echo '<br />';
+                            // echo '<br />';
+
+                            $month_clients[$m_key]['y'] = substr($month_name, 0, 3);
+                            $month_clients[$m_key]['a'] = count($clients);
+                        }
+                        $total_emps_clients[$key]['month_clients'] = $month_clients;
+                    }
+
+                    // print_r($total_emps_clients);
+
+                    // exit;
+
+        return view('employees.employees_clients', array('employees' => $employees, 'total_emps_clients' => $total_emps_clients));
+    }
+
     // add employee function
     public function create(Request $request){
 

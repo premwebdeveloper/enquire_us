@@ -194,6 +194,8 @@
     Route::get('employees', 'Employees@index')->name('employees');
     # add employees form view page
     Route::get('empCreateView', 'Employees@empCreateView')->name('empCreateView');
+    # Show employees clients in chart view
+    Route::get('employees_clients', 'Employees@employees_clients')->name('employees_clients');
     # create employee 
     Route::post('createEmployee', 'Employees@create')->name('createEmployee');    
     # edit employee view page

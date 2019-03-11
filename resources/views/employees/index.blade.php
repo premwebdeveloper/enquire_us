@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="row wrapper border-bottom white-bg page-heading">
-    <div class="col-lg-10">
+    <div class="col-lg-6">
         <h2>All Employees</h2>
         <ol class="breadcrumb">
             <li>
@@ -13,12 +13,13 @@
             </li>
         </ol>
     </div>
-<div class="col-lg-2 text-right">
-        <h2>
-            <a href="{{ route('empCreateView') }}" class="btn btn-info">Add Employee</a>
-        </h2>
+    <div class="col-lg-4 text-right">
+            <h2>
+                <a href="{{ route('empCreateView') }}" class="btn btn-info">Add Employee</a>
+                <a href="{{ route('employees_clients') }}" class="btn btn-info">Employee's Clients</a>
+            </h2>
+        </div>
     </div>
-</div>
 
 <div class="wrapper wrapper-content animated fadeInRight">
     <div class="row">
