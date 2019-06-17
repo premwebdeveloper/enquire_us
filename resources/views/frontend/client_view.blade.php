@@ -99,34 +99,31 @@
                                         <span class="buy-counter">Mr. {{ $client->name }}</span>
                                     </div>
                                     <div class="col-sm-6 ">
-                                        <span><i class="fa fa-graduation-cap"></i></span>
-                                        <span class="time-counter"> {{ $client->designation }}</span>
+                                        <span><i class="fa fa-phone"></i></span>
+                                        <span class="time-counter"> 
+                                            <a href="tel:{{ $client->phone }}">{{ $client->phone }}</a>
+                                        </span>
                                     </div>                                  
                                 </div>
 
+                                @if(!empty($client->landline))
                                 <div class="address-phn">
                                     <ul>
-                                        <li> <i class="fa fa-envelope"></i>{{ $client->email }}</li>
-                                        <li> <i class="fa fa-phone"></i>
-                                            <a href="tel:{{ $client->phone }}">{{ $client->phone }}</a>
-                                        </li>
-                                        @if(!empty($client->landline))
-                                            <li> <i class="fa fa-mobile"></i>
-                                                <a href="tel:{{ $client->landline }}">{{ $client->landline }}</a>
-                                            </li>                                        
-                                        @endif
+                                        <li> <i class="fa fa-mobile"></i>
+                                            <a href="tel:{{ $client->landline }}">{{ $client->landline }}</a>
+                                        </li>                                        
                                     </ul>
                                 </div>
+                                @endif
+                                @if(!empty($client->toll_free1))
                                 <div class="address-phn">
                                     <ul>
-                                        @if(!empty($client->toll_free1))
-                                            <li> 
-                                                <i class="fa fa-mobile"></i>
-                                                <a href="tel:{{ $client->toll_free1 }}">
-                                                    {{ $client->toll_free1 }}
-                                                </a>
-                                            </li>                                        
-                                        @endif                                 
+                                        <li> 
+                                            <i class="fa fa-mobile"></i>
+                                            <a href="tel:{{ $client->toll_free1 }}">
+                                                {{ $client->toll_free1 }}
+                                            </a>
+                                        </li>                                        
                                         @if(!empty($client->toll_free2))
                                             <li>
                                                 <i class="fa fa-mobile"></i>
@@ -134,19 +131,10 @@
                                                     {{ $client->toll_free2 }}
                                                 </a>
                                             </li>                                        
-                                        @endif                              
-                                        @if(!empty($client->fax1))
-                                            <li> 
-                                                <i class="fa fa-fax"></i>
-                                                <a href="tel:{{ $client->fax1 }}">
-                                                    {{ $client->fax1 }}
-                                                </a>
-                                            </li>                                     
-                                        @endif                                 
-                                                                                
-                                        
+                                        @endif                                                                         
                                     </ul>
                                 </div>
+                                @endif                                 
 
                                 <div class="time-share">
                                     <div class="share-box">

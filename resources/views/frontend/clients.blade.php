@@ -239,6 +239,9 @@
                                                     {{ $client['business_name'] }} 
                                                 </a>
                                             </h3>
+                                            <a href="tel:{{ $client['phone'] }}" class="client_view_details client_h3 black">
+                                                <i class="fa fa-phone" aria-hidden="true"></i> {{ $client['phone'] }} 
+                                            </a>
                                             <div class="rating-starcount">4.9</div>
                                             <div class="rating-star full">
                                                 <i class="fa fa-star fa-fw"></i>
@@ -269,8 +272,11 @@
 
                                         <div class="offer-title col-lg-6 col-sm-6 col-xs-2">        
                                             <p class="margin0">
-                                                <a href="tel:{{ $client['phone'] }}" class="client_phone">
+                                                <a href="tel:{{ $client['phone'] }}" class="client_phone font-28">
                                                     <i class="fa fa-phone" aria-hidden="true"></i> 
+                                                </a>
+                                                <a href="tel:{{ $client['phone'] }}" class="call">
+                                                    Call
                                                 </a>
                                                 @if(!empty($client['whatsapp']))
                                                 <a href="whatsapp://send?phone={{ $client['whatsapp'] }}&amp;text=Hello!" class="client_whatsapp">

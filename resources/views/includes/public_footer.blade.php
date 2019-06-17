@@ -112,7 +112,7 @@
                     <div class="col-sm-4">
                         <div class="apps">
                           <a href="#">
-                            <img class="img-responsive" alt="" src="{{url('/')}}/resources/frontend_assets/images/play-store.png" />
+                            <img class="img-responsive" alt="enquire us play store" src="{{url('/')}}/resources/frontend_assets/images/play-store.png" />
                           </a>
                         </div>
                         <div class="copyright">

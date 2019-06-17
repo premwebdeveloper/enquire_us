@@ -5,14 +5,10 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12 col-xs-12 pull-right res-header">
-                            <div class="languageBox" >
-                                <p>Need Help? Call us at <strong class="tel-numbel"><a href="tel:+91-8426833930">8426833930</a></strong></p>
-                            </div>
+
                             <div class="top-link pull-right">
                                 <ul>
-                                    <li>
-                                        <a href="tel:+91-8426833930"><i class="fa fa-phone" aria-hidden="true"></i>&nbsp;Contact</a>
-                                    </li>
+
                                     @guest
                                     <li>
                                         <a href="{{route('register')}}">
@@ -197,7 +193,7 @@
             </div>
         </div>
 
-        <div class="navigation">
+        <div class="navigation hidden-xs">
           <div class="container">
             <div class="row">
               <nav role="navigation" class="navbar navbar-default">
