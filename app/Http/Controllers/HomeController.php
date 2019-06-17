@@ -966,6 +966,8 @@ class HomeController extends Controller
                     ->select('user_details.*', 'user_location.business_name', 'user_location.building', 'user_location.street', 'user_location.landmark', 'user_location.area', 'user_location.city', 'user_location.pincode', 'user_location.state', 'user_location.country', 'user_company_information.payment_mode', 'user_company_information.year_establishment', 'user_company_information.annual_turnover', 'user_company_information.no_of_emps', 'user_company_information.professional_associations', 'user_company_information.certifications', 'areas.area as area_name', 'cities.name as city_name')
                     ->first();
 
+                if(!empty($client)){
+
                 // Get Client Keywords
                 $client_keywords =  DB::table('user_keywords')
                     ->where(['user_keywords.user_id' => $title_id, 'user_keywords.status' => 1, 'user_keywords.update_status' => 1])
@@ -1165,6 +1167,10 @@ class HomeController extends Controller
                
                 return view('frontend.client_view', array('client' => $client, 'other_info' => $other_info, 'images' => $images, 'title' => $title, 'meta_description' => $meta_description, 'meta_keywords' => $meta_keywords, 'client_keywords' => $client_keywords, 'reviews' => $reviews, 'company_meta_content' => $company_meta_content, 'list_item_meta_content' => $list_item_meta_content));
             }
+            else{
+                return view('errors/404');
+            }
+        }
         }
 
         exit;
@@ -1386,7 +1392,7 @@ class HomeController extends Controller
                 ->select('websites_page_head_titles.*', 'cities.name')
                 ->get();
 
-        $hostname =  'http://'.$_SERVER['HTTP_HOST']; 
+        $hostname =  'https://'.$_SERVER['HTTP_HOST']; 
 
         if (strpos($hostname, 'localhost') !== false) {
             $base_url = $hostname."/enquire_us/trunk/";
